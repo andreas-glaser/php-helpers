@@ -279,22 +279,18 @@ class StringHelper
     }
 
     /**
-     * @param $string
-     * @param $chars
+     * @param       $string
+     * @param array $chars
      *
      * @return mixed
-     *
-     * @author Andreas Glaser
      */
-    public static function removeChars($string, $chars)
+    public static function removeChars($string, array $chars)
     {
-        if (is_array($chars)) {
-            foreach ($chars AS $char) {
-                $string = self::removeChar($string, $char);
-            }
+        foreach ($chars AS $char) {
+            $string = self::removeChar($string, $char);
         }
 
-        return str_replace($chars, '', $string);
+        return $string;
     }
 
     /**
@@ -322,6 +318,7 @@ class StringHelper
      *
      * @param       $subject
      * @param array $replacementMap
+     * @param bool  $caseSensitive
      *
      * @return mixed
      *

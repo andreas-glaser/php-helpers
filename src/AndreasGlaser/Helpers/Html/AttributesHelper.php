@@ -3,6 +3,7 @@
 namespace AndreasGlaser\Helpers\Html;
 
 use AndreasGlaser\Helpers\HtmlHelper;
+use AndreasGlaser\Helpers\StringHelper;
 
 /**
  * Class AttributesHelper
@@ -159,7 +160,10 @@ class AttributesHelper
      */
     public function addClass($name)
     {
-        $this->classes[$name] = $name;
+        $classes = StringHelper::explodeAndTrim(' ', $name);
+        foreach ($classes AS $className) {
+            $this->classes[$className] = $className;
+        }
 
         return $this;
     }

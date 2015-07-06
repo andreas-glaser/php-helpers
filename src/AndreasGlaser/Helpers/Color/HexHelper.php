@@ -4,6 +4,7 @@ namespace AndreasGlaser\Helpers\Color;
 
 /**
  * Class HexHelper
+ *
  * @package AndreasGlaser\Helpers\Color
  */
 class HexHelper

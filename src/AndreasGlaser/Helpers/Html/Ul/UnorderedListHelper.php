@@ -4,6 +4,12 @@ namespace AndreasGlaser\Helpers\Html\Ul;
 
 use AndreasGlaser\Helpers\Html\AttributesHelper;
 
+/**
+ * Class UnorderedListHelper
+ *
+ * @package AndreasGlaser\Helpers\Html\Ul
+ * @author  Andreas Glaser
+ */
 class UnorderedListHelper
 {
 
@@ -47,7 +53,7 @@ class UnorderedListHelper
                 $attributes->addClass('item-first');
             }
 
-            if ($liIndex === $liCount -1) {
+            if ($liIndex === $liCount - 1) {
                 $attributes->addClass('item-last');
             }
 

@@ -66,6 +66,11 @@ class HtmlHelper
         return '<h6' . ($attributes ? $attributes : null) . '>' . $content . '</h6>';
     }
 
+    public static function image($src, Html\AttributesHelper $attributes = null)
+    {
+        return '<img src="' . $src . '"' . ($attributes ? $attributes : null) . '/>';
+    }
+
     /**
      * Automatically applies "p" and "br" markup to text.
      * Basically [nl2br](http://php.net/nl2br) on steroids.
@@ -87,7 +92,7 @@ class HtmlHelper
         }
 
         // Standardize newlines
-        $str = str_replace(array("\r\n", "\r"), "\n", $str);
+        $str = str_replace(["\r\n", "\r"], "\n", $str);
 
         // Trim whitespace on each line
         $str = preg_replace('~^[ \t]+~m', '', $str);

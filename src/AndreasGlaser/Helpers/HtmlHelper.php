@@ -2,6 +2,8 @@
 
 namespace AndreasGlaser\Helpers;
 
+use AndreasGlaser\Helpers\Html\Ul\UnorderedListHelper;
+
 /**
  * Class HtmlHelper
  *

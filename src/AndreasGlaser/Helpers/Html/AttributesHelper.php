@@ -4,16 +4,18 @@ namespace AndreasGlaser\Helpers\Html;
 
 use AndreasGlaser\Helpers\HtmlHelper;
 use AndreasGlaser\Helpers\StringHelper;
+use AndreasGlaser\Helpers\Traits\DuplicatableTrait;
 
 /**
  * Class AttributesHelper
  *
  * @package AndreasGlaser\Helpers\Html
- *
  * @author  Andreas Glaser
  */
 class AttributesHelper
 {
+    use DuplicatableTrait;
+
     protected $id = null;
     protected $classes = [];
     protected $data = [];
@@ -335,6 +337,33 @@ class AttributesHelper
         }
 
         return ' ' . trim($attributes);
+    }
+
+    /**
+     * @return array
+     * @author Andreas Glaser
+     */
+    public function getAsArray()
+    {
+        $return = [];
+
+        if ($id = $this->getId()) {
+            $return['id'] = $id;
+        }
+
+        if (!empty($this->getClasses())) {
+            $return['class'] = $this->getClassesImploded();
+        }
+
+        foreach ($this->getData() AS $key => $value) {
+            $return['data-' . $key] = $value;
+        }
+
+        foreach ($this->attributes AS $key => $value) {
+            $return[$key] = $value;
+        }
+
+        return $return;
     }
 
     /**

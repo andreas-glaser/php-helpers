@@ -351,7 +351,7 @@ class AttributesHelper
             $return['id'] = $id;
         }
 
-        if (!empty($this->getClasses())) {
+        if (count($this->getClasses())) {
             $return['class'] = $this->getClassesImploded();
         }
 

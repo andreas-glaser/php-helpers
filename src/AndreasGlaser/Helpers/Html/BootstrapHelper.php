@@ -13,7 +13,8 @@ use AndreasGlaser\Helpers\HtmlHelper;
 class BootstrapHelper
 {
     /**
-     * @param $name
+     * @param                                              $name
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
      * @return string
      * @author Andreas Glaser
      */

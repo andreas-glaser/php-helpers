@@ -13,6 +13,19 @@ use \Exception;
  */
 class ArrayHelper
 {
+    /**
+     * Returns value by key or a default value if it does not exist.
+     *
+     * @param array $array
+     * @param       $key
+     * @param null  $default
+     * @return null
+     * @author Andreas Glaser
+     */
+    public static function get(array $array, $key, $default = null)
+    {
+        return array_key_exists($key, $array) ? $array[$key] : $default;
+    }
 
     /**
      * @param array $array
@@ -244,29 +257,25 @@ class ArrayHelper
      */
     public static function assocIndexesExist(array $arrayToCheck, array $arrayToCompareWith, $throwException = true)
     {
-        foreach ($arrayToCheck AS $key => $value) {
-            if (self::isAssoc($arrayToCompareWith) && !array_key_exists($key, $arrayToCompareWith)) {
-                if ($throwException) {
-                    throw new \RuntimeException('Key does not exist (' . $key . ')');
-                } else {
-                    return false;
-                }
-            }
+        $exists = true;
 
-            if (is_array($value)) {
-                if (!is_array($arrayToCompareWith[$key])) {
+        foreach ($arrayToCheck AS $key => $value) {
+            if (self::isAssoc($arrayToCompareWith)) {
+                if (!array_key_exists($key, $arrayToCompareWith)) {
                     if ($throwException) {
-                        throw new \RuntimeException('Value types do not match');
+                        throw new \RuntimeException('Key does not exist (' . $key . ')');
                     } else {
+                        $exists = false;
+                    }
+                } elseif (is_array($value)) {
+                    if (!$exists = self::assocIndexesExist($value, $arrayToCompareWith[$key], $throwException)) {
                         return false;
                     }
                 }
-
-                self::assocIndexesExist($value, $arrayToCompareWith[$key], $throwException);
             }
         }
 
-        return true;
+        return $exists;
     }
 
     /**

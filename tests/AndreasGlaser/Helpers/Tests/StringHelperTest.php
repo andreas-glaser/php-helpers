@@ -24,9 +24,9 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
 
     public function testMatchesOneOf()
     {
-        $this->assertEquals('Hello there, this is a test string.', StringHelper::isOneOf($this->testString, array('Hello there, this is a test string.', 'cheese'), true));
-        $this->assertFalse(StringHelper::isOneOf($this->testString, array('Hell', 'cheese'), true));
-        $this->assertEquals('Hello there, THIS is a test string.', StringHelper::isOneOf($this->testString, array('Hello there, THIS is a test string.', 'cheese'), false));
+        $this->assertEquals('Hello there, this is a test string.', StringHelper::isOneOf($this->testString, ['Hello there, this is a test string.', 'cheese'], true));
+        $this->assertFalse(StringHelper::isOneOf($this->testString, ['Hell', 'cheese'], true));
+        $this->assertEquals('Hello there, THIS is a test string.', StringHelper::isOneOf($this->testString, ['Hello there, THIS is a test string.', 'cheese'], false));
     }
 
     public function testContains()
@@ -60,20 +60,33 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
 
     public function testTrimMulti()
     {
-        $this->assertEquals(' there, this is a test string', StringHelper::trimMulti($this->testString, array('Hello', '.')));
-        $this->assertNotEquals(' there, this is a test string', StringHelper::trimMulti($this->testString, array('Hello', ',')));
+        $this->assertEquals(' there, this is a test string', StringHelper::trimMulti($this->testString, ['Hello', '.']));
+        $this->assertNotEquals(' there, this is a test string', StringHelper::trimMulti($this->testString, ['Hello', ',']));
     }
 
     public function testRTrimMulti()
     {
-        $this->assertEquals(' there, this is a test string.', StringHelper::lTrimMulti($this->testString, array('Hello')));
-        $this->assertNotEquals('there, this is a test string.', StringHelper::lTrimMulti($this->testString, array('Hello', ',')));
+        $this->assertEquals(' there, this is a test string.', StringHelper::lTrimMulti($this->testString, ['Hello']));
+        $this->assertNotEquals('there, this is a test string.', StringHelper::lTrimMulti($this->testString, ['Hello', ',']));
     }
 
     public function testLTrimMulti()
     {
-        $this->assertEquals('Hello there, this is a test ', StringHelper::rTrimMulti($this->testString, array('.', 'string')));
-        $this->assertNotEquals('Hello there, this is a test string!', StringHelper::rTrimMulti($this->testString, array('.')));
+        $this->assertEquals('Hello there, this is a test ', StringHelper::rTrimMulti($this->testString, ['.', 'string']));
+        $this->assertNotEquals('Hello there, this is a test string!', StringHelper::rTrimMulti($this->testString, ['.']));
+    }
+
+    public function testGetIncrementalId()
+    {
+        $this->assertEquals(0, StringHelper::getIncrementalId());
+        $this->assertEquals(1, StringHelper::getIncrementalId());
+        $this->assertEquals(2, StringHelper::getIncrementalId());
+        $this->assertEquals(3, StringHelper::getIncrementalId());
+        $this->assertEquals(4, StringHelper::getIncrementalId());
+
+        $this->assertEquals('prefix_0', StringHelper::getIncrementalId('prefix_'));
+        $this->assertEquals('prefix_1', StringHelper::getIncrementalId('prefix_'));
+        $this->assertEquals('prefix_2', StringHelper::getIncrementalId('prefix_'));
     }
 }
  

@@ -407,6 +407,24 @@ class StringHelper
 
         return rtrim($matches[0]) . ((strlen($matches[0]) === strlen($str)) ? '' : $end_char);
     }
+
+    /**
+     * @param string $prefix
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function getIncrementalId($prefix = '__undefined__')
+    {
+        static $indexes = [];
+
+        if (!array_key_exists($prefix, $indexes)) {
+            $indexes[$prefix] = -1;
+        }
+
+        $indexes[$prefix]++;
+
+        return ($prefix != '__undefined__' ? $prefix : null) . $indexes[$prefix];
+    }
 }
 
 // shortcut for strtr

@@ -59,5 +59,24 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($value, ArrayHelper::get($this->arrayAssoc, $key));
         }
     }
+
+    public function testExplodeIgnoreEmpty()
+    {
+        $testString = '1,2, 3,,4,,,,5,6,cheese,,cake';
+        $explodedArray = ArrayHelper::explodeIgnoreEmpty(',', $testString);
+        $expectedArray = [
+            0 => '1',
+            1 => '2',
+            2 => ' 3',
+            3 => '4',
+            4 => '5',
+            5 => '6',
+            6 => 'cheese',
+            7 => 'cake'
+        ];
+
+        $this->assertEquals(8, count($explodedArray));
+        $this->assertTrue(($expectedArray === $explodedArray));
+    }
 }
  

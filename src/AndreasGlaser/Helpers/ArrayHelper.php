@@ -19,6 +19,7 @@ class ArrayHelper
      * @param array $array
      * @param       $key
      * @param null  $default
+     *
      * @return null
      * @author Andreas Glaser
      */
@@ -202,6 +203,26 @@ class ArrayHelper
         }
 
         return implode($glue, $processedPieces);
+    }
+
+    /**
+     * @param      $delimiter
+     * @param      $string
+     *
+     * @return array
+     * @author Andreas Glaser
+     */
+    public static function explodeIgnoreEmpty($delimiter, $string)
+    {
+        $return = [];
+        $pieces = explode($delimiter, $string);
+        foreach ($pieces AS $value) {
+            if (!empty($value)) {
+                $return[] = $value;
+            }
+        }
+
+        return $return;
     }
 
     /**

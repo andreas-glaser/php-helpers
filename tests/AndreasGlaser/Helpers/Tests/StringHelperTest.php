@@ -15,18 +15,18 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
 {
     protected $testString = 'Hello there, this is a test string.';
 
-    public function testMatches()
+    public function testIs()
     {
         $this->assertTrue(StringHelper::is($this->testString, 'Hello there, this is a test string.', true));
         $this->assertFalse(StringHelper::is($this->testString, 'Hello there, this is test string.', true));
         $this->assertTrue(StringHelper::is($this->testString, 'HELLO there, this is a TEST string.', false));
     }
 
-    public function testMatchesOneOf()
+    public function testIsOneOf()
     {
-        $this->assertEquals('Hello there, this is a test string.', StringHelper::isOneOf($this->testString, ['Hello there, this is a test string.', 'cheese'], true));
+        $this->assertTrue(StringHelper::isOneOf($this->testString, ['Hello there, this is a test string.', 'cheese'], true));
         $this->assertFalse(StringHelper::isOneOf($this->testString, ['Hell', 'cheese'], true));
-        $this->assertEquals('Hello there, THIS is a test string.', StringHelper::isOneOf($this->testString, ['Hello there, THIS is a test string.', 'cheese'], false));
+        $this->assertTrue(StringHelper::isOneOf($this->testString, ['Hello there, THIS is a test string.', 'cheese'], false));
     }
 
     public function testContains()

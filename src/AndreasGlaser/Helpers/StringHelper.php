@@ -43,7 +43,7 @@ class StringHelper
 
         foreach ($stingsToCompare AS $compareTo) {
             if (self::is($string, $compareTo, $caseSensitive)) {
-                return $compareTo;
+                return true;
             }
         }
 
@@ -410,6 +410,7 @@ class StringHelper
 
     /**
      * @param string $prefix
+     *
      * @return string
      * @author Andreas Glaser
      */

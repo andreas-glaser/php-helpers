@@ -2,6 +2,7 @@
 
 namespace AndreasGlaser\Helpers;
 
+use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\Html\Ul\UnorderedListHelper;
 
 /**
@@ -13,64 +14,167 @@ use AndreasGlaser\Helpers\Html\Ul\UnorderedListHelper;
  */
 class HtmlHelper
 {
+    /**
+     * @param      $value
+     * @param bool $double_encode
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
     public static function chars($value, $double_encode = true)
     {
         return htmlspecialchars((string)$value, ENT_QUOTES, 'utf-8', $double_encode);
     }
 
+    /**
+     * @param      $value
+     * @param bool $double_encode
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
     public static function entities($value, $double_encode = true)
     {
         return htmlentities((string)$value, ENT_QUOTES, 'utf-8', $double_encode);
     }
 
+    /**
+     * @param                                              $content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
     public static function div($content, Html\AttributesHelper $attributes = null)
     {
         return '<div' . ($attributes ? $attributes : null) . '>' . $content . '</div>';
     }
 
+    /**
+     * @param                                              $content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
     public static function p($content, Html\AttributesHelper $attributes = null)
     {
         return '<p' . ($attributes ? $attributes : null) . '>' . $content . '</p>';
     }
 
+    /**
+     * @param                                              $content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
     public static function span($content, Html\AttributesHelper $attributes = null)
     {
         return '<span' . ($attributes ? $attributes : null) . '>' . $content . '</span>';
     }
 
+    /**
+     * @param                                              $content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
     public static function h1($content, Html\AttributesHelper $attributes = null)
     {
         return '<h1' . ($attributes ? $attributes : null) . '>' . $content . '</h1>';
     }
 
+    /**
+     * @param                                              $content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
     public static function h2($content, Html\AttributesHelper $attributes = null)
     {
         return '<h2' . ($attributes ? $attributes : null) . '>' . $content . '</h2>';
     }
 
+    /**
+     * @param                                              $content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
     public static function h3($content, Html\AttributesHelper $attributes = null)
     {
         return '<h3' . ($attributes ? $attributes : null) . '>' . $content . '</h3>';
     }
 
+    /**
+     * @param                                              $content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
     public static function h4($content, Html\AttributesHelper $attributes = null)
     {
         return '<h4' . ($attributes ? $attributes : null) . '>' . $content . '</h4>';
     }
 
+    /**
+     * @param                                              $content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
     public static function h5($content, Html\AttributesHelper $attributes = null)
     {
         return '<h5' . ($attributes ? $attributes : null) . '>' . $content . '</h5>';
     }
 
+    /**
+     * @param                                              $content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
     public static function h6($content, Html\AttributesHelper $attributes = null)
     {
         return '<h6' . ($attributes ? $attributes : null) . '>' . $content . '</h6>';
     }
 
+    /**
+     * @param                                              $href
+     * @param                                              $content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function a($href, $content, Html\AttributesHelper $attributes = null)
+    {
+        $attributes = !$attributes ? new AttributesHelper() : $attributes;
+        $attributes->set('href', $href);
+
+        return '<a' . $attributes . ' >' . $content . '</a>';
+    }
+
+    /**
+     * @param                                              $src
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
     public static function image($src, Html\AttributesHelper $attributes = null)
     {
-        return '<img src="' . $src . '"' . ($attributes ? $attributes : null) . '/>';
+        $attributes = !$attributes ? new AttributesHelper() : $attributes;
+        $attributes->set('src', $src);
+
+        return '<img' . $attributes . ' />';
     }
 
     /**

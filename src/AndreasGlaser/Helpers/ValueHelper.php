@@ -3,10 +3,9 @@
 namespace AndreasGlaser\Helpers;
 
 /**
- * Class TimerHelper
+ * Class ValueHelper
  *
- * @package Helpers
- *
+ * @package AndreasGlaser\Helpers
  * @author  Andreas Glaser
  */
 class ValueHelper
@@ -20,5 +19,16 @@ class ValueHelper
     public static function emptyToNull(&$string)
     {
         return empty($string) ? null : $string;
+    }
+
+    /**
+     * @param $value
+     *
+     * @return bool
+     * @author Andreas Glaser
+     */
+    public static function isEmpty($value)
+    {
+        return empty($value);
     }
 }

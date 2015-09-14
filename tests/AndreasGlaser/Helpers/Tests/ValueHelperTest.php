@@ -43,4 +43,25 @@ class ValueHelperTest extends \PHPUnit_Framework_TestCase
             $this->assertNotNull(ValueHelper::emptyToNull($value));
         }
     }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testIsEmpty()
+    {
+        $this->assertTrue(ValueHelper::isEmpty(''));
+        $this->assertTrue(ValueHelper::isEmpty('0'));
+        $this->assertTrue(ValueHelper::isEmpty(0));
+        $this->assertTrue(ValueHelper::isEmpty(0.0));
+        $this->assertTrue(ValueHelper::isEmpty(null));
+        $this->assertTrue(ValueHelper::isEmpty(false));
+        $this->assertTrue(ValueHelper::isEmpty([]));
+
+        $this->assertFalse(ValueHelper::isEmpty(' '));
+        $this->assertFalse(ValueHelper::isEmpty('1'));
+        $this->assertFalse(ValueHelper::isEmpty(1));
+        $this->assertFalse(ValueHelper::isEmpty(0.1));
+        $this->assertFalse(ValueHelper::isEmpty(true));
+        $this->assertFalse(ValueHelper::isEmpty([0]));
+    }
 }

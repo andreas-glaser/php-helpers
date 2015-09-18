@@ -116,6 +116,17 @@ class StringHelper
     }
 
     /**
+     * @param $string
+     *
+     * @return bool
+     * @author Andreas Glaser
+     */
+    public static function isDateTime($string)
+    {
+        return is_string($string) ? (bool)strtotime($string) : false;
+    }
+
+    /**
      * @param       $string
      * @param array $chars
      *

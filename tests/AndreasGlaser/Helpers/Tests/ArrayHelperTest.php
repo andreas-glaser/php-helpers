@@ -1,13 +1,13 @@
 <?php
 
-namespace AndreasGlaser\Helpers\Test;
+namespace AndreasGlaser\Helpers\Tests;
 
 use AndreasGlaser\Helpers\ArrayHelper;
 
 /**
  * Class ArrayHelperTest
  *
- * @package AndreasGlaser\Helpers\Test
+ * @package AndreasGlaser\Helpers\Tests
  * @author  Andreas Glaser
  */
 class ArrayHelperTest extends \PHPUnit_Framework_TestCase
@@ -26,6 +26,11 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
      */
     protected $arrayAssoc = [];
 
+    /**
+     * @param null   $name
+     * @param array  $data
+     * @param string $dataName
+     */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
@@ -49,6 +54,9 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+    /**
+     * @author Andreas Glaser
+     */
     public function testGet()
     {
         foreach ($this->array AS $key => $value) {
@@ -60,6 +68,9 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @author Andreas Glaser
+     */
     public function testExplodeIgnoreEmpty()
     {
         $testString = '1,2, 3,,4,,,,5,6,cheese,,cake';

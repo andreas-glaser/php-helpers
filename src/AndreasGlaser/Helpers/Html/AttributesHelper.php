@@ -16,9 +16,21 @@ class AttributesHelper
 {
     use DuplicatableTrait;
 
+    /**
+     * @var null|string
+     */
     protected $id = null;
+    /**
+     * @var array
+     */
     protected $classes = [];
+    /**
+     * @var array
+     */
     protected $data = [];
+    /**
+     * @var array
+     */
     protected $attributes = [];
 
     /**
@@ -33,6 +45,9 @@ class AttributesHelper
         return new AttributesHelper($attributes);
     }
 
+    /**
+     * @param array $attributes
+     */
     public function __construct(array $attributes = null)
     {
         if ($attributes !== null) {
@@ -59,6 +74,8 @@ class AttributesHelper
             $this->setId($value);
         } elseif ($name === 'class') {
             $this->addClass($value);
+        } elseif (StringHelper::startsWith('data-', $name)) {
+            $this->addData(mb_substr($name, 5), $value);
         } else {
             $this->attributes[$name] = $value;
         }

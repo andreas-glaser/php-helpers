@@ -1,6 +1,6 @@
 <?php
 
-namespace AndreasGlaser\Helpers\Test\Html;
+namespace AndreasGlaser\Helpers\Tests\Html;
 
 use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\Html\Ul\UnorderedListHelper;

@@ -1,13 +1,13 @@
 <?php
 
-namespace AndreasGlaser\Helpers\Test;
+namespace AndreasGlaser\Helpers\Tests;
 
 use AndreasGlaser\Helpers\StringHelper;
 
 /**
  * Class StringHelperTest
  *
- * @package Helpers\Test
+ * @package Helpers\Tests
  *
  * @author  Andreas Glaser
  */

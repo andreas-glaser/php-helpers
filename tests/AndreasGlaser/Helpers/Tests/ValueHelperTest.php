@@ -1,13 +1,13 @@
 <?php
 
-namespace AndreasGlaser\Helpers\Test;
+namespace AndreasGlaser\Helpers\Tests;
 
 use AndreasGlaser\Helpers\ValueHelper;
 
 /**
  * Class ValueHelperTest
  *
- * @package AndreasGlaser\Helpers\Test
+ * @package AndreasGlaser\Helpers\Tests
  * @author  Andreas Glaser
  */
 class ValueHelperTest extends \PHPUnit_Framework_TestCase

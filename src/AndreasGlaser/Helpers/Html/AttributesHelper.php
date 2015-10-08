@@ -353,7 +353,9 @@ class AttributesHelper
             }
         }
 
-        return ' ' . trim($attributes);
+        $attributes = trim($attributes);
+
+        return !empty($attributes) ? ' ' . $attributes : '';
     }
 
     /**

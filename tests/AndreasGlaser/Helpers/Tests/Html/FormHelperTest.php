@@ -5,7 +5,6 @@ namespace AndreasGlaser\Helpers\Tests\Html;
 use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\Html\BootstrapHelper;
 use AndreasGlaser\Helpers\Html\FormHelper;
-use AndreasGlaser\Helpers\HtmlHelper;
 
 /**
  * Class FormHelperTest
@@ -15,6 +14,25 @@ use AndreasGlaser\Helpers\HtmlHelper;
  */
 class FormHelperTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @author Andreas Glaser
+     */
+    public function testOpen()
+    {
+        $this->assertEquals('<form action="" method="GET">', FormHelper::open());
+        $this->assertEquals('<form action="/my-url" method="GET">', FormHelper::open('/my-url'));
+        $this->assertEquals('<form action="my-url" method="POST">', FormHelper::open('my-url', 'post'));
+        $this->assertEquals('<form enctype="multipart/form-data" action="my-url" method="POST">', FormHelper::open('my-url', 'post', AttributesHelper::create(['enctype' => 'multipart/form-data'])));
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testClose()
+    {
+        $this->assertEquals('</form>', FormHelper::close());
+    }
+
     /**
      * @author Andreas Glaser
      */
@@ -116,6 +134,84 @@ class FormHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             '<button id="delicious" name="vegetable[cucumber]" type="submit"></button>',
             FormHelper::submit('vegetable[cucumber]', null, AttributesHelper::create(['id' => 'delicious']))
+        );
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testLabel()
+    {
+        $this->assertEquals(
+            '<label>biscuit<label>',
+            FormHelper::label('biscuit')
+        );
+
+        $this->assertEquals(
+            '<label for="Hmmmm">peanut<label>',
+            FormHelper::label('peanut', 'Hmmmm')
+        );
+
+        $this->assertEquals(
+            '<label for="Hmmmm" form="cake">peanut<label>',
+            FormHelper::label('peanut', 'Hmmmm', 'cake')
+        );
+
+        $this->assertEquals(
+            '<label id="my-id" for="element">&lt;Hello&gt;<label>',
+            FormHelper::label('<Hello>', 'element', null, AttributesHelper::create(['id' => 'my-id']))
+        );
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testCheckbox()
+    {
+        $this->assertEquals(
+            '<input name="biscuit" type="checkbox" value="" />',
+            FormHelper::checkbox('biscuit', false)
+        );
+
+        $this->assertEquals(
+            '<input name="peanut" type="checkbox" value="Hmmmm" checked="checked" />',
+            FormHelper::checkbox('peanut', 'Hmmmm', true)
+        );
+
+        $this->assertEquals(
+            '<input id="my-id" name="strawberry" type="checkbox" value="1" />',
+            FormHelper::checkbox('strawberry', 1, false, AttributesHelper::create(['id' => 'my-id']))
+        );
+
+        $this->assertEquals(
+            '<input id="delicious" name="vegetable[cucumber]" type="checkbox" value="123" checked="checked" />',
+            FormHelper::checkbox('vegetable[cucumber]', 123, true, AttributesHelper::create(['id' => 'delicious']))
+        );
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testRadio()
+    {
+        $this->assertEquals(
+            '<input name="biscuit" type="radio" value="" />',
+            FormHelper::radio('biscuit', false)
+        );
+
+        $this->assertEquals(
+            '<input name="peanut" type="radio" value="Hmmmm" checked="checked" />',
+            FormHelper::radio('peanut', 'Hmmmm', true)
+        );
+
+        $this->assertEquals(
+            '<input id="my-id" name="strawberry" type="radio" value="1" />',
+            FormHelper::radio('strawberry', 1, false, AttributesHelper::create(['id' => 'my-id']))
+        );
+
+        $this->assertEquals(
+            '<input id="delicious" name="vegetable[cucumber]" type="radio" value="123" checked="checked" />',
+            FormHelper::radio('vegetable[cucumber]', 123, true, AttributesHelper::create(['id' => 'delicious']))
         );
     }
 }

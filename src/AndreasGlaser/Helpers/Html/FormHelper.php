@@ -13,6 +13,35 @@ use AndreasGlaser\Helpers\HtmlHelper;
 class FormHelper
 {
     /**
+     * @param null                                         $action
+     * @param string                                       $method
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function open($action = null, $method = 'GET', AttributesHelper $attributesHelper = null)
+    {
+        if (!$attributesHelper) {
+            $attributesHelper = AttributesHelper::create();
+        }
+
+        $attributesHelper->set('action', $action);
+        $attributesHelper->set('method', strtoupper($method));
+
+        return '<form' . $attributesHelper . '>';
+    }
+
+    /**
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function close()
+    {
+        return '</form>';
+    }
+
+    /**
      * @param                                              $name
      * @param null                                         $value
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
@@ -93,11 +122,29 @@ class FormHelper
     }
 
     /**
+     * @param                                              $value
+     * @param null                                         $forId
+     * @param null                                         $formId
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
+     *
+     * @return string
      * @author Andreas Glaser
      */
-    public static function label()
+    public static function label($value, $forId = null, $formId = null, AttributesHelper $attributesHelper = null)
     {
-        // todo
+        if (!$attributesHelper) {
+            $attributesHelper = AttributesHelper::create();
+        }
+
+        if ($forId) {
+            $attributesHelper->set('for', $forId);
+        }
+
+        if ($formId) {
+            $attributesHelper->set('form', $formId);
+        }
+
+        return '<label' . $attributesHelper . '>' . HtmlHelper::chars($value) . '<label>';
     }
 
     /**
@@ -109,18 +156,54 @@ class FormHelper
     }
 
     /**
+     * @param                                              $name
+     * @param null                                         $value
+     * @param bool                                         $checked
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
+     *
+     * @return string
      * @author Andreas Glaser
      */
-    public static function checkbox()
+    public static function checkbox($name, $value = null, $checked = false, AttributesHelper $attributesHelper = null)
     {
-        // todo
+        if (!$attributesHelper) {
+            $attributesHelper = AttributesHelper::create();
+        }
+
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'checkbox');
+        $attributesHelper->set('value', $value);
+
+        if ($checked) {
+            $attributesHelper->set('checked', 'checked');
+        }
+
+        return '<input' . $attributesHelper . ' />';
     }
 
     /**
+     * @param                                              $name
+     * @param null                                         $value
+     * @param bool                                         $checked
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
+     *
+     * @return string
      * @author Andreas Glaser
      */
-    public static function radio()
+    public static function radio($name, $value = null, $checked = false, AttributesHelper $attributesHelper = null)
     {
-        // todo
+        if (!$attributesHelper) {
+            $attributesHelper = AttributesHelper::create();
+        }
+
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'radio');
+        $attributesHelper->set('value', $value);
+
+        if ($checked) {
+            $attributesHelper->set('checked', 'checked');
+        }
+
+        return '<input' . $attributesHelper . ' />';
     }
 }

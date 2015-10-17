@@ -315,5 +315,30 @@ class ArrayHelper
 
         return array_reverse($array, true);
     }
+
+    /**
+     * Replaces values of an array.
+     *
+     * @param array     $array
+     * @param           $value
+     * @param           $replacement
+     * @param bool|true $recursively
+     * @param bool|true $caseSensitive
+     *
+     * @return array
+     * @author Andreas Glaser
+     */
+    public static function replaceValue(array $array, $value, $replacement, $recursively = true, $caseSensitive = true)
+    {
+        foreach ($array AS $k => $v) {
+            if ($recursively && is_array($v)) {
+                $array[$k] = self::replaceValue($array[$k], $value, $replacement, $recursively, $caseSensitive);
+            } elseif (is_string($v) && StringHelper::is($v, $value, $caseSensitive)) {
+                $array[$k] = $replacement;
+            }
+        }
+
+        return $array;
+    }
 }
 

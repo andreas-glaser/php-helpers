@@ -3,6 +3,7 @@
 namespace AndreasGlaser\Helpers\Html;
 
 use AndreasGlaser\Helpers\HtmlHelper;
+use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
 use AndreasGlaser\Helpers\StringHelper;
 use AndreasGlaser\Helpers\Traits\DuplicatableTrait;
 
@@ -12,7 +13,7 @@ use AndreasGlaser\Helpers\Traits\DuplicatableTrait;
  * @package AndreasGlaser\Helpers\Html
  * @author  Andreas Glaser
  */
-class AttributesHelper
+class AttributesHelper implements FactoryInterface
 {
     use DuplicatableTrait;
 
@@ -28,21 +29,44 @@ class AttributesHelper
      * @var array
      */
     protected $data = [];
+
+    /**
+     * @var array
+     */
+    protected $styles = [];
+
     /**
      * @var array
      */
     protected $attributes = [];
 
     /**
-     * @param array $attributes
+     * @param array|null $attributes
      *
-     * @return AttributesHelper
-     *
-     * @author Andreas Glaser
+     * @return \AndreasGlaser\Helpers\Html\AttributesHelper
+     * @author     Andreas Glaser
+     * @deprecated Will be removed in 1.0 - use "Object::f()" instead
      */
     public static function create(array $attributes = null)
     {
-        return new AttributesHelper($attributes);
+        return self::f($attributes);
+    }
+
+    /**
+     * Factory
+     *
+     * @param AttributesHelper|array|null $input
+     *
+     * @return \AndreasGlaser\Helpers\Html\AttributesHelper
+     * @author Andreas Glaser
+     */
+    public static function f($input = null)
+    {
+        if ($input instanceof AttributesHelper) {
+            return $input;
+        } else {
+            return new AttributesHelper($input);
+        }
     }
 
     /**
@@ -74,6 +98,14 @@ class AttributesHelper
             $this->setId($value);
         } elseif ($name === 'class') {
             $this->addClass($value);
+        } elseif ($name === 'style') {
+            $pieces = explode(';', $value);
+            foreach ($pieces AS $definition) {
+                $p = explode(':', $definition);
+                if (isset($p[0]) && isset($p[1])) {
+                    $this->addStyle($p[0], $p[1]);
+                }
+            }
         } elseif (StringHelper::startsWith('data-', $name)) {
             $this->addData(mb_substr($name, 5), $value);
         } else {
@@ -243,6 +275,69 @@ class AttributesHelper
         return $this->classes;
     }
 
+    public function addStyle($name, $value)
+    {
+        $this->styles[$name] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Checks if style has been added.
+     *
+     * @param $name
+     *
+     * @return bool
+     *
+     * @author Andreas Glaser
+     */
+    public function hasStyle($name)
+    {
+        return isset($this->styles[$name]);
+    }
+
+    /**
+     * Checks if any styles have been added.
+     *
+     * @return bool
+     *
+     * @author Andreas Glaser
+     */
+    public function hasStyles()
+    {
+        return !empty($this->styles);
+    }
+
+    /**
+     * Removes style.
+     *
+     * @param $name
+     *
+     * @return $this
+     *
+     * @author Andreas Glaser
+     */
+    public function removeStyle($name)
+    {
+        if ($this->hasStyle($name)) {
+            unset($this->styles[$name]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Gets all styles
+     *
+     * @return array
+     *
+     * @author Andreas Glaser
+     */
+    public function getStyles()
+    {
+        return $this->styles;
+    }
+
     /**
      * Adds data attribute.
      * e.g. <span data-mydata="hello"></span>
@@ -347,10 +442,21 @@ class AttributesHelper
 
         $data = $this->getData();
 
-        if ($data) {
+        if (!empty($data)) {
             foreach ($data AS $key => $value) {
                 $attributes .= ' data-' . $key . '="' . $value . '"';
             }
+        }
+
+        $styles = $this->getStyles();
+
+        if (!empty($styles)) {
+            $stylesCompiled = null;
+            foreach ($styles AS $name => $value) {
+                $stylesCompiled .= $name . ':' . $value . ';';
+            }
+
+            $attributes .= ' style="' . $stylesCompiled . '"';
         }
 
         $attributes = trim($attributes);

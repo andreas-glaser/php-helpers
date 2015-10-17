@@ -3,12 +3,12 @@
 namespace AndreasGlaser\Helpers\Interfaces;
 
 /**
- * Interface RendererInterface
+ * Interface FactoryInterface
  *
  * @package AndreasGlaser\Helpers\Interfaces
  * @author  Andreas Glaser
  */
-interface RendererInterface
+interface FactoryInterface
 {
-    public function render($data);
+    public static function f();
 }

@@ -3,6 +3,9 @@
 namespace AndreasGlaser\Helpers\Html\Table;
 
 use AndreasGlaser\Helpers\Html\AttributesHelper;
+use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
+use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
+use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 
 /**
  * Class Row
@@ -10,7 +13,7 @@ use AndreasGlaser\Helpers\Html\AttributesHelper;
  * @package AndreasGlaser\Helpers\Html\Table
  * @author  Andreas Glaser
  */
-class Row
+class Row implements RenderableInterface, FactoryInterface
 {
     /**
      * @var Cell[]
@@ -23,32 +26,35 @@ class Row
     protected $attributes;
 
     /**
-     * @var bool
+     * @param array|null                  $cells
+     * @param AttributesHelper|array|null $attributesHelper
+     *
+     * @return \AndreasGlaser\Helpers\Html\Table\Row
+     * @author Andreas Glaser
      */
-    protected $isHead = false;
+    public static function f(array $cells = null, $attributesHelper = null)
+    {
+        return new Row($cells, $attributesHelper);
+    }
 
     /**
-     * @param array                                        $cells
-     * @param bool                                         $isHead
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
+     * @param array|null $cells
+     * @param null       $attributesHelper
      */
-    public function __construct(array $cells = [], $isHead = false, AttributesHelper $attributesHelper = null)
+    public function __construct(array $cells = null, $attributesHelper = null)
     {
-        foreach ($cells AS $cell) {
-            $this->addCell($cell);
+        if ($cells) {
+            foreach ($cells AS $cell) {
+                $this->addCell($cell);
+            }
         }
 
-        $this->isHead = (bool)$isHead;
-
-        if (!$attributesHelper) {
-            $attributesHelper = new AttributesHelper();
-        }
-
-        $this->attributes = $attributesHelper;
+        $this->attributes = AttributesHelper::f($attributesHelper);
     }
 
     /**
      * @param \AndreasGlaser\Helpers\Html\Table\Cell $cellHelper
+     *
      * @return $this
      * @author Andreas Glaser
      */
@@ -69,27 +75,6 @@ class Row
     }
 
     /**
-     * @return boolean
-     * @author Andreas Glaser
-     */
-    public function getIsHead()
-    {
-        return $this->isHead;
-    }
-
-    /**
-     * @param boolean $isHead
-     * @return $this
-     * @author Andreas Glaser
-     */
-    public function setIsHead($isHead)
-    {
-        $this->isHead = (bool)$isHead;
-
-        return $this;
-    }
-
-    /**
      * @return \AndreasGlaser\Helpers\Html\AttributesHelper
      * @author Andreas Glaser
      */
@@ -100,6 +85,7 @@ class Row
 
     /**
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
+     *
      * @return $this
      * @author Andreas Glaser
      */
@@ -108,5 +94,26 @@ class Row
         $this->attributes = $attributes;
 
         return $this;
+    }
+
+    /**
+     * @param \AndreasGlaser\Helpers\Interfaces\RendererInterface|null $renderer
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public function render(RendererInterface $renderer = null)
+    {
+        if ($renderer) {
+            return $renderer->render($this);
+        }
+
+        $html = '<tr' . $this->attributes->render() . '>';
+        foreach ($this->getCells() AS $cell) {
+            $html .= $cell->render();
+        }
+        $html .= '</tr>';
+
+        return $html;
     }
 }

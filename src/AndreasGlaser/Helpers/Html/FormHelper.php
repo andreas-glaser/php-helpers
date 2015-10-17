@@ -13,19 +13,16 @@ use AndreasGlaser\Helpers\HtmlHelper;
 class FormHelper
 {
     /**
-     * @param null                                         $action
-     * @param string                                       $method
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
+     * @param null                                                    $action
+     * @param string                                                  $method
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
      * @author Andreas Glaser
      */
-    public static function open($action = null, $method = 'GET', AttributesHelper $attributesHelper = null)
+    public static function open($action = null, $method = 'GET', $attributesHelper = null)
     {
-        if (!$attributesHelper) {
-            $attributesHelper = AttributesHelper::create();
-        }
-
+        $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('action', $action);
         $attributesHelper->set('method', strtoupper($method));
 
@@ -42,19 +39,16 @@ class FormHelper
     }
 
     /**
-     * @param                                              $name
-     * @param null                                         $value
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
+     * @param                                                         $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
      * @author Andreas Glaser
      */
-    public static function text($name, $value = null, AttributesHelper $attributesHelper = null)
+    public static function text($name, $value = null, $attributesHelper = null)
     {
-        if (!$attributesHelper) {
-            $attributesHelper = AttributesHelper::create();
-        }
-
+        $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
         $attributesHelper->set('type', 'text');
         $attributesHelper->set('value', $value);
@@ -63,38 +57,32 @@ class FormHelper
     }
 
     /**
-     * @param                                              $name
-     * @param null                                         $value
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
+     * @param                                                         $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
      * @author Andreas Glaser
      */
-    public static function textarea($name, $value = null, AttributesHelper $attributesHelper = null)
+    public static function textarea($name, $value = null, $attributesHelper = null)
     {
-        if (!$attributesHelper) {
-            $attributesHelper = AttributesHelper::create();
-        }
-
+        $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
 
         return '<textarea' . $attributesHelper . '>' . HtmlHelper::chars($value) . '</textarea>';
     }
 
     /**
-     * @param                                              $name
-     * @param null                                         $value
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
+     * @param                                                         $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
      * @author Andreas Glaser
      */
-    public static function button($name, $value = null, AttributesHelper $attributesHelper = null)
+    public static function button($name, $value = null, $attributesHelper = null)
     {
-        if (!$attributesHelper) {
-            $attributesHelper = AttributesHelper::create();
-        }
-
+        $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
         $attributesHelper->set('type', 'button');
 
@@ -102,19 +90,16 @@ class FormHelper
     }
 
     /**
-     * @param                                              $name
-     * @param null                                         $value
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
+     * @param                                                         $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
      * @author Andreas Glaser
      */
-    public static function submit($name, $value = null, AttributesHelper $attributesHelper = null)
+    public static function submit($name, $value = null, $attributesHelper = null)
     {
-        if (!$attributesHelper) {
-            $attributesHelper = AttributesHelper::create();
-        }
-
+        $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
         $attributesHelper->set('type', 'submit');
 
@@ -122,19 +107,17 @@ class FormHelper
     }
 
     /**
-     * @param                                              $value
-     * @param null                                         $forId
-     * @param null                                         $formId
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
+     * @param                                                         $value
+     * @param null                                                    $forId
+     * @param null                                                    $formId
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
      * @author Andreas Glaser
      */
-    public static function label($value, $forId = null, $formId = null, AttributesHelper $attributesHelper = null)
+    public static function label($value, $forId = null, $formId = null, $attributesHelper = null)
     {
-        if (!$attributesHelper) {
-            $attributesHelper = AttributesHelper::create();
-        }
+        $attributesHelper = AttributesHelper::f($attributesHelper);
 
         if ($forId) {
             $attributesHelper->set('for', $forId);
@@ -156,20 +139,17 @@ class FormHelper
     }
 
     /**
-     * @param                                              $name
-     * @param null                                         $value
-     * @param bool                                         $checked
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
+     * @param                                                         $name
+     * @param null                                                    $value
+     * @param bool                                                    $checked
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
      * @author Andreas Glaser
      */
-    public static function checkbox($name, $value = null, $checked = false, AttributesHelper $attributesHelper = null)
+    public static function checkbox($name, $value = null, $checked = false, $attributesHelper = null)
     {
-        if (!$attributesHelper) {
-            $attributesHelper = AttributesHelper::create();
-        }
-
+        $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
         $attributesHelper->set('type', 'checkbox');
         $attributesHelper->set('value', $value);
@@ -182,20 +162,17 @@ class FormHelper
     }
 
     /**
-     * @param                                              $name
-     * @param null                                         $value
-     * @param bool                                         $checked
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
+     * @param                                                         $name
+     * @param null                                                    $value
+     * @param bool                                                    $checked
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
      * @author Andreas Glaser
      */
-    public static function radio($name, $value = null, $checked = false, AttributesHelper $attributesHelper = null)
+    public static function radio($name, $value = null, $checked = false, $attributesHelper = null)
     {
-        if (!$attributesHelper) {
-            $attributesHelper = AttributesHelper::create();
-        }
-
+        $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
         $attributesHelper->set('type', 'radio');
         $attributesHelper->set('value', $value);

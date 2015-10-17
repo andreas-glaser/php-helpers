@@ -89,5 +89,71 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(8, count($explodedArray));
         $this->assertTrue(($expectedArray === $explodedArray));
     }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testReplaceValue()
+    {
+        $testArray = [
+            'honey',
+            'Mustard',
+            'sauce',
+            'sweets' => [
+                'MARS',
+                'curly wurly',
+                'ding dong',
+                'honey'
+            ]
+        ];
+
+        $this->assertEquals([
+            'jam',
+            'Mustard',
+            'sauce',
+            'sweets' => [
+                'MARS',
+                'curly wurly',
+                'ding dong',
+                'jam'
+            ]
+        ], ArrayHelper::replaceValue($testArray, 'honey', 'jam', true, true));
+
+        $this->assertEquals([
+            'jam',
+            'Mustard',
+            'sauce',
+            'sweets' => [
+                'MARS',
+                'curly wurly',
+                'ding dong',
+                'honey'
+            ]
+        ], ArrayHelper::replaceValue($testArray, 'honey', 'jam', false, true));
+
+        $this->assertEquals([
+            'honey',
+            'Mustard',
+            'sauce',
+            'sweets' => [
+                'MARS',
+                'curly wurly',
+                'ding dong',
+                'honey'
+            ]
+        ], ArrayHelper::replaceValue($testArray, 'HONEY', 'jam', true, true));
+
+        $this->assertEquals([
+            'jam',
+            'Mustard',
+            'sauce',
+            'sweets' => [
+                'MARS',
+                'curly wurly',
+                'ding dong',
+                'jam'
+            ]
+        ], ArrayHelper::replaceValue($testArray, 'HONEY', 'jam', true, false));
+    }
 }
  

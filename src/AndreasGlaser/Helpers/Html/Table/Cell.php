@@ -3,8 +3,17 @@
 namespace AndreasGlaser\Helpers\Html\Table;
 
 use AndreasGlaser\Helpers\Html\AttributesHelper;
+use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
+use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
+use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 
-class Cell
+/**
+ * Class Cell
+ *
+ * @package AndreasGlaser\Helpers\Html\Table
+ * @author  Andreas Glaser
+ */
+class Cell implements RenderableInterface, FactoryInterface
 {
     /**
      * @var string|null
@@ -12,35 +21,34 @@ class Cell
     protected $content = null;
 
     /**
-     * @var int
-     */
-    protected $colspan = 1;
-
-    /**
-     * @var string
-     */
-    protected $scope = 'col';
-
-    /**
      * @var \AndreasGlaser\Helpers\Html\AttributesHelper
      */
     protected $attributes;
 
     /**
-     * @param null                                         $content
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
+     * @param null                        $content
+     * @param AttributesHelper|array|null $attributesHelper
+     *
+     * @return \AndreasGlaser\Helpers\Html\Table\Cell
+     * @author Andreas Glaser
      */
-    public function __construct($content = null, AttributesHelper $attributesHelper = null)
+    public static function f($content = null, $attributesHelper = null)
     {
-        if (!$attributesHelper) {
-            $attributesHelper = new AttributesHelper();
-        }
-
-        $this->attributes = $attributesHelper;
+        return new Cell($content, $attributesHelper);
     }
 
     /**
-     * @return null
+     * @param null                         $content
+     * @param  AttributesHelper|array|null $attributesHelper
+     */
+    public function __construct($content = null, $attributesHelper = null)
+    {
+        $this->content = $content;
+        $this->attributes = AttributesHelper::f($attributesHelper);
+    }
+
+    /**
+     * @return null|string
      * @author Andreas Glaser
      */
     public function getContent()
@@ -49,7 +57,8 @@ class Cell
     }
 
     /**
-     * @param null $content
+     * @param $content
+     *
      * @return $this
      * @author Andreas Glaser
      */
@@ -61,50 +70,53 @@ class Cell
     }
 
     /**
-     * @return int
-     * @author Andreas Glaser
-     */
-    public function getColspan()
-    {
-        return $this->colspan;
-    }
-
-    /**
-     * @param int $colspan
+     * @param $colspan
+     *
      * @return $this
      * @author Andreas Glaser
      */
     public function setColspan($colspan)
     {
-        $this->colspan = (int)$colspan;
+        $this->attributes->set('colspan', (int)$colspan);
 
         return $this;
     }
 
     /**
-     * @return string
+     * @return null
      * @author Andreas Glaser
      */
-    public function getScope()
+    public function getColspan()
     {
-        return $this->scope;
+        return $this->attributes->get('colspan');
     }
 
     /**
-     * @param string $scope
+     * @param $scope
+     *
      * @return $this
+     * @throws \Exception
      * @author Andreas Glaser
      */
     public function setScope($scope)
     {
         // enforce valid count
         if ($scope !== 'col' && $scope !== 'colgroup' && $scope !== 'row' && $scope !== 'rowgroup') {
-            throw new \Exception('Invalid scope provided (:1). Allowd are: col, colgroup, row, rowgroup', [':1' => $scope]);
+            throw new \Exception('Invalid scope provided (:1). Allowed are: col, colgroup, row, rowgroup', [':1' => $scope]);
         }
 
-        $this->scope = $scope;
+        $this->attributes->set('scope', $scope);
 
         return $this;
+    }
+
+    /**
+     * @return null
+     * @author Andreas Glaser
+     */
+    public function getScope()
+    {
+        return $this->attributes->get('scope');
     }
 
     /**
@@ -117,14 +129,17 @@ class Cell
     }
 
     /**
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
-     * @return $this
+     * @param \AndreasGlaser\Helpers\Interfaces\RendererInterface|null $renderer
+     *
+     * @return string
      * @author Andreas Glaser
      */
-    public function setAttributes(AttributesHelper $attributes)
+    public function render(RendererInterface $renderer = null)
     {
-        $this->attributes = $attributes;
+        if ($renderer) {
+            return $renderer->render($this);
+        }
 
-        return $this;
+        return '<td' . $this->attributes->render() . '>' . $this->content . '</td>';
     }
 }

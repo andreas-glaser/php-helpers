@@ -22,7 +22,7 @@ class FormHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<form action="" method="GET">', FormHelper::open());
         $this->assertEquals('<form action="/my-url" method="GET">', FormHelper::open('/my-url'));
         $this->assertEquals('<form action="my-url" method="POST">', FormHelper::open('my-url', 'post'));
-        $this->assertEquals('<form enctype="multipart/form-data" action="my-url" method="POST">', FormHelper::open('my-url', 'post', AttributesHelper::create(['enctype' => 'multipart/form-data'])));
+        $this->assertEquals('<form enctype="multipart/form-data" action="my-url" method="POST">', FormHelper::open('my-url', 'post', AttributesHelper::f(['enctype' => 'multipart/form-data'])));
     }
 
     /**
@@ -50,12 +50,12 @@ class FormHelperTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             '<input id="my-id" name="strawberry" type="text" value="&lt;Hello&gt;" />',
-            FormHelper::text('strawberry', '<Hello>', AttributesHelper::create(['id' => 'my-id']))
+            FormHelper::text('strawberry', '<Hello>', ['id' => 'my-id'])
         );
 
         $this->assertEquals(
             '<input id="delicious" name="vegetable[cucumber]" type="text" value="" />',
-            FormHelper::text('vegetable[cucumber]', null, AttributesHelper::create(['id' => 'delicious']))
+            FormHelper::text('vegetable[cucumber]', null, AttributesHelper::f(['id' => 'delicious']))
         );
     }
 
@@ -76,12 +76,12 @@ class FormHelperTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             '<textarea id="my-id" name="strawberry">&lt;Hello&gt;</textarea>',
-            FormHelper::textarea('strawberry', '<Hello>', AttributesHelper::create(['id' => 'my-id']))
+            FormHelper::textarea('strawberry', '<Hello>', AttributesHelper::f(['id' => 'my-id']))
         );
 
         $this->assertEquals(
             '<textarea id="delicious" name="vegetable[cucumber]"></textarea>',
-            FormHelper::textarea('vegetable[cucumber]', null, AttributesHelper::create(['id' => 'delicious']))
+            FormHelper::textarea('vegetable[cucumber]', null, AttributesHelper::f(['id' => 'delicious']))
         );
     }
 
@@ -102,12 +102,12 @@ class FormHelperTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             '<button id="my-id" name="strawberry" type="button"><span class="glyphicon glyphicon-plus"></span> Add</button>',
-            FormHelper::button('strawberry', BootstrapHelper::glyphIcon('plus') . ' Add', AttributesHelper::create(['id' => 'my-id']))
+            FormHelper::button('strawberry', BootstrapHelper::glyphIcon('plus') . ' Add', AttributesHelper::f(['id' => 'my-id']))
         );
 
         $this->assertEquals(
             '<button id="delicious" name="vegetable[cucumber]" type="button"></button>',
-            FormHelper::button('vegetable[cucumber]', null, AttributesHelper::create(['id' => 'delicious']))
+            FormHelper::button('vegetable[cucumber]', null, AttributesHelper::f(['id' => 'delicious']))
         );
     }
 
@@ -128,12 +128,12 @@ class FormHelperTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             '<button id="my-id" name="strawberry" type="submit"><span class="glyphicon glyphicon-plus"></span> Add</button>',
-            FormHelper::submit('strawberry', BootstrapHelper::glyphIcon('plus') . ' Add', AttributesHelper::create(['id' => 'my-id']))
+            FormHelper::submit('strawberry', BootstrapHelper::glyphIcon('plus') . ' Add', AttributesHelper::f(['id' => 'my-id']))
         );
 
         $this->assertEquals(
             '<button id="delicious" name="vegetable[cucumber]" type="submit"></button>',
-            FormHelper::submit('vegetable[cucumber]', null, AttributesHelper::create(['id' => 'delicious']))
+            FormHelper::submit('vegetable[cucumber]', null, AttributesHelper::f(['id' => 'delicious']))
         );
     }
 
@@ -159,7 +159,7 @@ class FormHelperTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             '<label id="my-id" for="element">&lt;Hello&gt;<label>',
-            FormHelper::label('<Hello>', 'element', null, AttributesHelper::create(['id' => 'my-id']))
+            FormHelper::label('<Hello>', 'element', null, AttributesHelper::f(['id' => 'my-id']))
         );
     }
 
@@ -180,12 +180,12 @@ class FormHelperTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             '<input id="my-id" name="strawberry" type="checkbox" value="1" />',
-            FormHelper::checkbox('strawberry', 1, false, AttributesHelper::create(['id' => 'my-id']))
+            FormHelper::checkbox('strawberry', 1, false, AttributesHelper::f(['id' => 'my-id']))
         );
 
         $this->assertEquals(
             '<input id="delicious" name="vegetable[cucumber]" type="checkbox" value="123" checked="checked" />',
-            FormHelper::checkbox('vegetable[cucumber]', 123, true, AttributesHelper::create(['id' => 'delicious']))
+            FormHelper::checkbox('vegetable[cucumber]', 123, true, AttributesHelper::f(['id' => 'delicious']))
         );
     }
 
@@ -206,12 +206,12 @@ class FormHelperTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             '<input id="my-id" name="strawberry" type="radio" value="1" />',
-            FormHelper::radio('strawberry', 1, false, AttributesHelper::create(['id' => 'my-id']))
+            FormHelper::radio('strawberry', 1, false, AttributesHelper::f(['id' => 'my-id']))
         );
 
         $this->assertEquals(
             '<input id="delicious" name="vegetable[cucumber]" type="radio" value="123" checked="checked" />',
-            FormHelper::radio('vegetable[cucumber]', 123, true, AttributesHelper::create(['id' => 'delicious']))
+            FormHelper::radio('vegetable[cucumber]', 123, true, AttributesHelper::f(['id' => 'delicious']))
         );
     }
 }

@@ -14,15 +14,14 @@ class BootstrapHelper
 {
     /**
      * @param                                              $name
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributesHelper
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
      * @return string
      * @author Andreas Glaser
      */
-    public static function glyphIcon($name, AttributesHelper $attributesHelper = null)
+    public static function glyphIcon($name, $attributesHelper = null)
     {
-        if (!$attributesHelper) {
-            $attributesHelper = AttributesHelper::create();
-        }
+        $attributesHelper = AttributesHelper::f($attributesHelper);
 
         return HtmlHelper::span('', $attributesHelper
             ->addClass('glyphicon')

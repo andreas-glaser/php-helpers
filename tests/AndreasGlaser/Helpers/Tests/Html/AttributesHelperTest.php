@@ -24,10 +24,12 @@ class AttributesHelperTest extends \PHPUnit_Framework_TestCase
             ->addClass('myclass')
             ->addData('mydata1', 'cheese')
             ->addData('mydata2', 'bacon')
+            ->addStyle('height', '100%')
+            ->addStyle('width', '200px')
             ->set('href', 'http://andreas.glaser.me');
 
         $this->assertEquals(
-            ' id="myid" class="myclass" href="http://andreas.glaser.me" data-mydata1="cheese" data-mydata2="bacon"',
+            ' id="myid" class="myclass" href="http://andreas.glaser.me" data-mydata1="cheese" data-mydata2="bacon" style="height:100%;width:200px;"',
             $attributesHelper->render()
         );
 
@@ -36,13 +38,13 @@ class AttributesHelperTest extends \PHPUnit_Framework_TestCase
         $attributesHelper->removeId();
 
         $this->assertEquals(
-            ' href="http://andreas.glaser.me" data-mydata1="cheese"',
+            ' href="http://andreas.glaser.me" data-mydata1="cheese" style="height:100%;width:200px;"',
             $attributesHelper->render()
         );
 
         $this->assertEquals(
-            ' id="my-id" class="testclass" data-important="info" data-cheese="delicious"',
-            AttributesHelper::create(['id' => 'my-id', 'CLASS' => 'testclass', 'data-important' => 'info', 'data-cheese' => 'delicious'])->render()
+            ' id="my-id" class="testclass" data-important="info" data-cheese="delicious" style="color:red;font-size:1em;"',
+            AttributesHelper::f(['id' => 'my-id', 'CLASS' => 'testclass', 'data-important' => 'info', 'data-cheese' => 'delicious', 'style' => 'color:red;font-size:1em'])->render()
         );
     }
 }

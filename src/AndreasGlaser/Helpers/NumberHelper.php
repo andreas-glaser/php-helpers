@@ -12,6 +12,7 @@ class NumberHelper
 {
     /**
      * @param $number
+     *
      * @return string
      * @author Andreas Glaser
      */

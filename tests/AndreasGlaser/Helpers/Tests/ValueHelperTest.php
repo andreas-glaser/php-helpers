@@ -64,4 +64,47 @@ class ValueHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(ValueHelper::isEmpty(true));
         $this->assertFalse(ValueHelper::isEmpty([0]));
     }
+
+    public function testIsInteger()
+    {
+        $this->assertTrue(ValueHelper::isInteger(1));
+        $this->assertTrue(ValueHelper::isInteger('1'));
+        $this->assertFalse(ValueHelper::isInteger(1.3));
+        $this->assertFalse(ValueHelper::isInteger('1.0'));
+        $this->assertFalse(ValueHelper::isInteger(''));
+        $this->assertFalse(ValueHelper::isInteger(null));
+        $this->assertFalse(ValueHelper::isInteger([]));
+        $this->assertFalse(ValueHelper::isInteger(false));
+        $this->assertFalse(ValueHelper::isInteger(true));
+    }
+
+    public function testIsFloat()
+    {
+        $this->assertTrue(ValueHelper::isFloat(1.0));
+        $this->assertTrue(ValueHelper::isFloat('1.0'));
+        $this->assertFalse(ValueHelper::isFloat(1));
+        $this->assertFalse(ValueHelper::isFloat('1'));
+        $this->assertFalse(ValueHelper::isFloat(''));
+        $this->assertFalse(ValueHelper::isFloat(null));
+        $this->assertFalse(ValueHelper::isFloat([]));
+        $this->assertFalse(ValueHelper::isFloat(false));
+        $this->assertFalse(ValueHelper::isFloat(true));
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testIsDateTime()
+    {
+        $this->assertTrue(ValueHelper::isDateTime('2015-03-23'));
+        $this->assertTrue(ValueHelper::isDateTime('2015-03-23 22:21'));
+        $this->assertTrue(ValueHelper::isDateTime('5pm'));
+        $this->assertTrue(ValueHelper::isDateTime('+8 Weeks'));
+
+        $this->assertFalse(ValueHelper::isDateTime('2015-13-23 22:21'));
+        $this->assertFalse(ValueHelper::isDateTime('2015-12-23 25:21'));
+        $this->assertFalse(ValueHelper::isDateTime('N/A'));
+        $this->assertFalse(ValueHelper::isDateTime(null));
+        $this->assertFalse(ValueHelper::isDateTime(''));
+    }
 }

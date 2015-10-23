@@ -21,6 +21,6 @@ class DateHelper
      */
     public static function stringToDateTime($string, DateTimeZone $timezone = null)
     {
-        return StringHelper::isDateTime($string) ? new \DateTime($string, $timezone) : null;
+        return ValueHelper::isDateTime($string) ? new \DateTime($string, $timezone) : null;
     }
 }

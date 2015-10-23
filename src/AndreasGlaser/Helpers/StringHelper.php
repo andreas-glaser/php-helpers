@@ -116,14 +116,11 @@ class StringHelper
     }
 
     /**
-     * @param $string
-     *
-     * @return bool
-     * @author Andreas Glaser
+     * @deprecated Please use ValueHelper::isDateTime($value); instead
      */
     public static function isDateTime($string)
     {
-        return is_string($string) ? (bool)strtotime($string) : false;
+        return ValueHelper::isDateTime($string);
     }
 
     /**

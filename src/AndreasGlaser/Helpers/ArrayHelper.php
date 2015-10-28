@@ -206,6 +206,20 @@ class ArrayHelper
     }
 
     /**
+     * Implodes array keys.
+     *
+     * @param       $glue
+     * @param array $array
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function implodeKeys($glue, array $array)
+    {
+        return implode($glue, array_keys($array));
+    }
+
+    /**
      * @param      $delimiter
      * @param      $string
      *

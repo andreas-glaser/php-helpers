@@ -155,5 +155,13 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
             ]
         ], ArrayHelper::replaceValue($testArray, 'HONEY', 'jam', true, false));
     }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testImplodeKeys()
+    {
+        $this->assertEquals('rat,mouse,tiger,0,1,2', ArrayHelper::implodeKeys(',', ['rat' => 1, 'mouse' => 2, 'tiger' => 3, null, [], 1]));
+    }
 }
  

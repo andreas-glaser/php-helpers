@@ -24,7 +24,7 @@ class ValueHelperTest extends \PHPUnit_Framework_TestCase
             '0',
             null,
             false,
-            []
+            [],
         ];
 
         foreach ($nullValues AS $value) {
@@ -36,7 +36,7 @@ class ValueHelperTest extends \PHPUnit_Framework_TestCase
             1,
             0.2,
             true,
-            ['abc']
+            ['abc'],
         ];
 
         foreach ($noneNullValues AS $value) {
@@ -65,6 +65,9 @@ class ValueHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(ValueHelper::isEmpty([0]));
     }
 
+    /**
+     * @author Andreas Glaser
+     */
     public function testIsInteger()
     {
         $this->assertTrue(ValueHelper::isInteger(1));
@@ -78,6 +81,9 @@ class ValueHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(ValueHelper::isInteger(true));
     }
 
+    /**
+     * @author Andreas Glaser
+     */
     public function testIsFloat()
     {
         $this->assertTrue(ValueHelper::isFloat(1.0));
@@ -106,5 +112,81 @@ class ValueHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(ValueHelper::isDateTime('N/A'));
         $this->assertFalse(ValueHelper::isDateTime(null));
         $this->assertFalse(ValueHelper::isDateTime(''));
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testIsBool()
+    {
+        $this->assertTrue(ValueHelper::isBool(true));
+        $this->assertTrue(ValueHelper::isBool(false));
+        $this->assertFalse(ValueHelper::isBool(''));
+        $this->assertFalse(ValueHelper::isBool(null));
+        $this->assertFalse(ValueHelper::isBool([]));
+        $this->assertFalse(ValueHelper::isBool(new \stdClass()));
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testIsTrue()
+    {
+        $this->assertTrue(ValueHelper::isTrue(true));
+        $this->assertFalse(ValueHelper::isTrue(false));
+        $this->assertFalse(ValueHelper::isTrue(1));
+        $this->assertFalse(ValueHelper::isTrue(''));
+        $this->assertFalse(ValueHelper::isTrue(null));
+        $this->assertFalse(ValueHelper::isTrue([]));
+        $this->assertFalse(ValueHelper::isTrue(new \stdClass()));
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testIsFalse()
+    {
+        $this->assertTrue(ValueHelper::isFalse(false));
+        $this->assertFalse(ValueHelper::isFalse(true));
+        $this->assertFalse(ValueHelper::isTrue(0));
+        $this->assertFalse(ValueHelper::isFalse(''));
+        $this->assertFalse(ValueHelper::isFalse(null));
+        $this->assertFalse(ValueHelper::isFalse([]));
+        $this->assertFalse(ValueHelper::isFalse(new \stdClass()));
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testIsTrueLike()
+    {
+        $this->assertTrue(ValueHelper::isTrueLike(true));
+        $this->assertTrue(ValueHelper::isTrueLike(1));
+        $this->assertTrue(ValueHelper::isTrueLike(1.1));
+        $this->assertTrue(ValueHelper::isTrueLike('1'));
+        $this->assertTrue(ValueHelper::isTrueLike('abc'));
+        $this->assertTrue(ValueHelper::isTrueLike(new \stdClass()));
+        $this->assertFalse(ValueHelper::isTrueLike(false));
+        $this->assertFalse(ValueHelper::isTrueLike(''));
+        $this->assertFalse(ValueHelper::isTrueLike(null));
+        $this->assertFalse(ValueHelper::isTrueLike([]));
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testIsFalseLike()
+    {
+        $this->assertTrue(ValueHelper::isFalseLike(false));
+        $this->assertTrue(ValueHelper::isFalseLike(0));
+        $this->assertTrue(ValueHelper::isFalseLike(0.0));
+        $this->assertTrue(ValueHelper::isFalseLike('0'));
+        $this->assertTrue(ValueHelper::isFalseLike(null));
+        $this->assertTrue(ValueHelper::isFalseLike([]));
+        $this->assertFalse(ValueHelper::isFalseLike(1));
+        $this->assertFalse(ValueHelper::isFalseLike('abc'));
+        $this->assertFalse(ValueHelper::isFalseLike(new \stdClass()));
+        $this->assertFalse(ValueHelper::isFalseLike(true));
+        $this->assertFalse(ValueHelper::isFalseLike(' '));
     }
 }

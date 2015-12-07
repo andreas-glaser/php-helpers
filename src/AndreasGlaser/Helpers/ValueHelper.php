@@ -22,6 +22,9 @@ class ValueHelper
     }
 
     /**
+     * Checks if the given value is empty. This method is useful for PHP <= 5.4,
+     * where you cannot pass function returns directly into empty() eg. empty(date('Y-m-d'))
+     *
      * @param $value
      *
      * @return bool
@@ -83,4 +86,62 @@ class ValueHelper
         return is_string($string) ? (bool)strtotime($string) : false;
     }
 
+    /**
+     * @param $value
+     *
+     * @return bool
+     * @author Andreas Glaser
+     */
+    public static function isBool($value)
+    {
+        return is_bool($value);
+    }
+
+    /**
+     * Check if value is TRUE.
+     *
+     * @param $value
+     *
+     * @return bool
+     * @author Andreas Glaser
+     */
+    public static function isTrue($value)
+    {
+        return self::isBool($value) && $value === true;
+    }
+
+    /**
+     * * Check if value is FALSE.
+     *
+     * @param $value
+     *
+     * @return bool
+     * @author Andreas Glaser
+     */
+    public static function isFalse($value)
+    {
+        return self::isBool($value) && $value === false;
+    }
+
+    /**
+     * @param $value
+     *
+     * @return bool
+     * @author Andreas Glaser
+     */
+    public static function isTrueLike($value)
+    {
+        return $value ? true : false;
+    }
+
+    /**
+     * @param $value
+     *
+     * @return bool
+     * @author Andreas Glaser
+     */
+    public static function isFalseLike($value)
+    {
+        return !$value ? true : false;
+    }
 }

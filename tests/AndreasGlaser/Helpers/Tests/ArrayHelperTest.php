@@ -41,7 +41,7 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
             new \stdClass(),
             [],
             true,
-            false
+            false,
         ];
 
         $this->arrayAssoc = [
@@ -50,7 +50,7 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
             'Index3' => new \stdClass(),
             'Index4' => [],
             'Index5' => true,
-            'Index6' => false
+            'Index6' => false,
         ];
     }
 
@@ -83,7 +83,7 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
             4 => '5',
             5 => '6',
             6 => 'cheese',
-            7 => 'cake'
+            7 => 'cake',
         ];
 
         $this->assertEquals(8, count($explodedArray));
@@ -103,8 +103,8 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
                 'MARS',
                 'curly wurly',
                 'ding dong',
-                'honey'
-            ]
+                'honey',
+            ],
         ];
 
         $this->assertEquals([
@@ -115,8 +115,8 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
                 'MARS',
                 'curly wurly',
                 'ding dong',
-                'jam'
-            ]
+                'jam',
+            ],
         ], ArrayHelper::replaceValue($testArray, 'honey', 'jam', true, true));
 
         $this->assertEquals([
@@ -127,8 +127,8 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
                 'MARS',
                 'curly wurly',
                 'ding dong',
-                'honey'
-            ]
+                'honey',
+            ],
         ], ArrayHelper::replaceValue($testArray, 'honey', 'jam', false, true));
 
         $this->assertEquals([
@@ -139,8 +139,8 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
                 'MARS',
                 'curly wurly',
                 'ding dong',
-                'honey'
-            ]
+                'honey',
+            ],
         ], ArrayHelper::replaceValue($testArray, 'HONEY', 'jam', true, true));
 
         $this->assertEquals([
@@ -151,8 +151,8 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
                 'MARS',
                 'curly wurly',
                 'ding dong',
-                'jam'
-            ]
+                'jam',
+            ],
         ], ArrayHelper::replaceValue($testArray, 'HONEY', 'jam', true, false));
     }
 
@@ -162,6 +162,42 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
     public function testImplodeKeys()
     {
         $this->assertEquals('rat,mouse,tiger,0,1,2', ArrayHelper::implodeKeys(',', ['rat' => 1, 'mouse' => 2, 'tiger' => 3, null, [], 1]));
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testRemoveByValue()
+    {
+        $array = [
+            0 => '1',
+            1 => 2,
+            2 => true,
+            3 => false,
+            4 => null,
+        ];
+
+        $this->assertEquals([
+            0 => '1',
+            2 => true,
+            3 => false,
+            4 => null,
+        ], ArrayHelper::removeByValue($array, 2));
+
+        $this->assertEquals([
+            0 => '1',
+            1 => 2,
+            2 => true,
+            3 => false,
+            4 => null,
+        ], ArrayHelper::removeByValue($array, 1, true));
+
+        $this->assertEquals([
+            1 => 2,
+            2 => true,
+            3 => false,
+            4 => null,
+        ], ArrayHelper::removeByValue($array, 1, false));
     }
 }
  

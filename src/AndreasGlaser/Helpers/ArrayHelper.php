@@ -135,6 +135,24 @@ class ArrayHelper
     }
 
     /**
+     * @param array $array
+     * @param mixed $value
+     * @param bool  $strict
+     *
+     * @return array
+     * @author Andreas Glaser
+     */
+    public static function removeByValue(array $array, $value, $strict = true)
+    {
+        $key = array_search($value, $array, $strict);
+        if ($key !== false) {
+            unset($array[$key]);
+        }
+
+        return $array;
+    }
+
+    /**
      * Recursively converts array keys from camel case to underscore case.
      *
      * @param array $array

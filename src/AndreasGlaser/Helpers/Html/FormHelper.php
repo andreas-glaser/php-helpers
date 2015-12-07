@@ -127,15 +127,104 @@ class FormHelper
             $attributesHelper->set('form', $formId);
         }
 
-        return '<label' . $attributesHelper . '>' . HtmlHelper::chars($value) . '<label>';
+        return '<label' . $attributesHelper . '>' . HtmlHelper::chars($value) . '</label>';
     }
 
     /**
+     * @param       $name
+     * @param array $options
+     * @param null  $checkedValue
+     * @param null  $attributesHelper
+     *
+     * @return string
      * @author Andreas Glaser
      */
-    public static function select()
+    public static function select($name, array $options, $checkedValue = null, $attributesHelper = null)
     {
-        // todo
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+
+        $htmlContent = '';
+        foreach ($options AS $value => $option) {
+            if (is_array($option)) {
+                $optGroupContent = '';
+                foreach ($option AS $value1 => $option1) {
+                    $optGroupContent .= static::option($value1, $option1, $value1 === $checkedValue);
+                }
+                $htmlContent .= static::optgroup($value, $optGroupContent);
+            } else {
+                $htmlContent .= static::option($value, $option, $value === $checkedValue);
+            }
+        }
+
+        return '<select' . $attributesHelper . '>' . $htmlContent . '</select>';
+    }
+
+    /**
+     * @param       $name
+     * @param array $options
+     * @param null  $checkedValue
+     * @param null  $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function selectMultiple($name, array $options, $checkedValue = null, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('multiple', 'multiple');
+
+        $htmlContent = '';
+        foreach ($options AS $value => $option) {
+            if (is_array($option)) {
+                $optGroupContent = '';
+                foreach ($option AS $value1 => $option1) {
+                    $optGroupContent .= static::option($value1, $option1, $value1 === $checkedValue);
+                }
+                $htmlContent .= static::optgroup($value, $optGroupContent);
+            } else {
+                $htmlContent .= static::option($value, $option, $value === $checkedValue);
+            }
+        }
+
+        return '<select' . $attributesHelper . '>' . $htmlContent . '</select>';
+    }
+
+    /**
+     * @param            $value
+     * @param            $text
+     * @param bool|false $checked
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function option($value, $text, $checked = false)
+    {
+        $attributesHelper = AttributesHelper::f();
+        $attributesHelper->set('value', $value);
+
+        if ($checked) {
+            $attributesHelper->set('checked', 'checked');
+        }
+
+        return '<option' . $attributesHelper . '>' . HtmlHelper::chars($text) . '</option>';
+    }
+
+    /**
+     * @param      $label
+     * @param      $htmlContent
+     * @param null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function optgroup($label, $htmlContent, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('label', $label);
+
+        return '<optgroup' . $attributesHelper . '>' . $htmlContent . '</optgroup>';
     }
 
     /**

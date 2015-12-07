@@ -143,22 +143,22 @@ class FormHelperTest extends \PHPUnit_Framework_TestCase
     public function testLabel()
     {
         $this->assertEquals(
-            '<label>biscuit<label>',
+            '<label>biscuit</label>',
             FormHelper::label('biscuit')
         );
 
         $this->assertEquals(
-            '<label for="Hmmmm">peanut<label>',
+            '<label for="Hmmmm">peanut</label>',
             FormHelper::label('peanut', 'Hmmmm')
         );
 
         $this->assertEquals(
-            '<label for="Hmmmm" form="cake">peanut<label>',
+            '<label for="Hmmmm" form="cake">peanut</label>',
             FormHelper::label('peanut', 'Hmmmm', 'cake')
         );
 
         $this->assertEquals(
-            '<label id="my-id" for="element">&lt;Hello&gt;<label>',
+            '<label id="my-id" for="element">&lt;Hello&gt;</label>',
             FormHelper::label('<Hello>', 'element', null, AttributesHelper::f(['id' => 'my-id']))
         );
     }
@@ -214,4 +214,89 @@ class FormHelperTest extends \PHPUnit_Framework_TestCase
             FormHelper::radio('vegetable[cucumber]', 123, true, AttributesHelper::f(['id' => 'delicious']))
         );
     }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testOption()
+    {
+        $this->assertEquals(
+            '<option value="frog">Animal</option>',
+            FormHelper::option('frog', 'Animal')
+        );
+
+        $this->assertEquals(
+            '<option value="999">&lt;div&gt;Test&lt;/div&gt;</option>',
+            FormHelper::option(999, '<div>Test</div>')
+        );
+
+        $this->assertEquals(
+            '<option value="---" checked="checked">Choose...</option>',
+            FormHelper::option('---', 'Choose...', true)
+        );
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testOptGroup()
+    {
+        $this->assertEquals(
+            '<optgroup label="frog">Animal</optgroup>',
+            FormHelper::optgroup('frog', 'Animal')
+        );
+
+        $this->assertEquals(
+            '<optgroup label="999"><div>Test</div></optgroup>',
+            FormHelper::optgroup(999, '<div>Test</div>')
+        );
+
+        $this->assertEquals(
+            '<optgroup data-test="Hello" label="---">Choose...</optgroup>',
+            FormHelper::optgroup('---', 'Choose...', ['data-test' => 'Hello'])
+        );
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testSelect()
+    {
+        $this->assertEquals(
+            '<select id="test" name="partner"><option value="value1">Options One</option><option value="value2">Option Two</option><optgroup label="Group 1"><option value="value4" checked="checked">Option Four</option></optgroup><optgroup label="Group 2"><option value="value5">Option Four</option></optgroup></select>',
+            FormHelper::select('partner', [
+                'value1'  => 'Options One',
+                'value2'  => 'Option Two',
+                'Group 1' => [
+                    'value4' => 'Option Four',
+                ],
+                'Group 2' => [
+                    'value5' => 'Option Four',
+                ],
+            ], 'value4', ['id' => 'test']
+            )
+        );
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testSelectMultiple()
+    {
+        $this->assertEquals(
+            '<select id="test" name="partner" multiple="multiple"><option value="value1">Options One</option><option value="value2">Option Two</option><optgroup label="Group 1"><option value="value4" checked="checked">Option Four</option></optgroup><optgroup label="Group 2"><option value="value5">Option Four</option></optgroup></select>',
+            FormHelper::selectMultiple('partner', [
+                'value1'  => 'Options One',
+                'value2'  => 'Option Two',
+                'Group 1' => [
+                    'value4' => 'Option Four',
+                ],
+                'Group 2' => [
+                    'value5' => 'Option Four',
+                ],
+            ], 'value4', ['id' => 'test']
+            )
+        );
+    }
+
 }

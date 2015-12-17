@@ -4,6 +4,8 @@ namespace AndreasGlaser\Helpers\Html;
 
 use AndreasGlaser\Helpers\HtmlHelper;
 use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
+use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
+use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 use AndreasGlaser\Helpers\StringHelper;
 use AndreasGlaser\Helpers\Traits\DuplicatableTrait;
 
@@ -13,7 +15,7 @@ use AndreasGlaser\Helpers\Traits\DuplicatableTrait;
  * @package AndreasGlaser\Helpers\Html
  * @author  Andreas Glaser
  */
-class AttributesHelper implements FactoryInterface
+class AttributesHelper implements FactoryInterface, RenderableInterface
 {
     use DuplicatableTrait;
 
@@ -418,14 +420,17 @@ class AttributesHelper implements FactoryInterface
     }
 
     /**
-     * Renders attributes into string.
+     * @param \AndreasGlaser\Helpers\Interfaces\RendererInterface|null $renderer
      *
      * @return string
-     *
      * @author Andreas Glaser
      */
-    public function render()
+    public function render(RendererInterface $renderer = null)
     {
+        if ($renderer) {
+            return $renderer->render($this);
+        }
+
         $attributes = null;
 
         if ($this->hasId()) {

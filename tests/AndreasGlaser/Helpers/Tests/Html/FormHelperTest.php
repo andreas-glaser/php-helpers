@@ -62,6 +62,32 @@ class FormHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * @author Andreas Glaser
      */
+    public function testHidden()
+    {
+        $this->assertEquals(
+            '<input name="biscuit" type="hidden" value="" />',
+            FormHelper::hidden('biscuit')
+        );
+
+        $this->assertEquals(
+            '<input name="peanut" type="hidden" value="Hmmmm" />',
+            FormHelper::hidden('peanut', 'Hmmmm')
+        );
+
+        $this->assertEquals(
+            '<input id="my-id" name="strawberry" type="hidden" value="&lt;Hello&gt;" />',
+            FormHelper::hidden('strawberry', '<Hello>', ['id' => 'my-id'])
+        );
+
+        $this->assertEquals(
+            '<input id="delicious" name="vegetable[cucumber]" type="hidden" value="" />',
+            FormHelper::hidden('vegetable[cucumber]', null, AttributesHelper::f(['id' => 'delicious']))
+        );
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
     public function testTextarea()
     {
         $this->assertEquals(

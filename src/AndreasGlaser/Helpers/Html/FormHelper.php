@@ -64,6 +64,24 @@ class FormHelper
      * @return string
      * @author Andreas Glaser
      */
+    public static function hidden($name, $value = null, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'hidden');
+        $attributesHelper->set('value', $value);
+
+        return '<input' . $attributesHelper . ' />';
+    }
+
+    /**
+     * @param                                                         $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
     public static function textarea($name, $value = null, $attributesHelper = null)
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);

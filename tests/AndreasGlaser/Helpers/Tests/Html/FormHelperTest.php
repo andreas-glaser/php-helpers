@@ -257,7 +257,7 @@ class FormHelperTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            '<option value="---" checked="checked">Choose...</option>',
+            '<option value="---" selected="selected">Choose...</option>',
             FormHelper::option('---', 'Choose...', true)
         );
     }

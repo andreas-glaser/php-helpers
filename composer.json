@@ -1,6 +1,6 @@
 {
   "name": "andreas-glaser/php-helpers",
-  "description": "Simple package of helpful every day PHP helpers.",
+  "description": "A simple php library of various helper functions and classes.",
   "keywords": [
     "php",
     "helper"
@@ -26,11 +26,13 @@
     "bin-dir": "bin"
   },
   "autoload": {
-    "psr-0": {"AndreasGlaser\\Helpers": "src/"}
+    "psr-0": {
+      "AndreasGlaser\\Helpers": "src/"
+    }
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "0.3.x-dev"
+      "dev-master": "1.0.x-dev"
     }
   }
 }

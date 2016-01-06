@@ -1,7 +1,7 @@
 #php-helpers
 
-Simple package of helpful every day PHP helpers.
+A simple php library of various helper functions and classes.
 
-##Requirements##
+##Requirements
 
  - PHP 5.4+

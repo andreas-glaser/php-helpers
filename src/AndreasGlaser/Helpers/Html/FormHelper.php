@@ -212,18 +212,18 @@ class FormHelper
     /**
      * @param            $value
      * @param            $text
-     * @param bool|false $checked
+     * @param bool|false $selected
      *
      * @return string
      * @author Andreas Glaser
      */
-    public static function option($value, $text, $checked = false)
+    public static function option($value, $text, $selected = false)
     {
         $attributesHelper = AttributesHelper::f();
         $attributesHelper->set('value', $value);
 
-        if ($checked) {
-            $attributesHelper->set('checked', 'checked');
+        if ($selected) {
+            $attributesHelper->set('selected', 'selected');
         }
 
         return '<option' . $attributesHelper . '>' . HtmlHelper::chars($text) . '</option>';

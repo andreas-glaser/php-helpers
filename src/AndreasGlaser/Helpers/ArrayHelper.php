@@ -2,7 +2,7 @@
 
 namespace AndreasGlaser\Helpers;
 
-use \Exception;
+use Exception;
 
 /**
  * Class ArrayHelper
@@ -26,6 +26,38 @@ class ArrayHelper
     public static function get(array $array, $key, $default = null)
     {
         return array_key_exists($key, $array) ? $array[$key] : $default;
+    }
+
+    /**
+     * @param array  $array
+     * @param        $path
+     * @param bool   $throwException
+     * @param null   $default
+     * @param string $delimiter
+     *
+     * @return array|mixed
+     * @author Andreas Glaser
+     */
+    public static function getByPath(array $array, $path, $throwException = false, $default = null, $delimiter = '.')
+    {
+        $pieces = explode($delimiter, $path);
+
+        $value = $default;
+
+        foreach ($pieces AS $piece) {
+            if (array_key_exists($piece, $array)) {
+                $value = $array[$piece];
+                $array = $array[$piece];
+            } else {
+                if ($throwException) {
+                    throw new \RuntimeException(sprintf('Array index "%s" does not exist', $piece));
+                } else {
+                    return $default;
+                }
+            }
+        }
+
+        return $value;
     }
 
     /**

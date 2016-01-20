@@ -71,6 +71,34 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * @author Andreas Glaser
      */
+    public function testGetByPath()
+    {
+        $testArray = [
+            'index1' => 'Hey There',
+            'index2' => 'This is great',
+            'index3' => [
+                'index4' => 'Cooool',
+                'index5' => new \stdClass(),
+                'abc'    => [
+                    'great',
+                ],
+            ],
+        ];
+
+        $this->assertEquals('Hey There', ArrayHelper::getByPath($testArray, 'index1'));
+        $this->assertInstanceOf('\stdClass', ArrayHelper::getByPath($testArray, 'index3.index5'));
+        $this->assertEquals('great', ArrayHelper::getByPath($testArray, 'index3.abc.0'));
+        $this->assertEquals('great', ArrayHelper::getByPath($testArray, 'index3:abc:0', false, null, ':'));
+
+        $this->assertNull(ArrayHelper::getByPath($testArray, 'wrong-index'));
+        $this->assertFalse(ArrayHelper::getByPath($testArray, 'wrong-index', false, false));
+        $this->setExpectedException('\RuntimeException', 'Hi');
+        ArrayHelper::getByPath($testArray, 'Array index "wrong-key" does not exist', true);
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
     public function testExplodeIgnoreEmpty()
     {
         $testString = '1,2, 3,,4,,,,5,6,cheese,,cake';

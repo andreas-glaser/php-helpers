@@ -92,8 +92,8 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull(ArrayHelper::getByPath($testArray, 'wrong-index'));
         $this->assertFalse(ArrayHelper::getByPath($testArray, 'wrong-index', false, false));
-        $this->setExpectedException('\RuntimeException', 'Hi');
-        ArrayHelper::getByPath($testArray, 'Array index "wrong-key" does not exist', true);
+        $this->setExpectedException('\RuntimeException', 'Array index "wrong-key" does not exist');
+        ArrayHelper::getByPath($testArray, 'wrong-key', true);
     }
 
     /**

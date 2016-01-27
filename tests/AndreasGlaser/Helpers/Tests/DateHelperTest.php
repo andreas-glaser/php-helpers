@@ -7,8 +7,7 @@ use AndreasGlaser\Helpers\DateHelper;
 /**
  * Class DateHelperTest
  *
- * @package Helpers\Tests
- *
+ * @package AndreasGlaser\Helpers\Tests
  * @author  Andreas Glaser
  */
 class DateHelperTest extends \PHPUnit_Framework_TestCase
@@ -17,7 +16,7 @@ class DateHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * @author Andreas Glaser
      */
-    public function testIs()
+    public function testStringToDateTime()
     {
         $this->assertTrue(DateHelper::stringToDateTime('2015-03-23') instanceof \DateTime);
         $this->assertTrue(DateHelper::stringToDateTime('2015-03-23 22:21') instanceof \DateTime);
@@ -30,5 +29,17 @@ class DateHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertNull(DateHelper::stringToDateTime('N/A'));
         $this->assertNull(DateHelper::stringToDateTime(null));
         $this->assertNull(DateHelper::stringToDateTime(''));
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testFormatOrNull()
+    {
+        $this->assertEquals('23-03-2015', DateHelper::formatOrNull('2015-03-23', 'd-m-Y'));
+        $this->assertEquals('23-03-2015', DateHelper::formatOrNull(new \DateTime('2015-03-23'), 'd-m-Y'));
+        $this->assertEquals(date('Y-m-d H:i:s'), DateHelper::formatOrNull('NOW'));
+        $this->assertEquals(10, DateHelper::formatOrNull(new \stdClass(), 'Y-m-d', 10));
+        $this->assertNull(DateHelper::formatOrNull(-1));
     }
 }

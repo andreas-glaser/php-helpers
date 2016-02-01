@@ -13,6 +13,8 @@ use Exception;
  */
 class ArrayHelper
 {
+    const PATH_DELIMITER = '.';
+
     /**
      * Returns value by key or a default value if it does not exist.
      *
@@ -35,10 +37,10 @@ class ArrayHelper
      * @param null   $default
      * @param string $delimiter
      *
-     * @return array|mixed
+     * @return null
      * @author Andreas Glaser
      */
-    public static function getByPath(array $array, $path, $throwException = false, $default = null, $delimiter = '.')
+    public static function getByPath(array $array, $path, $throwException = false, $default = null, $delimiter = self::PATH_DELIMITER)
     {
         $pieces = explode($delimiter, $path);
 
@@ -58,6 +60,45 @@ class ArrayHelper
         }
 
         return $value;
+    }
+
+    /**
+     * @param array  $array
+     * @param string $path
+     * @param mixed  $value
+     * @param string $delimiter
+     *
+     * @return array
+     * @author Andreas Glaser
+     */
+    public static function setByPath(array $array, $path, $value, $delimiter = self::PATH_DELIMITER)
+    {
+        $source = $array;
+        $current = &$source;
+        $pathParts = explode($delimiter, $path);
+        $partCount = count($pathParts);
+
+        $i = 1;
+        foreach ($pathParts AS $piece) {
+            $isLast = $i === $partCount;
+
+            if (array_key_exists($piece, $current)) {
+                if ($isLast) {
+                    $current[$piece] = $value;
+                } else {
+                    if (!is_array($current[$piece])) {
+                        throw new \RuntimeException(sprintf('Array index "%s" exists already and is not of type "array"', $piece));
+                    }
+                }
+            } else {
+                $current[$piece] = $isLast ? $value : [];
+            }
+
+            $current = &$current[$piece];
+            $i++;
+        }
+
+        return $source;
     }
 
     /**

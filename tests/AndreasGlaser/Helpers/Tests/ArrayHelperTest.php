@@ -99,6 +99,56 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * @author Andreas Glaser
      */
+    public function testSetByPath()
+    {
+        $myArray = [
+            'test'   => 'Hello',
+            'index2' => [
+                'index3' => [
+                    'index4' => 'XYZ',
+                    'index5' => 'Something',
+                ],
+            ],
+        ];
+
+        $this->assertEquals([
+            'test'   => 'Bye',
+            'index2' => [
+                'index3' => [
+                    'index4' => 'XYZ',
+                    'index5' => 'Something',
+                ],
+            ],
+        ], ArrayHelper::setByPath($myArray, 'test', 'Bye'));
+
+        $this->assertEquals([
+            'test'   => 'Hello',
+            'index2' => [
+                'index3' => [
+                    'index4' => 'XYZ',
+                    'index5' => 'Something',
+                    'test'   => 'Cheese',
+                ],
+            ],
+        ], ArrayHelper::setByPath($myArray, 'index2.index3.test', 'Cheese'));
+
+        $this->setExpectedException('\RuntimeException', 'Array index "test" exists already and is not of type "array"');
+
+        $this->assertEquals([
+            'test'   => 'Hello',
+            'index2' => [
+                'index3' => [
+                    'index4' => 'XYZ',
+                    'index5' => 'Something',
+                    'test'   => 'Cheese',
+                ],
+            ],
+        ], ArrayHelper::setByPath($myArray, 'test.abc.something', 'Cheese'));
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
     public function testExplodeIgnoreEmpty()
     {
         $testString = '1,2, 3,,4,,,,5,6,cheese,,cake';

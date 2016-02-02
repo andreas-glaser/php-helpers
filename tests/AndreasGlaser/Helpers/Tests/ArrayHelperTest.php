@@ -149,6 +149,84 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * @author Andreas Glaser
      */
+    public function testExistByPath()
+    {
+        $myArray = [
+            'test'   => 'Hello',
+            'index2' => [
+                'index3' => [
+                    'index4' => 'XYZ',
+                    'index5' => 'Something',
+                ],
+            ],
+        ];
+
+        // test positive results
+        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'test'));
+        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2'));
+        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2.index3'));
+        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2.index3.index4'));
+        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2.index3.index5'));
+
+        // test negative results
+        $this->assertFalse(ArrayHelper::existsByPath($myArray, 'wrong-key'));
+        $this->assertFalse(ArrayHelper::existsByPath($myArray, 'test.wrong-key'));
+        $this->assertFalse(ArrayHelper::existsByPath($myArray, 'index2.wrong-key'));
+        $this->assertFalse(ArrayHelper::existsByPath($myArray, 'index2.index3.wrong-key'));
+        $this->assertFalse(ArrayHelper::existsByPath($myArray, 'index2.index3.wrong-key'));
+
+        // test delimiter
+        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'test', ':'));
+        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2', ':'));
+        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2:index3', ':'));
+        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2:index3:index4', ':'));
+        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2:index3:index5', ':'));
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testIssetByPath()
+    {
+        $myArray = [
+            'test'   => 'Hello',
+            'index2' => [
+                'index3' => [
+                    'index4' => 'XYZ',
+                    'index5' => 'Something',
+                    'index6' => null,
+                ],
+            ],
+            'empty'  => null,
+        ];
+
+        // test positive results
+        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'test'));
+        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2'));
+        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2.index3'));
+        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2.index3.index4'));
+        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2.index3.index5'));
+
+        // test negative results
+        $this->assertFalse(ArrayHelper::issetByPath($myArray, 'index2.index3.index6'));
+        $this->assertFalse(ArrayHelper::issetByPath($myArray, 'empty'));
+        $this->assertFalse(ArrayHelper::issetByPath($myArray, 'wrong-key'));
+        $this->assertFalse(ArrayHelper::issetByPath($myArray, 'test.wrong-key'));
+        $this->assertFalse(ArrayHelper::issetByPath($myArray, 'index2.wrong-key'));
+        $this->assertFalse(ArrayHelper::issetByPath($myArray, 'index2.index3.wrong-key'));
+        $this->assertFalse(ArrayHelper::issetByPath($myArray, 'index2.index3.wrong-key'));
+
+        // test delimiter
+        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'test', ':'));
+        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2', ':'));
+        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2:index3', ':'));
+        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2:index3:index4', ':'));
+        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2:index3:index5', ':'));
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
     public function testExplodeIgnoreEmpty()
     {
         $testString = '1,2, 3,,4,,,,5,6,cheese,,cake';
@@ -278,4 +356,3 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
         ], ArrayHelper::removeByValue($array, 1, false));
     }
 }
- 

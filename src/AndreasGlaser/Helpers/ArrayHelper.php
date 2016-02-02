@@ -73,8 +73,7 @@ class ArrayHelper
      */
     public static function setByPath(array $array, $path, $value, $delimiter = self::PATH_DELIMITER)
     {
-        $source = $array;
-        $current = &$source;
+        $current = &$array;
         $pathParts = explode($delimiter, $path);
         $partCount = count($pathParts);
 
@@ -98,7 +97,55 @@ class ArrayHelper
             $i++;
         }
 
-        return $source;
+        return $array;
+    }
+
+    /**
+     * @param array  $array
+     * @param        $path
+     * @param string $delimiter
+     *
+     * @return bool
+     * @author Andreas Glaser
+     */
+    public static function existsByPath(array $array, $path, $delimiter = self::PATH_DELIMITER)
+    {
+        $current = &$array;
+        $pathParts = explode($delimiter, $path);
+
+        foreach ($pathParts AS $pathPart) {
+            if (is_array($current) && array_key_exists($pathPart, $current)) {
+                $current = $current[$pathPart];
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param array  $array
+     * @param        $path
+     * @param string $delimiter
+     *
+     * @return bool
+     * @author Andreas Glaser
+     */
+    public static function issetByPath(array $array, $path, $delimiter = self::PATH_DELIMITER)
+    {
+        $current = &$array;
+        $pathParts = explode($delimiter, $path);
+
+        foreach ($pathParts AS $pathPart) {
+            if (is_array($current) && isset($current[$pathPart])) {
+                $current = $current[$pathPart];
+            } else {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

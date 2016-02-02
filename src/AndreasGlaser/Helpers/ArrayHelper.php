@@ -234,6 +234,17 @@ class ArrayHelper
     }
 
     /**
+     * @param array $array
+     *
+     * @return mixed
+     * @author Andreas Glaser
+     */
+    public static function getRandomValue(array $array)
+    {
+        return $array[array_rand($array)];
+    }
+
+    /**
      * Removes first element of an array without re-indexing.
      *
      * @param array $array

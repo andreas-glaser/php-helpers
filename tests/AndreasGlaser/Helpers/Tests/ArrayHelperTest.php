@@ -71,6 +71,14 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * @author Andreas Glaser
      */
+    public function testGetRandomValue()
+    {
+        $this->assertTrue(in_array(ArrayHelper::getRandomValue($this->arrayAssoc), $this->arrayAssoc));
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
     public function testGetByPath()
     {
         $testArray = [

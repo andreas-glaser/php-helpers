@@ -363,4 +363,64 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
             4 => null,
         ], ArrayHelper::removeByValue($array, 1, false));
     }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testMerge()
+    {
+        $array1 = [
+            'assoc1' => 'value1',
+            'assoc2' => [
+                'assoc3' => 'value2',
+                10       => 'value3',
+            ],
+            'assoc4' => [],
+            0        => 'value4',
+        ];
+
+        $this->assertEquals([
+            'assoc1' => 'overwritten',
+            'assoc2' => [
+                'assoc3' => 'value2',
+                10       => 'value3',
+            ],
+            'assoc4' => [],
+            0        => 'value4',
+        ], ArrayHelper::merge($array1, ['assoc1' => 'overwritten']));
+
+        $this->assertEquals([
+            'assoc1' => 'value1',
+            'assoc2' => [
+                'assoc3' => 'value2',
+                10       => 'value3',
+            ],
+            'assoc4' => [],
+            0        => 'value4',
+            1        => 'added',
+        ], ArrayHelper::merge($array1, [0 => 'added']));
+
+        $this->assertEquals([
+            'assoc1' => 'value1',
+            'assoc2' => 'overwritten',
+            'assoc4' => [],
+            0        => 'value4',
+        ], ArrayHelper::merge($array1, ['assoc2' => 'overwritten']));
+
+        $this->assertEquals([
+            'assoc1' => 'value1',
+            'assoc2' => [
+                'assoc3' => 'value2',
+                10       => 'value3',
+            ],
+            'assoc4' => [
+                0     => 'cheese',
+                'abc' => 'tasty',
+            ],
+            0        => 'value4',
+        ], ArrayHelper::merge($array1, ['assoc4' => ['cheese', 'abc' => 'tasty']]));
+
+        $this->setExpectedException('\InvalidArgumentException', 'Argument 2 is not an array');
+        ArrayHelper::merge(['abc'], 123);
+    }
 }

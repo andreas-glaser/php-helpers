@@ -503,5 +503,37 @@ class ArrayHelper
 
         return $array;
     }
+
+    /**
+     * Merges multiple arrays
+     *
+     * @return array
+     * @source https://api.drupal.org/api/drupal/includes!bootstrap.inc/function/drupal_array_merge_deep_array/7
+     */
+    public static function merge()
+    {
+        $arrays = func_get_args();
+
+        $result = [];
+
+        foreach ($arrays as $argumentIndex => $array) {
+
+            if (!is_array($array)) {
+                throw new \InvalidArgumentException(sprintf('Argument %d is not an array', $argumentIndex + 1));
+            }
+
+            foreach ($array as $key => $value) {
+                if (is_integer($key)) {
+                    $result[] = $value;
+                } elseif (isset($result[$key]) && is_array($result[$key]) && is_array($value)) {
+                    $result[$key] = static::merge($result[$key], $value);
+                } else {
+                    $result[$key] = $value;
+                }
+            }
+        }
+
+        return $result;
+    }
 }
 

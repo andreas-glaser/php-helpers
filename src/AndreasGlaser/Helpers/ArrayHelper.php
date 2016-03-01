@@ -31,6 +31,24 @@ class ArrayHelper
     }
 
     /**
+     * Returns first array key with matching value.
+     *
+     * @param array $array
+     * @param mixed $value
+     * @param null  $default
+     * @param bool  $strict
+     *
+     * @return mixed|null
+     * @author Andreas Glaser
+     */
+    public static function getKeyByValue(array $array, $value, $default = null, $strict = true)
+    {
+        $key = array_search($value, $array, $strict);
+
+        return $key ? $key : $default;
+    }
+
+    /**
      * @param array  $array
      * @param        $path
      * @param bool   $throwException

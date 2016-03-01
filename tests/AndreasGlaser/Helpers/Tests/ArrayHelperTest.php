@@ -71,9 +71,38 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * @author Andreas Glaser
      */
+    public function testGetByValue()
+    {
+        $testArray = [
+            'k1' => 'v1',
+            'k2' => 'v2',
+            'k3' => 'duplicate',
+            'k4' => 'duplicate',
+            'k5' => 0,
+            'k6' => '0',
+        ];
+
+        $this->assertEquals('k1', ArrayHelper::getKeyByValue($testArray, 'v1'));
+        $this->assertEquals('k2', ArrayHelper::getKeyByValue($testArray, 'v2'));
+        $this->assertEquals('k3', ArrayHelper::getKeyByValue($testArray, 'duplicate'));
+        $this->assertEquals(null, ArrayHelper::getKeyByValue($testArray, 'invalid'));
+        $this->assertEquals('k6', ArrayHelper::getKeyByValue($testArray, '0', null, true));
+        $this->assertEquals('k5', ArrayHelper::getKeyByValue($testArray, '0', null, false));
+        $this->assertEquals('something', ArrayHelper::getKeyByValue($testArray, 'invalid', 'something'));
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
     public function testGetRandomValue()
     {
-        $this->assertTrue(in_array(ArrayHelper::getRandomValue($this->arrayAssoc), $this->arrayAssoc));
+        $testArray = [
+            'k1' => 'v1',
+            'k2' => 'v2',
+            'k3' => 'v3',
+        ];
+
+        $this->assertTrue(in_array(ArrayHelper::getRandomValue($testArray), $testArray));
     }
 
     /**

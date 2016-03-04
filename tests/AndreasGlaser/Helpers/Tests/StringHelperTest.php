@@ -135,5 +135,18 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(StringHelper::isDateTime(null));
         $this->assertFalse(StringHelper::isDateTime(''));
     }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testIsBlank()
+    {
+        $this->assertTrue(StringHelper::isBlank(' '));
+        $this->assertTrue(StringHelper::isBlank('   '));
+        $this->assertTrue(StringHelper::isBlank(null));
+        $this->assertFalse(StringHelper::isBlank('a'));
+        $this->assertFalse(StringHelper::isBlank(' a  '));
+        $this->assertFalse(StringHelper::isBlank(0));
+    }
 }
  

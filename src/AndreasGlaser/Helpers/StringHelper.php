@@ -434,6 +434,19 @@ class StringHelper
 
         return ($prefix != '__undefined__' ? $prefix : null) . $indexes[$prefix];
     }
+
+    /**
+     * Checks if a string is blank. " " is considered as such.
+     *
+     * @param $string
+     *
+     * @return boolean
+     * @author Andreas Glaser
+     */
+    public static function isBlank($string)
+    {
+        return !strlen(trim((string)$string)) > 0;
+    }
 }
 
 // shortcut for strtr

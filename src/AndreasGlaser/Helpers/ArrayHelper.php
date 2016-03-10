@@ -58,8 +58,13 @@ class ArrayHelper
      * @return null
      * @author Andreas Glaser
      */
-    public static function getByPath(array $array, $path, $throwException = false, $default = null, $delimiter = self::PATH_DELIMITER)
-    {
+    public static function getByPath(
+        array $array,
+        $path,
+        $throwException = false,
+        $default = null,
+        $delimiter = self::PATH_DELIMITER
+    ) {
         $pieces = explode($delimiter, $path);
 
         $value = $default;
@@ -104,7 +109,9 @@ class ArrayHelper
                     $current[$piece] = $value;
                 } else {
                     if (!is_array($current[$piece])) {
-                        throw new \RuntimeException(sprintf('Array index "%s" exists already and is not of type "array"', $piece));
+                        throw new \RuntimeException(
+                            sprintf('Array index "%s" exists already and is not of type "array"', $piece)
+                        );
                     }
                 }
             } else {
@@ -164,6 +171,48 @@ class ArrayHelper
         }
 
         return true;
+    }
+
+    /**
+     * Adds index/value at the beginning of an array.
+     *
+     * @param array $array
+     * @param       $value
+     * @param mixed $key
+     *
+     * @return array
+     */
+    public static function prepend(array $array, $value, $key = false)
+    {
+        $array = array_reverse($array, true);
+
+        if ($key !== false) {
+            $array[$key] = $value;
+        } else {
+            $array[] = $value;
+        }
+
+        return array_reverse($array, true);
+    }
+
+    /**
+     * Adds index/value at the end of an array.
+     *
+     * @param array $array
+     * @param       $value
+     * @param mixed $key
+     *
+     * @return array
+     */
+    public static function append(array $array, $value, $key = false)
+    {
+        if ($key !== false) {
+            $array[$key] = $value;
+        } else {
+            $array[] = $value;
+        }
+
+        return $array;
     }
 
     /**
@@ -465,7 +514,7 @@ class ArrayHelper
             if (self::isAssoc($arrayToCompareWith)) {
                 if (!array_key_exists($key, $arrayToCompareWith)) {
                     if ($throwException) {
-                        throw new \RuntimeException('Key does not exist (' . $key . ')');
+                        throw new \RuntimeException('Key does not exist ('.$key.')');
                     } else {
                         $exists = false;
                     }
@@ -487,14 +536,12 @@ class ArrayHelper
      *
      * @return array
      *
-     * @author Andreas Glaser
+     * @author     Andreas Glaser
+     * @deprecated Use ArrayHelper::prepend() instead.
      */
     public static function unshiftAssoc($array, $key, $val)
     {
-        $array = array_reverse($array, true);
-        $array[$key] = $val;
-
-        return array_reverse($array, true);
+        return static::prepend($array, $val, $key);
     }
 
     /**

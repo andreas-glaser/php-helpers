@@ -148,39 +148,51 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $this->assertEquals([
-            'test'   => 'Bye',
-            'index2' => [
-                'index3' => [
-                    'index4' => 'XYZ',
-                    'index5' => 'Something',
+        $this->assertEquals(
+            [
+                'test'   => 'Bye',
+                'index2' => [
+                    'index3' => [
+                        'index4' => 'XYZ',
+                        'index5' => 'Something',
+                    ],
                 ],
             ],
-        ], ArrayHelper::setByPath($myArray, 'test', 'Bye'));
+            ArrayHelper::setByPath($myArray, 'test', 'Bye')
+        );
 
-        $this->assertEquals([
-            'test'   => 'Hello',
-            'index2' => [
-                'index3' => [
-                    'index4' => 'XYZ',
-                    'index5' => 'Something',
-                    'test'   => 'Cheese',
+        $this->assertEquals(
+            [
+                'test'   => 'Hello',
+                'index2' => [
+                    'index3' => [
+                        'index4' => 'XYZ',
+                        'index5' => 'Something',
+                        'test'   => 'Cheese',
+                    ],
                 ],
             ],
-        ], ArrayHelper::setByPath($myArray, 'index2.index3.test', 'Cheese'));
+            ArrayHelper::setByPath($myArray, 'index2.index3.test', 'Cheese')
+        );
 
-        $this->setExpectedException('\RuntimeException', 'Array index "test" exists already and is not of type "array"');
+        $this->setExpectedException(
+            '\RuntimeException',
+            'Array index "test" exists already and is not of type "array"'
+        );
 
-        $this->assertEquals([
-            'test'   => 'Hello',
-            'index2' => [
-                'index3' => [
-                    'index4' => 'XYZ',
-                    'index5' => 'Something',
-                    'test'   => 'Cheese',
+        $this->assertEquals(
+            [
+                'test'   => 'Hello',
+                'index2' => [
+                    'index3' => [
+                        'index4' => 'XYZ',
+                        'index5' => 'Something',
+                        'test'   => 'Cheese',
+                    ],
                 ],
             ],
-        ], ArrayHelper::setByPath($myArray, 'test.abc.something', 'Cheese'));
+            ArrayHelper::setByPath($myArray, 'test.abc.something', 'Cheese')
+        );
     }
 
     /**
@@ -264,6 +276,94 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * @author Andreas Glaser
      */
+    public function testPrepend()
+    {
+        $testArray = [
+            'k1' => 'v1',
+            'k2' => 'v2',
+            'k3' => 'duplicate',
+            'k4' => 'duplicate',
+            'k5' => 0,
+            'k6' => '0',
+            0    => 'test',
+        ];
+
+        $this->assertEquals(
+            [
+                1    => 'hello',
+                'k1' => 'v1',
+                'k2' => 'v2',
+                'k3' => 'duplicate',
+                'k4' => 'duplicate',
+                'k5' => 0,
+                'k6' => '0',
+                0    => 'test',
+            ],
+            ArrayHelper::prepend($testArray, 'hello')
+        );
+
+        $this->assertEquals(
+            [
+                'test' => 'hello',
+                'k1'   => 'v1',
+                'k2'   => 'v2',
+                'k3'   => 'duplicate',
+                'k4'   => 'duplicate',
+                'k5'   => 0,
+                'k6'   => '0',
+                0      => 'test',
+            ],
+            ArrayHelper::prepend($testArray, 'hello', 'test')
+        );
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testAppend()
+    {
+        $testArray = [
+            'k1' => 'v1',
+            'k2' => 'v2',
+            'k3' => 'duplicate',
+            'k4' => 'duplicate',
+            'k5' => 0,
+            'k6' => '0',
+            0    => 'test',
+        ];
+
+        $this->assertEquals(
+            [
+                1    => 'hello',
+                'k1' => 'v1',
+                'k2' => 'v2',
+                'k3' => 'duplicate',
+                'k4' => 'duplicate',
+                'k5' => 0,
+                'k6' => '0',
+                0    => 'test',
+            ],
+            ArrayHelper::append($testArray, 'hello')
+        );
+
+        $this->assertEquals(
+            [
+                'test' => 'hello',
+                'k1'   => 'v1',
+                'k2'   => 'v2',
+                'k3'   => 'duplicate',
+                'k4'   => 'duplicate',
+                'k5'   => 0,
+                'k6'   => '0',
+                0      => 'test',
+            ],
+            ArrayHelper::append($testArray, 'hello', 'test')
+        );
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
     public function testExplodeIgnoreEmpty()
     {
         $testString = '1,2, 3,,4,,,,5,6,cheese,,cake';
@@ -300,53 +400,65 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $this->assertEquals([
-            'jam',
-            'Mustard',
-            'sauce',
-            'sweets' => [
-                'MARS',
-                'curly wurly',
-                'ding dong',
+        $this->assertEquals(
+            [
                 'jam',
+                'Mustard',
+                'sauce',
+                'sweets' => [
+                    'MARS',
+                    'curly wurly',
+                    'ding dong',
+                    'jam',
+                ],
             ],
-        ], ArrayHelper::replaceValue($testArray, 'honey', 'jam', true, true));
+            ArrayHelper::replaceValue($testArray, 'honey', 'jam', true, true)
+        );
 
-        $this->assertEquals([
-            'jam',
-            'Mustard',
-            'sauce',
-            'sweets' => [
-                'MARS',
-                'curly wurly',
-                'ding dong',
-                'honey',
-            ],
-        ], ArrayHelper::replaceValue($testArray, 'honey', 'jam', false, true));
-
-        $this->assertEquals([
-            'honey',
-            'Mustard',
-            'sauce',
-            'sweets' => [
-                'MARS',
-                'curly wurly',
-                'ding dong',
-                'honey',
-            ],
-        ], ArrayHelper::replaceValue($testArray, 'HONEY', 'jam', true, true));
-
-        $this->assertEquals([
-            'jam',
-            'Mustard',
-            'sauce',
-            'sweets' => [
-                'MARS',
-                'curly wurly',
-                'ding dong',
+        $this->assertEquals(
+            [
                 'jam',
+                'Mustard',
+                'sauce',
+                'sweets' => [
+                    'MARS',
+                    'curly wurly',
+                    'ding dong',
+                    'honey',
+                ],
             ],
-        ], ArrayHelper::replaceValue($testArray, 'HONEY', 'jam', true, false));
+            ArrayHelper::replaceValue($testArray, 'honey', 'jam', false, true)
+        );
+
+        $this->assertEquals(
+            [
+                'honey',
+                'Mustard',
+                'sauce',
+                'sweets' => [
+                    'MARS',
+                    'curly wurly',
+                    'ding dong',
+                    'honey',
+                ],
+            ],
+            ArrayHelper::replaceValue($testArray, 'HONEY', 'jam', true, true)
+        );
+
+        $this->assertEquals(
+            [
+                'jam',
+                'Mustard',
+                'sauce',
+                'sweets' => [
+                    'MARS',
+                    'curly wurly',
+                    'ding dong',
+                    'jam',
+                ],
+            ],
+            ArrayHelper::replaceValue($testArray, 'HONEY', 'jam', true, false)
+        );
     }
 
     /**
@@ -354,7 +466,10 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplodeKeys()
     {
-        $this->assertEquals('rat,mouse,tiger,0,1,2', ArrayHelper::implodeKeys(',', ['rat' => 1, 'mouse' => 2, 'tiger' => 3, null, [], 1]));
+        $this->assertEquals(
+            'rat,mouse,tiger,0,1,2',
+            ArrayHelper::implodeKeys(',', ['rat' => 1, 'mouse' => 2, 'tiger' => 3, null, [], 1])
+        );
     }
 
     /**
@@ -370,27 +485,36 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
             4 => null,
         ];
 
-        $this->assertEquals([
-            0 => '1',
-            2 => true,
-            3 => false,
-            4 => null,
-        ], ArrayHelper::removeByValue($array, 2));
+        $this->assertEquals(
+            [
+                0 => '1',
+                2 => true,
+                3 => false,
+                4 => null,
+            ],
+            ArrayHelper::removeByValue($array, 2)
+        );
 
-        $this->assertEquals([
-            0 => '1',
-            1 => 2,
-            2 => true,
-            3 => false,
-            4 => null,
-        ], ArrayHelper::removeByValue($array, 1, true));
+        $this->assertEquals(
+            [
+                0 => '1',
+                1 => 2,
+                2 => true,
+                3 => false,
+                4 => null,
+            ],
+            ArrayHelper::removeByValue($array, 1, true)
+        );
 
-        $this->assertEquals([
-            1 => 2,
-            2 => true,
-            3 => false,
-            4 => null,
-        ], ArrayHelper::removeByValue($array, 1, false));
+        $this->assertEquals(
+            [
+                1 => 2,
+                2 => true,
+                3 => false,
+                4 => null,
+            ],
+            ArrayHelper::removeByValue($array, 1, false)
+        );
     }
 
     /**
@@ -408,46 +532,58 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
             0        => 'value4',
         ];
 
-        $this->assertEquals([
-            'assoc1' => 'overwritten',
-            'assoc2' => [
-                'assoc3' => 'value2',
-                10       => 'value3',
+        $this->assertEquals(
+            [
+                'assoc1' => 'overwritten',
+                'assoc2' => [
+                    'assoc3' => 'value2',
+                    10       => 'value3',
+                ],
+                'assoc4' => [],
+                0        => 'value4',
             ],
-            'assoc4' => [],
-            0        => 'value4',
-        ], ArrayHelper::merge($array1, ['assoc1' => 'overwritten']));
+            ArrayHelper::merge($array1, ['assoc1' => 'overwritten'])
+        );
 
-        $this->assertEquals([
-            'assoc1' => 'value1',
-            'assoc2' => [
-                'assoc3' => 'value2',
-                10       => 'value3',
+        $this->assertEquals(
+            [
+                'assoc1' => 'value1',
+                'assoc2' => [
+                    'assoc3' => 'value2',
+                    10       => 'value3',
+                ],
+                'assoc4' => [],
+                0        => 'value4',
+                1        => 'added',
             ],
-            'assoc4' => [],
-            0        => 'value4',
-            1        => 'added',
-        ], ArrayHelper::merge($array1, [0 => 'added']));
+            ArrayHelper::merge($array1, [0 => 'added'])
+        );
 
-        $this->assertEquals([
-            'assoc1' => 'value1',
-            'assoc2' => 'overwritten',
-            'assoc4' => [],
-            0        => 'value4',
-        ], ArrayHelper::merge($array1, ['assoc2' => 'overwritten']));
+        $this->assertEquals(
+            [
+                'assoc1' => 'value1',
+                'assoc2' => 'overwritten',
+                'assoc4' => [],
+                0        => 'value4',
+            ],
+            ArrayHelper::merge($array1, ['assoc2' => 'overwritten'])
+        );
 
-        $this->assertEquals([
-            'assoc1' => 'value1',
-            'assoc2' => [
-                'assoc3' => 'value2',
-                10       => 'value3',
+        $this->assertEquals(
+            [
+                'assoc1' => 'value1',
+                'assoc2' => [
+                    'assoc3' => 'value2',
+                    10       => 'value3',
+                ],
+                'assoc4' => [
+                    0     => 'cheese',
+                    'abc' => 'tasty',
+                ],
+                0        => 'value4',
             ],
-            'assoc4' => [
-                0     => 'cheese',
-                'abc' => 'tasty',
-            ],
-            0        => 'value4',
-        ], ArrayHelper::merge($array1, ['assoc4' => ['cheese', 'abc' => 'tasty']]));
+            ArrayHelper::merge($array1, ['assoc4' => ['cheese', 'abc' => 'tasty']])
+        );
 
         $this->setExpectedException('\InvalidArgumentException', 'Argument 2 is not an array');
         ArrayHelper::merge(['abc'], 123);

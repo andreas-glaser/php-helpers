@@ -178,9 +178,10 @@ class ArrayHelper
      *
      * @param array $array
      * @param       $value
-     * @param mixed $key
+     * @param mixed  $key
      *
      * @return array
+     * @author Andreas Glaser
      */
     public static function prepend(array $array, $value, $key = false)
     {
@@ -200,9 +201,10 @@ class ArrayHelper
      *
      * @param array $array
      * @param       $value
-     * @param mixed $key
+     * @param mixed  $key
      *
      * @return array
+     * @author Andreas Glaser
      */
     public static function append(array $array, $value, $key = false)
     {

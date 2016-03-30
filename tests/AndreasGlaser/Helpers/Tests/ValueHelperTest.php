@@ -10,7 +10,7 @@ use AndreasGlaser\Helpers\ValueHelper;
  * @package AndreasGlaser\Helpers\Tests
  * @author  Andreas Glaser
  */
-class ValueHelperTest extends \PHPUnit_Framework_TestCase
+class ValueHelperTest extends BaseTest
 {
     /**
      * @author Andreas Glaser

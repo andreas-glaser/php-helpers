@@ -58,13 +58,8 @@ class ArrayHelper
      * @return null
      * @author Andreas Glaser
      */
-    public static function getByPath(
-        array $array,
-        $path,
-        $throwException = false,
-        $default = null,
-        $delimiter = self::PATH_DELIMITER
-    ) {
+    public static function getByPath(array $array, $path, $throwException = false, $default = null, $delimiter = self::PATH_DELIMITER)
+    {
         $pieces = explode($delimiter, $path);
 
         $value = $default;
@@ -178,7 +173,7 @@ class ArrayHelper
      *
      * @param array $array
      * @param       $value
-     * @param mixed  $key
+     * @param mixed $key
      *
      * @return array
      * @author Andreas Glaser
@@ -201,7 +196,7 @@ class ArrayHelper
      *
      * @param array $array
      * @param       $value
-     * @param mixed  $key
+     * @param mixed $key
      *
      * @return array
      * @author Andreas Glaser
@@ -284,22 +279,35 @@ class ArrayHelper
     }
 
     /**
+     * Returns the value of the first index of an array.
+     *
      * @param array $array
-     * @param null  $default
+     * @param mixed $default
      *
-     * @return mixed|null
-     *
+     * @return mixed
      * @author Andreas Glaser
      */
-    public static function getFirstIndex($array, $default = null)
+    public static function getFirstValue(array $array, $default = null)
     {
-        if (!is_array($array)) {
-            return $default;
-        }
-
         $firstItem = reset($array);
 
         return $firstItem ? $firstItem : $default;
+    }
+
+    /**
+     * Returns the value of the last index of an array.
+     *
+     * @param array $array
+     * @param mixed $default
+     *
+     * @return mixed
+     * @author Andreas Glaser
+     */
+    public static function getLastValue(array $array, $default = null)
+    {
+        $lastItem = end($array);
+
+        return $lastItem ? $lastItem : $default;
     }
 
     /**
@@ -516,7 +524,7 @@ class ArrayHelper
             if (self::isAssoc($arrayToCompareWith)) {
                 if (!array_key_exists($key, $arrayToCompareWith)) {
                     if ($throwException) {
-                        throw new \RuntimeException('Key does not exist ('.$key.')');
+                        throw new \RuntimeException('Key does not exist (' . $key . ')');
                     } else {
                         $exists = false;
                     }
@@ -529,21 +537,6 @@ class ArrayHelper
         }
 
         return $exists;
-    }
-
-    /**
-     * @param $array
-     * @param $key
-     * @param $val
-     *
-     * @return array
-     *
-     * @author     Andreas Glaser
-     * @deprecated Use ArrayHelper::prepend() instead.
-     */
-    public static function unshiftAssoc($array, $key, $val)
-    {
-        return static::prepend($array, $val, $key);
     }
 
     /**
@@ -601,6 +594,35 @@ class ArrayHelper
         }
 
         return $result;
+    }
+
+    /**
+     * @param array $array
+     * @param null  $default
+     *
+     * @return mixed|null
+     * @deprecated Please use ArrayHelper::getFirstValue($array, $default) instead.
+     *
+     * @author     Andreas Glaser
+     */
+    public static function getFirstIndex($array, $default = null)
+    {
+        return static::getFirstValue($array, $default);
+    }
+
+    /**
+     * @param $array
+     * @param $key
+     * @param $val
+     *
+     * @return array
+     *
+     * @author     Andreas Glaser
+     * @deprecated Use ArrayHelper::prepend() instead.
+     */
+    public static function unshiftAssoc($array, $key, $val)
+    {
+        return static::prepend($array, $val, $key);
     }
 }
 

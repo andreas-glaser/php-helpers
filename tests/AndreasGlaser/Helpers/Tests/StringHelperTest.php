@@ -11,7 +11,7 @@ use AndreasGlaser\Helpers\StringHelper;
  *
  * @author  Andreas Glaser
  */
-class StringHelperTest extends \PHPUnit_Framework_TestCase
+class StringHelperTest extends BaseTest
 {
     /**
      * @var string

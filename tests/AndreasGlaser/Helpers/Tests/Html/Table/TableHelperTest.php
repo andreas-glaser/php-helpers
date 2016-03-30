@@ -5,6 +5,7 @@ namespace AndreasGlaser\Helpers\Tests\Html\Table;
 use AndreasGlaser\Helpers\Html\Table\Cell;
 use AndreasGlaser\Helpers\Html\Table\Row;
 use AndreasGlaser\Helpers\Html\Table\TableHelper;
+use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
  * Class TableHelperTest
@@ -12,7 +13,7 @@ use AndreasGlaser\Helpers\Html\Table\TableHelper;
  * @package AndreasGlaser\Helpers\Tests\Html\Table
  * @author  Andreas Glaser
  */
-class TableHelperTest extends \PHPUnit_Framework_TestCase
+class TableHelperTest extends BaseTest
 {
     /**
      * @throws \Exception

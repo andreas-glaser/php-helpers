@@ -13,7 +13,7 @@ use AndreasGlaser\Helpers\StringHelper;
  *
  * @author  Andreas Glaser
  */
-class HtmlHelperTest extends \PHPUnit_Framework_TestCase
+class HtmlHelperTest extends BaseTest
 {
     /**
      * @var \AndreasGlaser\Helpers\Html\AttributesHelper

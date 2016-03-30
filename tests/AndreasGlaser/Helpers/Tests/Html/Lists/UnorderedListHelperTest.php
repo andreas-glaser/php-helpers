@@ -4,6 +4,7 @@ namespace AndreasGlaser\Helpers\Tests\Html\Lists;
 
 use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\Html\Lists\UnorderedListHelper;
+use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
  * Class UnorderedListHelperTest
@@ -11,7 +12,7 @@ use AndreasGlaser\Helpers\Html\Lists\UnorderedListHelper;
  * @package AndreasGlaser\Helpers\Tests\Html\Lists
  * @author  Andreas Glaser
  */
-class UnorderedListHelperTest extends \PHPUnit_Framework_TestCase
+class UnorderedListHelperTest extends BaseTest
 {
     /**
      * @author Andreas Glaser

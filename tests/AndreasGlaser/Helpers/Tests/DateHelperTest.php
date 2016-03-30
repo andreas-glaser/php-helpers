@@ -10,7 +10,7 @@ use AndreasGlaser\Helpers\DateHelper;
  * @package AndreasGlaser\Helpers\Tests
  * @author  Andreas Glaser
  */
-class DateHelperTest extends \PHPUnit_Framework_TestCase
+class DateHelperTest extends BaseTest
 {
 
     /**

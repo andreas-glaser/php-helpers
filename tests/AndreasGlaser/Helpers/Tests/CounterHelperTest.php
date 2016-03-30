@@ -10,7 +10,7 @@ use AndreasGlaser\Helpers\CounterHelper;
  * @package AndreasGlaser\Helpers\Tests
  * @author  Andreas Glaser
  */
-class CounterHelperTest extends \PHPUnit_Framework_TestCase
+class CounterHelperTest extends BaseTest
 {
     /**
      * @author Andreas Glaser

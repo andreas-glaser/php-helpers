@@ -10,7 +10,7 @@ use AndreasGlaser\Helpers\JsonHelper;
  * @package AndreasGlaser\Helpers\Tests
  * @author  Andreas Glaser
  */
-class JsonHelperTest extends \PHPUnit_Framework_TestCase
+class JsonHelperTest extends BaseTest
 {
     /**
      * @author Andreas Glaser

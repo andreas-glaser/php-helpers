@@ -10,7 +10,7 @@ use AndreasGlaser\Helpers\NumberHelper;
  * @package AndreasGlaser\Helpers\Tests
  * @author  Andreas Glaser
  */
-class NumberHelperTest extends \PHPUnit_Framework_TestCase
+class NumberHelperTest extends BaseTest
 {
     public function testOrdinal()
     {

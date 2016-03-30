@@ -10,7 +10,7 @@ use AndreasGlaser\Helpers\ArrayHelper;
  * @package AndreasGlaser\Helpers\Tests
  * @author  Andreas Glaser
  */
-class ArrayHelperTest extends \PHPUnit_Framework_TestCase
+class ArrayHelperTest extends BaseTest
 {
     /**
      * Test array
@@ -89,20 +89,6 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('k6', ArrayHelper::getKeyByValue($testArray, '0', null, true));
         $this->assertEquals('k5', ArrayHelper::getKeyByValue($testArray, '0', null, false));
         $this->assertEquals('something', ArrayHelper::getKeyByValue($testArray, 'invalid', 'something'));
-    }
-
-    /**
-     * @author Andreas Glaser
-     */
-    public function testGetRandomValue()
-    {
-        $testArray = [
-            'k1' => 'v1',
-            'k2' => 'v2',
-            'k3' => 'v3',
-        ];
-
-        $this->assertTrue(in_array(ArrayHelper::getRandomValue($testArray), $testArray));
     }
 
     /**
@@ -361,6 +347,116 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testInsertBefore()
+    {
+        $this->todo();
+    }
+
+    public function testInsertAfter()
+    {
+        $this->todo();
+    }
+
+    public function testGetFirstValue()
+    {
+        $this->todo();
+    }
+
+    public function testGetLastValue()
+    {
+        $this->todo();
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testGetRandomValue()
+    {
+        $testArray = [
+            'k1' => 'v1',
+            'k2' => 'v2',
+            'k3' => 'v3',
+        ];
+
+        $this->assertTrue(in_array(ArrayHelper::getRandomValue($testArray), $testArray));
+    }
+
+    public function testRemoveFirstIndex()
+    {
+        $this->todo();
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testRemoveByValue()
+    {
+        $array = [
+            0 => '1',
+            1 => 2,
+            2 => true,
+            3 => false,
+            4 => null,
+        ];
+
+        $this->assertEquals(
+            [
+                0 => '1',
+                2 => true,
+                3 => false,
+                4 => null,
+            ],
+            ArrayHelper::removeByValue($array, 2)
+        );
+
+        $this->assertEquals(
+            [
+                0 => '1',
+                1 => 2,
+                2 => true,
+                3 => false,
+                4 => null,
+            ],
+            ArrayHelper::removeByValue($array, 1, true)
+        );
+
+        $this->assertEquals(
+            [
+                1 => 2,
+                2 => true,
+                3 => false,
+                4 => null,
+            ],
+            ArrayHelper::removeByValue($array, 1, false)
+        );
+    }
+
+    public function testKeysCamelToUnderscore()
+    {
+        $this->todo();
+    }
+
+    public function testUnsetEmptyValues()
+    {
+        $this->todo();
+    }
+
+    public function testImplodeIgnoreEmpty()
+    {
+        $this->todo();
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testImplodeKeys()
+    {
+        $this->assertEquals(
+            'rat,mouse,tiger,0,1,2',
+            ArrayHelper::implodeKeys(',', ['rat' => 1, 'mouse' => 2, 'tiger' => 3, null, [], 1])
+        );
+    }
+
     /**
      * @author Andreas Glaser
      */
@@ -381,6 +477,21 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(8, count($explodedArray));
         $this->assertTrue(($expectedArray === $explodedArray));
+    }
+
+    public function testValueToUpper()
+    {
+        $this->todo();
+    }
+
+    public function testIsAssoc()
+    {
+        $this->todo();
+    }
+
+    public function testAssocIndexesExist()
+    {
+        $this->todo();
     }
 
     /**
@@ -458,62 +569,6 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
             ArrayHelper::replaceValue($testArray, 'HONEY', 'jam', true, false)
-        );
-    }
-
-    /**
-     * @author Andreas Glaser
-     */
-    public function testImplodeKeys()
-    {
-        $this->assertEquals(
-            'rat,mouse,tiger,0,1,2',
-            ArrayHelper::implodeKeys(',', ['rat' => 1, 'mouse' => 2, 'tiger' => 3, null, [], 1])
-        );
-    }
-
-    /**
-     * @author Andreas Glaser
-     */
-    public function testRemoveByValue()
-    {
-        $array = [
-            0 => '1',
-            1 => 2,
-            2 => true,
-            3 => false,
-            4 => null,
-        ];
-
-        $this->assertEquals(
-            [
-                0 => '1',
-                2 => true,
-                3 => false,
-                4 => null,
-            ],
-            ArrayHelper::removeByValue($array, 2)
-        );
-
-        $this->assertEquals(
-            [
-                0 => '1',
-                1 => 2,
-                2 => true,
-                3 => false,
-                4 => null,
-            ],
-            ArrayHelper::removeByValue($array, 1, true)
-        );
-
-        $this->assertEquals(
-            [
-                1 => 2,
-                2 => true,
-                3 => false,
-                4 => null,
-            ],
-            ArrayHelper::removeByValue($array, 1, false)
         );
     }
 

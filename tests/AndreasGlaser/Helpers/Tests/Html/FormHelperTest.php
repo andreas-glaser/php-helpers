@@ -5,6 +5,7 @@ namespace AndreasGlaser\Helpers\Tests\Html;
 use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\Html\BootstrapHelper;
 use AndreasGlaser\Helpers\Html\FormHelper;
+use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
  * Class FormHelperTest
@@ -12,7 +13,7 @@ use AndreasGlaser\Helpers\Html\FormHelper;
  * @package AndreasGlaser\Helpers\Tests\Html
  * @author  Andreas Glaser
  */
-class FormHelperTest extends \PHPUnit_Framework_TestCase
+class FormHelperTest extends BaseTest
 {
     /**
      * @author Andreas Glaser

@@ -10,7 +10,7 @@ use AndreasGlaser\Helpers\RandomHelper;
  * @package AndreasGlaser\Helpers\Tests
  * @author  Andreas Glaser
  */
-class RandomHelperTest extends \PHPUnit_Framework_TestCase
+class RandomHelperTest extends BaseTest
 {
     /**
      * @author Andreas Glaser

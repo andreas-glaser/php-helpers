@@ -4,6 +4,7 @@ namespace AndreasGlaser\Helpers\Tests\Html\Lists;
 
 use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\Html\Lists\DescriptionListHelper;
+use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
  * Class DescriptionListHelperTest
@@ -11,7 +12,7 @@ use AndreasGlaser\Helpers\Html\Lists\DescriptionListHelper;
  * @package AndreasGlaser\Helpers\Tests\Html\Lists
  * @author  Andreas Glaser
  */
-class DescriptionListHelperTest extends \PHPUnit_Framework_TestCase
+class DescriptionListHelperTest extends BaseTest
 {
     /**
      * @author Andreas Glaser

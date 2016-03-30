@@ -3,6 +3,7 @@
 namespace AndreasGlaser\Helpers\Tests\Html;
 
 use AndreasGlaser\Helpers\Html\AttributesHelper;
+use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
  * Class AttributesHelperTest
@@ -10,7 +11,7 @@ use AndreasGlaser\Helpers\Html\AttributesHelper;
  * @package AndreasGlaser\Helpers\Tests\Html
  * @author  Andreas Glaser
  */
-class AttributesHelperTest extends \PHPUnit_Framework_TestCase
+class AttributesHelperTest extends BaseTest
 {
 
     /**

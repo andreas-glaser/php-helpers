@@ -4,6 +4,7 @@ namespace AndreasGlaser\Helpers\Tests\Html\Lists;
 
 use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\Html\Lists\OrderedListHelper;
+use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
  * Class OrderedListHelperTest
@@ -11,7 +12,7 @@ use AndreasGlaser\Helpers\Html\Lists\OrderedListHelper;
  * @package AndreasGlaser\Helpers\Tests\Html\Lists
  * @author  Andreas Glaser
  */
-class OrderedListHelperTest extends \PHPUnit_Framework_TestCase
+class OrderedListHelperTest extends BaseTest
 {
     /**
      * @author Andreas Glaser

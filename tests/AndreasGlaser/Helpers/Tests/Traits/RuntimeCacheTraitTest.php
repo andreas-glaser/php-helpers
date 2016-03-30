@@ -2,6 +2,7 @@
 
 namespace AndreasGlaser\Helpers\Tests\Traits;
 
+use AndreasGlaser\Helpers\Tests\BaseTest;
 use AndreasGlaser\Helpers\Traits\RuntimeCacheTrait;
 
 /**
@@ -10,7 +11,7 @@ use AndreasGlaser\Helpers\Traits\RuntimeCacheTrait;
  * @package AndreasGlaser\Helpers\Tests\Traits
  * @author  Andreas Glaser
  */
-class RuntimeCacheTraitTest extends \PHPUnit_Framework_TestCase
+class RuntimeCacheTraitTest extends BaseTest
 {
     public function test()
     {

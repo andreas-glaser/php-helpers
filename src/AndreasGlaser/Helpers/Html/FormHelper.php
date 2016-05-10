@@ -39,7 +39,7 @@ class FormHelper
     }
 
     /**
-     * @param                                                         $name
+     * @param string                                                  $name
      * @param null                                                    $value
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
@@ -57,7 +57,263 @@ class FormHelper
     }
 
     /**
-     * @param                                                         $name
+     * @param string                                                  $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function password($name, $value = null, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'password');
+        $attributesHelper->set('value', $value);
+
+        return '<input' . $attributesHelper . ' />';
+    }
+
+    /**
+     * @param string                                                  $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function email($name, $value = null, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'email');
+        $attributesHelper->set('value', $value);
+
+        return '<input' . $attributesHelper . ' />';
+    }
+
+    /**
+     * @param string                                                  $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function color($name, $value = null, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'color');
+        $attributesHelper->set('value', $value);
+
+        return '<input' . $attributesHelper . ' />';
+    }
+
+    /**
+     * @param string                                                  $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function date($name, $value = null, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'date');
+        $attributesHelper->set('value', $value);
+
+        return '<input' . $attributesHelper . ' />';
+    }
+
+    /**
+     * @param string                                                  $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function datetime($name, $value = null, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'datetime');
+        $attributesHelper->set('value', $value);
+
+        return '<input' . $attributesHelper . ' />';
+    }
+
+    /**
+     * @param string                                                  $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function datetimeLocal($name, $value = null, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'datetime-local');
+        $attributesHelper->set('value', $value);
+
+        return '<input' . $attributesHelper . ' />';
+    }
+
+    /**
+     * @param string                                                  $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function month($name, $value = null, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'month');
+        $attributesHelper->set('value', $value);
+
+        return '<input' . $attributesHelper . ' />';
+    }
+
+    /**
+     * @param string                                                  $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function number($name, $value = null, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'number');
+        $attributesHelper->set('value', $value);
+
+        return '<input' . $attributesHelper . ' />';
+    }
+
+    /**
+     * @param string                                                  $name
+     * @param integer                                                 $value
+     * @param integer                                                 $min
+     * @param integer                                                 $max
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function range($name, $value, $min, $max, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'range');
+        $attributesHelper->set('min', $min);
+        $attributesHelper->set('max', $max);
+        $attributesHelper->set('value', $value);
+
+        return '<input' . $attributesHelper . ' />';
+    }
+
+    /**
+     * @param string                                                  $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function search($name, $value = null, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'search');
+        $attributesHelper->set('value', $value);
+
+        return '<input' . $attributesHelper . ' />';
+    }
+
+    /**
+     * @param string                                                  $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function tel($name, $value = null, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'tel');
+        $attributesHelper->set('value', $value);
+
+        return '<input' . $attributesHelper . ' />';
+    }
+
+    /**
+     * @param string                                                  $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function time($name, $value = null, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'time');
+        $attributesHelper->set('value', $value);
+
+        return '<input' . $attributesHelper . ' />';
+    }
+
+    /**
+     * @param string                                                  $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function url($name, $value = null, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'url');
+        $attributesHelper->set('value', $value);
+
+        return '<input' . $attributesHelper . ' />';
+    }
+
+    /**
+     * @param string                                                  $name
+     * @param null                                                    $value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     *
+     * @return string
+     * @author Andreas Glaser
+     */
+    public static function week($name, $value = null, $attributesHelper = null)
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('name', $name);
+        $attributesHelper->set('type', 'week');
+        $attributesHelper->set('value', $value);
+
+        return '<input' . $attributesHelper . ' />';
+    }
+
+    /**
+     * @param string                                                  $name
      * @param null                                                    $value
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
@@ -75,7 +331,7 @@ class FormHelper
     }
 
     /**
-     * @param                                                         $name
+     * @param string                                                  $name
      * @param null                                                    $value
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
@@ -91,7 +347,7 @@ class FormHelper
     }
 
     /**
-     * @param                                                         $name
+     * @param string                                                  $name
      * @param null                                                    $value
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
@@ -108,7 +364,7 @@ class FormHelper
     }
 
     /**
-     * @param                                                         $name
+     * @param string                                                  $name
      * @param null                                                    $value
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
@@ -246,7 +502,7 @@ class FormHelper
     }
 
     /**
-     * @param                                                         $name
+     * @param string                                                  $name
      * @param null                                                    $value
      * @param bool                                                    $checked
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
@@ -269,7 +525,7 @@ class FormHelper
     }
 
     /**
-     * @param                                                         $name
+     * @param string                                                  $name
      * @param null                                                    $value
      * @param bool                                                    $checked
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper

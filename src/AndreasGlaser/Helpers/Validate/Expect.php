@@ -107,4 +107,16 @@ class Expect
             throw new UnexpectedTypeException($value, 'callable');
         }
     }
+
+    /**
+     * @param $value
+     *
+     * @author Andreas Glaser
+     */
+    public static function isScalar($value)
+    {
+        if (!is_scalar($value)) {
+            throw new UnexpectedTypeException($value, 'scalar');
+        }
+    }
 }

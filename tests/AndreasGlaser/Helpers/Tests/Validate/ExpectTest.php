@@ -85,4 +85,13 @@ class ExpectTest extends BaseTest
         $this->setExpectedException(UnexpectedTypeException::class, 'Expected argument of type "callable", "string" given');
         Expect::isCallable('hello');
     }
+
+    /**
+     * @author Andreas Glaser
+     */
+    public function testIsScalar()
+    {
+        $this->setExpectedException(UnexpectedTypeException::class, 'Expected argument of type "scalar", "stdClass" given');
+        Expect::isScalar(new \stdClass());
+    }
 }

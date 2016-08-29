@@ -89,9 +89,9 @@ class ExpectTest extends BaseTest
     /**
      * @author Andreas Glaser
      */
-    public function testIsScalar()
+    public function testScalar()
     {
         $this->setExpectedException(UnexpectedTypeException::class, 'Expected argument of type "scalar", "stdClass" given');
-        Expect::isScalar(new \stdClass());
+        Expect::scalar(new \stdClass());
     }
 }

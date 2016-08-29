@@ -113,7 +113,7 @@ class Expect
      *
      * @author Andreas Glaser
      */
-    public static function isScalar($value)
+    public static function scalar($value)
     {
         if (!is_scalar($value)) {
             throw new UnexpectedTypeException($value, 'scalar');

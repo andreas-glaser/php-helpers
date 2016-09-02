@@ -45,7 +45,7 @@ class ArrayHelper
     {
         $key = array_search($value, $array, $strict);
 
-        return $key ? $key : $default;
+        return $key !== false ? $key : $default;
     }
 
     /**

@@ -80,6 +80,7 @@ class ArrayHelperTest extends BaseTest
             'k4' => 'duplicate',
             'k5' => 0,
             'k6' => '0',
+            0    => 'test',
         ];
 
         $this->assertEquals('k1', ArrayHelper::getKeyByValue($testArray, 'v1'));
@@ -89,6 +90,7 @@ class ArrayHelperTest extends BaseTest
         $this->assertEquals('k6', ArrayHelper::getKeyByValue($testArray, '0', null, true));
         $this->assertEquals('k5', ArrayHelper::getKeyByValue($testArray, '0', null, false));
         $this->assertEquals('something', ArrayHelper::getKeyByValue($testArray, 'invalid', 'something'));
+        $this->assertEquals('0', ArrayHelper::getKeyByValue($testArray, 'test'));
     }
 
     /**

@@ -6,6 +6,8 @@ use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
 use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
 use AndreasGlaser\Helpers\Interfaces\RendererInterface;
+use AndreasGlaser\Helpers\StringHelper;
+use AndreasGlaser\Helpers\Validate\Expect;
 
 /**
  * Class Cell
@@ -70,14 +72,16 @@ class Cell implements RenderableInterface, FactoryInterface
     }
 
     /**
-     * @param $colspan
+     * @param integer $colSpan
      *
      * @return $this
      * @author Andreas Glaser
      */
-    public function setColspan($colspan)
+    public function setColSpan($colSpan)
     {
-        $this->attributes->set('colspan', (int)$colspan);
+        Expect::int($colSpan);
+
+        $this->attributes->set('colspan', (int)$colSpan);
 
         return $this;
     }
@@ -86,9 +90,33 @@ class Cell implements RenderableInterface, FactoryInterface
      * @return null
      * @author Andreas Glaser
      */
-    public function getColspan()
+    public function getColSpan()
     {
         return $this->attributes->get('colspan');
+    }
+
+    /**
+     * @param integer $rowSpan
+     *
+     * @return $this
+     * @author Andreas Glaser
+     */
+    public function setRowSpan($rowSpan)
+    {
+        Expect::int($rowSpan);
+
+        $this->attributes->set('rowspan', $rowSpan);
+
+        return $this;
+    }
+
+    /**
+     * @return null
+     * @author Andreas Glaser
+     */
+    public function getRowSpan()
+    {
+        return $this->attributes->get('rowspan');
     }
 
     /**
@@ -96,13 +124,16 @@ class Cell implements RenderableInterface, FactoryInterface
      *
      * @return $this
      * @throws \Exception
-     * @author Andreas Glaser
+     * @author     Andreas Glaser
+     *
+     * @deprecated Not supported in HTML5. http://www.w3schools.com/tags/att_td_scope.asp
      */
     public function setScope($scope)
     {
-        // enforce valid count
-        if ($scope !== 'col' && $scope !== 'colgroup' && $scope !== 'row' && $scope !== 'rowgroup') {
-            throw new \Exception('Invalid scope provided (:1). Allowed are: col, colgroup, row, rowgroup', [':1' => $scope]);
+        $validScopes = ['col', 'row', 'colgroup', 'rowgroup'];
+
+        if (!StringHelper::isOneOf($scope, $validScopes)) {
+            throw new \Exception(sprintf('"%s" is not a valid <td> scope. Valid are: %s', $scope, implode(', ', $validScopes)));
         }
 
         $this->attributes->set('scope', $scope);
@@ -111,8 +142,10 @@ class Cell implements RenderableInterface, FactoryInterface
     }
 
     /**
-     * @return null
-     * @author Andreas Glaser
+     * @return string|null
+     * @author     Andreas Glaser
+     *
+     * @deprecated Not supported in HTML5. http://www.w3schools.com/tags/att_td_scope.asp
      */
     public function getScope()
     {

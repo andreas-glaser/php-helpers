@@ -1,14 +1,13 @@
 <?php
 
-namespace AndreasGlaser\Helpers\Html;
+namespace AndreasGlaser\Helpers\Http;
 
-use AndreasGlaser\Helpers\Http;
+use AndreasGlaser\Helpers\ArrayHelper;
 
 /**
  * Class UrlHelper
  *
- * @package Helpers\Html
- *
+ * @package AndreasGlaser\Helpers\Http
  * @author  Andreas Glaser
  */
 class UrlHelper
@@ -30,13 +29,14 @@ class UrlHelper
             if ($parameters === null) {
                 $parameters = $_GET;
             } else {
-                $parameters = array_merge($_GET, $parameters);
+                $parameters = ArrayHelper::merge($_GET, $parameters);
             }
         }
 
         if (empty($parameters)) {
             return null;
         }
+
         $query = http_build_query($parameters, '', '&');
 
         return ($query === '') ? '' : ('?' . $query);
@@ -90,6 +90,7 @@ class UrlHelper
         }
 
         $uri = $_SERVER['REQUEST_URI'];
+
         if (!$inlcudeQuery) {
             $uri = substr($uri, 0, strpos($uri, '?'));
         }

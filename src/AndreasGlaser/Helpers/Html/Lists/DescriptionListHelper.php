@@ -3,6 +3,8 @@
 namespace AndreasGlaser\Helpers\Html\Lists;
 
 use AndreasGlaser\Helpers\Html\AttributesHelper;
+use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
+use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
 use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 
 /**
@@ -11,13 +13,49 @@ use AndreasGlaser\Helpers\Interfaces\RendererInterface;
  * @package AndreasGlaser\Helpers\Html\Lists
  * @author  Andreas Glaser
  */
-class DescriptionListHelper extends BaseListHelper
+class DescriptionListHelper implements FactoryInterface, RenderableInterface
 {
+
     /**
-     * @param                                                         $term
-     * @param                                                         $content
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $termAttributes
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $contentAttributes
+     * @var \AndreasGlaser\Helpers\Html\AttributesHelper
+     */
+    protected $attributes;
+
+    /**
+     * @var array
+     */
+    protected $items = [];
+
+    /**
+     * @param null|AttributesHelper|array $attributes
+     *
+     * @return \AndreasGlaser\Helpers\Html\Lists\DescriptionListHelper
+     * @author Andreas Glaser
+     */
+    public static function f($attributes = null)
+    {
+        return new DescriptionListHelper($attributes);
+    }
+
+    /**
+     * DescriptionListHelper constructor.
+     *
+     * @param null|AttributesHelper|array $attributes
+     *
+     * @author Andreas Glaser
+     */
+    public function __construct($attributes = null)
+    {
+        $this->attributes = AttributesHelper::f($attributes);
+
+        return $this;
+    }
+
+    /**
+     * @param string $term
+     * @param string $content
+     * @param null   $termAttributes
+     * @param null   $contentAttributes
      *
      * @return $this
      * @author Andreas Glaser
@@ -25,7 +63,7 @@ class DescriptionListHelper extends BaseListHelper
     public function addItem($term, $content, $termAttributes = null, $contentAttributes = null)
     {
         $index = count($this->items);
-        $this->items[$index]['term'] = $content;
+        $this->items[$index]['term'] = $term;
         $this->items[$index]['content'] = $content;
         $this->items[$index]['termAttributes'] = AttributesHelper::f($termAttributes);
         $this->items[$index]['contentAttributes'] = AttributesHelper::f($contentAttributes);

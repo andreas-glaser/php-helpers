@@ -4,4 +4,4 @@ A simple php library of various helper functions and classes.
 
 ##Requirements
 
- - PHP 7.0+
+ - PHP 5.4+

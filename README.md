@@ -1,7 +1,18 @@
 #php-helpers
-
 A simple php library of various helper functions and classes.
 
-##Requirements
+##Installation
+```shell
+composer require andreas-glaser/andreas-glaser
+```
 
- - PHP 5.4+
+##Usage
+```php
+<?php
+
+namespace TestApp;
+
+use AndreasGlaser\Helpers\StringHelper;
+
+$myString = 'This is great';
+var_dump(StringHelper::startsWith($myString, 'This is')); // true

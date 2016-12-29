@@ -3,7 +3,7 @@ A simple php library of various helper functions and classes.
 
 ##Installation
 ```shell
-composer require andreas-glaser/andreas-glaser
+composer require andreas-glaser/php-helpers
 ```
 
 ##Usage

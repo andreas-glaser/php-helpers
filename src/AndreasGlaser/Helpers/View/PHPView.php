@@ -2,130 +2,56 @@
 
 namespace AndreasGlaser\Helpers\View;
 
-use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
-use AndreasGlaser\Helpers\Validate\Expect;
-
 /**
  * Class PHPView
+ *
+ * This is a stripped down version of:
+ * https://github.com/kohana/core/blob/0b511b13e13f04064f28cfcef8a2f9cc8d12c268/classes/Kohana/View.php
  *
  * @package AndreasGlaser\Helpers\View
  * @author  Andreas Glaser
  */
-class PHPView implements FactoryInterface
+class PHPView
 {
-    /**
-     * @var array
-     */
     protected static $globalData = [];
-
-    /**
-     * @var array
-     */
+    protected $file;
     protected $data = [];
 
-    /**
-     * @var
-     */
-    protected $file;
-
-    /**
-     * PHPView constructor.
-     *
-     * @param string|null $file
-     * @param array       $data
-     *
-     * @author Andreas Glaser
-     */
-    public function __construct($file = null, array $data = [])
+    public function __construct($file = null, array $data = null)
     {
         if ($file) {
             $this->setFile($file);
         }
 
-        $this->data = $data;
+        if ($data) {
+            $this->data = $data + $this->data;
+        }
     }
 
-    /**
-     * @param       $file
-     * @param array $data
-     *
-     * @return \AndreasGlaser\Helpers\View\PHPView
-     * @author     Andreas Glaser
-     *
-     * @deprecated Use PHPView::f()
-     */
-    public static function factory($file = null, array $data = [])
-    {
-        return static::f($file, $data);
-    }
-
-    /**
-     * @param $file
-     * @param $data
-     *
-     * @return \AndreasGlaser\Helpers\View\PHPView
-     * @author Andreas Glaser
-     */
-    public static function f($file = null, array $data = [])
+    public static function factory($file, array $data)
     {
         return new PHPView($file, $data);
     }
 
-    /**
-     * @param string $filePath
-     *
-     * @return $this
-     * @throws \Exception
-     * @author Andreas Glaser
-     */
-    public function setFile($filePath)
+    public function setFile($file)
     {
-        Expect::str($filePath);
-
-        if (!file_exists($filePath)) {
+        if (!file_exists($file)) {
             throw new \Exception(strtr('The requested view :file could not be found', [
-                ':file' => $filePath,
+                ':file' => $file,
             ]));
         }
 
-        if (!is_readable($filePath)) {
+        if (!is_readable($file)) {
             throw new \Exception(strtr('The requested view :file could not be read', [
-                ':file' => $filePath,
+                ':file' => $file,
             ]));
         }
 
-        $this->file = $filePath;
+        $this->file = $file;
 
         return $this;
     }
 
-    /**
-     * @param $key
-     * @param $value
-     *
-     * @author Andreas Glaser
-     */
-    public static function setGlobal($key, $value)
-    {
-        static::$globalData[$key] = $value;
-    }
-
-    /**
-     * @return array
-     * @author Andreas Glaser
-     */
-    public static function getGlobalData()
-    {
-        return self::$globalData;
-    }
-
-    /**
-     * @param $key
-     * @param $value
-     *
-     * @return $this
-     * @author Andreas Glaser
-     */
     public function set($key, $value)
     {
         $this->data[$key] = $value;
@@ -133,22 +59,31 @@ class PHPView implements FactoryInterface
         return $this;
     }
 
-    /**
-     * @return array
-     * @author Andreas Glaser
-     */
-    public function getData()
+    public static function setGlobal($key, $value)
     {
-        return $this->data;
+        static::$globalData[$key] = $value;
     }
 
-    /**
-     * @param null $file
-     *
-     * @return string
-     * @throws \Exception
-     * @author Andreas Glaser
-     */
+    protected static function capture($fileName, array $data)
+    {
+        extract($data, EXTR_SKIP);
+
+        if (!empty(static::$globalData)) {
+            extract(static::$globalData, EXTR_SKIP | EXTR_REFS);
+        }
+
+        ob_start();
+
+        try {
+            require $fileName;
+        } catch (\Exception $e) {
+            ob_end_clean();
+            throw $e;
+        }
+
+        return ob_get_clean();
+    }
+    
     public function render($file = null)
     {
         if ($file) {
@@ -159,39 +94,9 @@ class PHPView implements FactoryInterface
             throw new \Exception('You must set the file to use within your view before rendering');
         }
 
-        return $this->capture($this->file, $this->data, static::$globalData);
+        return static::capture($this->file, $this->data);
     }
 
-    /**
-     * @param string $viewFileName
-     * @param array  $data
-     * @param array  $global
-     *
-     * @return string
-     * @throws \Exception
-     * @author Andreas Glaser
-     */
-    protected function capture($viewFileName, array $data = [], array $global = [])
-    {
-        extract($global, EXTR_SKIP);
-        extract($data, EXTR_SKIP);
-
-        ob_start();
-
-        try {
-            require $viewFileName;
-        } catch (\Exception $e) {
-            ob_end_clean();
-            throw $e;
-        }
-
-        return ob_get_clean();
-    }
-
-    /**
-     * @return string
-     * @author Andreas Glaser
-     */
     public function __toString()
     {
         return $this->render();

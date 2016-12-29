@@ -2,56 +2,130 @@
 
 namespace AndreasGlaser\Helpers\View;
 
+use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
+use AndreasGlaser\Helpers\Validate\Expect;
+
 /**
  * Class PHPView
- *
- * This is a stripped down version of:
- * https://github.com/kohana/core/blob/0b511b13e13f04064f28cfcef8a2f9cc8d12c268/classes/Kohana/View.php
  *
  * @package AndreasGlaser\Helpers\View
  * @author  Andreas Glaser
  */
-class PHPView
+class PHPView implements FactoryInterface
 {
+    /**
+     * @var array
+     */
     protected static $globalData = [];
-    protected $file;
+
+    /**
+     * @var array
+     */
     protected $data = [];
 
-    public function __construct($file = null, array $data = null)
+    /**
+     * @var
+     */
+    protected $file;
+
+    /**
+     * PHPView constructor.
+     *
+     * @param string|null $file
+     * @param array       $data
+     *
+     * @author Andreas Glaser
+     */
+    public function __construct($file = null, array $data = [])
     {
         if ($file) {
             $this->setFile($file);
         }
 
-        if ($data) {
-            $this->data = $data + $this->data;
-        }
+        $this->data = $data;
     }
 
-    public static function factory($file, array $data)
+    /**
+     * @param       $file
+     * @param array $data
+     *
+     * @return \AndreasGlaser\Helpers\View\PHPView
+     * @author     Andreas Glaser
+     *
+     * @deprecated Use PHPView::f()
+     */
+    public static function factory($file = null, array $data = [])
+    {
+        return static::f($file, $data);
+    }
+
+    /**
+     * @param $file
+     * @param $data
+     *
+     * @return \AndreasGlaser\Helpers\View\PHPView
+     * @author Andreas Glaser
+     */
+    public static function f($file = null, array $data = [])
     {
         return new PHPView($file, $data);
     }
 
-    public function setFile($file)
+    /**
+     * @param string $filePath
+     *
+     * @return $this
+     * @throws \Exception
+     * @author Andreas Glaser
+     */
+    public function setFile($filePath)
     {
-        if (!file_exists($file)) {
+        Expect::str($filePath);
+
+        if (!file_exists($filePath)) {
             throw new \Exception(strtr('The requested view :file could not be found', [
-                ':file' => $file,
+                ':file' => $filePath,
             ]));
         }
 
-        if (!is_readable($file)) {
+        if (!is_readable($filePath)) {
             throw new \Exception(strtr('The requested view :file could not be read', [
-                ':file' => $file,
+                ':file' => $filePath,
             ]));
         }
 
-        $this->file = $file;
+        $this->file = $filePath;
 
         return $this;
     }
 
+    /**
+     * @param $key
+     * @param $value
+     *
+     * @author Andreas Glaser
+     */
+    public static function setGlobal($key, $value)
+    {
+        static::$globalData[$key] = $value;
+    }
+
+    /**
+     * @return array
+     * @author Andreas Glaser
+     */
+    public static function getGlobalData()
+    {
+        return self::$globalData;
+    }
+
+    /**
+     * @param $key
+     * @param $value
+     *
+     * @return $this
+     * @author Andreas Glaser
+     */
     public function set($key, $value)
     {
         $this->data[$key] = $value;
@@ -59,31 +133,22 @@ class PHPView
         return $this;
     }
 
-    public static function setGlobal($key, $value)
+    /**
+     * @return array
+     * @author Andreas Glaser
+     */
+    public function getData()
     {
-        static::$globalData[$key] = $value;
+        return $this->data;
     }
 
-    protected static function capture($fileName, array $data)
-    {
-        extract($data, EXTR_SKIP);
-
-        if (!empty(static::$globalData)) {
-            extract(static::$globalData, EXTR_SKIP | EXTR_REFS);
-        }
-
-        ob_start();
-
-        try {
-            require $fileName;
-        } catch (\Exception $e) {
-            ob_end_clean();
-            throw $e;
-        }
-
-        return ob_get_clean();
-    }
-    
+    /**
+     * @param null $file
+     *
+     * @return string
+     * @throws \Exception
+     * @author Andreas Glaser
+     */
     public function render($file = null)
     {
         if ($file) {
@@ -94,9 +159,39 @@ class PHPView
             throw new \Exception('You must set the file to use within your view before rendering');
         }
 
-        return static::capture($this->file, $this->data);
+        return $this->capture($this->file, $this->data, static::$globalData);
     }
 
+    /**
+     * @param string $viewFileName
+     * @param array  $data
+     * @param array  $global
+     *
+     * @return string
+     * @throws \Exception
+     * @author Andreas Glaser
+     */
+    protected function capture($viewFileName, array $data = [], array $global = [])
+    {
+        extract($global, EXTR_SKIP);
+        extract($data, EXTR_SKIP);
+
+        ob_start();
+
+        try {
+            require $viewFileName;
+        } catch (\Exception $e) {
+            ob_end_clean();
+            throw $e;
+        }
+
+        return ob_get_clean();
+    }
+
+    /**
+     * @return string
+     * @author Andreas Glaser
+     */
     public function __toString()
     {
         return $this->render();

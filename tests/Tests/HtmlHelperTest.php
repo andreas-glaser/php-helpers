@@ -4,7 +4,6 @@ namespace AndreasGlaser\Helpers\Tests;
 
 use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\HtmlHelper;
-use AndreasGlaser\Helpers\StringHelper;
 
 /**
  * Class HtmlHelperTest

@@ -16,7 +16,7 @@ class RequestHelper
      */
     public static function isCli()
     {
-        return isset($_SERVER['REQUEST_METHOD']);
+        return !isset($_SERVER['REQUEST_METHOD']);
     }
 
     /**

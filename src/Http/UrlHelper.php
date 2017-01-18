@@ -53,20 +53,24 @@ class UrlHelper
     public static function currentUrl($includeQuery = true, $urlEncode = false)
     {
         // cli application
-        if (!isset($_SERVER['HTTPS'])) {
+        if (RequestHelper::isCli()) {
             return null;
         }
 
         $url = 'http';
-        if ($_SERVER['HTTPS'] === 'on') {
+
+        if (RequestHelper::isHttps()) {
             $url .= 's';
         }
+
         $url .= '://';
+
         if ((int)$_SERVER['SERVER_PORT'] !== 80) {
             $url .= $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['REQUEST_URI'];
         } else {
             $url .= $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
         }
+
         if (!$includeQuery) {
             $url = substr($url, 0, strpos($url, '?'));
         }
@@ -85,7 +89,7 @@ class UrlHelper
     public static function currentUri($inlcudeQuery = true, $encode = false)
     {
         // cli application
-        if (!isset($_SERVER['HTTPS'])) {
+        if (RequestHelper::isCli()) {
             return null;
         }
 

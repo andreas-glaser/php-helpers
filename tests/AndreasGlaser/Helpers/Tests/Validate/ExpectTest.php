@@ -2,7 +2,6 @@
 
 namespace AndreasGlaser\Helpers\Tests\Validate;
 
-use AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException;
 use AndreasGlaser\Helpers\Tests\BaseTest;
 use AndreasGlaser\Helpers\Validate\Expect;
 
@@ -19,7 +18,7 @@ class ExpectTest extends BaseTest
      */
     public function testInt()
     {
-        $this->setExpectedException(UnexpectedTypeException::class, 'Expected argument of type "integer", "string" given');
+        $this->setExpectedException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException', 'Expected argument of type "integer", "string" given');
         Expect::int('22');
     }
 
@@ -28,7 +27,7 @@ class ExpectTest extends BaseTest
      */
     public function testFloat()
     {
-        $this->setExpectedException(UnexpectedTypeException::class, 'Expected argument of type "float", "integer" given');
+        $this->setExpectedException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException', 'Expected argument of type "float", "integer" given');
         Expect::float(2);
     }
 
@@ -37,7 +36,7 @@ class ExpectTest extends BaseTest
      */
     public function testBool()
     {
-        $this->setExpectedException(UnexpectedTypeException::class, 'Expected argument of type "boolean", "integer" given');
+        $this->setExpectedException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException', 'Expected argument of type "boolean", "integer" given');
         Expect::bool(1);
     }
 
@@ -46,7 +45,7 @@ class ExpectTest extends BaseTest
      */
     public function testStr()
     {
-        $this->setExpectedException(UnexpectedTypeException::class, 'Expected argument of type "string", "boolean" given');
+        $this->setExpectedException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException', 'Expected argument of type "string", "boolean" given');
         Expect::str(true);
     }
 
@@ -55,7 +54,7 @@ class ExpectTest extends BaseTest
      */
     public function testArr()
     {
-        $this->setExpectedException(UnexpectedTypeException::class, 'Expected argument of type "array", "stdClass" given');
+        $this->setExpectedException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException', 'Expected argument of type "array", "stdClass" given');
         Expect::arr(new \stdClass());
     }
 
@@ -64,7 +63,7 @@ class ExpectTest extends BaseTest
      */
     public function testObj()
     {
-        $this->setExpectedException(UnexpectedTypeException::class, 'Expected argument of type "object", "array" given');
+        $this->setExpectedException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException', 'Expected argument of type "object", "array" given');
         Expect::obj([]);
     }
 
@@ -73,7 +72,7 @@ class ExpectTest extends BaseTest
      */
     public function testRes()
     {
-        $this->setExpectedException(UnexpectedTypeException::class, 'Expected argument of type "resource", "boolean" given');
+        $this->setExpectedException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException', 'Expected argument of type "resource", "boolean" given');
         Expect::res(false);
     }
 
@@ -82,7 +81,7 @@ class ExpectTest extends BaseTest
      */
     public function testIsCallable()
     {
-        $this->setExpectedException(UnexpectedTypeException::class, 'Expected argument of type "callable", "string" given');
+        $this->setExpectedException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException', 'Expected argument of type "callable", "string" given');
         Expect::isCallable('hello');
     }
 
@@ -91,7 +90,7 @@ class ExpectTest extends BaseTest
      */
     public function testScalar()
     {
-        $this->setExpectedException(UnexpectedTypeException::class, 'Expected argument of type "scalar", "stdClass" given');
+        $this->setExpectedException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException', 'Expected argument of type "scalar", "stdClass" given');
         Expect::scalar(new \stdClass());
     }
 }

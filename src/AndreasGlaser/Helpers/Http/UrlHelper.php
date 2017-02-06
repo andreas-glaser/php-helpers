@@ -79,14 +79,14 @@ class UrlHelper
     }
 
     /**
-     * @param bool $inlcudeQuery
+     * @param bool $includeQueryParams
      * @param bool $encode
      *
      * @return null|string
      *
      * @author Andreas Glaser
      */
-    public static function currentUri($inlcudeQuery = true, $encode = false)
+    public static function currentUri($includeQueryParams = true, $encode = false)
     {
         // cli application
         if (RequestHelper::isCli()) {
@@ -95,8 +95,11 @@ class UrlHelper
 
         $uri = $_SERVER['REQUEST_URI'];
 
-        if (!$inlcudeQuery) {
-            $uri = substr($uri, 0, strpos($uri, '?'));
+
+        if (!$includeQueryParams) {
+            if ($separatorPosition = strpos($uri, '?')) {
+                $uri = substr($uri, 0, $separatorPosition);
+            }
         }
 
         return $encode ? urlencode($uri) : $uri;

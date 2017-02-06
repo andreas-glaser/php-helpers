@@ -20,8 +20,8 @@ class JsonHelperTest extends BaseTest
         $this->assertTrue(JsonHelper::isValid(123));
         $this->assertTrue(JsonHelper::isValid(123.43));
         $this->assertTrue(JsonHelper::isValid(true));
-        $this->assertFalse(JsonHelper::isValid(false));
-        $this->assertFalse(JsonHelper::isValid(null));
+        $this->assertTrue(JsonHelper::isValid(false));
+        $this->assertTrue(JsonHelper::isValid(null));
         $this->assertTrue(JsonHelper::isValid('true'));
         $this->assertTrue(JsonHelper::isValid('false'));
         $this->assertTrue(JsonHelper::isValid('null'));

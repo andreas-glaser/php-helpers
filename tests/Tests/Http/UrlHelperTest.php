@@ -48,6 +48,14 @@ class UrlHelperTest extends BaseTest
      */
     public function testCurrentUri()
     {
-        // todo
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['REQUEST_URI'] = '/index.php/home?someVar=123';
+
+        $this->assertEquals('/index.php/home?someVar=123', UrlHelper::currentUri());
+        $this->assertEquals('/index.php/home', UrlHelper::currentUri(false));
+        $this->assertEquals('%2Findex.php%2Fhome', UrlHelper::currentUri(false, true));
+
+        $_SERVER['REQUEST_METHOD'] = null;
+        $_SERVER['REQUEST_URI'] = null;
     }
 }

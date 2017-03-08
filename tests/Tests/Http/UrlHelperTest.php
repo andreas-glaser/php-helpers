@@ -16,6 +16,44 @@ class UrlHelperTest extends BaseTest
     /**
      * @author Andreas Glaser
      */
+    public function testProtocolHostPort()
+    {
+        $serverVars = $_SERVER;
+
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['SERVER_NAME'] = 'example.com';
+        $_SERVER['SERVER_PORT'] = '80';
+        $_SERVER['HTTPS'] = 'off';
+
+        $this->assertEquals('http://example.com', UrlHelper::protocolHostPort());
+
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['SERVER_NAME'] = 'example.com';
+        $_SERVER['SERVER_PORT'] = '8080';
+        $_SERVER['HTTPS'] = 'off';
+
+        $this->assertEquals('http://example.com:8080', UrlHelper::protocolHostPort());
+
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['SERVER_NAME'] = 'example.com';
+        $_SERVER['SERVER_PORT'] = '443';
+        $_SERVER['HTTPS'] = 'on';
+
+        $this->assertEquals('https://example.com', UrlHelper::protocolHostPort());
+
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['SERVER_NAME'] = 'example.com';
+        $_SERVER['SERVER_PORT'] = '444';
+        $_SERVER['HTTPS'] = 'on';
+
+        $this->assertEquals('https://example.com:444', UrlHelper::protocolHostPort());
+
+        $_SERVER = $serverVars;
+    }
+
+    /**
+     * @author Andreas Glaser
+     */
     public function testQuery()
     {
         $this->assertEquals('?abc=test', UrlHelper::query(['abc' => 'test']));

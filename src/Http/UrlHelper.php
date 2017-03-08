@@ -14,6 +14,39 @@ class UrlHelper
 {
 
     /**
+     * Returns string of protocol, server name and port of server-side configured values.
+     *
+     * e.g.:
+     * http://example.com
+     * http://example.com:8080 (if custom http port is used)
+     * https://example.com:444 (if custom https port is used)
+     *
+     * @return null|string
+     * @author Andreas Glaser
+     */
+    public static function protocolHostPort()
+    {
+        if (RequestHelper::isCli()) {
+            return null;
+        }
+
+        $isHttps = RequestHelper::isHttps();
+        $protocol = 'http' . ($isHttps ? 's' : '');
+        $serverName = $_SERVER['SERVER_NAME'];
+        $serverPort = (int)$_SERVER['SERVER_PORT'];
+
+        $protocolAndHost = $protocol . '://';
+
+        if ((!$isHttps && $serverPort !== 80) || ($isHttps && $serverPort !== 443)) {
+            $protocolAndHost .= $serverName . ':' . $serverPort;
+        } else {
+            $protocolAndHost .= $serverName;
+        }
+
+        return $protocolAndHost;
+    }
+
+    /**
      * Builds query part of url.
      *
      * @param array $parameters
@@ -57,19 +90,7 @@ class UrlHelper
             return null;
         }
 
-        $url = 'http';
-
-        if (RequestHelper::isHttps()) {
-            $url .= 's';
-        }
-
-        $url .= '://';
-
-        if ((int)$_SERVER['SERVER_PORT'] !== 80) {
-            $url .= $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['REQUEST_URI'];
-        } else {
-            $url .= $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-        }
+        $url = static::protocolHostPort();
 
         if (!$includeQuery) {
             $url = substr($url, 0, strpos($url, '?'));

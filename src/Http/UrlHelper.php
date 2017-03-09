@@ -2,8 +2,6 @@
 
 namespace AndreasGlaser\Helpers\Http;
 
-use AndreasGlaser\Helpers\ArrayHelper;
-
 /**
  * Class UrlHelper
  *
@@ -35,15 +33,15 @@ class UrlHelper
         $serverName = $_SERVER['SERVER_NAME'];
         $serverPort = (int)$_SERVER['SERVER_PORT'];
 
-        $protocolAndHost = $protocol . '://';
+        $protocolHostPort = $protocol . '://';
 
         if ((!$isHttps && $serverPort !== 80) || ($isHttps && $serverPort !== 443)) {
-            $protocolAndHost .= $serverName . ':' . $serverPort;
+            $protocolHostPort .= $serverName . ':' . $serverPort;
         } else {
-            $protocolAndHost .= $serverName;
+            $protocolHostPort .= $serverName;
         }
 
-        return $protocolAndHost;
+        return $protocolHostPort;
     }
 
     /**
@@ -62,7 +60,7 @@ class UrlHelper
             if ($parameters === null) {
                 $parameters = $_GET;
             } else {
-                $parameters = ArrayHelper::merge($_GET, $parameters);
+                $parameters = array_replace_recursive($_GET, $parameters);
             }
         }
 
@@ -115,7 +113,6 @@ class UrlHelper
         }
 
         $uri = $_SERVER['REQUEST_URI'];
-
 
         if (!$includeQueryParams) {
             if ($separatorPosition = strpos($uri, '?')) {

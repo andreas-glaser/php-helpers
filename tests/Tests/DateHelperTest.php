@@ -29,6 +29,8 @@ class DateHelperTest extends BaseTest
         $this->assertNull(DateHelper::stringToDateTime('N/A'));
         $this->assertNull(DateHelper::stringToDateTime(null));
         $this->assertNull(DateHelper::stringToDateTime(''));
+
+        $this->assertEquals('DEFAULT', DateHelper::stringToDateTime('', null, 'DEFAULT'));
     }
 
     /**

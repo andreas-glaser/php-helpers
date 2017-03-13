@@ -13,15 +13,16 @@ use DateTimeZone;
 class DateHelper
 {
     /**
-     * @param               $string
-     * @param \DateTimeZone $timezone
+     * @param string             $string
+     * @param \DateTimeZone|null $timezone
+     * @param mixed              $null
      *
      * @return \DateTime|null
      * @author Andreas Glaser
      */
-    public static function stringToDateTime($string, DateTimeZone $timezone = null)
+    public static function stringToDateTime($string, DateTimeZone $timezone = null, $null = null)
     {
-        return ValueHelper::isDateTime($string) ? new \DateTime($string, $timezone) : null;
+        return ValueHelper::isDateTime($string) ? new \DateTime($string, $timezone) : $null;
     }
 
     /**

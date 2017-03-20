@@ -1,12 +1,12 @@
-#php-helpers
+# php-helpers
 A simple php library of various helper functions and classes.
 
-##Installation
+## Installation
 ```shell
-composer require andreas-glaser/php-helpers
+composer require andreas-glaser/php-helpers @stable
 ```
 
-##Usage
+## Usage
 ```php
 <?php
 

@@ -41,6 +41,18 @@ class Expect
      *
      * @author Andreas Glaser
      */
+    public static function numeric($value)
+    {
+        if (!is_numeric($value)) {
+            throw new UnexpectedTypeException($value, 'numeric');
+        }
+    }
+
+    /**
+     * @param $value
+     *
+     * @author Andreas Glaser
+     */
     public static function bool($value)
     {
         if (!is_bool($value)) {
@@ -117,6 +129,18 @@ class Expect
     {
         if (!is_scalar($value)) {
             throw new UnexpectedTypeException($value, 'scalar');
+        }
+    }
+
+    /**
+     * @param $value
+     *
+     * @author Andreas Glaser
+     */
+    public static function null($value)
+    {
+        if (!is_null($value)) {
+            throw new UnexpectedTypeException($value, 'null');
         }
     }
 }

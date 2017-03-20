@@ -83,7 +83,6 @@ class UrlHelper
      */
     public static function currentUrl($includeQuery = true, $urlEncode = false)
     {
-        // cli application
         if (RequestHelper::isCli()) {
             return null;
         }
@@ -107,7 +106,6 @@ class UrlHelper
      */
     public static function currentUri($includeQueryParams = true, $encode = false)
     {
-        // cli application
         if (RequestHelper::isCli()) {
             return null;
         }

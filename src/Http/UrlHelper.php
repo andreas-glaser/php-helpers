@@ -54,7 +54,7 @@ class UrlHelper
      *
      * @author Andreas Glaser
      */
-    public static function query(array $parameters = null, $mergeGetVariables = true)
+    public static function query(array $parameters = null, bool $mergeGetVariables = true)
     {
         if ($mergeGetVariables) {
             if ($parameters === null) {
@@ -81,17 +81,13 @@ class UrlHelper
      *
      * @author Andreas Glaser
      */
-    public static function currentUrl($includeQuery = true, $urlEncode = false)
+    public static function currentUrl(bool $includeQuery = true, bool $urlEncode = false)
     {
         if (RequestHelper::isCli()) {
             return null;
         }
 
-        $url = static::protocolHostPort();
-
-        if (!$includeQuery) {
-            $url = substr($url, 0, strpos($url, '?'));
-        }
+        $url = static::protocolHostPort() . static::currentUri($includeQuery, $urlEncode);
 
         return $urlEncode ? urlencode($url) : $url;
     }
@@ -104,7 +100,7 @@ class UrlHelper
      *
      * @author Andreas Glaser
      */
-    public static function currentUri($includeQueryParams = true, $encode = false)
+    public static function currentUri(bool $includeQueryParams = true, bool $encode = false)
     {
         if (RequestHelper::isCli()) {
             return null;

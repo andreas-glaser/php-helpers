@@ -78,7 +78,19 @@ class UrlHelperTest extends BaseTest
      */
     public function testCurrentUrl()
     {
-        // todo
+        $serverVars = $_SERVER;
+
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['SERVER_NAME'] = 'example.com';
+        $_SERVER['SERVER_PORT'] = '80';
+        $_SERVER['HTTPS'] = 'off';
+        $_SERVER['REQUEST_URI'] = '/my-uri?abc=def';
+
+        $this->assertEquals('http://example.com/my-uri?abc=def', UrlHelper::currentUrl());
+        $this->assertEquals('http://example.com/my-uri', UrlHelper::currentUrl(false));
+        $this->assertEquals('http%3A%2F%2Fexample.com%252Fmy-uri%253Fabc%253Ddef', UrlHelper::currentUrl(true, true));
+
+        $_SERVER = $serverVars;
     }
 
     /**
@@ -86,6 +98,8 @@ class UrlHelperTest extends BaseTest
      */
     public function testCurrentUri()
     {
+        $serverVars = $_SERVER;
+
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $_SERVER['REQUEST_URI'] = '/index.php/home?someVar=123';
 
@@ -93,7 +107,6 @@ class UrlHelperTest extends BaseTest
         $this->assertEquals('/index.php/home', UrlHelper::currentUri(false));
         $this->assertEquals('%2Findex.php%2Fhome', UrlHelper::currentUri(false, true));
 
-        $_SERVER['REQUEST_METHOD'] = null;
-        $_SERVER['REQUEST_URI'] = null;
+        $_SERVER = $serverVars;
     }
 }

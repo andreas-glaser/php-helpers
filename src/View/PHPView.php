@@ -3,13 +3,12 @@
 namespace AndreasGlaser\Helpers\View;
 
 use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
-use AndreasGlaser\Helpers\Validate\Expect;
+use AndreasGlaser\Helpers\Validate\IOExpect;
 
 /**
  * Class PHPView
  *
  * @package AndreasGlaser\Helpers\View
- * @author  Andreas Glaser
  */
 class PHPView implements FactoryInterface
 {
@@ -33,10 +32,8 @@ class PHPView implements FactoryInterface
      *
      * @param string|null $file
      * @param array       $data
-     *
-     * @author Andreas Glaser
      */
-    public function __construct($file = null, array $data = [])
+    public function __construct(string $file = null, array $data = [])
     {
         if ($file) {
             $this->setFile($file);
@@ -54,19 +51,18 @@ class PHPView implements FactoryInterface
      *
      * @deprecated Use PHPView::f()
      */
-    public static function factory($file = null, array $data = [])
+    public static function factory(string $file = null, array $data = []): PHPView
     {
         return static::f($file, $data);
     }
 
     /**
-     * @param $file
-     * @param $data
+     * @param string|null $file
+     * @param array       $data
      *
      * @return \AndreasGlaser\Helpers\View\PHPView
-     * @author Andreas Glaser
      */
-    public static function f($file = null, array $data = [])
+    public static function f(string $file = null, array $data = []): PHPView
     {
         return new PHPView($file, $data);
     }
@@ -74,25 +70,12 @@ class PHPView implements FactoryInterface
     /**
      * @param string $filePath
      *
-     * @return $this
-     * @throws \Exception
-     * @author Andreas Glaser
+     * @return \AndreasGlaser\Helpers\View\PHPView
      */
-    public function setFile($filePath)
+    public function setFile(string $filePath): self
     {
-        Expect::str($filePath);
-
-        if (!file_exists($filePath)) {
-            throw new \Exception(strtr('The requested view :file could not be found', [
-                ':file' => $filePath,
-            ]));
-        }
-
-        if (!is_readable($filePath)) {
-            throw new \Exception(strtr('The requested view :file could not be read', [
-                ':file' => $filePath,
-            ]));
-        }
+        IOExpect::isFile($filePath);
+        IOExpect::isReadable($filePath);
 
         $this->file = $filePath;
 
@@ -100,19 +83,16 @@ class PHPView implements FactoryInterface
     }
 
     /**
-     * @param $key
-     * @param $value
-     *
-     * @author Andreas Glaser
+     * @param string $key
+     * @param mixed  $value
      */
-    public static function setGlobal($key, $value)
+    public static function setGlobal(string $key, $value)
     {
         static::$globalData[$key] = $value;
     }
 
     /**
      * @return array
-     * @author Andreas Glaser
      */
     public static function getGlobalData()
     {
@@ -120,13 +100,12 @@ class PHPView implements FactoryInterface
     }
 
     /**
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param mixed  $value
      *
-     * @return $this
-     * @author Andreas Glaser
+     * @return \AndreasGlaser\Helpers\View\PHPView
      */
-    public function set($key, $value)
+    public function set(string $key, $value): self
     {
         $this->data[$key] = $value;
 
@@ -135,7 +114,6 @@ class PHPView implements FactoryInterface
 
     /**
      * @return array
-     * @author Andreas Glaser
      */
     public function getData()
     {
@@ -143,13 +121,12 @@ class PHPView implements FactoryInterface
     }
 
     /**
-     * @param null $file
+     * @param string|null $file
      *
      * @return string
      * @throws \Exception
-     * @author Andreas Glaser
      */
-    public function render($file = null)
+    public function render(string $file = null): string
     {
         if ($file) {
             $this->setFile($file);
@@ -169,9 +146,8 @@ class PHPView implements FactoryInterface
      *
      * @return string
      * @throws \Exception
-     * @author Andreas Glaser
      */
-    protected function capture($viewFileName, array $data = [], array $global = [])
+    protected function capture(string $viewFileName, array $data = [], array $global = []): string
     {
         extract($global, EXTR_SKIP);
         extract($data, EXTR_SKIP);
@@ -190,7 +166,6 @@ class PHPView implements FactoryInterface
 
     /**
      * @return string
-     * @author Andreas Glaser
      */
     public function __toString()
     {

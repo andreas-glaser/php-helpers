@@ -10,13 +10,9 @@ use AndreasGlaser\Helpers\View\PHPView;
  * Class PHPViewTest
  *
  * @package AndreasGlaser\Helpers\Tests\View
- * @author  Andreas Glaser
  */
 class PHPViewTest extends BaseTest
 {
-    /**
-     * @author Andreas Glaser
-     */
     public function test()
     {
         PHPView::setGlobal('name', 'PHPView');

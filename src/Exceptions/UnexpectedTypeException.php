@@ -6,7 +6,6 @@ namespace AndreasGlaser\Helpers\Exceptions;
  * Class UnexpectedTypeException
  *
  * @package AndreasGlaser\Helpers\Exceptions
- * @author  Andreas Glaser
  */
 class UnexpectedTypeException extends \RuntimeException
 {
@@ -15,8 +14,6 @@ class UnexpectedTypeException extends \RuntimeException
      *
      * @param string $value
      * @param int    $expectedType
-     *
-     * @author Andreas Glaser
      */
     public function __construct($value, $expectedType)
     {

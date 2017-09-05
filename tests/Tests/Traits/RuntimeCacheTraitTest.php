@@ -9,7 +9,6 @@ use AndreasGlaser\Helpers\Traits\RuntimeCacheTrait;
  * Class RuntimeCacheTraitTest
  *
  * @package AndreasGlaser\Helpers\Tests\Traits
- * @author  Andreas Glaser
  */
 class RuntimeCacheTraitTest extends BaseTest
 {

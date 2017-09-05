@@ -3,81 +3,76 @@
 namespace AndreasGlaser\Helpers\Traits;
 
 /**
- * Class RuntimeCacheTrait
+ * Trait RuntimeCacheTrait
  *
  * @package AndreasGlaser\Helpers\Traits
- * @author  Andreas Glaser
  */
 trait RuntimeCacheTrait
 {
     /**
      * @var array
      */
-    static $runtimeCache = [];
+    protected $runtimeCache = [];
 
     /**
      * @param        $data
-     * @param        $id
+     * @param string $id
      * @param string $group
      * @param bool   $overwrite
      *
-     * @return $this
-     * @author Andreas Glaser
+     * @return self
      */
-    public function rtcSet($data, $id, $group = '_default', $overwrite = true)
+    public function rtcSet($data, string $id, string $group = '_default', bool $overwrite = true): self
     {
         if (!$overwrite && $this->rtcExists($id, $group)) {
             return $this;
         }
 
         $this->rtcGroupAdd($group);
-        static::$runtimeCache[$group][$id] = $data;
+        $this->runtimeCache[$group][$id] = $data;
 
         return $this;
     }
 
     /**
-     * @param        $id
+     * @param string $id
      * @param string $group
      *
      * @return bool
-     * @author Andreas Glaser
      */
-    public function rtcExists($id, $group = '_default')
+    public function rtcExists(string $id, string $group = '_default'): bool
     {
         if (!$this->rtcGroupExists($group)) {
             return false;
         }
 
-        return array_key_exists($id, static::$runtimeCache[$group]);
+        return array_key_exists($id, $this->runtimeCache[$group]);
     }
 
     /**
-     * @param        $id
+     * @param string $id
      * @param string $group
      * @param null   $default
      *
-     * @return null
-     * @author Andreas Glaser
+     * @return mixed
      */
-    public function rtcGet($id, $group = '_default', $default = null)
+    public function rtcGet(string $id, string $group = '_default', $default = null)
     {
         if (!$this->rtcExists($id, $group)) {
             return $default;
         }
 
-        return static::$runtimeCache[$group][$id];
+        return $this->runtimeCache[$group][$id];
     }
 
     /**
-     * @param        $id
+     * @param string $id
      * @param string $group
-     * @param null   $default
+     * @param mixed  $default
      *
-     * @return null
-     * @author Andreas Glaser
+     * @return mixed
      */
-    public function rtcGetDelete($id, $group = '_default', $default = null)
+    public function rtcGetDelete(string $id, string $group = '_default', $default = null)
     {
         $result = $this->rtcGet($id, $group, $default);
         $this->rtcDelete($id, $group);
@@ -86,81 +81,75 @@ trait RuntimeCacheTrait
     }
 
     /**
-     * @param        $id
+     * @param string $id
      * @param string $group
      *
-     * @return $this
-     * @author Andreas Glaser
+     * @return self
      */
-    public function rtcDelete($id, $group = '_default')
+    public function rtcDelete(string $id, string $group = '_default'): self
     {
         if ($this->rtcExists($id, $group)) {
-            unset(static::$runtimeCache[$group][$id]);
+            unset($this->runtimeCache[$group][$id]);
         }
 
         return $this;
     }
 
     /**
-     * @param      $group
-     * @param null $default
+     * @param string $group
+     * @param null   $default
      *
-     * @return null
-     * @author Andreas Glaser
+     * @return mixed
      */
-    public function rtcGroupGet($group, $default = null)
+    public function rtcGroupGet(string $group, $default = null)
     {
-        return $this->rtcGroupExists($group) ? static::$runtimeCache[$group] : $default;
+        return $this->rtcGroupExists($group) ? $this->runtimeCache[$group] : $default;
     }
 
     /**
-     * @param $group
+     * @param string $group
      *
-     * @return $this
-     * @author Andreas Glaser
+     * @return self
      */
-    public function rtcGroupDelete($group)
+    public function rtcGroupDelete(string $group): self
     {
         if (!$this->rtcGroupExists($group)) {
             return $this;
         }
 
-        unset(static::$runtimeCache[$group]);
+        unset($this->runtimeCache[$group]);
 
         return $this;
     }
 
     /**
-     * @param $group
+     * @param string $group
      *
-     * @return $this
-     * @author Andreas Glaser
+     * @return self
      */
-    public function rtcGroupAdd($group)
+    public function rtcGroupAdd(string $group): self
     {
         if (!$this->rtcGroupExists($group)) {
-            static::$runtimeCache[$group] = [];
+            $this->runtimeCache[$group] = [];
         }
 
         return $this;
     }
 
     /**
-     * @param $group
+     * @param string $group
      *
      * @return bool
-     * @author Andreas Glaser
      */
-    public function rtcGroupExists($group)
+    public function rtcGroupExists(string $group): bool
     {
-        return array_key_exists($group, static::$runtimeCache);
+        return array_key_exists($group, $this->runtimeCache);
     }
 
     /**
      * @return string
-     * @author Andreas Glaser
      */
-    public function rtcMakeId()
+    public function rtcMakeId(): string
     {
         return md5(serialize(func_get_args()));
     }

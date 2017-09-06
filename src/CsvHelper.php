@@ -2,18 +2,18 @@
 
 namespace AndreasGlaser\Helpers;
 
+use AndreasGlaser\Helpers\Validate\IOExpect;
+
 /**
  * Class CsvHelper
  *
  * @package AndreasGlaser\Helpers
- *
- * @author  Andreas Glaser
  */
 class CsvHelper
 {
 
     /**
-     * @param        $file
+     * @param string $file
      * @param bool   $isFirstLineTitle
      * @param int    $length
      * @param string $delimiter
@@ -21,51 +21,45 @@ class CsvHelper
      * @param string $escape
      *
      * @return array
-     *
-     * @author Andreas Glaser
      */
-    public static function fileToArray($file, $isFirstLineTitle = false, $length = 0, $delimiter = ',', $enclosure = '"', $escape = "\\")
+    public static function fileToArray(string $file, bool $isFirstLineTitle = false, int $length = 0, string $delimiter = ',', string $enclosure = '"', string $escape = "\\"): array
     {
-        if (!is_file($file)) {
-            throw new \RuntimeException('Not a file');
-        }
+        IOExpect::isFile($file);
+        IOExpect::isReadable($file);
 
-        if (!is_readable($file)) {
-            throw new \RuntimeException('File is not readable');
-        }
-
-        $returnArray = [];
-
+        $result = [];
         $titles = [];
+        $hasTitles = false;
         $rowNumber = 0;
 
-        if (($handle = fopen($file, 'r')) !== false) {
-            while (($rowData = fgetcsv($handle, $length, $delimiter, $enclosure, $escape)) !== false) {
+        $handle = fopen($file, 'r');
 
-                if ($isFirstLineTitle && $rowNumber === 0) {
-                    foreach ($rowData AS $index => $title) {
-                        $titles[$index] = $title;
-                    }
-                    $rowNumber++;
-                    continue;
+        while (($row = fgetcsv($handle, $length, $delimiter, $enclosure, $escape)) !== false) {
+
+            if ($isFirstLineTitle === true && $hasTitles === false) {
+                foreach ($row AS $index => $title) {
+                    $titles[$index] = $title;
                 }
-
-                $returnArray[$rowNumber] = [];
-
-                foreach ($rowData AS $index => $cell) {
-
-                    if ($isFirstLineTitle) {
-                        $returnArray[$rowNumber][$titles[$index]] = $cell;
-                    } else {
-                        $returnArray[$rowNumber][] = $cell;
-                    }
-                }
-
-                $rowNumber++;
+                $hasTitles = true;
+                continue;
             }
-            fclose($handle);
+
+            $result[$rowNumber] = [];
+
+            foreach ($row AS $index => $cell) {
+
+                if ($isFirstLineTitle === true) {
+                    $result[$rowNumber][$titles[$index]] = $cell;
+                } else {
+                    $result[$rowNumber][] = $cell;
+                }
+            }
+
+            $rowNumber++;
         }
 
-        return $returnArray;
+        fclose($handle);
+
+        return $result;
     }
 }

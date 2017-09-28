@@ -45,4 +45,58 @@ class DateHelper
             return $null;
         }
     }
+
+    /**
+     * @param \DateTime $dateTime1
+     * @param \DateTime $dateTime2
+     *
+     * @return int
+     */
+    public static function diffHours(\DateTime $dateTime1, \DateTime $dateTime2): int
+    {
+        $diff = $dateTime1->diff($dateTime2);
+        $hours = $diff->h;
+        $hours = $hours + ($diff->days * 24);
+
+        return (int)$hours;
+    }
+
+    /**
+     * @param \DateTime $dateTime1
+     * @param \DateTime $dateTime2
+     *
+     * @return int
+     */
+    public static function diffDays(\DateTime $dateTime1, \DateTime $dateTime2): int
+    {
+        $diff = $dateTime1->diff($dateTime2);
+
+        return (int)$diff->format('%a');
+    }
+
+    /**
+     * @param \DateTime $dateTime1
+     * @param \DateTime $dateTime2
+     *
+     * @return int
+     */
+    public static function diffMonths(\DateTime $dateTime1, \DateTime $dateTime2): int
+    {
+        $diff = $dateTime1->diff($dateTime2);
+
+        return ((int)$diff->format('%y') * 12) + (int)$diff->format('%m');
+    }
+
+    /**
+     * @param \DateTime $dateTime1
+     * @param \DateTime $dateTime2
+     *
+     * @return int
+     */
+    public static function diffYears(\DateTime $dateTime1, \DateTime $dateTime2): int
+    {
+        $diff = $dateTime1->diff($dateTime2);
+
+        return (int)$diff->y;
+    }
 }

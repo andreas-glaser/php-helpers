@@ -122,7 +122,40 @@ class ArrayHelper
 
     /**
      * @param array  $array
-     * @param        $path
+     * @param string $path
+     * @param string $delimiter
+     *
+     * @return array
+     */
+    public static function unsetByPath(array $array, string $path, string $delimiter = self::PATH_DELIMITER): array
+    {
+        $current = &$array;
+        $pathParts = explode($delimiter, $path);
+        $partCount = count($pathParts);
+
+        $i = 1;
+        foreach ($pathParts AS $piece) {
+            $isLast = $i === $partCount;
+
+            if (!array_key_exists($piece, $current)) {
+                break;
+            }
+
+            if ($isLast) {
+                unset($current[$piece]);
+                break;
+            }
+
+            $current = &$current[$piece];
+            $i++;
+        }
+
+        return $array;
+    }
+
+    /**
+     * @param array  $array
+     * @param string $path
      * @param string $delimiter
      *
      * @return bool

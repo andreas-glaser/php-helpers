@@ -183,6 +183,64 @@ class ArrayHelperTest extends BaseTest
         );
     }
 
+    public function testUnsetByPath()
+    {
+        $myArray = [
+            'test'   => 'Hello',
+            'index2' => [
+                'index3' => [
+                    'index4' => 'XYZ',
+                    'index5' => 'Something',
+                ],
+            ],
+        ];
+
+        $this->assertEquals(
+            [
+                'index2' => [
+                    'index3' => [
+                        'index4' => 'XYZ',
+                        'index5' => 'Something',
+                    ],
+                ],
+            ],
+            ArrayHelper::unsetByPath($myArray, 'test')
+        );
+
+        $this->assertEquals(
+            [
+                'test'   => 'Hello',
+                'index2' => [
+                    'index3' => [
+                        'index4' => 'XYZ',
+                    ],
+                ],
+            ],
+            ArrayHelper::unsetByPath($myArray, 'index2.index3.index5')
+        );
+
+        $this->assertEquals(
+            [
+                'test'   => 'Hello',
+                'index2' => [],
+            ],
+            ArrayHelper::unsetByPath($myArray, 'index2.index3')
+        );
+
+        $this->assertEquals(
+            [
+                'test'   => 'Hello',
+                'index2' => [
+                    'index3' => [
+                        'index4' => 'XYZ',
+                        'index5' => 'Something',
+                    ],
+                ],
+            ],
+            ArrayHelper::unsetByPath($myArray, 'doesnot.exist')
+        );
+    }
+
     /**
      * @author Andreas Glaser
      */

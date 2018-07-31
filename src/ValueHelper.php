@@ -76,14 +76,26 @@ class ValueHelper
     /**
      * Checks if given value is a valid PHP "datetime"
      *
-     * @param $string
+     * @param string|\DateTime $date
+     * @param string|null      $format
      *
      * @return bool
-     * @author Andreas Glaser
      */
-    public static function isDateTime($string)
+    public static function isDateTime($date, string $format = null): bool
     {
-        return is_string($string) ? (bool)strtotime($string) : false;
+        if ($date instanceof \DateTime) {
+            return true;
+        }
+
+        if (false === is_string($date)) {
+            return false;
+        }
+
+        if ($format) {
+            return \DateTime::createFromFormat($format, $date) instanceof \DateTime;
+        }
+
+        return (bool)strtotime($date);
     }
 
     /**
@@ -92,7 +104,7 @@ class ValueHelper
      * @return bool
      * @author Andreas Glaser
      */
-    public static function isBool($value)
+    public static function isBool($value): bool
     {
         return is_bool($value);
     }

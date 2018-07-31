@@ -112,6 +112,10 @@ class ValueHelperTest extends BaseTest
         $this->assertFalse(ValueHelper::isDateTime('N/A'));
         $this->assertFalse(ValueHelper::isDateTime(null));
         $this->assertFalse(ValueHelper::isDateTime(''));
+
+        $this->assertTrue(ValueHelper::isDateTime(new \DateTime()));
+        $this->assertTrue(ValueHelper::isDateTime('25/05/2017', 'd/m/Y'));
+        $this->assertFalse(ValueHelper::isDateTime('25/05/2017', 'm/d/Y'));
     }
 
     /**

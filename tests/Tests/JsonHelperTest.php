@@ -8,12 +8,10 @@ use AndreasGlaser\Helpers\JsonHelper;
  * Class JsonHelperTest
  *
  * @package AndreasGlaser\Helpers\Tests
- * @author  Andreas Glaser
  */
 class JsonHelperTest extends BaseTest
 {
     /**
-     * @author Andreas Glaser
      */
     public function testIsValid()
     {

@@ -10,12 +10,10 @@ use AndreasGlaser\Helpers\Tests\BaseTest;
  * Class OrderedListHelperTest
  *
  * @package AndreasGlaser\Helpers\Tests\Html\Lists
- * @author  Andreas Glaser
  */
 class OrderedListHelperTest extends BaseTest
 {
     /**
-     * @author Andreas Glaser
      */
     public function test()
     {

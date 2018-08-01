@@ -8,7 +8,6 @@ use AndreasGlaser\Helpers\ArrayHelper;
  * Class ArrayHelperTest
  *
  * @package AndreasGlaser\Helpers\Tests
- * @author  Andreas Glaser
  */
 class ArrayHelperTest extends BaseTest
 {
@@ -55,7 +54,6 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testGet()
     {
@@ -69,7 +67,6 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testGetByValue()
     {
@@ -94,7 +91,6 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testGetByPath()
     {
@@ -122,7 +118,6 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testSetByPath()
     {
@@ -242,7 +237,6 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testExistByPath()
     {
@@ -279,7 +273,6 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testIssetByPath()
     {
@@ -320,7 +313,6 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testPrepend()
     {
@@ -364,7 +356,6 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testAppend()
     {
@@ -428,7 +419,6 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testGetRandomValue()
     {
@@ -447,7 +437,6 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testRemoveByValue()
     {
@@ -507,7 +496,6 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testImplodeKeys()
     {
@@ -518,7 +506,6 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testExplodeIgnoreEmpty()
     {
@@ -555,7 +542,6 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testReplaceValue()
     {
@@ -633,7 +619,6 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testMerge()
     {

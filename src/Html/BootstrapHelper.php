@@ -8,16 +8,14 @@ use AndreasGlaser\Helpers\HtmlHelper;
  * Class BootstrapHelper
  *
  * @package AndreasGlaser\Helpers\Html
- * @author  Andreas Glaser
  */
 class BootstrapHelper
 {
     /**
-     * @param                                              $name
+     * @param                                                         $name
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function glyphIcon($name, $attributesHelper = null)
     {

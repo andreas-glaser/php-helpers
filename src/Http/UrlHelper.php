@@ -6,7 +6,6 @@ namespace AndreasGlaser\Helpers\Http;
  * Class UrlHelper
  *
  * @package AndreasGlaser\Helpers\Http
- * @author  Andreas Glaser
  */
 class UrlHelper
 {
@@ -20,7 +19,6 @@ class UrlHelper
      * https://example.com:444 (if custom https port is used)
      *
      * @return null|string
-     * @author Andreas Glaser
      */
     public static function protocolHostPort()
     {
@@ -52,7 +50,7 @@ class UrlHelper
      *
      * @return null|string
      *
-     * @author Andreas Glaser
+
      */
     public static function query(array $parameters = null, bool $mergeGetVariables = true)
     {
@@ -79,7 +77,7 @@ class UrlHelper
      *
      * @return null|string
      *
-     * @author Andreas Glaser
+
      */
     public static function currentUrl(bool $includeQuery = true, bool $urlEncode = false)
     {
@@ -98,7 +96,7 @@ class UrlHelper
      *
      * @return null|string
      *
-     * @author Andreas Glaser
+
      */
     public static function currentUri(bool $includeQueryParams = true, bool $encode = false)
     {

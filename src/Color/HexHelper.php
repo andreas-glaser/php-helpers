@@ -6,7 +6,6 @@ namespace AndreasGlaser\Helpers\Color;
  * Class HexHelper
  *
  * @package AndreasGlaser\Helpers\Color
- * @author  Andreas Glaser
  */
 class HexHelper
 {
@@ -16,7 +15,6 @@ class HexHelper
      * @param $steps
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function adjustBrightness($hex, $steps)
     {

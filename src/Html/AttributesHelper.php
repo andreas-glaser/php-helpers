@@ -13,7 +13,6 @@ use AndreasGlaser\Helpers\Traits\DuplicatableTrait;
  * Class AttributesHelper
  *
  * @package AndreasGlaser\Helpers\Html
- * @author  Andreas Glaser
  */
 class AttributesHelper implements FactoryInterface, RenderableInterface
 {
@@ -46,7 +45,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param array|null $attributes
      *
      * @return \AndreasGlaser\Helpers\Html\AttributesHelper
-     * @author     Andreas Glaser
      * @deprecated Will be removed in 1.0 - use "Object::f()" instead
      */
     public static function create(array $attributes = null)
@@ -60,7 +58,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param AttributesHelper|array|null $input
      *
      * @return \AndreasGlaser\Helpers\Html\AttributesHelper
-     * @author Andreas Glaser
      */
     public static function f($input = null)
     {
@@ -91,7 +88,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      *
-     * @author Andreas Glaser
+
      */
     public function set($name, $value)
     {
@@ -124,7 +121,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return bool
      *
-     * @author Andreas Glaser
+
      */
     public function has($name)
     {
@@ -139,7 +136,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return null
      *
-     * @author Andreas Glaser
+
      */
     public function get($name, $default = null)
     {
@@ -153,7 +150,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      *
-     * @author Andreas Glaser
+
      */
     public function setId($value)
     {
@@ -167,7 +164,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return bool
      *
-     * @author Andreas Glaser
+
      */
     public function hasId()
     {
@@ -181,7 +178,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return null
      *
-     * @author Andreas Glaser
+
      */
     public function getId($default = null)
     {
@@ -193,7 +190,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      *
-     * @author Andreas Glaser
+
      */
     public function removeId()
     {
@@ -209,7 +206,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      *
-     * @author Andreas Glaser
+
      */
     public function addClass($name)
     {
@@ -228,7 +225,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return bool
      *
-     * @author Andreas Glaser
+
      */
     public function hasClass($name)
     {
@@ -240,7 +237,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return bool
      *
-     * @author Andreas Glaser
+
      */
     public function hasClasses()
     {
@@ -254,7 +251,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      *
-     * @author Andreas Glaser
+
      */
     public function removeClass($name)
     {
@@ -270,7 +267,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return array
      *
-     * @author Andreas Glaser
+
      */
     public function getClasses()
     {
@@ -291,7 +288,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return bool
      *
-     * @author Andreas Glaser
+
      */
     public function hasStyle($name)
     {
@@ -303,7 +300,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return bool
      *
-     * @author Andreas Glaser
+
      */
     public function hasStyles()
     {
@@ -317,7 +314,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      *
-     * @author Andreas Glaser
+
      */
     public function removeStyle($name)
     {
@@ -333,7 +330,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return array
      *
-     * @author Andreas Glaser
+
      */
     public function getStyles()
     {
@@ -349,7 +346,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      *
-     * @author Andreas Glaser
+
      */
     public function addData($name, $value)
     {
@@ -365,7 +362,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return bool
      *
-     * @author Andreas Glaser
+
      */
     public function hasData($name = null)
     {
@@ -380,7 +377,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return array|null
      *
-     * @author Andreas Glaser
+
      */
     public function getData($name = null, $default = null)
     {
@@ -394,7 +391,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      *
-     * @author Andreas Glaser
+
      */
     public function removeData($name)
     {
@@ -412,7 +409,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return string
      *
-     * @author Andreas Glaser
+
      */
     public function getClassesImploded($glue = ' ')
     {
@@ -423,7 +420,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param \AndreasGlaser\Helpers\Interfaces\RendererInterface|null $renderer
      *
      * @return string
-     * @author Andreas Glaser
      */
     public function render(RendererInterface $renderer = null)
     {
@@ -471,7 +467,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
 
     /**
      * @return array
-     * @author Andreas Glaser
      */
     public function getAsArray()
     {
@@ -501,7 +496,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return string
      *
-     * @author Andreas Glaser
+
      */
     public function __toString()
     {

@@ -11,13 +11,11 @@ use AndreasGlaser\Helpers\Tests\BaseTest;
  * Class TableHelperTest
  *
  * @package AndreasGlaser\Helpers\Tests\Html\Table
- * @author  Andreas Glaser
  */
 class TableHelperTest extends BaseTest
 {
     /**
      * @throws \Exception
-     * @author Andreas Glaser
      */
     public function test()
     {

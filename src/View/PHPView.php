@@ -47,7 +47,6 @@ class PHPView implements FactoryInterface
      * @param array $data
      *
      * @return \AndreasGlaser\Helpers\View\PHPView
-     * @author     Andreas Glaser
      *
      * @deprecated Use PHPView::f()
      */

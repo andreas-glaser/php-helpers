@@ -8,7 +8,6 @@ use AndreasGlaser\Helpers\HtmlHelper;
  * Class FormHelper
  *
  * @package AndreasGlaser\Helpers\Html
- * @author  Andreas Glaser
  */
 class FormHelper
 {
@@ -18,7 +17,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function open($action = null, $method = 'GET', $attributesHelper = null)
     {
@@ -31,7 +29,6 @@ class FormHelper
 
     /**
      * @return string
-     * @author Andreas Glaser
      */
     public static function close()
     {
@@ -44,7 +41,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function text($name, $value = null, $attributesHelper = null)
     {
@@ -62,7 +58,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function password($name, $value = null, $attributesHelper = null)
     {
@@ -80,7 +75,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function email($name, $value = null, $attributesHelper = null)
     {
@@ -98,7 +92,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function color($name, $value = null, $attributesHelper = null)
     {
@@ -116,7 +109,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function date($name, $value = null, $attributesHelper = null)
     {
@@ -134,7 +126,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function datetime($name, $value = null, $attributesHelper = null)
     {
@@ -152,7 +143,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function datetimeLocal($name, $value = null, $attributesHelper = null)
     {
@@ -170,7 +160,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function month($name, $value = null, $attributesHelper = null)
     {
@@ -188,7 +177,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function number($name, $value = null, $attributesHelper = null)
     {
@@ -208,7 +196,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function range($name, $value, $min, $max, $attributesHelper = null)
     {
@@ -228,7 +215,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function search($name, $value = null, $attributesHelper = null)
     {
@@ -246,7 +232,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function tel($name, $value = null, $attributesHelper = null)
     {
@@ -264,7 +249,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function time($name, $value = null, $attributesHelper = null)
     {
@@ -282,7 +266,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function url($name, $value = null, $attributesHelper = null)
     {
@@ -300,7 +283,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function week($name, $value = null, $attributesHelper = null)
     {
@@ -318,7 +300,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function hidden($name, $value = null, $attributesHelper = null)
     {
@@ -336,7 +317,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function textarea($name, $value = null, $attributesHelper = null)
     {
@@ -352,7 +332,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function button($name, $value = null, $attributesHelper = null)
     {
@@ -369,7 +348,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function submit($name, $value = null, $attributesHelper = null)
     {
@@ -387,7 +365,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function label($value, $forId = null, $formId = null, $attributesHelper = null)
     {
@@ -411,7 +388,6 @@ class FormHelper
      * @param null  $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function select($name, array $options, $checkedValue = null, $attributesHelper = null)
     {
@@ -441,7 +417,6 @@ class FormHelper
      * @param null  $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function selectMultiple($name, array $options, $checkedValue = null, $attributesHelper = null)
     {
@@ -471,7 +446,6 @@ class FormHelper
      * @param bool|false $selected
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function option($value, $text, $selected = false)
     {
@@ -491,7 +465,6 @@ class FormHelper
      * @param null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function optgroup($label, $htmlContent, $attributesHelper = null)
     {
@@ -508,7 +481,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function checkbox($name, $value = null, $checked = false, $attributesHelper = null)
     {
@@ -531,7 +503,6 @@ class FormHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function radio($name, $value = null, $checked = false, $attributesHelper = null)
     {

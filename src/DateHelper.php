@@ -8,7 +8,6 @@ use DateTimeZone;
  * Class DateHelper
  *
  * @package AndreasGlaser\Helpers
- * @author  Andreas Glaser
  */
 class DateHelper
 {
@@ -18,7 +17,6 @@ class DateHelper
      * @param mixed              $null
      *
      * @return \DateTime|null
-     * @author Andreas Glaser
      */
     public static function stringToDateTime($string, DateTimeZone $timezone = null, $null = null)
     {
@@ -33,7 +31,6 @@ class DateHelper
      * @param null             $null
      *
      * @return null|string
-     * @author Andreas Glaser
      */
     public static function formatOrNull($dateTime, $format = 'Y-m-d H:i:s', $null = null)
     {

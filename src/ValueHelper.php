@@ -6,7 +6,6 @@ namespace AndreasGlaser\Helpers;
  * Class ValueHelper
  *
  * @package AndreasGlaser\Helpers
- * @author  Andreas Glaser
  */
 class ValueHelper
 {
@@ -14,7 +13,6 @@ class ValueHelper
      * @param $string
      *
      * @return null
-     * @author Andreas Glaser
      */
     public static function emptyToNull(&$string)
     {
@@ -28,7 +26,6 @@ class ValueHelper
      * @param $value
      *
      * @return bool
-     * @author Andreas Glaser
      */
     public static function isEmpty($value)
     {
@@ -41,7 +38,6 @@ class ValueHelper
      * @param $value
      *
      * @return bool
-     * @author Andreas Glaser
      */
     public static function isInteger($value)
     {
@@ -60,7 +56,6 @@ class ValueHelper
      * @param $value
      *
      * @return bool
-     * @author Andreas Glaser
      */
     public static function isFloat($value)
     {
@@ -102,7 +97,6 @@ class ValueHelper
      * @param $value
      *
      * @return bool
-     * @author Andreas Glaser
      */
     public static function isBool($value): bool
     {
@@ -115,7 +109,6 @@ class ValueHelper
      * @param $value
      *
      * @return bool
-     * @author Andreas Glaser
      */
     public static function isTrue($value)
     {
@@ -128,7 +121,6 @@ class ValueHelper
      * @param $value
      *
      * @return bool
-     * @author Andreas Glaser
      */
     public static function isFalse($value)
     {
@@ -139,7 +131,6 @@ class ValueHelper
      * @param $value
      *
      * @return bool
-     * @author Andreas Glaser
      */
     public static function isTrueLike($value)
     {
@@ -150,7 +141,6 @@ class ValueHelper
      * @param $value
      *
      * @return bool
-     * @author Andreas Glaser
      */
     public static function isFalseLike($value)
     {

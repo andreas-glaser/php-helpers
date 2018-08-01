@@ -9,13 +9,11 @@ use AndreasGlaser\Helpers\Tests\BaseTest;
  * Class AttributesHelperTest
  *
  * @package AndreasGlaser\Helpers\Tests\Html
- * @author  Andreas Glaser
  */
 class AttributesHelperTest extends BaseTest
 {
 
     /**
-     * @author Andreas Glaser
      */
     public function testAttributes()
     {

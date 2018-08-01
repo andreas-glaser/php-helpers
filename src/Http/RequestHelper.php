@@ -6,13 +6,11 @@ namespace AndreasGlaser\Helpers\Http;
  * Class RequestHelper
  *
  * @package AndreasGlaser\Helpers\Http
- * @author  Andreas Glaser
  */
 class RequestHelper
 {
     /**
      * @return bool
-     * @author Andreas Glaser
      */
     public static function isCli()
     {
@@ -21,7 +19,6 @@ class RequestHelper
 
     /**
      * @return bool
-     * @author Andreas Glaser
      */
     public static function isHttps()
     {

@@ -13,7 +13,6 @@ use AndreasGlaser\Helpers\Validate\Expect;
  * Class Cell
  *
  * @package AndreasGlaser\Helpers\Html\Table
- * @author  Andreas Glaser
  */
 class Cell implements RenderableInterface, FactoryInterface
 {
@@ -32,7 +31,6 @@ class Cell implements RenderableInterface, FactoryInterface
      * @param AttributesHelper|array|null $attributesHelper
      *
      * @return \AndreasGlaser\Helpers\Html\Table\Cell
-     * @author Andreas Glaser
      */
     public static function f($content = null, $attributesHelper = null)
     {
@@ -51,7 +49,6 @@ class Cell implements RenderableInterface, FactoryInterface
 
     /**
      * @return null|string
-     * @author Andreas Glaser
      */
     public function getContent()
     {
@@ -62,7 +59,6 @@ class Cell implements RenderableInterface, FactoryInterface
      * @param $content
      *
      * @return $this
-     * @author Andreas Glaser
      */
     public function setContent($content)
     {
@@ -75,7 +71,6 @@ class Cell implements RenderableInterface, FactoryInterface
      * @param integer $colSpan
      *
      * @return $this
-     * @author Andreas Glaser
      */
     public function setColSpan($colSpan)
     {
@@ -88,7 +83,6 @@ class Cell implements RenderableInterface, FactoryInterface
 
     /**
      * @return null
-     * @author Andreas Glaser
      */
     public function getColSpan()
     {
@@ -99,7 +93,6 @@ class Cell implements RenderableInterface, FactoryInterface
      * @param integer $rowSpan
      *
      * @return $this
-     * @author Andreas Glaser
      */
     public function setRowSpan($rowSpan)
     {
@@ -112,7 +105,6 @@ class Cell implements RenderableInterface, FactoryInterface
 
     /**
      * @return null
-     * @author Andreas Glaser
      */
     public function getRowSpan()
     {
@@ -124,7 +116,6 @@ class Cell implements RenderableInterface, FactoryInterface
      *
      * @return $this
      * @throws \Exception
-     * @author     Andreas Glaser
      *
      * @deprecated Not supported in HTML5. http://www.w3schools.com/tags/att_td_scope.asp
      */
@@ -143,7 +134,6 @@ class Cell implements RenderableInterface, FactoryInterface
 
     /**
      * @return string|null
-     * @author     Andreas Glaser
      *
      * @deprecated Not supported in HTML5. http://www.w3schools.com/tags/att_td_scope.asp
      */
@@ -154,7 +144,6 @@ class Cell implements RenderableInterface, FactoryInterface
 
     /**
      * @return \AndreasGlaser\Helpers\Html\AttributesHelper
-     * @author Andreas Glaser
      */
     public function getAttributes()
     {
@@ -165,7 +154,6 @@ class Cell implements RenderableInterface, FactoryInterface
      * @param \AndreasGlaser\Helpers\Interfaces\RendererInterface|null $renderer
      *
      * @return string
-     * @author Andreas Glaser
      */
     public function render(RendererInterface $renderer = null)
     {

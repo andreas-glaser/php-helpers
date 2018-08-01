@@ -6,7 +6,6 @@ namespace AndreasGlaser\Helpers;
  * Class NumberHelper
  *
  * @package AndreasGlaser\Helpers
- * @author  Andreas Glaser
  */
 class NumberHelper
 {
@@ -14,7 +13,6 @@ class NumberHelper
      * @param $number
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function ordinal($number)
     {

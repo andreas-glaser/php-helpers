@@ -9,12 +9,10 @@ use AndreasGlaser\Helpers\Tests\BaseTest;
  * Class UrlHelperTest
  *
  * @package AndreasGlaser\Helpers\Tests\Http
- * @author  Andreas Glaser
  */
 class UrlHelperTest extends BaseTest
 {
     /**
-     * @author Andreas Glaser
      */
     public function testProtocolHostPort()
     {
@@ -52,7 +50,6 @@ class UrlHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testQuery()
     {
@@ -74,7 +71,6 @@ class UrlHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testCurrentUrl()
     {
@@ -94,7 +90,6 @@ class UrlHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testCurrentUri()
     {

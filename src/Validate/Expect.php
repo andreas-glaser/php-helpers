@@ -8,14 +8,13 @@ use AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException;
  * Class Expect
  *
  * @package AndreasGlaser\Helpers\Validate
- * @author  Andreas Glaser
  */
 class Expect
 {
     /**
      * @param $value
      *
-     * @author Andreas Glaser
+
      */
     public static function int($value)
     {
@@ -27,7 +26,7 @@ class Expect
     /**
      * @param $value
      *
-     * @author Andreas Glaser
+
      */
     public static function float($value)
     {
@@ -39,7 +38,7 @@ class Expect
     /**
      * @param $value
      *
-     * @author Andreas Glaser
+
      */
     public static function numeric($value)
     {
@@ -51,7 +50,7 @@ class Expect
     /**
      * @param $value
      *
-     * @author Andreas Glaser
+
      */
     public static function bool($value)
     {
@@ -63,7 +62,7 @@ class Expect
     /**
      * @param $value
      *
-     * @author Andreas Glaser
+
      */
     public static function str($value)
     {
@@ -75,7 +74,7 @@ class Expect
     /**
      * @param $value
      *
-     * @author Andreas Glaser
+
      */
     public static function arr($value)
     {
@@ -87,7 +86,7 @@ class Expect
     /**
      * @param $value
      *
-     * @author Andreas Glaser
+
      */
     public static function obj($value)
     {
@@ -99,7 +98,7 @@ class Expect
     /**
      * @param $value
      *
-     * @author Andreas Glaser
+
      */
     public static function res($value)
     {
@@ -111,7 +110,7 @@ class Expect
     /**
      * @param $value
      *
-     * @author Andreas Glaser
+
      */
     public static function isCallable($value)
     {
@@ -123,7 +122,7 @@ class Expect
     /**
      * @param $value
      *
-     * @author Andreas Glaser
+
      */
     public static function scalar($value)
     {
@@ -135,7 +134,7 @@ class Expect
     /**
      * @param $value
      *
-     * @author Andreas Glaser
+
      */
     public static function null($value)
     {

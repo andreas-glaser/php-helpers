@@ -8,12 +8,10 @@ use AndreasGlaser\Helpers\CounterHelper;
  * Class CounterHelperTest
  *
  * @package AndreasGlaser\Helpers\Tests
- * @author  Andreas Glaser
  */
 class CounterHelperTest extends BaseTest
 {
     /**
-     * @author Andreas Glaser
      */
     public function test()
     {

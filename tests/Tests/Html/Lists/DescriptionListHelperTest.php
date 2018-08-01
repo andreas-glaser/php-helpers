@@ -10,12 +10,10 @@ use AndreasGlaser\Helpers\Tests\BaseTest;
  * Class DescriptionListHelperTest
  *
  * @package AndreasGlaser\Helpers\Tests\Html\Lists
- * @author  Andreas Glaser
  */
 class DescriptionListHelperTest extends BaseTest
 {
     /**
-     * @author Andreas Glaser
      */
     public function test()
     {

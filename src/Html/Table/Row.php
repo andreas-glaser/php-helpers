@@ -11,7 +11,6 @@ use AndreasGlaser\Helpers\Interfaces\RendererInterface;
  * Class Row
  *
  * @package AndreasGlaser\Helpers\Html\Table
- * @author  Andreas Glaser
  */
 class Row implements RenderableInterface, FactoryInterface
 {
@@ -30,7 +29,6 @@ class Row implements RenderableInterface, FactoryInterface
      * @param AttributesHelper|array|null $attributesHelper
      *
      * @return \AndreasGlaser\Helpers\Html\Table\Row
-     * @author Andreas Glaser
      */
     public static function f(array $cells = null, $attributesHelper = null)
     {
@@ -56,7 +54,6 @@ class Row implements RenderableInterface, FactoryInterface
      * @param \AndreasGlaser\Helpers\Html\Table\Cell $cellHelper
      *
      * @return $this
-     * @author Andreas Glaser
      */
     public function addCell(Cell $cellHelper)
     {
@@ -67,7 +64,6 @@ class Row implements RenderableInterface, FactoryInterface
 
     /**
      * @return \AndreasGlaser\Helpers\Html\Table\Cell[]
-     * @author Andreas Glaser
      */
     public function getCells()
     {
@@ -76,7 +72,6 @@ class Row implements RenderableInterface, FactoryInterface
 
     /**
      * @return \AndreasGlaser\Helpers\Html\AttributesHelper
-     * @author Andreas Glaser
      */
     public function getAttributes()
     {
@@ -87,7 +82,6 @@ class Row implements RenderableInterface, FactoryInterface
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
      *
      * @return $this
-     * @author Andreas Glaser
      */
     public function setAttributes(AttributesHelper $attributes)
     {
@@ -100,7 +94,6 @@ class Row implements RenderableInterface, FactoryInterface
      * @param \AndreasGlaser\Helpers\Interfaces\RendererInterface|null $renderer
      *
      * @return string
-     * @author Andreas Glaser
      */
     public function render(RendererInterface $renderer = null)
     {

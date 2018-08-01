@@ -10,7 +10,7 @@ use AndreasGlaser\Helpers\HtmlHelper;
  *
  * @package Helpers\Tests
  *
- * @author  Andreas Glaser
+
  */
 class HtmlHelperTest extends BaseTest
 {
@@ -19,8 +19,10 @@ class HtmlHelperTest extends BaseTest
      */
     protected $testAttributes;
 
-    public function __construct()
+    public function __construct(string $name = null, array $data = [], string $dataName = '')
     {
+        parent::__construct($name, $data, $dataName);
+
         $this->testAttributes = new AttributesHelper(['class' => 'horseradish']);
         $this->testAttributes->setId('CHESTNUT');
         $this->testAttributes->addClass('cheese');
@@ -29,7 +31,6 @@ class HtmlHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testDiv()
     {
@@ -40,7 +41,6 @@ class HtmlHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testP()
     {
@@ -51,7 +51,6 @@ class HtmlHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testSpan()
     {
@@ -62,7 +61,6 @@ class HtmlHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testH1()
     {
@@ -73,7 +71,6 @@ class HtmlHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testH2()
     {
@@ -84,7 +81,6 @@ class HtmlHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testH3()
     {
@@ -95,7 +91,6 @@ class HtmlHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testH4()
     {
@@ -106,7 +101,6 @@ class HtmlHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testH5()
     {
@@ -117,7 +111,6 @@ class HtmlHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testH6()
     {
@@ -128,7 +121,6 @@ class HtmlHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testA()
     {
@@ -139,7 +131,6 @@ class HtmlHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testImage()
     {

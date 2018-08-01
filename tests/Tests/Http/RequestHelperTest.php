@@ -9,12 +9,10 @@ use AndreasGlaser\Helpers\Tests\BaseTest;
  * Class RequestHelperTest
  *
  * @package AndreasGlaser\Helpers\Tests\Http
- * @author  Andreas Glaser
  */
 class RequestHelperTest extends BaseTest
 {
     /**
-     * @author Andreas Glaser
      */
     public function testIsCli()
     {
@@ -27,7 +25,6 @@ class RequestHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testIsHttps()
     {

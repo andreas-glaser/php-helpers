@@ -11,7 +11,6 @@ use AndreasGlaser\Helpers\Interfaces\RendererInterface;
  * Class TableHelper
  *
  * @package AndreasGlaser\Helpers\Html\Table
- * @author  Andreas Glaser
  */
 class TableHelper implements RenderableInterface, FactoryInterface
 {
@@ -36,7 +35,6 @@ class TableHelper implements RenderableInterface, FactoryInterface
      * @param AttributesHelper|array|null $attributesHelper
      *
      * @return \AndreasGlaser\Helpers\Html\Table\TableHelper
-     * @author Andreas Glaser
      */
     public static function f(array $headRows = null, array $bodyRows = null, $attributesHelper = null)
     {
@@ -67,7 +65,6 @@ class TableHelper implements RenderableInterface, FactoryInterface
 
     /**
      * @return \AndreasGlaser\Helpers\Html\AttributesHelper
-     * @author Andreas Glaser
      */
     public function getAttributes()
     {
@@ -78,7 +75,6 @@ class TableHelper implements RenderableInterface, FactoryInterface
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
      *
      * @return $this
-     * @author Andreas Glaser
      */
     public function setAttributes(AttributesHelper $attributes)
     {
@@ -91,7 +87,6 @@ class TableHelper implements RenderableInterface, FactoryInterface
      * @param \AndreasGlaser\Helpers\Html\Table\Row $rowHelper
      *
      * @return $this
-     * @author Andreas Glaser
      */
     public function addHeadRow(Row $rowHelper)
     {
@@ -102,7 +97,6 @@ class TableHelper implements RenderableInterface, FactoryInterface
 
     /**
      * @return \AndreasGlaser\Helpers\Html\Table\Row[]
-     * @author Andreas Glaser
      */
     public function getHeadRows()
     {
@@ -113,7 +107,6 @@ class TableHelper implements RenderableInterface, FactoryInterface
      * @param \AndreasGlaser\Helpers\Html\Table\Row $rowHelper
      *
      * @return $this
-     * @author Andreas Glaser
      */
     public function addBodyRow(Row $rowHelper)
     {
@@ -124,7 +117,6 @@ class TableHelper implements RenderableInterface, FactoryInterface
 
     /**
      * @return \AndreasGlaser\Helpers\Html\Table\Row[]
-     * @author Andreas Glaser
      */
     public function getBodyRows()
     {
@@ -135,7 +127,6 @@ class TableHelper implements RenderableInterface, FactoryInterface
      * @param \AndreasGlaser\Helpers\Interfaces\RendererInterface|null $renderer
      *
      * @return string
-     * @author Andreas Glaser
      */
     public function render(RendererInterface $renderer = null)
     {

@@ -9,12 +9,10 @@ use AndreasGlaser\Helpers\Validate\Expect;
  * Class ExpectTest
  *
  * @package AndreasGlaser\Helpers\Tests\Validate
- * @author  Andreas Glaser
  */
 class ExpectTest extends BaseTest
 {
     /**
-     * @author Andreas Glaser
      */
     public function testInt()
     {
@@ -24,7 +22,6 @@ class ExpectTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testFloat()
     {
@@ -34,7 +31,6 @@ class ExpectTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testNumeric()
     {
@@ -44,7 +40,6 @@ class ExpectTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testBool()
     {
@@ -54,7 +49,6 @@ class ExpectTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testStr()
     {
@@ -64,7 +58,6 @@ class ExpectTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testArr()
     {
@@ -74,7 +67,6 @@ class ExpectTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testObj()
     {
@@ -84,7 +76,6 @@ class ExpectTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testRes()
     {
@@ -94,7 +85,6 @@ class ExpectTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testIsCallable()
     {
@@ -104,7 +94,6 @@ class ExpectTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testScalar()
     {
@@ -114,7 +103,6 @@ class ExpectTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testNull()
     {

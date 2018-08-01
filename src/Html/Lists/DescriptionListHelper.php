@@ -11,7 +11,6 @@ use AndreasGlaser\Helpers\Interfaces\RendererInterface;
  * Class DescriptionListHelper
  *
  * @package AndreasGlaser\Helpers\Html\Lists
- * @author  Andreas Glaser
  */
 class DescriptionListHelper implements FactoryInterface, RenderableInterface
 {
@@ -30,7 +29,6 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
      * @param null|AttributesHelper|array $attributes
      *
      * @return \AndreasGlaser\Helpers\Html\Lists\DescriptionListHelper
-     * @author Andreas Glaser
      */
     public static function f($attributes = null)
     {
@@ -42,7 +40,7 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
      *
      * @param null|AttributesHelper|array $attributes
      *
-     * @author Andreas Glaser
+
      */
     public function __construct($attributes = null)
     {
@@ -58,7 +56,6 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
      * @param null   $contentAttributes
      *
      * @return $this
-     * @author Andreas Glaser
      */
     public function addItem($term, $content, $termAttributes = null, $contentAttributes = null)
     {
@@ -75,7 +72,6 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
      * @param \AndreasGlaser\Helpers\Interfaces\RendererInterface|null $renderer
      *
      * @return string
-     * @author Andreas Glaser
      */
     public function render(RendererInterface $renderer = null)
     {

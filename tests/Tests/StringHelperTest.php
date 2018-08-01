@@ -9,7 +9,7 @@ use AndreasGlaser\Helpers\StringHelper;
  *
  * @package Helpers\Tests
  *
- * @author  Andreas Glaser
+
  */
 class StringHelperTest extends BaseTest
 {
@@ -19,7 +19,6 @@ class StringHelperTest extends BaseTest
     protected $testString = 'Hello there, this is a test string.';
 
     /**
-     * @author Andreas Glaser
      */
     public function testIs()
     {
@@ -29,7 +28,6 @@ class StringHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testIsOneOf()
     {
@@ -39,7 +37,6 @@ class StringHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testContains()
     {
@@ -49,7 +46,6 @@ class StringHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testStringStartsWith()
     {
@@ -63,7 +59,6 @@ class StringHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testStringEndsWith()
     {
@@ -77,7 +72,6 @@ class StringHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testTrimMulti()
     {
@@ -86,7 +80,6 @@ class StringHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testRTrimMulti()
     {
@@ -95,7 +88,6 @@ class StringHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testLTrimMulti()
     {
@@ -104,7 +96,6 @@ class StringHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testGetIncrementalId()
     {
@@ -120,7 +111,6 @@ class StringHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testIsDateTime()
     {
@@ -137,7 +127,6 @@ class StringHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testIsBlank()
     {

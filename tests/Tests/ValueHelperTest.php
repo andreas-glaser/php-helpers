@@ -8,12 +8,10 @@ use AndreasGlaser\Helpers\ValueHelper;
  * Class ValueHelperTest
  *
  * @package AndreasGlaser\Helpers\Tests
- * @author  Andreas Glaser
  */
 class ValueHelperTest extends BaseTest
 {
     /**
-     * @author Andreas Glaser
      */
     public function testEmptyToNull()
     {
@@ -45,7 +43,6 @@ class ValueHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testIsEmpty()
     {
@@ -66,7 +63,6 @@ class ValueHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testIsInteger()
     {
@@ -82,7 +78,6 @@ class ValueHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testIsFloat()
     {
@@ -98,7 +93,6 @@ class ValueHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testIsDateTime()
     {
@@ -119,7 +113,6 @@ class ValueHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testIsBool()
     {
@@ -132,7 +125,6 @@ class ValueHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testIsTrue()
     {
@@ -146,7 +138,6 @@ class ValueHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testIsFalse()
     {
@@ -160,7 +151,6 @@ class ValueHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testIsTrueLike()
     {
@@ -177,7 +167,6 @@ class ValueHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testIsFalseLike()
     {

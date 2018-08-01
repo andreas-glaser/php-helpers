@@ -8,7 +8,6 @@ use Traversable;
  * Class EmailHelper
  *
  * @package AndreasGlaser\Helpers
- * @author  Andreas Glaser
  */
 class EmailHelper
 {
@@ -20,7 +19,7 @@ class EmailHelper
      *
      * @return array
      *
-     * @author Andreas Glaser
+
      */
     public static function clean($emails, array $delimiters = [',', '|', ';'])
     {
@@ -64,7 +63,7 @@ class EmailHelper
      *
      * @return bool
      *
-     * @author Andreas Glaser
+
      */
     public static function isValid($email)
     {

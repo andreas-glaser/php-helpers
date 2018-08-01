@@ -8,7 +8,6 @@ use AndreasGlaser\Helpers\NumberHelper;
  * Class NumberHelperTest
  *
  * @package AndreasGlaser\Helpers\Tests
- * @author  Andreas Glaser
  */
 class NumberHelperTest extends BaseTest
 {

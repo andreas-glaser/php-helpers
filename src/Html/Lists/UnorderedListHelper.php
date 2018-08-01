@@ -9,7 +9,6 @@ use AndreasGlaser\Helpers\Interfaces\RendererInterface;
  * Class UnorderedListHelper
  *
  * @package AndreasGlaser\Helpers\Html\Lists
- * @author  Andreas Glaser
  */
 class UnorderedListHelper extends BaseListHelper
 {
@@ -17,7 +16,6 @@ class UnorderedListHelper extends BaseListHelper
      * @param \AndreasGlaser\Helpers\Interfaces\RendererInterface|null $renderer
      *
      * @return string
-     * @author Andreas Glaser
      */
     public function render(RendererInterface $renderer = null)
     {

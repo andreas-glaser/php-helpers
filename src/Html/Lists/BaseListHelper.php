@@ -10,7 +10,6 @@ use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
  * Class BaseListHelper
  *
  * @package AndreasGlaser\Helpers\Html\Lists
- * @author  Andreas Glaser
  */
 abstract class BaseListHelper implements FactoryInterface, RenderableInterface
 {
@@ -29,7 +28,6 @@ abstract class BaseListHelper implements FactoryInterface, RenderableInterface
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|aaray|null $attributes
      *
      * @return BaseListHelper
-     * @author Andreas Glaser
      */
     public static function f($attributes = null)
     {
@@ -43,7 +41,7 @@ abstract class BaseListHelper implements FactoryInterface, RenderableInterface
      *
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributes
      *
-     * @author Andreas Glaser
+
      */
     public function __construct($attributes = null)
     {
@@ -53,11 +51,10 @@ abstract class BaseListHelper implements FactoryInterface, RenderableInterface
     }
 
     /**
-     * @param                                                   $content
+     * @param                                                         $content
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributes
      *
      * @return $this
-     * @author Andreas Glaser
      */
     public function addItem($content, $attributes = null)
     {

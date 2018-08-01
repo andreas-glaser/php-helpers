@@ -6,7 +6,6 @@ namespace AndreasGlaser\Helpers;
  * Class JsonHelper
  *
  * @package AndreasGlaser\Helpers
- * @author  Andreas Glaser
  */
 class JsonHelper
 {
@@ -17,7 +16,6 @@ class JsonHelper
      * @param $string
      *
      * @return bool
-     * @author Andreas Glaser
      */
     public static function isValid($string)
     {
@@ -36,7 +34,6 @@ class JsonHelper
      * @param $string
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function encodeForJavaScript($string)
     {

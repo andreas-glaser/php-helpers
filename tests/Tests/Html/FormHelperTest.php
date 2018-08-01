@@ -11,12 +11,10 @@ use AndreasGlaser\Helpers\Tests\BaseTest;
  * Class FormHelperTest
  *
  * @package AndreasGlaser\Helpers\Tests\Html
- * @author  Andreas Glaser
  */
 class FormHelperTest extends BaseTest
 {
     /**
-     * @author Andreas Glaser
      */
     public function testOpen()
     {
@@ -27,7 +25,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testClose()
     {
@@ -35,7 +32,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testText()
     {
@@ -61,7 +57,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testPassword()
     {
@@ -87,7 +82,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testEmail()
     {
@@ -113,7 +107,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testColor()
     {
@@ -139,7 +132,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testDate()
     {
@@ -165,7 +157,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testDatetime()
     {
@@ -191,7 +182,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testDatetimeLocal()
     {
@@ -217,7 +207,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testMonth()
     {
@@ -243,7 +232,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testNumber()
     {
@@ -269,7 +257,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testRange()
     {
@@ -295,7 +282,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testSearch()
     {
@@ -321,7 +307,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testTel()
     {
@@ -347,7 +332,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testTime()
     {
@@ -373,7 +357,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testUrl()
     {
@@ -399,7 +382,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testWeek()
     {
@@ -425,7 +407,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testHidden()
     {
@@ -451,7 +432,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testTextarea()
     {
@@ -477,7 +457,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testButton()
     {
@@ -503,7 +482,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testSubmit()
     {
@@ -529,7 +507,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testLabel()
     {
@@ -555,7 +532,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testCheckbox()
     {
@@ -581,7 +557,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testRadio()
     {
@@ -607,7 +582,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testOption()
     {
@@ -628,7 +602,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testOptGroup()
     {
@@ -649,7 +622,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testSelect()
     {
@@ -670,7 +642,6 @@ class FormHelperTest extends BaseTest
     }
 
     /**
-     * @author Andreas Glaser
      */
     public function testSelectMultiple()
     {

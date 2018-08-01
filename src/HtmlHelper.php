@@ -9,7 +9,6 @@ use AndreasGlaser\Helpers\Html\Ul\UnorderedListHelper;
  * Class HtmlHelper
  *
  * @package AndreasGlaser\Helpers
- * @author  Andreas Glaser
  */
 class HtmlHelper
 {
@@ -18,7 +17,6 @@ class HtmlHelper
      * @param bool $double_encode
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function chars($value, $double_encode = true)
     {
@@ -30,7 +28,6 @@ class HtmlHelper
      * @param bool $double_encode
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function entities($value, $double_encode = true)
     {
@@ -42,7 +39,6 @@ class HtmlHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function div($content, $attributesHelper = null)
     {
@@ -54,7 +50,6 @@ class HtmlHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function p($content, $attributesHelper = null)
     {
@@ -66,7 +61,6 @@ class HtmlHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function span($content, $attributesHelper = null)
     {
@@ -78,7 +72,6 @@ class HtmlHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function h1($content, $attributesHelper = null)
     {
@@ -90,7 +83,6 @@ class HtmlHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function h2($content, $attributesHelper = null)
     {
@@ -102,7 +94,6 @@ class HtmlHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function h3($content, $attributesHelper = null)
     {
@@ -114,7 +105,6 @@ class HtmlHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function h4($content, $attributesHelper = null)
     {
@@ -126,7 +116,6 @@ class HtmlHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function h5($content, $attributesHelper = null)
     {
@@ -138,7 +127,6 @@ class HtmlHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function h6($content, $attributesHelper = null)
     {
@@ -151,7 +139,6 @@ class HtmlHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function a($href, $content, $attributesHelper = null)
     {
@@ -166,7 +153,6 @@ class HtmlHelper
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function image($src, $attributesHelper = null)
     {
@@ -237,7 +223,7 @@ class HtmlHelper
      *
      * @return string
      *
-     * @author Andreas Glaser
+
      */
     public static function arrayToParagraphs($paragraphs)
     {

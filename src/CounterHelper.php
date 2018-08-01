@@ -8,7 +8,6 @@ use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
  * Class CounterHelper
  *
  * @package AndreasGlaser\Helpers
- * @author  Andreas Glaser
  */
 class CounterHelper implements FactoryInterface
 {
@@ -26,7 +25,6 @@ class CounterHelper implements FactoryInterface
      * @param int|array $initialValue
      *
      * @return \AndreasGlaser\Helpers\CounterHelper
-     * @author Andreas Glaser
      */
     public static function f($initialValue = 0)
     {
@@ -46,7 +44,6 @@ class CounterHelper implements FactoryInterface
      * @param $value
      *
      * @return $this
-     * @author Andreas Glaser
      */
     public function increaseBy($value)
     {
@@ -59,7 +56,6 @@ class CounterHelper implements FactoryInterface
      * @param $value
      *
      * @return $this
-     * @author Andreas Glaser
      */
     public function decreaseBy($value)
     {
@@ -70,7 +66,6 @@ class CounterHelper implements FactoryInterface
 
     /**
      * @return \AndreasGlaser\Helpers\CounterHelper
-     * @author Andreas Glaser
      */
     public function plusOne()
     {
@@ -79,7 +74,6 @@ class CounterHelper implements FactoryInterface
 
     /**
      * @return \AndreasGlaser\Helpers\CounterHelper
-     * @author Andreas Glaser
      */
     public function minusOne()
     {
@@ -88,7 +82,6 @@ class CounterHelper implements FactoryInterface
 
     /**
      * @return int
-     * @author Andreas Glaser
      */
     public function getInitialValue()
     {
@@ -97,7 +90,6 @@ class CounterHelper implements FactoryInterface
 
     /**
      * @return int
-     * @author Andreas Glaser
      */
     public function getCurrentValue()
     {
@@ -106,7 +98,6 @@ class CounterHelper implements FactoryInterface
 
     /**
      * @return int
-     * @author Andreas Glaser
      */
     public function getDifference()
     {
@@ -119,7 +110,6 @@ class CounterHelper implements FactoryInterface
 
     /**
      * @return string
-     * @author Andreas Glaser
      */
     public function __toString()
     {

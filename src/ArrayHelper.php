@@ -9,7 +9,7 @@ use Exception;
  *
  * @package Helpers
  *
- * @author  Andreas Glaser
+
  */
 class ArrayHelper
 {
@@ -23,7 +23,6 @@ class ArrayHelper
      * @param null  $default
      *
      * @return null
-     * @author Andreas Glaser
      */
     public static function get(array $array, $key, $default = null)
     {
@@ -39,7 +38,6 @@ class ArrayHelper
      * @param bool  $strict
      *
      * @return mixed|null
-     * @author Andreas Glaser
      */
     public static function getKeyByValue(array $array, $value, $default = null, $strict = true)
     {
@@ -56,7 +54,6 @@ class ArrayHelper
      * @param string $delimiter
      *
      * @return null
-     * @author Andreas Glaser
      */
     public static function getByPath(array $array, $path, $throwException = false, $default = null, $delimiter = self::PATH_DELIMITER)
     {
@@ -87,7 +84,6 @@ class ArrayHelper
      * @param string $delimiter
      *
      * @return array
-     * @author Andreas Glaser
      */
     public static function setByPath(array $array, $path, $value, $delimiter = self::PATH_DELIMITER)
     {
@@ -159,7 +155,6 @@ class ArrayHelper
      * @param string $delimiter
      *
      * @return bool
-     * @author Andreas Glaser
      */
     public static function existsByPath(array $array, $path, $delimiter = self::PATH_DELIMITER)
     {
@@ -183,7 +178,6 @@ class ArrayHelper
      * @param string $delimiter
      *
      * @return bool
-     * @author Andreas Glaser
      */
     public static function issetByPath(array $array, $path, $delimiter = self::PATH_DELIMITER)
     {
@@ -209,7 +203,6 @@ class ArrayHelper
      * @param mixed $key
      *
      * @return array
-     * @author Andreas Glaser
      */
     public static function prepend(array $array, $value, $key = false)
     {
@@ -232,7 +225,6 @@ class ArrayHelper
      * @param mixed $key
      *
      * @return array
-     * @author Andreas Glaser
      */
     public static function append(array $array, $value, $key = false)
     {
@@ -318,7 +310,6 @@ class ArrayHelper
      * @param mixed $default
      *
      * @return mixed
-     * @author Andreas Glaser
      */
     public static function getFirstValue(array $array, $default = null)
     {
@@ -334,7 +325,6 @@ class ArrayHelper
      * @param mixed $default
      *
      * @return mixed
-     * @author Andreas Glaser
      */
     public static function getLastValue(array $array, $default = null)
     {
@@ -347,7 +337,6 @@ class ArrayHelper
      * @param array $array
      *
      * @return mixed
-     * @author Andreas Glaser
      */
     public static function getRandomValue(array $array)
     {
@@ -361,7 +350,7 @@ class ArrayHelper
      *
      * @return array
      *
-     * @author Andreas Glaser
+
      */
     public static function removeFirstIndex(array $array)
     {
@@ -381,7 +370,6 @@ class ArrayHelper
      * @param bool  $strict
      *
      * @return array
-     * @author Andreas Glaser
      */
     public static function removeByValue(array $array, $value, $strict = true)
     {
@@ -400,7 +388,7 @@ class ArrayHelper
      *
      * @return array
      *
-     * @author Andreas Glaser
+
      */
     public static function keysCamelToUnderscore(array $array)
     {
@@ -426,7 +414,7 @@ class ArrayHelper
      *
      * @return array
      *
-     * @author Andreas Glaser
+
      */
     public static function unsetEmptyValues(array $array, $recursive = false)
     {
@@ -450,7 +438,7 @@ class ArrayHelper
      *
      * @return string
      *
-     * @author Andreas Glaser
+
      */
     public static function implodeIgnoreEmpty($glue, array $pieces)
     {
@@ -471,7 +459,6 @@ class ArrayHelper
      * @param array $array
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function implodeKeys($glue, array $array)
     {
@@ -483,7 +470,6 @@ class ArrayHelper
      * @param      $string
      *
      * @return array
-     * @author Andreas Glaser
      */
     public static function explodeIgnoreEmpty($delimiter, $string)
     {
@@ -504,7 +490,7 @@ class ArrayHelper
      *
      * @return array
      *
-     * @author Andreas Glaser
+
      */
     public static function valueToUpper(array $array, $recursive = true)
     {
@@ -528,7 +514,7 @@ class ArrayHelper
      *
      * @return bool
      *
-     * @author Andreas Glaser
+
      */
     public static function isAssoc(array $array)
     {
@@ -547,7 +533,7 @@ class ArrayHelper
      *
      * @return bool
      *
-     * @author Andreas Glaser
+
      */
     public static function assocIndexesExist(array $arrayToCheck, array $arrayToCompareWith, $throwException = true)
     {
@@ -582,7 +568,6 @@ class ArrayHelper
      * @param bool|true $caseSensitive
      *
      * @return array
-     * @author Andreas Glaser
      */
     public static function replaceValue(array $array, $value, $replacement, $recursively = true, $caseSensitive = true)
     {
@@ -636,7 +621,7 @@ class ArrayHelper
      * @return mixed|null
      * @deprecated Please use ArrayHelper::getFirstValue($array, $default) instead.
      *
-     * @author     Andreas Glaser
+
      */
     public static function getFirstIndex($array, $default = null)
     {
@@ -650,7 +635,6 @@ class ArrayHelper
      *
      * @return array
      *
-     * @author     Andreas Glaser
      * @deprecated Use ArrayHelper::prepend() instead.
      */
     public static function unshiftAssoc($array, $key, $val)

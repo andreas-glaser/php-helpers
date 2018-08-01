@@ -7,7 +7,7 @@ namespace AndreasGlaser\Helpers;
  *
  * @package Helpers
  *
- * @author  Andreas Glaser
+
  */
 class StringHelper
 {
@@ -18,7 +18,7 @@ class StringHelper
      *
      * @return bool
      *
-     * @author Andreas Glaser
+
      */
     public static function is($string, $stringToMach, $caseSensitive = true)
     {
@@ -36,7 +36,7 @@ class StringHelper
      *
      * @return bool|string
      *
-     * @author Andreas Glaser
+
      */
     public static function isOneOf($string, array $stingsToCompare, $caseSensitive = true)
     {
@@ -58,7 +58,7 @@ class StringHelper
      *
      * @return bool
      *
-     * @author Andreas Glaser
+
      */
     public static function contains($haystack, $needle, $caseSensitive = true, $encoding = 'UTF-8')
     {
@@ -77,7 +77,7 @@ class StringHelper
      *
      * @return bool
      *
-     * @author Andreas Glaser
+
      */
     public static function startsWith($haystack, $needle, $caseSensitive = true, $encoding = 'UTF-8')
     {
@@ -96,7 +96,7 @@ class StringHelper
      *
      * @return bool
      *
-     * @author Andreas Glaser
+
      */
     public static function endsWith($haystack, $needle, $caseSensitive = true, $encoding = 'UTF-8')
     {
@@ -129,7 +129,7 @@ class StringHelper
      *
      * @return string
      *
-     * @author Andreas Glaser
+
      */
     public static function trimMulti($string, array $chars)
     {
@@ -146,7 +146,7 @@ class StringHelper
      *
      * @return string
      *
-     * @author Andreas Glaser
+
      */
     public static function lTrimMulti($string, array $chars)
     {
@@ -163,7 +163,7 @@ class StringHelper
      *
      * @return string
      *
-     * @author Andreas Glaser
+
      */
     public static function rTrimMulti($string, array $chars)
     {
@@ -181,7 +181,7 @@ class StringHelper
      *
      * @return string
      *
-     * @author Andreas Glaser
+
      */
     public static function camelToUnderscore($string)
     {
@@ -204,7 +204,7 @@ class StringHelper
      *
      * @return mixed
      *
-     * @author Andreas Glaser
+
      */
     public static function removeLineBreaks($string, $replaceWith = ' ')
     {
@@ -216,7 +216,7 @@ class StringHelper
      *
      * @return mixed
      *
-     * @author Andreas Glaser
+
      */
     public static function removeRedundantWhiteSpaces($string)
     {
@@ -228,7 +228,7 @@ class StringHelper
      *
      * @return mixed
      *
-     * @author Andreas Glaser
+
      */
     public static function replaceWhiteSpacesWithUnderscores($string)
     {
@@ -240,7 +240,7 @@ class StringHelper
      *
      * @return string
      *
-     * @author Andreas Glaser
+
      */
     public static function machineReadable($string)
     {
@@ -253,7 +253,7 @@ class StringHelper
      *
      * @return string
      *
-     * @author Andreas Glaser
+
      */
     public static function append($string, $stringToAppend)
     {
@@ -266,7 +266,7 @@ class StringHelper
      *
      * @return string
      *
-     * @author Andreas Glaser
+
      */
     public static function prepend($string, $stringToPrepend)
     {
@@ -279,7 +279,7 @@ class StringHelper
      *
      * @return mixed
      *
-     * @author Andreas Glaser
+
      */
     public static function removeChar($string, $char)
     {
@@ -307,7 +307,7 @@ class StringHelper
      *
      * @return array
      *
-     * @author Andreas Glaser
+
      */
     public static function explodeAndTrim($delimiter, $string)
     {
@@ -330,7 +330,7 @@ class StringHelper
      *
      * @return mixed
      *
-     * @author Andreas Glaser
+
      */
     public static function replace($subject, array $replacementMap, $caseSensitive = true)
     {
@@ -420,7 +420,6 @@ class StringHelper
      * @param string $prefix
      *
      * @return string
-     * @author Andreas Glaser
      */
     public static function getIncrementalId($prefix = '__undefined__')
     {
@@ -441,7 +440,6 @@ class StringHelper
      * @param $string
      *
      * @return boolean
-     * @author Andreas Glaser
      */
     public static function isBlank($string)
     {

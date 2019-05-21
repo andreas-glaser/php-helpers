@@ -32,7 +32,7 @@ class StringHelper
     /**
      * @param       $string
      * @param array $stingsToCompare
-     * @param bool  $caseSensitive
+     * @param bool $caseSensitive
      *
      * @return bool|string
      *
@@ -53,7 +53,7 @@ class StringHelper
     /**
      * @param        $haystack
      * @param        $needle
-     * @param bool   $caseSensitive
+     * @param bool $caseSensitive
      * @param string $encoding
      *
      * @return bool
@@ -72,14 +72,14 @@ class StringHelper
     /**
      * @param        $haystack
      * @param        $needle
-     * @param bool   $caseSensitive
+     * @param bool $caseSensitive
      * @param string $encoding
      *
      * @return bool
      *
 
      */
-    public static function startsWith($haystack, $needle, $caseSensitive = true, $encoding = 'UTF-8')
+    public static function startsWith($haystack, $needle, bool $caseSensitive = true, $encoding = 'UTF-8'): bool
     {
         if ($caseSensitive === false) {
             return strncasecmp($haystack, $needle, mb_strlen($needle, $encoding)) === 0;
@@ -89,16 +89,13 @@ class StringHelper
     }
 
     /**
-     * @param        $haystack
-     * @param        $needle
-     * @param bool   $caseSensitive
+     * @param $haystack
+     * @param $needle
+     * @param bool $caseSensitive
      * @param string $encoding
-     *
      * @return bool
-     *
-
      */
-    public static function endsWith($haystack, $needle, $caseSensitive = true, $encoding = 'UTF-8')
+    public static function endsWith($haystack, $needle, bool $caseSensitive = true, $encoding = 'UTF-8'): bool
     {
         // get length of needle
         $length = mb_strlen($needle, $encoding);
@@ -326,7 +323,7 @@ class StringHelper
      *
      * @param       $subject
      * @param array $replacementMap
-     * @param bool  $caseSensitive
+     * @param bool $caseSensitive
      *
      * @return mixed
      *
@@ -350,9 +347,9 @@ class StringHelper
      *
      *     $text = static::limit_words($text);
      *
-     * @param   string  $str      phrase to limit words of
-     * @param   integer $limit    number of words to limit to
-     * @param   string  $end_char end character or entity
+     * @param string $str phrase to limit words of
+     * @param integer $limit number of words to limit to
+     * @param string $end_char end character or entity
      *
      * @return  string
      */
@@ -381,10 +378,10 @@ class StringHelper
      *
      *     $text = static::limit_chars($text);
      *
-     * @param   string  $str            phrase to limit characters of
-     * @param   integer $limit          number of characters to limit to
-     * @param   string  $end_char       end character or entity
-     * @param   boolean $preserve_words enable or disable the preservation of words while limiting
+     * @param string $str phrase to limit characters of
+     * @param integer $limit number of characters to limit to
+     * @param string $end_char end character or entity
+     * @param boolean $preserve_words enable or disable the preservation of words while limiting
      *
      * @return  string
      * @uses    strlen
@@ -444,6 +441,38 @@ class StringHelper
     public static function isBlank($string)
     {
         return !strlen(trim((string)$string)) > 0;
+    }
+
+    /**
+     * @param string $string
+     * @param string $stringToRemove
+     * @param bool $caseSensitive
+     * @param string $encoding
+     * @return string
+     */
+    public static function removeFromStart(string $string, string $stringToRemove, bool $caseSensitive = true, $encoding = 'UTF-8'): string
+    {
+        if (static::startsWith($string, $stringToRemove, $caseSensitive, $encoding)) {
+            return mb_substr($string, mb_strlen($stringToRemove, $encoding), null, $encoding);
+        }
+
+        return $string;
+    }
+
+    /**
+     * @param string $string
+     * @param string $stringToRemove
+     * @param bool $caseSensitive
+     * @param string $encoding
+     * @return string
+     */
+    public static function removeFromEnd(string $string, string $stringToRemove, bool $caseSensitive = true, $encoding = 'UTF-8'): string
+    {
+        if (static::endsWith($string, $stringToRemove, $caseSensitive, $encoding)) {
+            return mb_substr($string, 0, -mb_strlen($stringToRemove, $encoding), $encoding);
+        }
+
+        return $string;
     }
 }
 

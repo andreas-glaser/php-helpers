@@ -6,10 +6,7 @@ use AndreasGlaser\Helpers\StringHelper;
 
 /**
  * Class StringHelperTest
- *
- * @package Helpers\Tests
- *
-
+ * @package AndreasGlaser\Helpers\Tests
  */
 class StringHelperTest extends BaseTest
 {
@@ -18,8 +15,6 @@ class StringHelperTest extends BaseTest
      */
     protected $testString = 'Hello there, this is a test string.';
 
-    /**
-     */
     public function testIs()
     {
         $this->assertTrue(StringHelper::is($this->testString, 'Hello there, this is a test string.', true));
@@ -27,8 +22,6 @@ class StringHelperTest extends BaseTest
         $this->assertTrue(StringHelper::is($this->testString, 'HELLO there, this is a TEST string.', false));
     }
 
-    /**
-     */
     public function testIsOneOf()
     {
         $this->assertTrue(StringHelper::isOneOf($this->testString, ['Hello there, this is a test string.', 'cheese'], true));
@@ -36,8 +29,6 @@ class StringHelperTest extends BaseTest
         $this->assertTrue(StringHelper::isOneOf($this->testString, ['Hello there, THIS is a test string.', 'cheese'], false));
     }
 
-    /**
-     */
     public function testContains()
     {
         $this->assertTrue(StringHelper::contains($this->testString, 'this is', true));
@@ -45,8 +36,6 @@ class StringHelperTest extends BaseTest
         $this->assertTrue(StringHelper::contains($this->testString, 'STRING.', false));
     }
 
-    /**
-     */
     public function testStringStartsWith()
     {
         $this->assertTrue(StringHelper::startsWith($this->testString, 'Hello', true));
@@ -58,8 +47,6 @@ class StringHelperTest extends BaseTest
         $this->assertTrue(StringHelper::startsWith($this->testString, null, false));
     }
 
-    /**
-     */
     public function testStringEndsWith()
     {
         $this->assertTrue(StringHelper::endsWith($this->testString, 'string.', true));
@@ -71,32 +58,24 @@ class StringHelperTest extends BaseTest
         $this->assertTrue(StringHelper::endsWith($this->testString, null, false));
     }
 
-    /**
-     */
     public function testTrimMulti()
     {
         $this->assertEquals(' there, this is a test string', StringHelper::trimMulti($this->testString, ['Hello', '.']));
         $this->assertNotEquals(' there, this is a test string', StringHelper::trimMulti($this->testString, ['Hello', ',']));
     }
 
-    /**
-     */
     public function testRTrimMulti()
     {
         $this->assertEquals(' there, this is a test string.', StringHelper::lTrimMulti($this->testString, ['Hello']));
         $this->assertNotEquals('there, this is a test string.', StringHelper::lTrimMulti($this->testString, ['Hello', ',']));
     }
 
-    /**
-     */
     public function testLTrimMulti()
     {
         $this->assertEquals('Hello there, this is a test ', StringHelper::rTrimMulti($this->testString, ['.', 'string']));
         $this->assertNotEquals('Hello there, this is a test string!', StringHelper::rTrimMulti($this->testString, ['.']));
     }
 
-    /**
-     */
     public function testGetIncrementalId()
     {
         $this->assertEquals(0, StringHelper::getIncrementalId());
@@ -110,8 +89,6 @@ class StringHelperTest extends BaseTest
         $this->assertEquals('prefix_2', StringHelper::getIncrementalId('prefix_'));
     }
 
-    /**
-     */
     public function testIsDateTime()
     {
         $this->assertTrue(StringHelper::isDateTime('2015-03-23'));
@@ -126,8 +103,6 @@ class StringHelperTest extends BaseTest
         $this->assertFalse(StringHelper::isDateTime(''));
     }
 
-    /**
-     */
     public function testIsBlank()
     {
         $this->assertTrue(StringHelper::isBlank(' '));
@@ -136,6 +111,22 @@ class StringHelperTest extends BaseTest
         $this->assertFalse(StringHelper::isBlank('a'));
         $this->assertFalse(StringHelper::isBlank(' a  '));
         $this->assertFalse(StringHelper::isBlank(0));
+    }
+
+    public function testRemoveFromStart()
+    {
+        $this->assertEquals(' is a string', StringHelper::removeFromStart('this is a string', 'this'));
+        $this->assertEquals('this is a string', StringHelper::removeFromStart('this is a string', 'This'));
+        $this->assertEquals(' is a string', StringHelper::removeFromStart('this is a string', 'This', false));
+        $this->assertEquals('this is a string', StringHelper::removeFromStart('this is a string', 'XYZ'));
+    }
+
+    public function testRemoveFromEnd()
+    {
+        $this->assertEquals('this is a ', StringHelper::removeFromEnd('this is a string', 'string'));
+        $this->assertEquals('this is a string', StringHelper::removeFromEnd('this is a string', 'String'));
+        $this->assertEquals('this is a ', StringHelper::removeFromEnd('this is a string', 'String', false));
+        $this->assertEquals('this is a string', StringHelper::removeFromEnd('this is a string', 'XYZ'));
     }
 }
  

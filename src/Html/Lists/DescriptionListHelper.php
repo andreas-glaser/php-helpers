@@ -39,8 +39,6 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
      * DescriptionListHelper constructor.
      *
      * @param null|AttributesHelper|array $attributes
-     *
-
      */
     public function __construct($attributes = null)
     {

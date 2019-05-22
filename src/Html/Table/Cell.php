@@ -38,8 +38,8 @@ class Cell implements RenderableInterface, FactoryInterface
     }
 
     /**
-     * @param null                         $content
-     * @param  AttributesHelper|array|null $attributesHelper
+     * @param null                        $content
+     * @param AttributesHelper|array|null $attributesHelper
      */
     public function __construct($content = null, $attributesHelper = null)
     {
@@ -116,7 +116,6 @@ class Cell implements RenderableInterface, FactoryInterface
      *
      * @return $this
      * @throws \Exception
-     *
      * @deprecated Not supported in HTML5. http://www.w3schools.com/tags/att_td_scope.asp
      */
     public function setScope($scope)
@@ -134,7 +133,6 @@ class Cell implements RenderableInterface, FactoryInterface
 
     /**
      * @return string|null
-     *
      * @deprecated Not supported in HTML5. http://www.w3schools.com/tags/att_td_scope.asp
      */
     public function getScope()

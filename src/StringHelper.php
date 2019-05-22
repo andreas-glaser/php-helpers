@@ -6,8 +6,6 @@ namespace AndreasGlaser\Helpers;
  * Class StringHelper
  *
  * @package Helpers
- *
-
  */
 class StringHelper
 {
@@ -17,8 +15,6 @@ class StringHelper
      * @param bool $caseSensitive
      *
      * @return bool
-     *
-
      */
     public static function is($string, $stringToMach, $caseSensitive = true)
     {
@@ -32,11 +28,9 @@ class StringHelper
     /**
      * @param       $string
      * @param array $stingsToCompare
-     * @param bool $caseSensitive
+     * @param bool  $caseSensitive
      *
      * @return bool|string
-     *
-
      */
     public static function isOneOf($string, array $stingsToCompare, $caseSensitive = true)
     {
@@ -53,12 +47,10 @@ class StringHelper
     /**
      * @param        $haystack
      * @param        $needle
-     * @param bool $caseSensitive
+     * @param bool   $caseSensitive
      * @param string $encoding
      *
      * @return bool
-     *
-
      */
     public static function contains($haystack, $needle, $caseSensitive = true, $encoding = 'UTF-8')
     {
@@ -72,12 +64,10 @@ class StringHelper
     /**
      * @param        $haystack
      * @param        $needle
-     * @param bool $caseSensitive
+     * @param bool   $caseSensitive
      * @param string $encoding
      *
      * @return bool
-     *
-
      */
     public static function startsWith($haystack, $needle, bool $caseSensitive = true, $encoding = 'UTF-8'): bool
     {
@@ -89,10 +79,11 @@ class StringHelper
     }
 
     /**
-     * @param $haystack
-     * @param $needle
-     * @param bool $caseSensitive
+     * @param        $haystack
+     * @param        $needle
+     * @param bool   $caseSensitive
      * @param string $encoding
+     *
      * @return bool
      */
     public static function endsWith($haystack, $needle, bool $caseSensitive = true, $encoding = 'UTF-8'): bool
@@ -125,8 +116,6 @@ class StringHelper
      * @param array $chars
      *
      * @return string
-     *
-
      */
     public static function trimMulti($string, array $chars)
     {
@@ -142,8 +131,6 @@ class StringHelper
      * @param array $chars
      *
      * @return string
-     *
-
      */
     public static function lTrimMulti($string, array $chars)
     {
@@ -159,8 +146,6 @@ class StringHelper
      * @param array $chars
      *
      * @return string
-     *
-
      */
     public static function rTrimMulti($string, array $chars)
     {
@@ -177,8 +162,6 @@ class StringHelper
      * @param $string
      *
      * @return string
-     *
-
      */
     public static function camelToUnderscore($string)
     {
@@ -200,8 +183,6 @@ class StringHelper
      * @param string $replaceWith
      *
      * @return mixed
-     *
-
      */
     public static function removeLineBreaks($string, $replaceWith = ' ')
     {
@@ -212,8 +193,6 @@ class StringHelper
      * @param $string
      *
      * @return mixed
-     *
-
      */
     public static function removeRedundantWhiteSpaces($string)
     {
@@ -224,8 +203,6 @@ class StringHelper
      * @param $string
      *
      * @return mixed
-     *
-
      */
     public static function replaceWhiteSpacesWithUnderscores($string)
     {
@@ -236,8 +213,6 @@ class StringHelper
      * @param $string
      *
      * @return string
-     *
-
      */
     public static function machineReadable($string)
     {
@@ -249,8 +224,6 @@ class StringHelper
      * @param $stringToAppend
      *
      * @return string
-     *
-
      */
     public static function append($string, $stringToAppend)
     {
@@ -262,8 +235,6 @@ class StringHelper
      * @param $stringToPrepend
      *
      * @return string
-     *
-
      */
     public static function prepend($string, $stringToPrepend)
     {
@@ -275,8 +246,6 @@ class StringHelper
      * @param $char
      *
      * @return mixed
-     *
-
      */
     public static function removeChar($string, $char)
     {
@@ -303,8 +272,6 @@ class StringHelper
      * @param      $string
      *
      * @return array
-     *
-
      */
     public static function explodeAndTrim($delimiter, $string)
     {
@@ -323,11 +290,9 @@ class StringHelper
      *
      * @param       $subject
      * @param array $replacementMap
-     * @param bool $caseSensitive
+     * @param bool  $caseSensitive
      *
      * @return mixed
-     *
-
      */
     public static function replace($subject, array $replacementMap, $caseSensitive = true)
     {
@@ -344,12 +309,11 @@ class StringHelper
 
     /**
      * Limits a phrase to a given number of words.
-     *
      *     $text = static::limit_words($text);
      *
-     * @param string $str phrase to limit words of
+     * @param string  $str phrase to limit words of
      * @param integer $limit number of words to limit to
-     * @param string $end_char end character or entity
+     * @param string  $end_char end character or entity
      *
      * @return  string
      */
@@ -375,12 +339,11 @@ class StringHelper
 
     /**
      * Limits a phrase to a given number of characters.
-     *
      *     $text = static::limit_chars($text);
      *
-     * @param string $str phrase to limit characters of
+     * @param string  $str phrase to limit characters of
      * @param integer $limit number of characters to limit to
-     * @param string $end_char end character or entity
+     * @param string  $end_char end character or entity
      * @param boolean $preserve_words enable or disable the preservation of words while limiting
      *
      * @return  string
@@ -446,8 +409,9 @@ class StringHelper
     /**
      * @param string $string
      * @param string $stringToRemove
-     * @param bool $caseSensitive
+     * @param bool   $caseSensitive
      * @param string $encoding
+     *
      * @return string
      */
     public static function removeFromStart(string $string, string $stringToRemove, bool $caseSensitive = true, $encoding = 'UTF-8'): string
@@ -462,8 +426,9 @@ class StringHelper
     /**
      * @param string $string
      * @param string $stringToRemove
-     * @param bool $caseSensitive
+     * @param bool   $caseSensitive
      * @param string $encoding
+     *
      * @return string
      */
     public static function removeFromEnd(string $string, string $stringToRemove, bool $caseSensitive = true, $encoding = 'UTF-8'): string

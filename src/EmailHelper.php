@@ -18,8 +18,6 @@ class EmailHelper
      * @param array $delimiters
      *
      * @return array
-     *
-
      */
     public static function clean($emails, array $delimiters = [',', '|', ';'])
     {
@@ -62,8 +60,6 @@ class EmailHelper
      * @param $email
      *
      * @return bool
-     *
-
      */
     public static function isValid($email)
     {

@@ -6,8 +6,6 @@ namespace AndreasGlaser\Helpers;
  * Class TimerHelper
  *
  * @package Helpers
- *
-
  */
 class TimerHelper
 {
@@ -19,8 +17,6 @@ class TimerHelper
      * @param $alias
      *
      * @throws \RuntimeException
-     *
-
      */
     public static function start($alias)
     {
@@ -38,8 +34,6 @@ class TimerHelper
      *
      * @return mixed
      * @throws \RuntimeException
-     *
-
      */
     public static function getDifference($alias)
     {
@@ -57,8 +51,6 @@ class TimerHelper
      *
      * @return mixed
      * @throws \RuntimeException
-     *
-
      */
     public static function stop($alias)
     {

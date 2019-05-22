@@ -47,7 +47,6 @@ class PHPView implements FactoryInterface
      * @param array $data
      *
      * @return \AndreasGlaser\Helpers\View\PHPView
-     *
      * @deprecated Use PHPView::f()
      */
     public static function factory(string $file = null, array $data = []): PHPView

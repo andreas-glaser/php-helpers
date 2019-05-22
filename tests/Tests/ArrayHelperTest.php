@@ -77,7 +77,7 @@ class ArrayHelperTest extends BaseTest
             'k4' => 'duplicate',
             'k5' => 0,
             'k6' => '0',
-            0    => 'test',
+            0 => 'test',
         ];
 
         $this->assertEquals('k1', ArrayHelper::getKeyByValue($testArray, 'v1'));
@@ -100,7 +100,7 @@ class ArrayHelperTest extends BaseTest
             'index3' => [
                 'index4' => 'Cooool',
                 'index5' => new \stdClass(),
-                'abc'    => [
+                'abc' => [
                     'great',
                 ],
             ],
@@ -122,7 +122,7 @@ class ArrayHelperTest extends BaseTest
     public function testSetByPath()
     {
         $myArray = [
-            'test'   => 'Hello',
+            'test' => 'Hello',
             'index2' => [
                 'index3' => [
                     'index4' => 'XYZ',
@@ -133,7 +133,7 @@ class ArrayHelperTest extends BaseTest
 
         $this->assertEquals(
             [
-                'test'   => 'Bye',
+                'test' => 'Bye',
                 'index2' => [
                     'index3' => [
                         'index4' => 'XYZ',
@@ -146,12 +146,12 @@ class ArrayHelperTest extends BaseTest
 
         $this->assertEquals(
             [
-                'test'   => 'Hello',
+                'test' => 'Hello',
                 'index2' => [
                     'index3' => [
                         'index4' => 'XYZ',
                         'index5' => 'Something',
-                        'test'   => 'Cheese',
+                        'test' => 'Cheese',
                     ],
                 ],
             ],
@@ -165,12 +165,12 @@ class ArrayHelperTest extends BaseTest
 
         $this->assertEquals(
             [
-                'test'   => 'Hello',
+                'test' => 'Hello',
                 'index2' => [
                     'index3' => [
                         'index4' => 'XYZ',
                         'index5' => 'Something',
-                        'test'   => 'Cheese',
+                        'test' => 'Cheese',
                     ],
                 ],
             ],
@@ -181,7 +181,7 @@ class ArrayHelperTest extends BaseTest
     public function testUnsetByPath()
     {
         $myArray = [
-            'test'   => 'Hello',
+            'test' => 'Hello',
             'index2' => [
                 'index3' => [
                     'index4' => 'XYZ',
@@ -204,7 +204,7 @@ class ArrayHelperTest extends BaseTest
 
         $this->assertEquals(
             [
-                'test'   => 'Hello',
+                'test' => 'Hello',
                 'index2' => [
                     'index3' => [
                         'index4' => 'XYZ',
@@ -216,7 +216,7 @@ class ArrayHelperTest extends BaseTest
 
         $this->assertEquals(
             [
-                'test'   => 'Hello',
+                'test' => 'Hello',
                 'index2' => [],
             ],
             ArrayHelper::unsetByPath($myArray, 'index2.index3')
@@ -224,7 +224,7 @@ class ArrayHelperTest extends BaseTest
 
         $this->assertEquals(
             [
-                'test'   => 'Hello',
+                'test' => 'Hello',
                 'index2' => [
                     'index3' => [
                         'index4' => 'XYZ',
@@ -241,7 +241,7 @@ class ArrayHelperTest extends BaseTest
     public function testExistByPath()
     {
         $myArray = [
-            'test'   => 'Hello',
+            'test' => 'Hello',
             'index2' => [
                 'index3' => [
                     'index4' => 'XYZ',
@@ -277,7 +277,7 @@ class ArrayHelperTest extends BaseTest
     public function testIssetByPath()
     {
         $myArray = [
-            'test'   => 'Hello',
+            'test' => 'Hello',
             'index2' => [
                 'index3' => [
                     'index4' => 'XYZ',
@@ -285,7 +285,7 @@ class ArrayHelperTest extends BaseTest
                     'index6' => null,
                 ],
             ],
-            'empty'  => null,
+            'empty' => null,
         ];
 
         // test positive results
@@ -323,19 +323,19 @@ class ArrayHelperTest extends BaseTest
             'k4' => 'duplicate',
             'k5' => 0,
             'k6' => '0',
-            0    => 'test',
+            0 => 'test',
         ];
 
         $this->assertEquals(
             [
-                1    => 'hello',
+                1 => 'hello',
                 'k1' => 'v1',
                 'k2' => 'v2',
                 'k3' => 'duplicate',
                 'k4' => 'duplicate',
                 'k5' => 0,
                 'k6' => '0',
-                0    => 'test',
+                0 => 'test',
             ],
             ArrayHelper::prepend($testArray, 'hello')
         );
@@ -343,13 +343,13 @@ class ArrayHelperTest extends BaseTest
         $this->assertEquals(
             [
                 'test' => 'hello',
-                'k1'   => 'v1',
-                'k2'   => 'v2',
-                'k3'   => 'duplicate',
-                'k4'   => 'duplicate',
-                'k5'   => 0,
-                'k6'   => '0',
-                0      => 'test',
+                'k1' => 'v1',
+                'k2' => 'v2',
+                'k3' => 'duplicate',
+                'k4' => 'duplicate',
+                'k5' => 0,
+                'k6' => '0',
+                0 => 'test',
             ],
             ArrayHelper::prepend($testArray, 'hello', 'test')
         );
@@ -366,19 +366,19 @@ class ArrayHelperTest extends BaseTest
             'k4' => 'duplicate',
             'k5' => 0,
             'k6' => '0',
-            0    => 'test',
+            0 => 'test',
         ];
 
         $this->assertEquals(
             [
-                1    => 'hello',
+                1 => 'hello',
                 'k1' => 'v1',
                 'k2' => 'v2',
                 'k3' => 'duplicate',
                 'k4' => 'duplicate',
                 'k5' => 0,
                 'k6' => '0',
-                0    => 'test',
+                0 => 'test',
             ],
             ArrayHelper::append($testArray, 'hello')
         );
@@ -386,13 +386,13 @@ class ArrayHelperTest extends BaseTest
         $this->assertEquals(
             [
                 'test' => 'hello',
-                'k1'   => 'v1',
-                'k2'   => 'v2',
-                'k3'   => 'duplicate',
-                'k4'   => 'duplicate',
-                'k5'   => 0,
-                'k6'   => '0',
-                0      => 'test',
+                'k1' => 'v1',
+                'k2' => 'v2',
+                'k3' => 'duplicate',
+                'k4' => 'duplicate',
+                'k5' => 0,
+                'k6' => '0',
+                0 => 'test',
             ],
             ArrayHelper::append($testArray, 'hello', 'test')
         );
@@ -571,10 +571,10 @@ class ArrayHelperTest extends BaseTest
             'assoc1' => 'value1',
             'assoc2' => [
                 'assoc3' => 'value2',
-                10       => 'value3',
+                10 => 'value3',
             ],
             'assoc4' => [],
-            0        => 'value4',
+            0 => 'value4',
         ];
 
         $this->assertEquals(
@@ -582,10 +582,10 @@ class ArrayHelperTest extends BaseTest
                 'assoc1' => 'overwritten',
                 'assoc2' => [
                     'assoc3' => 'value2',
-                    10       => 'value3',
+                    10 => 'value3',
                 ],
                 'assoc4' => [],
-                0        => 'value4',
+                0 => 'value4',
             ],
             ArrayHelper::merge($array1, ['assoc1' => 'overwritten'])
         );
@@ -595,11 +595,11 @@ class ArrayHelperTest extends BaseTest
                 'assoc1' => 'value1',
                 'assoc2' => [
                     'assoc3' => 'value2',
-                    10       => 'value3',
+                    10 => 'value3',
                 ],
                 'assoc4' => [],
-                0        => 'value4',
-                1        => 'added',
+                0 => 'value4',
+                1 => 'added',
             ],
             ArrayHelper::merge($array1, [0 => 'added'])
         );
@@ -609,7 +609,7 @@ class ArrayHelperTest extends BaseTest
                 'assoc1' => 'value1',
                 'assoc2' => 'overwritten',
                 'assoc4' => [],
-                0        => 'value4',
+                0 => 'value4',
             ],
             ArrayHelper::merge($array1, ['assoc2' => 'overwritten'])
         );
@@ -619,13 +619,13 @@ class ArrayHelperTest extends BaseTest
                 'assoc1' => 'value1',
                 'assoc2' => [
                     'assoc3' => 'value2',
-                    10       => 'value3',
+                    10 => 'value3',
                 ],
                 'assoc4' => [
-                    0     => 'cheese',
+                    0 => 'cheese',
                     'abc' => 'tasty',
                 ],
-                0        => 'value4',
+                0 => 'value4',
             ],
             ArrayHelper::merge($array1, ['assoc4' => ['cheese', 'abc' => 'tasty']])
         );

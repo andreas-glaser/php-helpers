@@ -11,8 +11,6 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @param string $message
-     *
-
      */
     protected function todo($message = 'todo: Implement this method')
     {

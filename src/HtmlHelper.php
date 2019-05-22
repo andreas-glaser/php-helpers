@@ -165,13 +165,11 @@ class HtmlHelper
     /**
      * Automatically applies "p" and "br" markup to text.
      * Basically [nl2br](http://php.net/nl2br) on steroids.
-     *
      *     echo static::auto_p($text);
-     *
      * [!!] This method is not foolproof since it uses regex to parse HTML.
      *
-     * @param   string  $str subject
-     * @param   boolean $br  convert single linebreaks to <br />
+     * @param string  $str subject
+     * @param boolean $br convert single linebreaks to <br />
      *
      * @return  string
      */
@@ -222,8 +220,6 @@ class HtmlHelper
      * @param $paragraphs
      *
      * @return string
-     *
-
      */
     public static function arrayToParagraphs($paragraphs)
     {

@@ -12,7 +12,6 @@ class UrlHelper
 
     /**
      * Returns string of protocol, server name and port of server-side configured values.
-     *
      * e.g.:
      * http://example.com
      * http://example.com:8080 (if custom http port is used)
@@ -49,8 +48,6 @@ class UrlHelper
      * @param bool  $mergeGetVariables
      *
      * @return null|string
-     *
-
      */
     public static function query(array $parameters = null, bool $mergeGetVariables = true)
     {
@@ -76,8 +73,6 @@ class UrlHelper
      * @param bool $urlEncode
      *
      * @return null|string
-     *
-
      */
     public static function currentUrl(bool $includeQuery = true, bool $urlEncode = false)
     {
@@ -95,8 +90,6 @@ class UrlHelper
      * @param bool $encode
      *
      * @return null|string
-     *
-
      */
     public static function currentUri(bool $includeQueryParams = true, bool $encode = false)
     {

@@ -628,8 +628,8 @@ class FormHelperTest extends BaseTest
         $this->assertEquals(
             '<select id="test" name="partner"><option value="value1">Options One</option><option value="value2">Option Two</option><optgroup label="Group 1"><option value="value4" selected="selected">Option Four</option></optgroup><optgroup label="Group 2"><option value="value5">Option Four</option></optgroup></select>',
             FormHelper::select('partner', [
-                'value1'  => 'Options One',
-                'value2'  => 'Option Two',
+                'value1' => 'Options One',
+                'value2' => 'Option Two',
                 'Group 1' => [
                     'value4' => 'Option Four',
                 ],
@@ -648,8 +648,8 @@ class FormHelperTest extends BaseTest
         $this->assertEquals(
             '<select id="test" name="partner" multiple="multiple"><option value="value1">Options One</option><option value="value2">Option Two</option><optgroup label="Group 1"><option value="value4" selected="selected">Option Four</option></optgroup><optgroup label="Group 2"><option value="value5">Option Four</option></optgroup></select>',
             FormHelper::selectMultiple('partner', [
-                'value1'  => 'Options One',
-                'value2'  => 'Option Two',
+                'value1' => 'Options One',
+                'value2' => 'Option Two',
                 'Group 1' => [
                     'value4' => 'Option Four',
                 ],

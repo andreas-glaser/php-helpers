@@ -7,9 +7,7 @@ use Exception;
 /**
  * Class ArrayHelper
  *
- * @package Helpers
- *
-
+ * @package AndreasGlaser\Helpers
  */
 class ArrayHelper
 {
@@ -349,8 +347,6 @@ class ArrayHelper
      * @param array $array
      *
      * @return array
-     *
-
      */
     public static function removeFirstIndex(array $array)
     {
@@ -387,8 +383,6 @@ class ArrayHelper
      * @param array $array
      *
      * @return array
-     *
-
      */
     public static function keysCamelToUnderscore(array $array)
     {
@@ -413,8 +407,6 @@ class ArrayHelper
      * @param bool  $recursive
      *
      * @return array
-     *
-
      */
     public static function unsetEmptyValues(array $array, $recursive = false)
     {
@@ -437,8 +429,6 @@ class ArrayHelper
      * @param array $pieces
      *
      * @return string
-     *
-
      */
     public static function implodeIgnoreEmpty($glue, array $pieces)
     {
@@ -489,8 +479,6 @@ class ArrayHelper
      * @param bool  $recursive
      *
      * @return array
-     *
-
      */
     public static function valueToUpper(array $array, $recursive = true)
     {
@@ -513,8 +501,6 @@ class ArrayHelper
      * @param array $array
      *
      * @return bool
-     *
-
      */
     public static function isAssoc(array $array)
     {
@@ -532,8 +518,6 @@ class ArrayHelper
      * @param bool  $throwException
      *
      * @return bool
-     *
-
      */
     public static function assocIndexesExist(array $arrayToCheck, array $arrayToCompareWith, $throwException = true)
     {
@@ -620,8 +604,6 @@ class ArrayHelper
      *
      * @return mixed|null
      * @deprecated Please use ArrayHelper::getFirstValue($array, $default) instead.
-     *
-
      */
     public static function getFirstIndex($array, $default = null)
     {
@@ -634,7 +616,6 @@ class ArrayHelper
      * @param $val
      *
      * @return array
-     *
      * @deprecated Use ArrayHelper::prepend() instead.
      */
     public static function unshiftAssoc($array, $key, $val)

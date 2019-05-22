@@ -87,8 +87,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param $value
      *
      * @return $this
-     *
-
      */
     public function set($name, $value)
     {
@@ -120,8 +118,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param $name
      *
      * @return bool
-     *
-
      */
     public function has($name)
     {
@@ -135,8 +131,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param null $default
      *
      * @return null
-     *
-
      */
     public function get($name, $default = null)
     {
@@ -149,8 +143,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param $value
      *
      * @return $this
-     *
-
      */
     public function setId($value)
     {
@@ -163,8 +155,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * Cheks if id attribute has been set.
      *
      * @return bool
-     *
-
      */
     public function hasId()
     {
@@ -177,8 +167,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param null $default
      *
      * @return null
-     *
-
      */
     public function getId($default = null)
     {
@@ -189,8 +177,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * Removeds id attribute.
      *
      * @return $this
-     *
-
      */
     public function removeId()
     {
@@ -205,8 +191,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param $name
      *
      * @return $this
-     *
-
      */
     public function addClass($name)
     {
@@ -224,8 +208,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param $name
      *
      * @return bool
-     *
-
      */
     public function hasClass($name)
     {
@@ -236,8 +218,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * Checks if any classes have been added.
      *
      * @return bool
-     *
-
      */
     public function hasClasses()
     {
@@ -250,8 +230,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param $name
      *
      * @return $this
-     *
-
      */
     public function removeClass($name)
     {
@@ -266,8 +244,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * Gets all classes
      *
      * @return array
-     *
-
      */
     public function getClasses()
     {
@@ -287,8 +263,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param $name
      *
      * @return bool
-     *
-
      */
     public function hasStyle($name)
     {
@@ -299,8 +273,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * Checks if any styles have been added.
      *
      * @return bool
-     *
-
      */
     public function hasStyles()
     {
@@ -313,8 +285,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param $name
      *
      * @return $this
-     *
-
      */
     public function removeStyle($name)
     {
@@ -329,8 +299,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * Gets all styles
      *
      * @return array
-     *
-
      */
     public function getStyles()
     {
@@ -345,8 +313,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param $value
      *
      * @return $this
-     *
-
      */
     public function addData($name, $value)
     {
@@ -361,8 +327,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param null $name
      *
      * @return bool
-     *
-
      */
     public function hasData($name = null)
     {
@@ -376,8 +340,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param null $default
      *
      * @return array|null
-     *
-
      */
     public function getData($name = null, $default = null)
     {
@@ -390,8 +352,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param $name
      *
      * @return $this
-     *
-
      */
     public function removeData($name)
     {
@@ -408,8 +368,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param string $glue
      *
      * @return string
-     *
-
      */
     public function getClassesImploded($glue = ' ')
     {
@@ -495,8 +453,6 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * Executes render method.
      *
      * @return string
-     *
-
      */
     public function __toString()
     {

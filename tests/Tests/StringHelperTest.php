@@ -6,6 +6,7 @@ use AndreasGlaser\Helpers\StringHelper;
 
 /**
  * Class StringHelperTest
+ *
  * @package AndreasGlaser\Helpers\Tests
  */
 class StringHelperTest extends BaseTest

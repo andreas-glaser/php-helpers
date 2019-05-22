@@ -40,8 +40,6 @@ abstract class BaseListHelper implements FactoryInterface, RenderableInterface
      * BaseListHelper constructor.
      *
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributes
-     *
-
      */
     public function __construct($attributes = null)
     {

@@ -6,6 +6,7 @@ use AndreasGlaser\Helpers\ValueHelper;
 
 /**
  * Class ValueHelperTest
+ *
  * @package AndreasGlaser\Helpers\Tests
  */
 class ValueHelperTest extends BaseTest

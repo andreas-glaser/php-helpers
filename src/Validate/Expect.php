@@ -12,9 +12,8 @@ use AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException;
 class Expect
 {
     /**
+     * /**
      * @param $value
-     *
-
      */
     public static function int($value)
     {
@@ -25,8 +24,6 @@ class Expect
 
     /**
      * @param $value
-     *
-
      */
     public static function float($value)
     {
@@ -37,8 +34,6 @@ class Expect
 
     /**
      * @param $value
-     *
-
      */
     public static function numeric($value)
     {
@@ -49,8 +44,6 @@ class Expect
 
     /**
      * @param $value
-     *
-
      */
     public static function bool($value)
     {
@@ -61,8 +54,6 @@ class Expect
 
     /**
      * @param $value
-     *
-
      */
     public static function str($value)
     {
@@ -73,8 +64,6 @@ class Expect
 
     /**
      * @param $value
-     *
-
      */
     public static function arr($value)
     {
@@ -85,8 +74,6 @@ class Expect
 
     /**
      * @param $value
-     *
-
      */
     public static function obj($value)
     {
@@ -97,8 +84,6 @@ class Expect
 
     /**
      * @param $value
-     *
-
      */
     public static function res($value)
     {
@@ -109,8 +94,6 @@ class Expect
 
     /**
      * @param $value
-     *
-
      */
     public static function isCallable($value)
     {
@@ -121,8 +104,6 @@ class Expect
 
     /**
      * @param $value
-     *
-
      */
     public static function scalar($value)
     {
@@ -133,8 +114,6 @@ class Expect
 
     /**
      * @param $value
-     *
-
      */
     public static function null($value)
     {

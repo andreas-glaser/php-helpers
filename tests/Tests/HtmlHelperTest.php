@@ -9,8 +9,6 @@ use AndreasGlaser\Helpers\HtmlHelper;
  * Class HtmlHelperTest
  *
  * @package Helpers\Tests
- *
-
  */
 class HtmlHelperTest extends BaseTest
 {

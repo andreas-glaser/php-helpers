@@ -129,5 +129,18 @@ class StringHelperTest extends BaseTest
         $this->assertEquals('this is a ', StringHelper::removeFromEnd('this is a string', 'String', false));
         $this->assertEquals('this is a string', StringHelper::removeFromEnd('this is a string', 'XYZ'));
     }
+
+    public function testLinesToArray()
+    {
+        $testString = "Line1\nLine2\rLine3\r\nLine4";
+
+        $lines = StringHelper::linesToArray($testString);
+
+        $this->assertCount(4, $lines);
+        $this->assertEquals('Line1', $lines[0]);
+        $this->assertEquals('Line2', $lines[1]);
+        $this->assertEquals('Line3', $lines[2]);
+        $this->assertEquals('Line4', $lines[3]);
+    }
 }
  

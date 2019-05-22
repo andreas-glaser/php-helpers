@@ -439,6 +439,18 @@ class StringHelper
 
         return $string;
     }
+
+    /**
+     * @param string $string
+     *
+     * @return array
+     */
+    public static function linesToArray(string $string): array
+    {
+        $lines = preg_split('/\r\n|\n|\r/', $string);
+
+        return $lines !== false ? $lines : [];
+    }
 }
 
 // shortcut for strtr

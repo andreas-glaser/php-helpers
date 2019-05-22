@@ -398,26 +398,6 @@ class ArrayHelperTest extends BaseTest
         );
     }
 
-    public function testInsertBefore()
-    {
-        $this->todo();
-    }
-
-    public function testInsertAfter()
-    {
-        $this->todo();
-    }
-
-    public function testGetFirstValue()
-    {
-        $this->todo();
-    }
-
-    public function testGetLastValue()
-    {
-        $this->todo();
-    }
-
     /**
      */
     public function testGetRandomValue()
@@ -429,11 +409,6 @@ class ArrayHelperTest extends BaseTest
         ];
 
         $this->assertTrue(in_array(ArrayHelper::getRandomValue($testArray), $testArray));
-    }
-
-    public function testRemoveFirstIndex()
-    {
-        $this->todo();
     }
 
     /**
@@ -480,21 +455,6 @@ class ArrayHelperTest extends BaseTest
         );
     }
 
-    public function testKeysCamelToUnderscore()
-    {
-        $this->todo();
-    }
-
-    public function testUnsetEmptyValues()
-    {
-        $this->todo();
-    }
-
-    public function testImplodeIgnoreEmpty()
-    {
-        $this->todo();
-    }
-
     /**
      */
     public function testImplodeKeys()
@@ -524,21 +484,6 @@ class ArrayHelperTest extends BaseTest
 
         $this->assertEquals(8, count($explodedArray));
         $this->assertTrue(($expectedArray === $explodedArray));
-    }
-
-    public function testValueToUpper()
-    {
-        $this->todo();
-    }
-
-    public function testIsAssoc()
-    {
-        $this->todo();
-    }
-
-    public function testAssocIndexesExist()
-    {
-        $this->todo();
     }
 
     /**

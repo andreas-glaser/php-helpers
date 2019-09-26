@@ -62,4 +62,23 @@ class CsvHelper
 
         return $result;
     }
+
+    /**
+     * @param array  $array
+     * @param string $delimiter
+     * @param string $enclosure
+     * @param string $escape_char
+     *
+     * @return string
+     */
+    public static function arrayToCsvString(array $array, string $delimiter = ",", string $enclosure = '"', string $escape_char = "\\"): string
+    {
+        $f = fopen('php://memory', 'r+');
+        foreach ($array as $item) {
+            fputcsv($f, $item, $delimiter, $enclosure, $escape_char);
+        }
+        rewind($f);
+
+        return trim(stream_get_contents($f));
+    }
 }

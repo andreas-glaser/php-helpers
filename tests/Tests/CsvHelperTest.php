@@ -26,4 +26,74 @@ class CsvHelperTest extends BaseTest
         $this->assertEquals('test', $array[0]['name']);
         $this->assertEquals('test xyz', $array[0]['value']);
     }
+
+    public function testArrayToCsvString()
+    {
+
+        $array1 = [
+            [
+                'ID',
+                'Name',
+                'Description',
+            ],
+            [
+                1,
+                'Test 1',
+                'Some Text',
+            ],
+            [
+                2,
+                'Test 2',
+                'Includes "quotes"',
+            ],
+            [
+                3,
+                'Test 3',
+                'Includes \'quotes\'',
+            ],
+        ];
+
+        $array2 = [
+            [
+                'ID',
+                'Name',
+                'Description',
+            ],
+            [
+                1,
+                'Test 1',
+                'Includes a "|" pipe',
+            ],
+        ];
+
+        $array3 = [
+            [
+                'ID',
+                'Name',
+                'Description',
+            ],
+            [
+                1,
+                'Test 1',
+                'Includes "quotes"',
+            ],
+            [
+                2,
+                'Test 2',
+                'Includes \'quotes\'',
+            ],
+        ];
+
+        $this->assertEquals('ID,Name,Description
+1,"Test 1","Some Text"
+2,"Test 2","Includes ""quotes"""
+3,"Test 3","Includes \'quotes\'"', CsvHelper::arrayToCsvString($array1));
+
+        $this->assertEquals('ID|Name|Description
+1|"Test 1"|"Includes a ""|"" pipe"', CsvHelper::arrayToCsvString($array2, '|'));
+
+        $this->assertEquals("ID,Name,Description
+1,'Test 1','Includes \"quotes\"'
+2,'Test 2','Includes ''quotes'''", CsvHelper::arrayToCsvString($array3, ',', "'"));
+    }
 }

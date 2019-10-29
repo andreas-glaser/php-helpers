@@ -84,8 +84,10 @@ class IOHelper
 
     /**
      * @param string $dir
+     *
+     * @return void
      */
-    public static function rmdirRecursive(string $dir): void
+    public static function rmdirRecursive(string $dir)
     {
         IOExpect::isDir($dir);
         IOExpect::isReadable($dir);

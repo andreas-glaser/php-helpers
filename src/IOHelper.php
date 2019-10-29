@@ -8,11 +8,11 @@ use AndreasGlaser\Helpers\Validate\IOExpect;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
- * Class IoHelper
+ * Class IOHelper
  *
  * @package AndreasGlaser\Helpers
  */
-class IoHelper
+class IOHelper
 {
     /**
      * @param string|null $destination

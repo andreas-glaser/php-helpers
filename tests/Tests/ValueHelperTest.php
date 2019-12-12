@@ -92,15 +92,18 @@ class ValueHelperTest extends BaseTest
         $this->assertTrue(ValueHelper::isDateTime('5pm'));
         $this->assertTrue(ValueHelper::isDateTime('+8 Weeks'));
 
+        $this->assertFalse(ValueHelper::isDateTime('2015-00-00'));
+        $this->assertFalse(ValueHelper::isDateTime('2015-00-00 00:00:00'));
         $this->assertFalse(ValueHelper::isDateTime('2015-13-23 22:21'));
         $this->assertFalse(ValueHelper::isDateTime('2015-12-23 25:21'));
         $this->assertFalse(ValueHelper::isDateTime('N/A'));
         $this->assertFalse(ValueHelper::isDateTime(null));
         $this->assertFalse(ValueHelper::isDateTime(''));
+        $this->assertFalse(ValueHelper::isDateTime('    '));
 
         $this->assertTrue(ValueHelper::isDateTime(new \DateTime()));
         $this->assertTrue(ValueHelper::isDateTime('25/05/2017', 'd/m/Y'));
-        //$this->assertFalse(ValueHelper::isDateTime('25/05/2017', 'm/d/Y'));
+        $this->assertFalse(ValueHelper::isDateTime('25/05/2017', 'm/d/Y'));
     }
 
     public function testIsBool()

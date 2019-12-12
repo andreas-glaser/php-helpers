@@ -69,28 +69,16 @@ class ValueHelper
     }
 
     /**
-     * Checks if given value is a valid PHP "datetime"
+     * Alias for DateHelper::isDateTime()
      *
-     * @param string|\DateTime $date
-     * @param string|null      $format
+     * @param mixed       $date
+     * @param string|null $format
      *
      * @return bool
      */
     public static function isDateTime($date, string $format = null): bool
     {
-        if ($date instanceof \DateTime) {
-            return true;
-        }
-
-        if (false === is_string($date)) {
-            return false;
-        }
-
-        if ($format) {
-            return \DateTime::createFromFormat($format, $date) instanceof \DateTime;
-        }
-
-        return (bool)strtotime($date);
+        return DateHelper::isDateTime($date, $format);
     }
 
     /**

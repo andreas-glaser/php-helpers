@@ -348,14 +348,28 @@ class ArrayHelper
      *
      * @return array
      */
-    public static function removeFirstIndex(array $array)
+    public static function removeFirstElement(array $array): array
     {
-        if (empty($array)) {
+        if (true === empty($array)) {
             return $array;
         }
 
         reset($array);
         unset($array[key($array)]);
+
+        return $array;
+    }
+
+    /**
+     * Removes first element of an array without re-indexing.
+     *
+     * @param array $array
+     *
+     * @return array
+     */
+    public static function removeLastElement(array $array): array
+    {
+        array_pop($array);
 
         return $array;
     }
@@ -621,6 +635,17 @@ class ArrayHelper
     public static function unshiftAssoc($array, $key, $val)
     {
         return static::prepend($array, $val, $key);
+    }
+
+    /**
+     * @param array $array
+     *
+     * @return array
+     * @deprecated Use ArrayHelper::removeFirstElement($array)
+     */
+    public static function removeFirstIndex(array $array)
+    {
+        return self::removeFirstElement($array);
     }
 }
 

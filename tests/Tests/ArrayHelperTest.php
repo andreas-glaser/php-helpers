@@ -411,6 +411,48 @@ class ArrayHelperTest extends BaseTest
         $this->assertTrue(in_array(ArrayHelper::getRandomValue($testArray), $testArray));
     }
 
+    public function testRemoveFirstElement()
+    {
+        $this->assertEquals([
+            100 => 'Index 2',
+            200 => 'Index 3',
+        ], ArrayHelper::removeFirstElement([
+            0 => 'Index 1',
+            100 => 'Index 2',
+            200 => 'Index 3',
+        ]));
+
+        $this->assertEquals([
+            'string2' => 'Index 2',
+        ], ArrayHelper::removeFirstElement([
+            'string1' => 'Index 1',
+            'string2' => 'Index 2',
+        ]));
+
+        $this->assertEquals([], ArrayHelper::removeFirstElement([]));
+    }
+
+    public function testRemoveLastElement()
+    {
+        $this->assertEquals([
+            0 => 'Index 1',
+            100 => 'Index 2',
+        ], ArrayHelper::removeLastElement([
+            0 => 'Index 1',
+            100 => 'Index 2',
+            200 => 'Index 3',
+        ]));
+
+        $this->assertEquals([
+            'string1' => 'Index 1',
+        ], ArrayHelper::removeLastElement([
+            'string1' => 'Index 1',
+            'string2' => 'Index 2',
+        ]));
+
+        $this->assertEquals([], ArrayHelper::removeLastElement([]));
+    }
+
     /**
      */
     public function testRemoveByValue()

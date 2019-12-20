@@ -17,10 +17,10 @@ class ArrayHelper
      * Returns value by key or a default value if it does not exist.
      *
      * @param array $array
-     * @param       $key
-     * @param null  $default
+     * @param mixed $key
+     * @param mixed $default
      *
-     * @return null
+     * @return mixed
      */
     public static function get(array $array, $key, $default = null)
     {
@@ -32,10 +32,10 @@ class ArrayHelper
      *
      * @param array $array
      * @param mixed $value
-     * @param null  $default
+     * @param mixed $default
      * @param bool  $strict
      *
-     * @return mixed|null
+     * @return mixed
      */
     public static function getKeyByValue(array $array, $value, $default = null, $strict = true)
     {
@@ -46,12 +46,12 @@ class ArrayHelper
 
     /**
      * @param array  $array
-     * @param        $path
+     * @param string $path
      * @param bool   $throwException
-     * @param null   $default
+     * @param mixed  $default
      * @param string $delimiter
      *
-     * @return null
+     * @return mixed
      */
     public static function getByPath(array $array, $path, $throwException = false, $default = null, $delimiter = self::PATH_DELIMITER)
     {
@@ -172,7 +172,7 @@ class ArrayHelper
 
     /**
      * @param array  $array
-     * @param        $path
+     * @param string $path
      * @param string $delimiter
      *
      * @return bool
@@ -197,7 +197,7 @@ class ArrayHelper
      * Adds index/value at the beginning of an array.
      *
      * @param array $array
-     * @param       $value
+     * @param mixed $value
      * @param mixed $key
      *
      * @return array
@@ -219,7 +219,7 @@ class ArrayHelper
      * Adds index/value at the end of an array.
      *
      * @param array $array
-     * @param       $value
+     * @param mixed $value
      * @param mixed $key
      *
      * @return array
@@ -237,7 +237,7 @@ class ArrayHelper
 
     /**
      * @param array $array
-     * @param       $position
+     * @param mixed $position
      * @param array $values
      *
      * @return array
@@ -269,7 +269,7 @@ class ArrayHelper
 
     /**
      * @param array $array
-     * @param       $position
+     * @param mixed $position
      * @param array $values
      *
      * @return array
@@ -439,8 +439,8 @@ class ArrayHelper
     }
 
     /**
-     * @param       $glue
-     * @param array $pieces
+     * @param string $glue
+     * @param array  $pieces
      *
      * @return string
      */
@@ -459,8 +459,8 @@ class ArrayHelper
     /**
      * Implodes array keys.
      *
-     * @param       $glue
-     * @param array $array
+     * @param string $glue
+     * @param array  $array
      *
      * @return string
      */
@@ -470,8 +470,8 @@ class ArrayHelper
     }
 
     /**
-     * @param      $delimiter
-     * @param      $string
+     * @param string $delimiter
+     * @param string $string
      *
      * @return array
      */
@@ -559,11 +559,11 @@ class ArrayHelper
     /**
      * Replaces values of an array.
      *
-     * @param array     $array
-     * @param           $value
-     * @param           $replacement
-     * @param bool|true $recursively
-     * @param bool|true $caseSensitive
+     * @param array $array
+     * @param mixed $value
+     * @param mixed $replacement
+     * @param bool  $recursively
+     * @param bool  $caseSensitive
      *
      * @return array
      */
@@ -614,9 +614,9 @@ class ArrayHelper
 
     /**
      * @param array $array
-     * @param null  $default
+     * @param mixed $default
      *
-     * @return mixed|null
+     * @return mixed
      * @deprecated Please use ArrayHelper::getFirstValue($array, $default) instead.
      */
     public static function getFirstIndex($array, $default = null)
@@ -625,9 +625,9 @@ class ArrayHelper
     }
 
     /**
-     * @param $array
-     * @param $key
-     * @param $val
+     * @param array $array
+     * @param mixed $key
+     * @param mixed $val
      *
      * @return array
      * @deprecated Use ArrayHelper::prepend() instead.

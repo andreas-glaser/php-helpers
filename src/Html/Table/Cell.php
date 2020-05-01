@@ -10,9 +10,7 @@ use AndreasGlaser\Helpers\StringHelper;
 use AndreasGlaser\Helpers\Validate\Expect;
 
 /**
- * Class Cell
- *
- * @package AndreasGlaser\Helpers\Html\Table
+ * Class Cell.
  */
 class Cell implements RenderableInterface, FactoryInterface
 {
@@ -26,29 +24,31 @@ class Cell implements RenderableInterface, FactoryInterface
      */
     protected $attributes;
 
+    protected $isHeader = false;
+
     /**
      * @param null                        $content
      * @param AttributesHelper|array|null $attributesHelper
      *
      * @return \AndreasGlaser\Helpers\Html\Table\Cell
      */
-    public static function f($content = null, $attributesHelper = null)
+    public static function f($content = null, $attributesHelper = null, bool $isHeader = false)
     {
-        return new Cell($content, $attributesHelper);
+        return new Cell($content, $attributesHelper, $isHeader);
     }
 
     /**
-     * @param null                        $content
      * @param AttributesHelper|array|null $attributesHelper
      */
-    public function __construct($content = null, $attributesHelper = null)
+    public function __construct(string $content = null, $attributesHelper = null, bool $isHeader = false)
     {
         $this->content = $content;
         $this->attributes = AttributesHelper::f($attributesHelper);
+        $this->isHeader = $isHeader;
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getContent()
     {
@@ -60,7 +60,7 @@ class Cell implements RenderableInterface, FactoryInterface
      *
      * @return $this
      */
-    public function setContent($content)
+    public function setContent($content):self
     {
         $this->content = $content;
 
@@ -68,11 +68,11 @@ class Cell implements RenderableInterface, FactoryInterface
     }
 
     /**
-     * @param integer $colSpan
+     * @param int $colSpan
      *
      * @return $this
      */
-    public function setColSpan($colSpan)
+    public function setColSpan($colSpan):self
     {
         Expect::int($colSpan);
 
@@ -90,11 +90,11 @@ class Cell implements RenderableInterface, FactoryInterface
     }
 
     /**
-     * @param integer $rowSpan
+     * @param int $rowSpan
      *
      * @return $this
      */
-    public function setRowSpan($rowSpan)
+    public function setRowSpan($rowSpan):self
     {
         Expect::int($rowSpan);
 
@@ -115,15 +115,17 @@ class Cell implements RenderableInterface, FactoryInterface
      * @param $scope
      *
      * @return $this
+     *
      * @throws \Exception
+     *
      * @deprecated Not supported in HTML5. http://www.w3schools.com/tags/att_td_scope.asp
      */
-    public function setScope($scope)
+    public function setScope($scope):self
     {
         $validScopes = ['col', 'row', 'colgroup', 'rowgroup'];
 
         if (!StringHelper::isOneOf($scope, $validScopes)) {
-            throw new \Exception(sprintf('"%s" is not a valid <td> scope. Valid are: %s', $scope, implode(', ', $validScopes)));
+            throw new \Exception(\sprintf('"%s" is not a valid <td> scope. Valid are: %s', $scope, \implode(', ', $validScopes)));
         }
 
         $this->attributes->set('scope', $scope);
@@ -133,6 +135,7 @@ class Cell implements RenderableInterface, FactoryInterface
 
     /**
      * @return string|null
+     *
      * @deprecated Not supported in HTML5. http://www.w3schools.com/tags/att_td_scope.asp
      */
     public function getScope()
@@ -148,9 +151,22 @@ class Cell implements RenderableInterface, FactoryInterface
         return $this->attributes;
     }
 
+    public function isHeader(): bool
+    {
+        return $this->isHeader;
+    }
+
     /**
-     * @param \AndreasGlaser\Helpers\Interfaces\RendererInterface|null $renderer
-     *
+     * @return Cell
+     */
+    public function setIsHeader(bool $isHeader): self
+    {
+        $this->isHeader = $isHeader;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function render(RendererInterface $renderer = null)
@@ -159,6 +175,10 @@ class Cell implements RenderableInterface, FactoryInterface
             return $renderer->render($this);
         }
 
-        return '<td' . $this->attributes->render() . '>' . $this->content . '</td>';
+        if (true === $this->isHeader()) {
+            return \sprintf('<th%s>%s</th>', $this->attributes->render(), $this->content);
+        }
+
+        return \sprintf('<td%s>%s</td>', $this->attributes->render(), $this->content);
     }
 }

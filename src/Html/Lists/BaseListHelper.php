@@ -7,13 +7,10 @@ use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
 use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
 
 /**
- * Class BaseListHelper
- *
- * @package AndreasGlaser\Helpers\Html\Lists
+ * Class BaseListHelper.
  */
 abstract class BaseListHelper implements FactoryInterface, RenderableInterface
 {
-
     /**
      * @var \AndreasGlaser\Helpers\Html\AttributesHelper
      */
@@ -31,7 +28,7 @@ abstract class BaseListHelper implements FactoryInterface, RenderableInterface
      */
     public static function f($attributes = null)
     {
-        $className = get_called_class();
+        $className = \get_called_class();
 
         return new $className($attributes);
     }
@@ -44,8 +41,6 @@ abstract class BaseListHelper implements FactoryInterface, RenderableInterface
     public function __construct($attributes = null)
     {
         $this->attributes = AttributesHelper::f($attributes);
-
-        return $this;
     }
 
     /**
@@ -54,9 +49,9 @@ abstract class BaseListHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      */
-    public function addItem($content, $attributes = null)
+    public function addItem($content, $attributes = null):self
     {
-        $index = count($this->items);
+        $index = \count($this->items);
         $this->items[$index]['content'] = $content;
         $this->items[$index]['attributes'] = AttributesHelper::f($attributes);
 

@@ -5,17 +5,12 @@ namespace AndreasGlaser\Helpers;
 use DateTimeZone;
 
 /**
- * Class DateHelper
- *
- * @package AndreasGlaser\Helpers
+ * Class DateHelper.
  */
 class DateHelper
 {
     /**
-     * @param mixed       $date
-     * @param string|null $format
-     *
-     * @return bool
+     * @param mixed $date
      */
     public static function isDateTime($date, string $format = null): bool
     {
@@ -23,7 +18,7 @@ class DateHelper
             return true;
         }
 
-        if (true === is_string($date)) {
+        if (true === \is_string($date)) {
             if (true === StringHelper::isBlank($date)) {
                 return false;
             }
@@ -49,11 +44,11 @@ class DateHelper
     }
 
     /**
-     * @param mixed              $string
-     * @param \DateTimeZone|null $timezone
-     * @param null               $null
+     * @param mixed $string
+     * @param null  $null
      *
      * @return \DateTime|null
+     *
      * @throws \Exception
      */
     public static function stringToDateTime($string, DateTimeZone $timezone = null, $null = null)
@@ -69,6 +64,7 @@ class DateHelper
      * @param null   $null
      *
      * @return string|null
+     *
      * @throws \Exception
      */
     public static function formatOrNull($dateTime, $format = 'Y-m-d H:i:s', $null = null)
@@ -82,12 +78,6 @@ class DateHelper
         }
     }
 
-    /**
-     * @param \DateTime $dateTime1
-     * @param \DateTime $dateTime2
-     *
-     * @return int
-     */
     public static function diffHours(\DateTime $dateTime1, \DateTime $dateTime2): int
     {
         $diff = $dateTime1->diff($dateTime2);
@@ -97,12 +87,6 @@ class DateHelper
         return (int)$hours;
     }
 
-    /**
-     * @param \DateTime $dateTime1
-     * @param \DateTime $dateTime2
-     *
-     * @return int
-     */
     public static function diffDays(\DateTime $dateTime1, \DateTime $dateTime2): int
     {
         $diff = $dateTime1->diff($dateTime2);
@@ -110,12 +94,6 @@ class DateHelper
         return (int)$diff->format('%a');
     }
 
-    /**
-     * @param \DateTime $dateTime1
-     * @param \DateTime $dateTime2
-     *
-     * @return int
-     */
     public static function diffMonths(\DateTime $dateTime1, \DateTime $dateTime2): int
     {
         $diff = $dateTime1->diff($dateTime2);
@@ -123,12 +101,6 @@ class DateHelper
         return ((int)$diff->format('%y') * 12) + (int)$diff->format('%m');
     }
 
-    /**
-     * @param \DateTime $dateTime1
-     * @param \DateTime $dateTime2
-     *
-     * @return int
-     */
     public static function diffYears(\DateTime $dateTime1, \DateTime $dateTime2): int
     {
         $diff = $dateTime1->diff($dateTime2);

@@ -1,2 +1,2 @@
-<p><?php print $global['name']; ?></p>
-<p><?php print $data['link']; ?> (Rating: <?php print $rating; ?>)</p>
+<p><?php echo $global['name']; ?></p>
+<p><?php echo $data['link']; ?> (Rating: <?php echo $rating; ?>)</p>

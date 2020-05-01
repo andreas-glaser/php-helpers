@@ -5,9 +5,7 @@ namespace AndreasGlaser\Helpers\Validate;
 use AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException;
 
 /**
- * Class Expect
- *
- * @package AndreasGlaser\Helpers\Validate
+ * Class Expect.
  */
 class Expect
 {
@@ -17,7 +15,7 @@ class Expect
      */
     public static function int($value)
     {
-        if (!is_int($value)) {
+        if (!\is_int($value)) {
             throw new UnexpectedTypeException($value, 'integer');
         }
     }
@@ -27,7 +25,7 @@ class Expect
      */
     public static function float($value)
     {
-        if (!is_float($value)) {
+        if (!\is_float($value)) {
             throw new UnexpectedTypeException($value, 'float');
         }
     }
@@ -37,7 +35,7 @@ class Expect
      */
     public static function numeric($value)
     {
-        if (!is_numeric($value)) {
+        if (!\is_numeric($value)) {
             throw new UnexpectedTypeException($value, 'numeric');
         }
     }
@@ -47,7 +45,7 @@ class Expect
      */
     public static function bool($value)
     {
-        if (!is_bool($value)) {
+        if (!\is_bool($value)) {
             throw new UnexpectedTypeException($value, 'boolean');
         }
     }
@@ -57,7 +55,7 @@ class Expect
      */
     public static function str($value)
     {
-        if (!is_string($value)) {
+        if (!\is_string($value)) {
             throw new UnexpectedTypeException($value, 'string');
         }
     }
@@ -67,7 +65,7 @@ class Expect
      */
     public static function arr($value)
     {
-        if (!is_array($value)) {
+        if (!\is_array($value)) {
             throw new UnexpectedTypeException($value, 'array');
         }
     }
@@ -77,7 +75,7 @@ class Expect
      */
     public static function obj($value)
     {
-        if (!is_object($value)) {
+        if (!\is_object($value)) {
             throw new UnexpectedTypeException($value, 'object');
         }
     }
@@ -87,7 +85,7 @@ class Expect
      */
     public static function res($value)
     {
-        if (!is_resource($value)) {
+        if (!\is_resource($value)) {
             throw new UnexpectedTypeException($value, 'resource');
         }
     }
@@ -97,7 +95,7 @@ class Expect
      */
     public static function isCallable($value)
     {
-        if (!is_callable($value)) {
+        if (!\is_callable($value)) {
             throw new UnexpectedTypeException($value, 'callable');
         }
     }
@@ -107,7 +105,7 @@ class Expect
      */
     public static function scalar($value)
     {
-        if (!is_scalar($value)) {
+        if (!\is_scalar($value)) {
             throw new UnexpectedTypeException($value, 'scalar');
         }
     }
@@ -117,7 +115,7 @@ class Expect
      */
     public static function null($value)
     {
-        if (!is_null($value)) {
+        if (!\is_null($value)) {
             throw new UnexpectedTypeException($value, 'null');
         }
     }

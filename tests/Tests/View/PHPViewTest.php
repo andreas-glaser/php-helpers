@@ -7,9 +7,7 @@ use AndreasGlaser\Helpers\Tests\BaseTest;
 use AndreasGlaser\Helpers\View\PHPView;
 
 /**
- * Class PHPViewTest
- *
- * @package AndreasGlaser\Helpers\Tests\View
+ * Class PHPViewTest.
  */
 class PHPViewTest extends BaseTest
 {
@@ -21,6 +19,6 @@ class PHPViewTest extends BaseTest
         $view->set('link', HtmlHelper::a('/test', 'Test Url'));
         $view->set('rating', 5);
 
-        $this->assertEquals('<p>PHPView</p>' . PHP_EOL . '<p><a href="/test" >Test Url</a> (Rating: 5)</p>', $view->render());
+        self::assertEquals('<p>PHPView</p>' . PHP_EOL . '<p><a href="/test" >Test Url</a> (Rating: 5)</p>', $view->render());
     }
 }

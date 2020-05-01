@@ -8,9 +8,7 @@ use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
 use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 
 /**
- * Class TableHelper
- *
- * @package AndreasGlaser\Helpers\Html\Table
+ * Class TableHelper.
  */
 class TableHelper implements RenderableInterface, FactoryInterface
 {
@@ -49,13 +47,13 @@ class TableHelper implements RenderableInterface, FactoryInterface
     public function __construct(array $headRows = null, array $bodyRows = null, $attributesHelper = null)
     {
         if ($headRows) {
-            foreach ($headRows AS $headRow) {
+            foreach ($headRows as $headRow) {
                 $this->addHeadRow($headRow);
             }
         }
 
         if ($bodyRows) {
-            foreach ($bodyRows AS $bodyRow) {
+            foreach ($bodyRows as $bodyRow) {
                 $this->addBodyRow($bodyRow);
             }
         }
@@ -72,11 +70,9 @@ class TableHelper implements RenderableInterface, FactoryInterface
     }
 
     /**
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
-     *
      * @return $this
      */
-    public function setAttributes(AttributesHelper $attributes)
+    public function setAttributes(AttributesHelper $attributes):self
     {
         $this->attributes = $attributes;
 
@@ -88,8 +84,14 @@ class TableHelper implements RenderableInterface, FactoryInterface
      *
      * @return $this
      */
-    public function addHeadRow(Row $rowHelper)
+    public function addHeadRow(Row $rowHelper, bool $setCellAsHeaders = true): self
     {
+        if (true === $setCellAsHeaders) {
+            foreach ($rowHelper->getCells() as $cell) {
+                $cell->setIsHeader(true);
+            }
+        }
+
         $this->headRows[] = $rowHelper;
 
         return $this;
@@ -108,7 +110,7 @@ class TableHelper implements RenderableInterface, FactoryInterface
      *
      * @return $this
      */
-    public function addBodyRow(Row $rowHelper)
+    public function addBodyRow(Row $rowHelper):self
     {
         $this->bodyRows[] = $rowHelper;
 
@@ -124,8 +126,6 @@ class TableHelper implements RenderableInterface, FactoryInterface
     }
 
     /**
-     * @param \AndreasGlaser\Helpers\Interfaces\RendererInterface|null $renderer
-     *
      * @return string
      */
     public function render(RendererInterface $renderer = null)
@@ -141,7 +141,7 @@ class TableHelper implements RenderableInterface, FactoryInterface
         if (!empty($headRows)) {
             $html .= '<thead>';
 
-            foreach ($headRows AS $row) {
+            foreach ($headRows as $row) {
                 $html .= $row->render();
             }
 
@@ -153,7 +153,7 @@ class TableHelper implements RenderableInterface, FactoryInterface
         if (!empty($bodyRows)) {
             $html .= '<tbody>';
 
-            foreach ($bodyRows AS $row) {
+            foreach ($bodyRows as $row) {
                 $html .= $row->render();
             }
 

@@ -5,17 +5,14 @@ namespace AndreasGlaser\Helpers;
 use Traversable;
 
 /**
- * Class EmailHelper
- *
- * @package AndreasGlaser\Helpers
+ * Class EmailHelper.
  */
 class EmailHelper
 {
     /**
      * Cleans email address into a nice unique array.
      *
-     * @param       $emails
-     * @param array $delimiters
+     * @param $emails
      *
      * @return array
      */
@@ -23,35 +20,35 @@ class EmailHelper
     {
         $cleanedEmails = [];
 
-        if (is_array($emails) || $emails instanceof Traversable) {
-            foreach ($emails AS $email) {
-                if (is_array($email) || $email instanceof Traversable) {
-                    $cleanedEmails = array_merge($cleanedEmails, self::clean($email, $delimiters));
+        if (\is_array($emails) || $emails instanceof Traversable) {
+            foreach ($emails as $email) {
+                if (\is_array($email) || $email instanceof Traversable) {
+                    $cleanedEmails = \array_merge($cleanedEmails, self::clean($email, $delimiters));
                 }
             }
         } else {
             $emails = [$emails];
         }
 
-        foreach ($emails AS $email) {
+        foreach ($emails as $email) {
             if (!empty($delimiters)) {
-                foreach ($delimiters AS $separator) {
-                    foreach (explode($separator, $email) AS $emailSeparated) {
-                        $emailSeparated = trim($emailSeparated);
+                foreach ($delimiters as $separator) {
+                    foreach (\explode($separator, $email) as $emailSeparated) {
+                        $emailSeparated = \trim($emailSeparated);
                         if (self::isValid($emailSeparated)) {
                             $cleanedEmails[] = $emailSeparated;
                         }
                     }
                 }
             } else {
-                $email = trim($email);
+                $email = \trim($email);
                 if (self::isValid($email)) {
                     $cleanedEmails[] = $email;
                 }
             }
         }
 
-        return array_unique($cleanedEmails);
+        return \array_unique($cleanedEmails);
     }
 
     /**
@@ -63,6 +60,6 @@ class EmailHelper
      */
     public static function isValid($email)
     {
-        return (boolean)filter_var($email, FILTER_VALIDATE_EMAIL);
+        return (bool)\filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 }

@@ -5,21 +5,19 @@ namespace AndreasGlaser\Helpers\Tests;
 use AndreasGlaser\Helpers\ArrayHelper;
 
 /**
- * Class ArrayHelperTest
- *
- * @package AndreasGlaser\Helpers\Tests
+ * Class ArrayHelperTest.
  */
 class ArrayHelperTest extends BaseTest
 {
     /**
-     * Test array
+     * Test array.
      *
      * @var array
      */
     protected $array = [];
 
     /**
-     * Associative test array
+     * Associative test array.
      *
      * @var array
      */
@@ -27,7 +25,6 @@ class ArrayHelperTest extends BaseTest
 
     /**
      * @param null   $name
-     * @param array  $data
      * @param string $dataName
      */
     public function __construct($name = null, array $data = [], $dataName = '')
@@ -53,21 +50,17 @@ class ArrayHelperTest extends BaseTest
         ];
     }
 
-    /**
-     */
     public function testGet()
     {
-        foreach ($this->array AS $key => $value) {
-            $this->assertEquals($value, ArrayHelper::get($this->array, $key));
+        foreach ($this->array as $key => $value) {
+            self::assertEquals($value, ArrayHelper::get($this->array, $key));
         }
 
-        foreach ($this->arrayAssoc AS $key => $value) {
-            $this->assertEquals($value, ArrayHelper::get($this->arrayAssoc, $key));
+        foreach ($this->arrayAssoc as $key => $value) {
+            self::assertEquals($value, ArrayHelper::get($this->arrayAssoc, $key));
         }
     }
 
-    /**
-     */
     public function testGetByValue()
     {
         $testArray = [
@@ -77,21 +70,19 @@ class ArrayHelperTest extends BaseTest
             'k4' => 'duplicate',
             'k5' => 0,
             'k6' => '0',
-            0 => 'test',
+            0    => 'test',
         ];
 
-        $this->assertEquals('k1', ArrayHelper::getKeyByValue($testArray, 'v1'));
-        $this->assertEquals('k2', ArrayHelper::getKeyByValue($testArray, 'v2'));
-        $this->assertEquals('k3', ArrayHelper::getKeyByValue($testArray, 'duplicate'));
-        $this->assertEquals(null, ArrayHelper::getKeyByValue($testArray, 'invalid'));
-        $this->assertEquals('k6', ArrayHelper::getKeyByValue($testArray, '0', null, true));
-        $this->assertEquals('k5', ArrayHelper::getKeyByValue($testArray, '0', null, false));
-        $this->assertEquals('something', ArrayHelper::getKeyByValue($testArray, 'invalid', 'something'));
-        $this->assertEquals('0', ArrayHelper::getKeyByValue($testArray, 'test'));
+        self::assertEquals('k1', ArrayHelper::getKeyByValue($testArray, 'v1'));
+        self::assertEquals('k2', ArrayHelper::getKeyByValue($testArray, 'v2'));
+        self::assertEquals('k3', ArrayHelper::getKeyByValue($testArray, 'duplicate'));
+        self::assertEquals(null, ArrayHelper::getKeyByValue($testArray, 'invalid'));
+        self::assertEquals('k6', ArrayHelper::getKeyByValue($testArray, '0', null, true));
+        self::assertEquals('k5', ArrayHelper::getKeyByValue($testArray, '0', null, false));
+        self::assertEquals('something', ArrayHelper::getKeyByValue($testArray, 'invalid', 'something'));
+        self::assertEquals('0', ArrayHelper::getKeyByValue($testArray, 'test'));
     }
 
-    /**
-     */
     public function testGetByPath()
     {
         $testArray = [
@@ -100,29 +91,28 @@ class ArrayHelperTest extends BaseTest
             'index3' => [
                 'index4' => 'Cooool',
                 'index5' => new \stdClass(),
-                'abc' => [
+                'abc'    => [
                     'great',
                 ],
             ],
         ];
 
-        $this->assertEquals('Hey There', ArrayHelper::getByPath($testArray, 'index1'));
-        $this->assertInstanceOf('\stdClass', ArrayHelper::getByPath($testArray, 'index3.index5'));
-        $this->assertEquals('great', ArrayHelper::getByPath($testArray, 'index3.abc.0'));
-        $this->assertEquals('great', ArrayHelper::getByPath($testArray, 'index3:abc:0', false, null, ':'));
+        self::assertEquals('Hey There', ArrayHelper::getByPath($testArray, 'index1'));
+        self::assertInstanceOf('\stdClass', ArrayHelper::getByPath($testArray, 'index3.index5'));
+        self::assertEquals('great', ArrayHelper::getByPath($testArray, 'index3.abc.0'));
+        self::assertEquals('great', ArrayHelper::getByPath($testArray, 'index3:abc:0', false, null, ':'));
 
-        $this->assertNull(ArrayHelper::getByPath($testArray, 'wrong-index'));
-        $this->assertFalse(ArrayHelper::getByPath($testArray, 'wrong-index', false, false));
-        $this->setExpectedException('\RuntimeException', 'Array index "wrong-key" does not exist');
+        self::assertNull(ArrayHelper::getByPath($testArray, 'wrong-index'));
+        self::assertFalse(ArrayHelper::getByPath($testArray, 'wrong-index', false, false));
+        $this->expectException('\RuntimeException');
+        $this->expectExceptionMessage('Array index "wrong-key" does not exist');
         ArrayHelper::getByPath($testArray, 'wrong-key', true);
     }
 
-    /**
-     */
     public function testSetByPath()
     {
         $myArray = [
-            'test' => 'Hello',
+            'test'   => 'Hello',
             'index2' => [
                 'index3' => [
                     'index4' => 'XYZ',
@@ -131,9 +121,9 @@ class ArrayHelperTest extends BaseTest
             ],
         ];
 
-        $this->assertEquals(
+        self::assertEquals(
             [
-                'test' => 'Bye',
+                'test'   => 'Bye',
                 'index2' => [
                     'index3' => [
                         'index4' => 'XYZ',
@@ -144,33 +134,35 @@ class ArrayHelperTest extends BaseTest
             ArrayHelper::setByPath($myArray, 'test', 'Bye')
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
-                'test' => 'Hello',
+                'test'   => 'Hello',
                 'index2' => [
                     'index3' => [
                         'index4' => 'XYZ',
                         'index5' => 'Something',
-                        'test' => 'Cheese',
+                        'test'   => 'Cheese',
                     ],
                 ],
             ],
             ArrayHelper::setByPath($myArray, 'index2.index3.test', 'Cheese')
         );
 
-        $this->setExpectedException(
-            '\RuntimeException',
+        $this->expectException(
+            '\RuntimeException'
+        );
+        $this->expectExceptionMessage(
             'Array index "test" exists already and is not of type "array"'
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
-                'test' => 'Hello',
+                'test'   => 'Hello',
                 'index2' => [
                     'index3' => [
                         'index4' => 'XYZ',
                         'index5' => 'Something',
-                        'test' => 'Cheese',
+                        'test'   => 'Cheese',
                     ],
                 ],
             ],
@@ -181,7 +173,7 @@ class ArrayHelperTest extends BaseTest
     public function testUnsetByPath()
     {
         $myArray = [
-            'test' => 'Hello',
+            'test'   => 'Hello',
             'index2' => [
                 'index3' => [
                     'index4' => 'XYZ',
@@ -190,7 +182,7 @@ class ArrayHelperTest extends BaseTest
             ],
         ];
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'index2' => [
                     'index3' => [
@@ -202,9 +194,9 @@ class ArrayHelperTest extends BaseTest
             ArrayHelper::unsetByPath($myArray, 'test')
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
-                'test' => 'Hello',
+                'test'   => 'Hello',
                 'index2' => [
                     'index3' => [
                         'index4' => 'XYZ',
@@ -214,17 +206,17 @@ class ArrayHelperTest extends BaseTest
             ArrayHelper::unsetByPath($myArray, 'index2.index3.index5')
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
-                'test' => 'Hello',
+                'test'   => 'Hello',
                 'index2' => [],
             ],
             ArrayHelper::unsetByPath($myArray, 'index2.index3')
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
-                'test' => 'Hello',
+                'test'   => 'Hello',
                 'index2' => [
                     'index3' => [
                         'index4' => 'XYZ',
@@ -236,12 +228,10 @@ class ArrayHelperTest extends BaseTest
         );
     }
 
-    /**
-     */
     public function testExistByPath()
     {
         $myArray = [
-            'test' => 'Hello',
+            'test'   => 'Hello',
             'index2' => [
                 'index3' => [
                     'index4' => 'XYZ',
@@ -251,33 +241,31 @@ class ArrayHelperTest extends BaseTest
         ];
 
         // test positive results
-        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'test'));
-        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2'));
-        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2.index3'));
-        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2.index3.index4'));
-        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2.index3.index5'));
+        self::assertTrue(ArrayHelper::existsByPath($myArray, 'test'));
+        self::assertTrue(ArrayHelper::existsByPath($myArray, 'index2'));
+        self::assertTrue(ArrayHelper::existsByPath($myArray, 'index2.index3'));
+        self::assertTrue(ArrayHelper::existsByPath($myArray, 'index2.index3.index4'));
+        self::assertTrue(ArrayHelper::existsByPath($myArray, 'index2.index3.index5'));
 
         // test negative results
-        $this->assertFalse(ArrayHelper::existsByPath($myArray, 'wrong-key'));
-        $this->assertFalse(ArrayHelper::existsByPath($myArray, 'test.wrong-key'));
-        $this->assertFalse(ArrayHelper::existsByPath($myArray, 'index2.wrong-key'));
-        $this->assertFalse(ArrayHelper::existsByPath($myArray, 'index2.index3.wrong-key'));
-        $this->assertFalse(ArrayHelper::existsByPath($myArray, 'index2.index3.wrong-key'));
+        self::assertFalse(ArrayHelper::existsByPath($myArray, 'wrong-key'));
+        self::assertFalse(ArrayHelper::existsByPath($myArray, 'test.wrong-key'));
+        self::assertFalse(ArrayHelper::existsByPath($myArray, 'index2.wrong-key'));
+        self::assertFalse(ArrayHelper::existsByPath($myArray, 'index2.index3.wrong-key'));
+        self::assertFalse(ArrayHelper::existsByPath($myArray, 'index2.index3.wrong-key'));
 
         // test delimiter
-        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'test', ':'));
-        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2', ':'));
-        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2:index3', ':'));
-        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2:index3:index4', ':'));
-        $this->assertTrue(ArrayHelper::existsByPath($myArray, 'index2:index3:index5', ':'));
+        self::assertTrue(ArrayHelper::existsByPath($myArray, 'test', ':'));
+        self::assertTrue(ArrayHelper::existsByPath($myArray, 'index2', ':'));
+        self::assertTrue(ArrayHelper::existsByPath($myArray, 'index2:index3', ':'));
+        self::assertTrue(ArrayHelper::existsByPath($myArray, 'index2:index3:index4', ':'));
+        self::assertTrue(ArrayHelper::existsByPath($myArray, 'index2:index3:index5', ':'));
     }
 
-    /**
-     */
     public function testIssetByPath()
     {
         $myArray = [
-            'test' => 'Hello',
+            'test'   => 'Hello',
             'index2' => [
                 'index3' => [
                     'index4' => 'XYZ',
@@ -289,31 +277,29 @@ class ArrayHelperTest extends BaseTest
         ];
 
         // test positive results
-        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'test'));
-        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2'));
-        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2.index3'));
-        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2.index3.index4'));
-        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2.index3.index5'));
+        self::assertTrue(ArrayHelper::issetByPath($myArray, 'test'));
+        self::assertTrue(ArrayHelper::issetByPath($myArray, 'index2'));
+        self::assertTrue(ArrayHelper::issetByPath($myArray, 'index2.index3'));
+        self::assertTrue(ArrayHelper::issetByPath($myArray, 'index2.index3.index4'));
+        self::assertTrue(ArrayHelper::issetByPath($myArray, 'index2.index3.index5'));
 
         // test negative results
-        $this->assertFalse(ArrayHelper::issetByPath($myArray, 'index2.index3.index6'));
-        $this->assertFalse(ArrayHelper::issetByPath($myArray, 'empty'));
-        $this->assertFalse(ArrayHelper::issetByPath($myArray, 'wrong-key'));
-        $this->assertFalse(ArrayHelper::issetByPath($myArray, 'test.wrong-key'));
-        $this->assertFalse(ArrayHelper::issetByPath($myArray, 'index2.wrong-key'));
-        $this->assertFalse(ArrayHelper::issetByPath($myArray, 'index2.index3.wrong-key'));
-        $this->assertFalse(ArrayHelper::issetByPath($myArray, 'index2.index3.wrong-key'));
+        self::assertFalse(ArrayHelper::issetByPath($myArray, 'index2.index3.index6'));
+        self::assertFalse(ArrayHelper::issetByPath($myArray, 'empty'));
+        self::assertFalse(ArrayHelper::issetByPath($myArray, 'wrong-key'));
+        self::assertFalse(ArrayHelper::issetByPath($myArray, 'test.wrong-key'));
+        self::assertFalse(ArrayHelper::issetByPath($myArray, 'index2.wrong-key'));
+        self::assertFalse(ArrayHelper::issetByPath($myArray, 'index2.index3.wrong-key'));
+        self::assertFalse(ArrayHelper::issetByPath($myArray, 'index2.index3.wrong-key'));
 
         // test delimiter
-        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'test', ':'));
-        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2', ':'));
-        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2:index3', ':'));
-        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2:index3:index4', ':'));
-        $this->assertTrue(ArrayHelper::issetByPath($myArray, 'index2:index3:index5', ':'));
+        self::assertTrue(ArrayHelper::issetByPath($myArray, 'test', ':'));
+        self::assertTrue(ArrayHelper::issetByPath($myArray, 'index2', ':'));
+        self::assertTrue(ArrayHelper::issetByPath($myArray, 'index2:index3', ':'));
+        self::assertTrue(ArrayHelper::issetByPath($myArray, 'index2:index3:index4', ':'));
+        self::assertTrue(ArrayHelper::issetByPath($myArray, 'index2:index3:index5', ':'));
     }
 
-    /**
-     */
     public function testPrepend()
     {
         $testArray = [
@@ -323,40 +309,38 @@ class ArrayHelperTest extends BaseTest
             'k4' => 'duplicate',
             'k5' => 0,
             'k6' => '0',
-            0 => 'test',
+            0    => 'test',
         ];
 
-        $this->assertEquals(
+        self::assertEquals(
             [
-                1 => 'hello',
+                1    => 'hello',
                 'k1' => 'v1',
                 'k2' => 'v2',
                 'k3' => 'duplicate',
                 'k4' => 'duplicate',
                 'k5' => 0,
                 'k6' => '0',
-                0 => 'test',
+                0    => 'test',
             ],
             ArrayHelper::prepend($testArray, 'hello')
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'test' => 'hello',
-                'k1' => 'v1',
-                'k2' => 'v2',
-                'k3' => 'duplicate',
-                'k4' => 'duplicate',
-                'k5' => 0,
-                'k6' => '0',
-                0 => 'test',
+                'k1'   => 'v1',
+                'k2'   => 'v2',
+                'k3'   => 'duplicate',
+                'k4'   => 'duplicate',
+                'k5'   => 0,
+                'k6'   => '0',
+                0      => 'test',
             ],
             ArrayHelper::prepend($testArray, 'hello', 'test')
         );
     }
 
-    /**
-     */
     public function testAppend()
     {
         $testArray = [
@@ -366,40 +350,38 @@ class ArrayHelperTest extends BaseTest
             'k4' => 'duplicate',
             'k5' => 0,
             'k6' => '0',
-            0 => 'test',
+            0    => 'test',
         ];
 
-        $this->assertEquals(
+        self::assertEquals(
             [
-                1 => 'hello',
+                1    => 'hello',
                 'k1' => 'v1',
                 'k2' => 'v2',
                 'k3' => 'duplicate',
                 'k4' => 'duplicate',
                 'k5' => 0,
                 'k6' => '0',
-                0 => 'test',
+                0    => 'test',
             ],
             ArrayHelper::append($testArray, 'hello')
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'test' => 'hello',
-                'k1' => 'v1',
-                'k2' => 'v2',
-                'k3' => 'duplicate',
-                'k4' => 'duplicate',
-                'k5' => 0,
-                'k6' => '0',
-                0 => 'test',
+                'k1'   => 'v1',
+                'k2'   => 'v2',
+                'k3'   => 'duplicate',
+                'k4'   => 'duplicate',
+                'k5'   => 0,
+                'k6'   => '0',
+                0      => 'test',
             ],
             ArrayHelper::append($testArray, 'hello', 'test')
         );
     }
 
-    /**
-     */
     public function testGetRandomValue()
     {
         $testArray = [
@@ -408,53 +390,51 @@ class ArrayHelperTest extends BaseTest
             'k3' => 'v3',
         ];
 
-        $this->assertTrue(in_array(ArrayHelper::getRandomValue($testArray), $testArray));
+        self::assertTrue(\in_array(ArrayHelper::getRandomValue($testArray), $testArray));
     }
 
     public function testRemoveFirstElement()
     {
-        $this->assertEquals([
+        self::assertEquals([
             100 => 'Index 2',
             200 => 'Index 3',
         ], ArrayHelper::removeFirstElement([
-            0 => 'Index 1',
+            0   => 'Index 1',
             100 => 'Index 2',
             200 => 'Index 3',
         ]));
 
-        $this->assertEquals([
+        self::assertEquals([
             'string2' => 'Index 2',
         ], ArrayHelper::removeFirstElement([
             'string1' => 'Index 1',
             'string2' => 'Index 2',
         ]));
 
-        $this->assertEquals([], ArrayHelper::removeFirstElement([]));
+        self::assertEquals([], ArrayHelper::removeFirstElement([]));
     }
 
     public function testRemoveLastElement()
     {
-        $this->assertEquals([
-            0 => 'Index 1',
+        self::assertEquals([
+            0   => 'Index 1',
             100 => 'Index 2',
         ], ArrayHelper::removeLastElement([
-            0 => 'Index 1',
+            0   => 'Index 1',
             100 => 'Index 2',
             200 => 'Index 3',
         ]));
 
-        $this->assertEquals([
+        self::assertEquals([
             'string1' => 'Index 1',
         ], ArrayHelper::removeLastElement([
             'string1' => 'Index 1',
             'string2' => 'Index 2',
         ]));
 
-        $this->assertEquals([], ArrayHelper::removeLastElement([]));
+        self::assertEquals([], ArrayHelper::removeLastElement([]));
     }
 
-    /**
-     */
     public function testRemoveByValue()
     {
         $array = [
@@ -465,7 +445,7 @@ class ArrayHelperTest extends BaseTest
             4 => null,
         ];
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 0 => '1',
                 2 => true,
@@ -475,7 +455,7 @@ class ArrayHelperTest extends BaseTest
             ArrayHelper::removeByValue($array, 2)
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 0 => '1',
                 1 => 2,
@@ -486,7 +466,7 @@ class ArrayHelperTest extends BaseTest
             ArrayHelper::removeByValue($array, 1, true)
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 1 => 2,
                 2 => true,
@@ -497,18 +477,14 @@ class ArrayHelperTest extends BaseTest
         );
     }
 
-    /**
-     */
     public function testImplodeKeys()
     {
-        $this->assertEquals(
+        self::assertEquals(
             'rat,mouse,tiger,0,1,2',
             ArrayHelper::implodeKeys(',', ['rat' => 1, 'mouse' => 2, 'tiger' => 3, null, [], 1])
         );
     }
 
-    /**
-     */
     public function testExplodeIgnoreEmpty()
     {
         $testString = '1,2, 3,,4,,,,5,6,cheese,,cake';
@@ -524,12 +500,10 @@ class ArrayHelperTest extends BaseTest
             7 => 'cake',
         ];
 
-        $this->assertEquals(8, count($explodedArray));
-        $this->assertTrue(($expectedArray === $explodedArray));
+        self::assertEquals(8, \count($explodedArray));
+        self::assertTrue(($expectedArray === $explodedArray));
     }
 
-    /**
-     */
     public function testReplaceValue()
     {
         $testArray = [
@@ -544,7 +518,7 @@ class ArrayHelperTest extends BaseTest
             ],
         ];
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'jam',
                 'Mustard',
@@ -559,7 +533,7 @@ class ArrayHelperTest extends BaseTest
             ArrayHelper::replaceValue($testArray, 'honey', 'jam', true, true)
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'jam',
                 'Mustard',
@@ -574,7 +548,7 @@ class ArrayHelperTest extends BaseTest
             ArrayHelper::replaceValue($testArray, 'honey', 'jam', false, true)
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'honey',
                 'Mustard',
@@ -589,7 +563,7 @@ class ArrayHelperTest extends BaseTest
             ArrayHelper::replaceValue($testArray, 'HONEY', 'jam', true, true)
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'jam',
                 'Mustard',
@@ -605,66 +579,64 @@ class ArrayHelperTest extends BaseTest
         );
     }
 
-    /**
-     */
     public function testMerge()
     {
         $array1 = [
             'assoc1' => 'value1',
             'assoc2' => [
                 'assoc3' => 'value2',
-                10 => 'value3',
+                10       => 'value3',
             ],
             'assoc4' => [],
-            0 => 'value4',
+            0        => 'value4',
         ];
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'assoc1' => 'overwritten',
                 'assoc2' => [
                     'assoc3' => 'value2',
-                    10 => 'value3',
+                    10       => 'value3',
                 ],
                 'assoc4' => [],
-                0 => 'value4',
+                0        => 'value4',
             ],
             ArrayHelper::merge($array1, ['assoc1' => 'overwritten'])
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'assoc1' => 'value1',
                 'assoc2' => [
                     'assoc3' => 'value2',
-                    10 => 'value3',
+                    10       => 'value3',
                 ],
                 'assoc4' => [],
-                0 => 'value4',
-                1 => 'added',
+                0        => 'value4',
+                1        => 'added',
             ],
             ArrayHelper::merge($array1, [0 => 'added'])
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'assoc1' => 'value1',
                 'assoc2' => 'overwritten',
                 'assoc4' => [],
-                0 => 'value4',
+                0        => 'value4',
             ],
             ArrayHelper::merge($array1, ['assoc2' => 'overwritten'])
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'assoc1' => 'value1',
                 'assoc2' => [
                     'assoc3' => 'value2',
-                    10 => 'value3',
+                    10       => 'value3',
                 ],
                 'assoc4' => [
-                    0 => 'cheese',
+                    0     => 'cheese',
                     'abc' => 'tasty',
                 ],
                 0 => 'value4',
@@ -672,7 +644,8 @@ class ArrayHelperTest extends BaseTest
             ArrayHelper::merge($array1, ['assoc4' => ['cheese', 'abc' => 'tasty']])
         );
 
-        $this->setExpectedException('\InvalidArgumentException', 'Argument 2 is not an array');
+        $this->expectException('\InvalidArgumentException');
+        $this->expectExceptionMessage('Argument 2 is not an array');
         ArrayHelper::merge(['abc'], 123);
     }
 }

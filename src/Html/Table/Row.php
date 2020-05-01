@@ -8,9 +8,7 @@ use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
 use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 
 /**
- * Class Row
- *
- * @package AndreasGlaser\Helpers\Html\Table
+ * Class Row.
  */
 class Row implements RenderableInterface, FactoryInterface
 {
@@ -25,7 +23,6 @@ class Row implements RenderableInterface, FactoryInterface
     protected $attributes;
 
     /**
-     * @param array|null                  $cells
      * @param AttributesHelper|array|null $attributesHelper
      *
      * @return \AndreasGlaser\Helpers\Html\Table\Row
@@ -36,13 +33,12 @@ class Row implements RenderableInterface, FactoryInterface
     }
 
     /**
-     * @param array|null $cells
-     * @param null       $attributesHelper
+     * @param null $attributesHelper
      */
     public function __construct(array $cells = null, $attributesHelper = null)
     {
         if ($cells) {
-            foreach ($cells AS $cell) {
+            foreach ($cells as $cell) {
                 $this->addCell($cell);
             }
         }
@@ -55,7 +51,7 @@ class Row implements RenderableInterface, FactoryInterface
      *
      * @return $this
      */
-    public function addCell(Cell $cellHelper)
+    public function addCell(Cell $cellHelper):self
     {
         $this->cells[] = $cellHelper;
 
@@ -79,11 +75,9 @@ class Row implements RenderableInterface, FactoryInterface
     }
 
     /**
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper $attributes
-     *
      * @return $this
      */
-    public function setAttributes(AttributesHelper $attributes)
+    public function setAttributes(AttributesHelper $attributes):self
     {
         $this->attributes = $attributes;
 
@@ -91,8 +85,6 @@ class Row implements RenderableInterface, FactoryInterface
     }
 
     /**
-     * @param \AndreasGlaser\Helpers\Interfaces\RendererInterface|null $renderer
-     *
      * @return string
      */
     public function render(RendererInterface $renderer = null)
@@ -102,7 +94,7 @@ class Row implements RenderableInterface, FactoryInterface
         }
 
         $html = '<tr' . $this->attributes->render() . '>';
-        foreach ($this->getCells() AS $cell) {
+        foreach ($this->getCells() as $cell) {
             $html .= $cell->render();
         }
         $html .= '</tr>';

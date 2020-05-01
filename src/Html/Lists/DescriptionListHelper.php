@@ -8,13 +8,10 @@ use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
 use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 
 /**
- * Class DescriptionListHelper
- *
- * @package AndreasGlaser\Helpers\Html\Lists
+ * Class DescriptionListHelper.
  */
 class DescriptionListHelper implements FactoryInterface, RenderableInterface
 {
-
     /**
      * @var \AndreasGlaser\Helpers\Html\AttributesHelper
      */
@@ -26,7 +23,7 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
     protected $items = [];
 
     /**
-     * @param null|AttributesHelper|array $attributes
+     * @param AttributesHelper|array|null $attributes
      *
      * @return \AndreasGlaser\Helpers\Html\Lists\DescriptionListHelper
      */
@@ -38,13 +35,11 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
     /**
      * DescriptionListHelper constructor.
      *
-     * @param null|AttributesHelper|array $attributes
+     * @param AttributesHelper|array|null $attributes
      */
     public function __construct($attributes = null)
     {
         $this->attributes = AttributesHelper::f($attributes);
-
-        return $this;
     }
 
     /**
@@ -55,9 +50,9 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      */
-    public function addItem($term, $content, $termAttributes = null, $contentAttributes = null)
+    public function addItem($term, $content, $termAttributes = null, $contentAttributes = null):self
     {
-        $index = count($this->items);
+        $index = \count($this->items);
         $this->items[$index]['term'] = $term;
         $this->items[$index]['content'] = $content;
         $this->items[$index]['termAttributes'] = AttributesHelper::f($termAttributes);
@@ -67,8 +62,6 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
     }
 
     /**
-     * @param \AndreasGlaser\Helpers\Interfaces\RendererInterface|null $renderer
-     *
      * @return string
      */
     public function render(RendererInterface $renderer = null)
@@ -79,17 +72,17 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
 
         $html = '<dl' . $this->attributes . '>';
 
-        $itemCount = count($this->items);
+        $itemCount = \count($this->items);
         $itemIndex = 0;
 
-        foreach ($this->items AS $item) {
+        foreach ($this->items as $item) {
 
             /** @var AttributesHelper $termAttributes */
             $termAttributes = $item['termAttributes'];
             /** @var AttributesHelper $contentAttributes */
             $contentAttributes = $item['contentAttributes'];
 
-            if ($itemIndex === 0) {
+            if (0 === $itemIndex) {
                 $termAttributes->addClass('item-first');
                 $contentAttributes->addClass('item-first');
             }
@@ -105,7 +98,7 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
             $html .= '<dt' . $termAttributes . '>' . $item['term'] . '</dt>';
             $html .= '<dd' . $contentAttributes . '>' . $item['content'] . '</dd>';
 
-            $itemIndex++;
+            ++$itemIndex;
         }
 
         $html .= '</dl>';

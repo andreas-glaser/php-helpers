@@ -3,9 +3,7 @@
 namespace AndreasGlaser\Helpers\Interfaces;
 
 /**
- * Interface DuplicatableInterface
- *
- * @package AndreasGlaser\Helpers\Interfaces
+ * Interface DuplicatableInterface.
  */
 interface DuplicatableInterface
 {

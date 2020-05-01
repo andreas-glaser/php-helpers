@@ -3,9 +3,7 @@
 namespace AndreasGlaser\Helpers\Http;
 
 /**
- * Class RequestHelper
- *
- * @package AndreasGlaser\Helpers\Http
+ * Class RequestHelper.
  */
 class RequestHelper
 {
@@ -22,8 +20,6 @@ class RequestHelper
      */
     public static function isHttps()
     {
-        return isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+        return isset($_SERVER['HTTPS']) && 'off' !== $_SERVER['HTTPS'];
     }
 }
-
-

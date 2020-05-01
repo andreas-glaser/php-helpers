@@ -3,9 +3,7 @@
 namespace AndreasGlaser\Helpers\Interfaces;
 
 /**
- * Interface RenderableInterface
- *
- * @package AndreasGlaser\Helpers\Interfaces
+ * Interface RenderableInterface.
  */
 interface RenderableInterface
 {

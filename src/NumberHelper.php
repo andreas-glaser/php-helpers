@@ -3,9 +3,7 @@
 namespace AndreasGlaser\Helpers;
 
 /**
- * Class NumberHelper
- *
- * @package AndreasGlaser\Helpers
+ * Class NumberHelper.
  */
 class NumberHelper
 {

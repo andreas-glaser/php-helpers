@@ -3,9 +3,7 @@
 namespace AndreasGlaser\Helpers;
 
 /**
- * Class ValueHelper
- *
- * @package AndreasGlaser\Helpers
+ * Class ValueHelper.
  */
 class ValueHelper
 {
@@ -21,7 +19,7 @@ class ValueHelper
 
     /**
      * Checks if the given value is empty. This method is useful for PHP <= 5.4,
-     * where you cannot pass function returns directly into empty() eg. empty(date('Y-m-d'))
+     * where you cannot pass function returns directly into empty() eg. empty(date('Y-m-d')).
      *
      * @param $value
      *
@@ -33,7 +31,7 @@ class ValueHelper
     }
 
     /**
-     * Checks if given value is of type "integer"
+     * Checks if given value is of type "integer".
      *
      * @param $value
      *
@@ -41,17 +39,17 @@ class ValueHelper
      */
     public static function isInteger($value)
     {
-        if (is_int($value)) {
+        if (\is_int($value)) {
             return true;
-        } elseif (!is_string($value)) {
+        } elseif (!\is_string($value)) {
             return false;
         }
 
-        return preg_match('/^\d+$/', $value) > 0;
+        return \preg_match('/^\d+$/', $value) > 0;
     }
 
     /**
-     * Checks if given value is of type "float"
+     * Checks if given value is of type "float".
      *
      * @param $value
      *
@@ -59,22 +57,19 @@ class ValueHelper
      */
     public static function isFloat($value)
     {
-        if (is_float($value)) {
+        if (\is_float($value)) {
             return true;
-        } elseif (!is_string($value)) {
+        } elseif (!\is_string($value)) {
             return false;
         }
 
-        return preg_match('/^[0-9]+\.[0-9]+$/', $value) > 0;
+        return \preg_match('/^[0-9]+\.[0-9]+$/', $value) > 0;
     }
 
     /**
-     * Alias for DateHelper::isDateTime()
+     * Alias for DateHelper::isDateTime().
      *
-     * @param mixed       $date
-     * @param string|null $format
-     *
-     * @return bool
+     * @param mixed $date
      */
     public static function isDateTime($date, string $format = null): bool
     {
@@ -83,12 +78,10 @@ class ValueHelper
 
     /**
      * @param $value
-     *
-     * @return bool
      */
     public static function isBool($value): bool
     {
-        return is_bool($value);
+        return \is_bool($value);
     }
 
     /**
@@ -100,7 +93,7 @@ class ValueHelper
      */
     public static function isTrue($value)
     {
-        return self::isBool($value) && $value === true;
+        return self::isBool($value) && true === $value;
     }
 
     /**
@@ -112,7 +105,7 @@ class ValueHelper
      */
     public static function isFalse($value)
     {
-        return self::isBool($value) && $value === false;
+        return self::isBool($value) && false === $value;
     }
 
     /**

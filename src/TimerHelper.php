@@ -3,9 +3,7 @@
 namespace AndreasGlaser\Helpers;
 
 /**
- * Class TimerHelper
- *
- * @package Helpers
+ * Class TimerHelper.
  */
 class TimerHelper
 {
@@ -24,7 +22,7 @@ class TimerHelper
             throw new \RuntimeException('Timer has already been started.');
         }
 
-        self::$timers[$alias] = microtime();
+        self::$timers[$alias] = \microtime();
     }
 
     /**
@@ -33,6 +31,7 @@ class TimerHelper
      * @param $alias
      *
      * @return mixed
+     *
      * @throws \RuntimeException
      */
     public static function getDifference($alias)
@@ -41,7 +40,7 @@ class TimerHelper
             throw new \RuntimeException('Timer has not been started');
         }
 
-        return microtime() - self::$timers[$alias];
+        return \microtime() - self::$timers[$alias];
     }
 
     /**
@@ -50,6 +49,7 @@ class TimerHelper
      * @param $alias
      *
      * @return mixed
+     *
      * @throws \RuntimeException
      */
     public static function stop($alias)

@@ -5,9 +5,7 @@ namespace AndreasGlaser\Helpers\Html;
 use AndreasGlaser\Helpers\HtmlHelper;
 
 /**
- * Class FormHelper
- *
- * @package AndreasGlaser\Helpers\Html
+ * Class FormHelper.
  */
 class FormHelper
 {
@@ -22,7 +20,7 @@ class FormHelper
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('action', $action);
-        $attributesHelper->set('method', strtoupper($method));
+        $attributesHelper->set('method', \strtoupper($method));
 
         return '<form' . $attributesHelper . '>';
     }
@@ -190,9 +188,9 @@ class FormHelper
 
     /**
      * @param string                                                  $name
-     * @param integer                                                 $value
-     * @param integer                                                 $min
-     * @param integer                                                 $max
+     * @param int                                                     $value
+     * @param int                                                     $min
+     * @param int                                                     $max
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
      *
      * @return string
@@ -382,10 +380,9 @@ class FormHelper
     }
 
     /**
-     * @param       $name
-     * @param array $options
-     * @param null  $checkedValue
-     * @param null  $attributesHelper
+     * @param      $name
+     * @param null $checkedValue
+     * @param null $attributesHelper
      *
      * @return string
      */
@@ -395,10 +392,10 @@ class FormHelper
         $attributesHelper->set('name', $name);
 
         $htmlContent = '';
-        foreach ($options AS $value => $option) {
-            if (is_array($option)) {
+        foreach ($options as $value => $option) {
+            if (\is_array($option)) {
                 $optGroupContent = '';
-                foreach ($option AS $value1 => $option1) {
+                foreach ($option as $value1 => $option1) {
                     $optGroupContent .= static::option($value1, $option1, $value1 === $checkedValue);
                 }
                 $htmlContent .= static::optgroup($value, $optGroupContent);
@@ -411,10 +408,9 @@ class FormHelper
     }
 
     /**
-     * @param       $name
-     * @param array $options
-     * @param null  $checkedValue
-     * @param null  $attributesHelper
+     * @param      $name
+     * @param null $checkedValue
+     * @param null $attributesHelper
      *
      * @return string
      */
@@ -425,10 +421,10 @@ class FormHelper
         $attributesHelper->set('multiple', 'multiple');
 
         $htmlContent = '';
-        foreach ($options AS $value => $option) {
-            if (is_array($option)) {
+        foreach ($options as $value => $option) {
+            if (\is_array($option)) {
                 $optGroupContent = '';
-                foreach ($option AS $value1 => $option1) {
+                foreach ($option as $value1 => $option1) {
                     $optGroupContent .= static::option($value1, $option1, $value1 === $checkedValue);
                 }
                 $htmlContent .= static::optgroup($value, $optGroupContent);

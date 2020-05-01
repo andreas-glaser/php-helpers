@@ -5,9 +5,7 @@ namespace AndreasGlaser\Helpers;
 use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
 
 /**
- * Class CounterHelper
- *
- * @package AndreasGlaser\Helpers
+ * Class CounterHelper.
  */
 class CounterHelper implements FactoryInterface
 {
@@ -36,7 +34,7 @@ class CounterHelper implements FactoryInterface
      */
     public function __construct($initialValue = 0)
     {
-        $this->initialValue = is_array($initialValue) ? count($initialValue) : (int)$initialValue;
+        $this->initialValue = \is_array($initialValue) ? \count($initialValue) : (int)$initialValue;
         $this->currentValue = $this->initialValue;
     }
 
@@ -45,7 +43,7 @@ class CounterHelper implements FactoryInterface
      *
      * @return $this
      */
-    public function increaseBy($value)
+    public function increaseBy($value):self
     {
         $this->currentValue += (int)$value;
 
@@ -57,7 +55,7 @@ class CounterHelper implements FactoryInterface
      *
      * @return $this
      */
-    public function decreaseBy($value)
+    public function decreaseBy($value):self
     {
         $this->currentValue -= (int)$value;
 
@@ -105,7 +103,7 @@ class CounterHelper implements FactoryInterface
             return 0;
         }
 
-        return abs($this->currentValue - $this->initialValue);
+        return \abs($this->currentValue - $this->initialValue);
     }
 
     /**

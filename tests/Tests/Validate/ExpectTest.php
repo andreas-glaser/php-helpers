@@ -6,14 +6,10 @@ use AndreasGlaser\Helpers\Tests\BaseTest;
 use AndreasGlaser\Helpers\Validate\Expect;
 
 /**
- * Class ExpectTest
- *
- * @package AndreasGlaser\Helpers\Tests\Validate
+ * Class ExpectTest.
  */
 class ExpectTest extends BaseTest
 {
-    /**
-     */
     public function testInt()
     {
         $this->expectException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException');
@@ -21,8 +17,6 @@ class ExpectTest extends BaseTest
         Expect::int('22');
     }
 
-    /**
-     */
     public function testFloat()
     {
         $this->expectException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException');
@@ -30,8 +24,6 @@ class ExpectTest extends BaseTest
         Expect::float(2);
     }
 
-    /**
-     */
     public function testNumeric()
     {
         $this->expectException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException');
@@ -39,8 +31,6 @@ class ExpectTest extends BaseTest
         Expect::numeric('0b10100111001');
     }
 
-    /**
-     */
     public function testBool()
     {
         $this->expectException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException');
@@ -48,8 +38,6 @@ class ExpectTest extends BaseTest
         Expect::bool(1);
     }
 
-    /**
-     */
     public function testStr()
     {
         $this->expectException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException');
@@ -57,8 +45,6 @@ class ExpectTest extends BaseTest
         Expect::str(true);
     }
 
-    /**
-     */
     public function testArr()
     {
         $this->expectException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException');
@@ -66,8 +52,6 @@ class ExpectTest extends BaseTest
         Expect::arr(new \stdClass());
     }
 
-    /**
-     */
     public function testObj()
     {
         $this->expectException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException');
@@ -75,8 +59,6 @@ class ExpectTest extends BaseTest
         Expect::obj([]);
     }
 
-    /**
-     */
     public function testRes()
     {
         $this->expectException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException');
@@ -84,8 +66,6 @@ class ExpectTest extends BaseTest
         Expect::res(false);
     }
 
-    /**
-     */
     public function testIsCallable()
     {
         $this->expectException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException');
@@ -93,8 +73,6 @@ class ExpectTest extends BaseTest
         Expect::isCallable('hello');
     }
 
-    /**
-     */
     public function testScalar()
     {
         $this->expectException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException');
@@ -102,8 +80,6 @@ class ExpectTest extends BaseTest
         Expect::scalar(new \stdClass());
     }
 
-    /**
-     */
     public function testNull()
     {
         $this->expectException('\AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException');

@@ -6,9 +6,7 @@ use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
 use AndreasGlaser\Helpers\Validate\IOExpect;
 
 /**
- * Class PHPView
- *
- * @package AndreasGlaser\Helpers\View
+ * Class PHPView.
  */
 class PHPView implements FactoryInterface
 {
@@ -29,9 +27,6 @@ class PHPView implements FactoryInterface
 
     /**
      * PHPView constructor.
-     *
-     * @param string|null $file
-     * @param array       $data
      */
     public function __construct(string $file = null, array $data = [])
     {
@@ -43,10 +38,10 @@ class PHPView implements FactoryInterface
     }
 
     /**
-     * @param       $file
-     * @param array $data
+     * @param $file
      *
      * @return \AndreasGlaser\Helpers\View\PHPView
+     *
      * @deprecated Use PHPView::f()
      */
     public static function factory(string $file = null, array $data = []): PHPView
@@ -55,9 +50,6 @@ class PHPView implements FactoryInterface
     }
 
     /**
-     * @param string|null $file
-     * @param array       $data
-     *
      * @return \AndreasGlaser\Helpers\View\PHPView
      */
     public static function f(string $file = null, array $data = []): PHPView
@@ -66,8 +58,6 @@ class PHPView implements FactoryInterface
     }
 
     /**
-     * @param string $filePath
-     *
      * @return \AndreasGlaser\Helpers\View\PHPView
      */
     public function setFile(string $filePath): self
@@ -81,8 +71,7 @@ class PHPView implements FactoryInterface
     }
 
     /**
-     * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      */
     public static function setGlobal(string $key, $value)
     {
@@ -98,8 +87,7 @@ class PHPView implements FactoryInterface
     }
 
     /**
-     * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return \AndreasGlaser\Helpers\View\PHPView
      */
@@ -119,9 +107,6 @@ class PHPView implements FactoryInterface
     }
 
     /**
-     * @param string|null $file
-     *
-     * @return string
      * @throws \Exception
      */
     public function render(string $file = null): string
@@ -138,28 +123,23 @@ class PHPView implements FactoryInterface
     }
 
     /**
-     * @param string $viewFileName
-     * @param array  $data
-     * @param array  $global
-     *
-     * @return string
      * @throws \Exception
      */
     protected function capture(string $viewFileName, array $data = [], array $global = []): string
     {
-        extract($global, EXTR_SKIP);
-        extract($data, EXTR_SKIP);
+        \extract($global, EXTR_SKIP);
+        \extract($data, EXTR_SKIP);
 
-        ob_start();
+        \ob_start();
 
         try {
             require $viewFileName;
         } catch (\Exception $e) {
-            ob_end_clean();
+            \ob_end_clean();
             throw $e;
         }
 
-        return ob_get_clean();
+        return \ob_get_clean();
     }
 
     /**

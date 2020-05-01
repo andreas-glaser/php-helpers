@@ -5,9 +5,7 @@ namespace AndreasGlaser\Helpers\Html;
 use AndreasGlaser\Helpers\HtmlHelper;
 
 /**
- * Class BootstrapHelper
- *
- * @package AndreasGlaser\Helpers\Html
+ * Class BootstrapHelper.
  */
 class BootstrapHelper
 {

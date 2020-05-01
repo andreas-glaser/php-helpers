@@ -3,9 +3,7 @@
 namespace AndreasGlaser\Helpers\Tests;
 
 /**
- * Class BaseTest
- *
- * @package AndreasGlaser\Helpers\Tests
+ * Class BaseTest.
  */
 abstract class BaseTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,6 +12,6 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
      */
     protected function todo($message = 'todo: Implement this method')
     {
-        $this->markTestIncomplete($message);
+        self::markTestIncomplete($message);
     }
 }

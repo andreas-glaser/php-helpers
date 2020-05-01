@@ -3,9 +3,7 @@
 namespace AndreasGlaser\Helpers\Traits;
 
 /**
- * Trait RuntimeCacheTrait
- *
- * @package AndreasGlaser\Helpers\Traits
+ * Trait RuntimeCacheTrait.
  */
 trait RuntimeCacheTrait
 {
@@ -15,12 +13,7 @@ trait RuntimeCacheTrait
     protected $runtimeCache = [];
 
     /**
-     * @param        $data
-     * @param string $id
-     * @param string $group
-     * @param bool   $overwrite
-     *
-     * @return self
+     * @param $data
      */
     public function rtcSet($data, string $id, string $group = '_default', bool $overwrite = true): self
     {
@@ -34,25 +27,17 @@ trait RuntimeCacheTrait
         return $this;
     }
 
-    /**
-     * @param string $id
-     * @param string $group
-     *
-     * @return bool
-     */
     public function rtcExists(string $id, string $group = '_default'): bool
     {
         if (!$this->rtcGroupExists($group)) {
             return false;
         }
 
-        return array_key_exists($id, $this->runtimeCache[$group]);
+        return \array_key_exists($id, $this->runtimeCache[$group]);
     }
 
     /**
-     * @param string $id
-     * @param string $group
-     * @param null   $default
+     * @param null $default
      *
      * @return mixed
      */
@@ -66,9 +51,7 @@ trait RuntimeCacheTrait
     }
 
     /**
-     * @param string $id
-     * @param string $group
-     * @param mixed  $default
+     * @param mixed $default
      *
      * @return mixed
      */
@@ -80,12 +63,6 @@ trait RuntimeCacheTrait
         return $result;
     }
 
-    /**
-     * @param string $id
-     * @param string $group
-     *
-     * @return self
-     */
     public function rtcDelete(string $id, string $group = '_default'): self
     {
         if ($this->rtcExists($id, $group)) {
@@ -96,8 +73,7 @@ trait RuntimeCacheTrait
     }
 
     /**
-     * @param string $group
-     * @param null   $default
+     * @param null $default
      *
      * @return mixed
      */
@@ -106,11 +82,6 @@ trait RuntimeCacheTrait
         return $this->rtcGroupExists($group) ? $this->runtimeCache[$group] : $default;
     }
 
-    /**
-     * @param string $group
-     *
-     * @return self
-     */
     public function rtcGroupDelete(string $group): self
     {
         if (!$this->rtcGroupExists($group)) {
@@ -122,11 +93,6 @@ trait RuntimeCacheTrait
         return $this;
     }
 
-    /**
-     * @param string $group
-     *
-     * @return self
-     */
     public function rtcGroupAdd(string $group): self
     {
         if (!$this->rtcGroupExists($group)) {
@@ -136,21 +102,13 @@ trait RuntimeCacheTrait
         return $this;
     }
 
-    /**
-     * @param string $group
-     *
-     * @return bool
-     */
     public function rtcGroupExists(string $group): bool
     {
-        return array_key_exists($group, $this->runtimeCache);
+        return \array_key_exists($group, $this->runtimeCache);
     }
 
-    /**
-     * @return string
-     */
     public function rtcMakeId(): string
     {
-        return md5(serialize(func_get_args()));
+        return \md5(\serialize(\func_get_args()));
     }
 }

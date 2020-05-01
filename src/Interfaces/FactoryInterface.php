@@ -3,9 +3,7 @@
 namespace AndreasGlaser\Helpers\Interfaces;
 
 /**
- * Interface FactoryInterface
- *
- * @package AndreasGlaser\Helpers\Interfaces
+ * Interface FactoryInterface.
  */
 interface FactoryInterface
 {

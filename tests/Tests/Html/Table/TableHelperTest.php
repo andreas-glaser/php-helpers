@@ -8,9 +8,7 @@ use AndreasGlaser\Helpers\Html\Table\TableHelper;
 use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
- * Class TableHelperTest
- *
- * @package AndreasGlaser\Helpers\Tests\Html\Table
+ * Class TableHelperTest.
  */
 class TableHelperTest extends BaseTest
 {
@@ -57,6 +55,6 @@ class TableHelperTest extends BaseTest
                 )
             );
 
-        $this->assertEquals('<table data-tomato="123"><thead><tr><td class="something">Headline 1</td><td>Headline 2</td><td>Headline 3</td><td>Headline 4</td><td colspan="2" scope="col">Headline 4</td></tr></thead><tbody><tr><td>Content 1</td><td>Content 2</td><td>Content 3</td><td>Content 4</td><td rowspan="2">Content 5</td></tr><tr style="background-color:red;"><td>Content 6</td><td>Content 7</td><td>Content 8</td><td>Content 9</td></tr></tbody></table>', $tableHelper->render());
+        self::assertEquals('<table data-tomato="123"><thead><tr><th class="something">Headline 1</th><th>Headline 2</th><th>Headline 3</th><th>Headline 4</th><th colspan="2" scope="col">Headline 4</th></tr></thead><tbody><tr><td>Content 1</td><td>Content 2</td><td>Content 3</td><td>Content 4</td><td rowspan="2">Content 5</td></tr><tr style="background-color:red;"><td>Content 6</td><td>Content 7</td><td>Content 8</td><td>Content 9</td></tr></tbody></table>', $tableHelper->render());
     }
 }

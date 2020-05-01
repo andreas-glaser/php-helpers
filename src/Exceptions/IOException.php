@@ -3,9 +3,7 @@
 namespace AndreasGlaser\Helpers\Exceptions;
 
 /**
- * Class IOException
- *
- * @package AndreasGlaser\Helpers\Exceptions
+ * Class IOException.
  */
 class IOException extends \RuntimeException
 {
@@ -16,11 +14,6 @@ class IOException extends \RuntimeException
 
     /**
      * IOException constructor.
-     *
-     * @param string          $message
-     * @param int             $code
-     * @param \Exception|null $previous
-     * @param string|null     $path
      */
     public function __construct(string $message, int $code = 0, \Exception $previous = null, string $path = null)
     {

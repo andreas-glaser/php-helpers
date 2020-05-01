@@ -7,17 +7,14 @@ use AndreasGlaser\Helpers\Tests\BaseTest;
 use AndreasGlaser\Helpers\Validate\IOExpect;
 
 /**
- * Class IOExpectTest
- *
- * @package AndreasGlaser\Helpers\Tests\Validate
+ * Class IOExpectTest.
  */
 class IOExpectTest extends BaseTest
 {
-
     public function testIsDir()
     {
         $this->expectException(IOException::class);
-        $this->expectExceptionMessage(sprintf('"%s" is not a directory', __FILE__));
+        $this->expectExceptionMessage(\sprintf('"%s" is not a directory', __FILE__));
 
         IOExpect::isDir(__FILE__);
     }
@@ -25,7 +22,7 @@ class IOExpectTest extends BaseTest
     public function testIsFile()
     {
         $this->expectException(IOException::class);
-        $this->expectExceptionMessage(sprintf('"%s" is not a file', __DIR__));
+        $this->expectExceptionMessage(\sprintf('"%s" is not a file', __DIR__));
 
         IOExpect::isFile(__DIR__);
     }
@@ -39,5 +36,4 @@ class IOExpectTest extends BaseTest
     {
         // todo
     }
-
 }

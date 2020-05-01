@@ -3,9 +3,7 @@
 namespace AndreasGlaser\Helpers\Traits;
 
 /**
- * Class DuplicatableTrait
- *
- * @package AndreasGlaser\Helpers\Traits
+ * Class DuplicatableTrait.
  */
 trait DuplicatableTrait
 {

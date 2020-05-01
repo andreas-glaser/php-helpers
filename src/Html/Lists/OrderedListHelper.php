@@ -6,15 +6,11 @@ use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 
 /**
- * Class OrderedListHelper
- *
- * @package AndreasGlaser\Helpers\Html\Lists
+ * Class OrderedListHelper.
  */
 class OrderedListHelper extends BaseListHelper
 {
     /**
-     * @param \AndreasGlaser\Helpers\Interfaces\RendererInterface|null $renderer
-     *
      * @return string
      */
     public function render(RendererInterface $renderer = null)
@@ -25,15 +21,15 @@ class OrderedListHelper extends BaseListHelper
 
         $html = '<ol' . $this->attributes . '>';
 
-        $itemCount = count($this->items);
+        $itemCount = \count($this->items);
         $itemIndex = 0;
 
-        foreach ($this->items AS $item) {
+        foreach ($this->items as $item) {
 
             /** @var AttributesHelper $attributes */
             $attributes = $item['attributes'];
 
-            if ($itemIndex === 0) {
+            if (0 === $itemIndex) {
                 $attributes->addClass('item-first');
             }
 
@@ -45,7 +41,7 @@ class OrderedListHelper extends BaseListHelper
 
             $html .= '<li' . $attributes . '>' . $item['content'] . '</li>';
 
-            $itemIndex++;
+            ++$itemIndex;
         }
 
         $html .= '</ol>';

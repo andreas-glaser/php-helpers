@@ -2,10 +2,12 @@
 
 namespace AndreasGlaser\Helpers\Tests;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Class BaseTest.
  */
-abstract class BaseTest extends \PHPUnit_Framework_TestCase
+abstract class BaseTest extends TestCase
 {
     /**
      * @param string $message

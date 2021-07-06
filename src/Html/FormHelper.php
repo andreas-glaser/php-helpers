@@ -20,7 +20,7 @@ class FormHelper
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('action', $action);
-        $attributesHelper->set('method', \strtoupper($method));
+        $attributesHelper->set('method', strtoupper($method));
 
         return '<form' . $attributesHelper . '>';
     }
@@ -293,13 +293,9 @@ class FormHelper
     }
 
     /**
-     * @param string                                                  $name
-     * @param null                                                    $value
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
-     *
-     * @return string
      */
-    public static function hidden($name, $value = null, $attributesHelper = null)
+    public static function hidden(string $name, ?string $value = '', $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -310,13 +306,9 @@ class FormHelper
     }
 
     /**
-     * @param string                                                  $name
-     * @param null                                                    $value
      * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
-     *
-     * @return string
      */
-    public static function textarea($name, $value = null, $attributesHelper = null)
+    public static function textarea(string $name, ?string $value = '', $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -393,7 +385,7 @@ class FormHelper
 
         $htmlContent = '';
         foreach ($options as $value => $option) {
-            if (\is_array($option)) {
+            if (true === \is_array($option)) {
                 $optGroupContent = '';
                 foreach ($option as $value1 => $option1) {
                     $optGroupContent .= static::option($value1, $option1, $value1 === $checkedValue);
@@ -414,7 +406,7 @@ class FormHelper
      *
      * @return string
      */
-    public static function selectMultiple($name, array $options, $checkedValue = null, $attributesHelper = null)
+    public static function selectMultiple(string $name, array $options, $checkedValue = null, $attributesHelper = null)
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -422,7 +414,7 @@ class FormHelper
 
         $htmlContent = '';
         foreach ($options as $value => $option) {
-            if (\is_array($option)) {
+            if (true === \is_array($option)) {
                 $optGroupContent = '';
                 foreach ($option as $value1 => $option1) {
                     $optGroupContent .= static::option($value1, $option1, $value1 === $checkedValue);

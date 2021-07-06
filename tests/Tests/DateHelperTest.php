@@ -30,7 +30,7 @@ class DateHelperTest extends BaseTest
     {
         self::assertEquals('23-03-2015', DateHelper::formatOrNull('2015-03-23', 'd-m-Y'));
         self::assertEquals('23-03-2015', DateHelper::formatOrNull(new \DateTime('2015-03-23'), 'd-m-Y'));
-        self::assertEquals(\date('Y-m-d H:i:s'), DateHelper::formatOrNull('NOW'));
+        self::assertEquals(date('Y-m-d H:i:s'), DateHelper::formatOrNull('NOW'));
         self::assertEquals(10, DateHelper::formatOrNull(new \stdClass(), 'Y-m-d', 10));
         self::assertNull(DateHelper::formatOrNull(-1));
     }

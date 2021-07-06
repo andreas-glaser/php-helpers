@@ -42,8 +42,7 @@ class StringHelperTest extends BaseTest
         self::assertTrue(StringHelper::startsWith($this->testString, 'HELLO', false));
 
         // strings always "start" with null/nothing
-        self::assertTrue(StringHelper::startsWith($this->testString, null, true));
-        self::assertTrue(StringHelper::startsWith($this->testString, null, false));
+        self::assertTrue(StringHelper::startsWith($this->testString, '', true));
     }
 
     public function testStringEndsWith()
@@ -53,8 +52,7 @@ class StringHelperTest extends BaseTest
         self::assertTrue(StringHelper::endsWith($this->testString, 'STRING.', false));
 
         // strings always "end" with null/nothing
-        self::assertTrue(StringHelper::endsWith($this->testString, null, true));
-        self::assertTrue(StringHelper::endsWith($this->testString, null, false));
+        self::assertTrue(StringHelper::endsWith($this->testString, '', true));
     }
 
     public function testTrimMulti()
@@ -86,20 +84,6 @@ class StringHelperTest extends BaseTest
         self::assertEquals('prefix_0', StringHelper::getIncrementalId('prefix_'));
         self::assertEquals('prefix_1', StringHelper::getIncrementalId('prefix_'));
         self::assertEquals('prefix_2', StringHelper::getIncrementalId('prefix_'));
-    }
-
-    public function testIsDateTime()
-    {
-        self::assertTrue(StringHelper::isDateTime('2015-03-23'));
-        self::assertTrue(StringHelper::isDateTime('2015-03-23 22:21'));
-        self::assertTrue(StringHelper::isDateTime('5pm'));
-        self::assertTrue(StringHelper::isDateTime('+8 Weeks'));
-
-        self::assertFalse(StringHelper::isDateTime('2015-13-23 22:21'));
-        self::assertFalse(StringHelper::isDateTime('2015-12-23 25:21'));
-        self::assertFalse(StringHelper::isDateTime('N/A'));
-        self::assertFalse(StringHelper::isDateTime(null));
-        self::assertFalse(StringHelper::isDateTime(''));
     }
 
     public function testIsBlank()

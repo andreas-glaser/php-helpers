@@ -15,7 +15,7 @@ class IOExpectTest extends BaseTest
     public function testIsDir()
     {
         $this->expectException(IOException::class);
-        $this->expectExceptionMessage(\sprintf('"%s" is not a directory', __FILE__));
+        $this->expectExceptionMessage(sprintf('"%s" is not a directory', __FILE__));
 
         IOExpect::isDir(__FILE__);
     }
@@ -23,7 +23,7 @@ class IOExpectTest extends BaseTest
     public function testIsFile()
     {
         $this->expectException(IOException::class);
-        $this->expectExceptionMessage(\sprintf('"%s" is not a file', __DIR__));
+        $this->expectExceptionMessage(sprintf('"%s" is not a file', __DIR__));
 
         IOExpect::isFile(__DIR__);
     }
@@ -35,7 +35,7 @@ class IOExpectTest extends BaseTest
         chmod($tmpFile, 111);
 
         $this->expectException(IOException::class);
-        $this->expectExceptionMessage(\sprintf('"%s" is not readable', $tmpFile));
+        $this->expectExceptionMessage(sprintf('"%s" is not readable', $tmpFile));
 
         IOExpect::isReadable($tmpFile);
     }
@@ -47,7 +47,7 @@ class IOExpectTest extends BaseTest
         chmod($tmpFile, 111);
 
         $this->expectException(IOException::class);
-        $this->expectExceptionMessage(\sprintf('"%s" is not writable', $tmpFile));
+        $this->expectExceptionMessage(sprintf('"%s" is not writable', $tmpFile));
 
         IOExpect::isWritable($tmpFile);
     }

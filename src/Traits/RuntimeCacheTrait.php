@@ -2,19 +2,10 @@
 
 namespace AndreasGlaser\Helpers\Traits;
 
-/**
- * Trait RuntimeCacheTrait.
- */
 trait RuntimeCacheTrait
 {
-    /**
-     * @var array
-     */
-    protected $runtimeCache = [];
+    protected array $runtimeCache = [];
 
-    /**
-     * @param $data
-     */
     public function rtcSet($data, string $id, string $group = '_default', bool $overwrite = true): self
     {
         if (!$overwrite && $this->rtcExists($id, $group)) {
@@ -36,11 +27,6 @@ trait RuntimeCacheTrait
         return \array_key_exists($id, $this->runtimeCache[$group]);
     }
 
-    /**
-     * @param null $default
-     *
-     * @return mixed
-     */
     public function rtcGet(string $id, string $group = '_default', $default = null)
     {
         if (!$this->rtcExists($id, $group)) {
@@ -50,11 +36,6 @@ trait RuntimeCacheTrait
         return $this->runtimeCache[$group][$id];
     }
 
-    /**
-     * @param mixed $default
-     *
-     * @return mixed
-     */
     public function rtcGetDelete(string $id, string $group = '_default', $default = null)
     {
         $result = $this->rtcGet($id, $group, $default);
@@ -72,11 +53,6 @@ trait RuntimeCacheTrait
         return $this;
     }
 
-    /**
-     * @param null $default
-     *
-     * @return mixed
-     */
     public function rtcGroupGet(string $group, $default = null)
     {
         return $this->rtcGroupExists($group) ? $this->runtimeCache[$group] : $default;
@@ -109,6 +85,6 @@ trait RuntimeCacheTrait
 
     public function rtcMakeId(): string
     {
-        return \md5(\serialize(\func_get_args()));
+        return md5(serialize(\func_get_args()));
     }
 }

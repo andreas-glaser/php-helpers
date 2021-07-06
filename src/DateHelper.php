@@ -9,9 +9,6 @@ use DateTimeZone;
  */
 class DateHelper
 {
-    /**
-     * @param mixed $date
-     */
     public static function isDateTime($date, string $format = null): bool
     {
         if ($date instanceof \DateTime) {
@@ -44,11 +41,6 @@ class DateHelper
     }
 
     /**
-     * @param mixed $string
-     * @param null  $null
-     *
-     * @return \DateTime|null
-     *
      * @throws \Exception
      */
     public static function stringToDateTime($string, DateTimeZone $timezone = null, $null = null)
@@ -59,15 +51,13 @@ class DateHelper
     /**
      * Tries to format given input.
      *
-     * @param mixed  $dateTime
-     * @param string $format
-     * @param null   $null
+     * @param null $null
      *
      * @return string|null
      *
      * @throws \Exception
      */
-    public static function formatOrNull($dateTime, $format = 'Y-m-d H:i:s', $null = null)
+    public static function formatOrNull($dateTime, string $format = 'Y-m-d H:i:s', $null = null)
     {
         if ($dateTime instanceof \DateTime) {
             return $dateTime->format($format);

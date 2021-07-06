@@ -34,7 +34,7 @@ class Cell implements RenderableInterface, FactoryInterface
      */
     public static function f($content = null, $attributesHelper = null, bool $isHeader = false)
     {
-        return new Cell($content, $attributesHelper, $isHeader);
+        return new self($content, $attributesHelper, $isHeader);
     }
 
     /**
@@ -60,7 +60,7 @@ class Cell implements RenderableInterface, FactoryInterface
      *
      * @return $this
      */
-    public function setContent($content):self
+    public function setContent($content): self
     {
         $this->content = $content;
 
@@ -72,7 +72,7 @@ class Cell implements RenderableInterface, FactoryInterface
      *
      * @return $this
      */
-    public function setColSpan($colSpan):self
+    public function setColSpan($colSpan): self
     {
         Expect::int($colSpan);
 
@@ -94,7 +94,7 @@ class Cell implements RenderableInterface, FactoryInterface
      *
      * @return $this
      */
-    public function setRowSpan($rowSpan):self
+    public function setRowSpan($rowSpan): self
     {
         Expect::int($rowSpan);
 
@@ -120,12 +120,12 @@ class Cell implements RenderableInterface, FactoryInterface
      *
      * @deprecated Not supported in HTML5. http://www.w3schools.com/tags/att_td_scope.asp
      */
-    public function setScope($scope):self
+    public function setScope($scope): self
     {
         $validScopes = ['col', 'row', 'colgroup', 'rowgroup'];
 
         if (!StringHelper::isOneOf($scope, $validScopes)) {
-            throw new \Exception(\sprintf('"%s" is not a valid <td> scope. Valid are: %s', $scope, \implode(', ', $validScopes)));
+            throw new \Exception(sprintf('"%s" is not a valid <td> scope. Valid are: %s', $scope, implode(', ', $validScopes)));
         }
 
         $this->attributes->set('scope', $scope);
@@ -176,9 +176,9 @@ class Cell implements RenderableInterface, FactoryInterface
         }
 
         if (true === $this->isHeader()) {
-            return \sprintf('<th%s>%s</th>', $this->attributes->render(), $this->content);
+            return sprintf('<th%s>%s</th>', $this->attributes->render(), $this->content);
         }
 
-        return \sprintf('<td%s>%s</td>', $this->attributes->render(), $this->content);
+        return sprintf('<td%s>%s</td>', $this->attributes->render(), $this->content);
     }
 }

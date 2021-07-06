@@ -4,63 +4,58 @@ namespace AndreasGlaser\Helpers;
 
 use Exception;
 
-/**
- * Class ArrayHelper.
- */
 class ArrayHelper
 {
-    const PATH_DELIMITER = '.';
+    public const PATH_DELIMITER = '.';
 
     /**
      * Returns value by key or a default value if it does not exist.
-     *
-     * @param      $key
-     * @param null $default
-     *
-     * @return null
      */
-    public static function get(array $array, $key, $default = null)
+    public static function get(array $array, string $key, $default = null)
     {
         return \array_key_exists($key, $array) ? $array[$key] : $default;
     }
 
     /**
      * Returns first array key with matching value.
-     *
-     * @param mixed $value
-     * @param null  $default
-     * @param bool  $strict
-     *
-     * @return mixed|null
      */
-    public static function getKeyByValue(array $array, $value, $default = null, $strict = true)
+    public static function getKeyByValue(array $array, $value, $default = null, bool $strict = true)
     {
-        $key = \array_search($value, $array, $strict);
+        $key = array_search($value, $array, $strict);
 
         return false !== $key ? $key : $default;
     }
 
     /**
-     * @param        $path
-     * @param bool   $throwException
-     * @param null   $default
-     * @param string $delimiter
+     * Simplifies access to nested array values. e.g.:.
      *
-     * @return null
+     * $myArray = [
+     *      'someIndex' => 'some value',
+     *      'nestedArray' => [
+     *          'someIndex' => 'xyz',
+     *          'nestedArray' => [
+     *              'someIndex' => 'some value',
+     *          ]
+     *      ]
+     * ];
+     *
+     * ArrayHelper::getByPath($myArray, 'someIndex'); // some value
+     * ArrayHelper::getByPath($myArray, 'someIndex.nestedArray'); // nested Array
+     * ArrayHelper::getByPath($myArray, 'someIndex.nestedArray.someIndex'); // xyz
      */
-    public static function getByPath(array $array, $path, $throwException = false, $default = null, $delimiter = self::PATH_DELIMITER)
+    public static function getByPath(array $array, string $path, bool $throwException = false, $default = null, string $delimiter = self::PATH_DELIMITER)
     {
-        $pieces = \explode($delimiter, $path);
+        $pieces = explode($delimiter, $path);
 
         $value = $default;
 
         foreach ($pieces as $piece) {
-            if (\array_key_exists($piece, $array)) {
+            if (true === \array_key_exists($piece, $array)) {
                 $value = $array[$piece];
                 $array = $array[$piece];
             } else {
                 if ($throwException) {
-                    throw new \RuntimeException(\sprintf('Array index "%s" does not exist', $piece));
+                    throw new \RuntimeException(sprintf('Array index "%s" does not exist', $piece));
                 } else {
                     return $default;
                 }
@@ -70,29 +65,22 @@ class ArrayHelper
         return $value;
     }
 
-    /**
-     * @param string $path
-     * @param mixed  $value
-     * @param string $delimiter
-     *
-     * @return array
-     */
-    public static function setByPath(array $array, $path, $value, $delimiter = self::PATH_DELIMITER)
+    public static function setByPath(array $array, string $path, $value, string $delimiter = self::PATH_DELIMITER): array
     {
         $current = &$array;
-        $pathParts = \explode($delimiter, $path);
+        $pathParts = explode($delimiter, $path);
         $partCount = \count($pathParts);
 
         $i = 1;
         foreach ($pathParts as $piece) {
             $isLast = $i === $partCount;
 
-            if (\array_key_exists($piece, $current)) {
+            if (true === \array_key_exists($piece, $current)) {
                 if ($isLast) {
                     $current[$piece] = $value;
                 } else {
-                    if (!\is_array($current[$piece])) {
-                        throw new \RuntimeException(\sprintf('Array index "%s" exists already and is not of type "array"', $piece));
+                    if (false === \is_array($current[$piece])) {
+                        throw new \RuntimeException(sprintf('Array index "%s" exists already and is not of type "array"', $piece));
                     }
                 }
             } else {
@@ -109,14 +97,14 @@ class ArrayHelper
     public static function unsetByPath(array $array, string $path, string $delimiter = self::PATH_DELIMITER): array
     {
         $current = &$array;
-        $pathParts = \explode($delimiter, $path);
+        $pathParts = explode($delimiter, $path);
         $partCount = \count($pathParts);
 
         $i = 1;
         foreach ($pathParts as $piece) {
             $isLast = $i === $partCount;
 
-            if (!\array_key_exists($piece, $current)) {
+            if (false === \array_key_exists($piece, $current)) {
                 break;
             }
 
@@ -132,19 +120,13 @@ class ArrayHelper
         return $array;
     }
 
-    /**
-     * @param string $path
-     * @param string $delimiter
-     *
-     * @return bool
-     */
-    public static function existsByPath(array $array, $path, $delimiter = self::PATH_DELIMITER)
+    public static function existsByPath(array $array, string $path, string $delimiter = self::PATH_DELIMITER): bool
     {
         $current = &$array;
-        $pathParts = \explode($delimiter, $path);
+        $pathParts = explode($delimiter, $path);
 
         foreach ($pathParts as $pathPart) {
-            if (\is_array($current) && \array_key_exists($pathPart, $current)) {
+            if (true === \is_array($current) && \array_key_exists($pathPart, $current)) {
                 $current = $current[$pathPart];
             } else {
                 return false;
@@ -154,19 +136,13 @@ class ArrayHelper
         return true;
     }
 
-    /**
-     * @param        $path
-     * @param string $delimiter
-     *
-     * @return bool
-     */
-    public static function issetByPath(array $array, $path, $delimiter = self::PATH_DELIMITER)
+    public static function issetByPath(array $array, string $path, string $delimiter = self::PATH_DELIMITER): bool
     {
         $current = &$array;
-        $pathParts = \explode($delimiter, $path);
+        $pathParts = explode($delimiter, $path);
 
         foreach ($pathParts as $pathPart) {
-            if (\is_array($current) && isset($current[$pathPart])) {
+            if (true === \is_array($current) && isset($current[$pathPart])) {
                 $current = $current[$pathPart];
             } else {
                 return false;
@@ -179,35 +155,29 @@ class ArrayHelper
     /**
      * Adds index/value at the beginning of an array.
      *
-     * @param       $value
-     * @param mixed $key
-     *
-     * @return array
+     * @param string|int|null $key
      */
-    public static function prepend(array $array, $value, $key = false)
+    public static function prepend(array $array, $value, $key = null): array
     {
-        $array = \array_reverse($array, true);
+        $array = array_reverse($array, true);
 
-        if (false !== $key) {
+        if (null !== $key) {
             $array[$key] = $value;
         } else {
             $array[] = $value;
         }
 
-        return \array_reverse($array, true);
+        return array_reverse($array, true);
     }
 
     /**
      * Adds index/value at the end of an array.
      *
-     * @param       $value
-     * @param mixed $key
-     *
-     * @return array
+     * @param string|int|null $key
      */
-    public static function append(array $array, $value, $key = false)
+    public static function append(array $array, $value, $key = null): array
     {
-        if (false !== $key) {
+        if (null !== $key) {
             $array[$key] = $value;
         } else {
             $array[] = $value;
@@ -217,17 +187,15 @@ class ArrayHelper
     }
 
     /**
-     * @param $position
-     *
-     * @return array
+     * @param string|int $position
      *
      * @throws Exception
      */
-    public static function insertBefore(array &$array, $position, array $values)
+    public static function insertBefore(array $array, $position, array $values): array
     {
         // enforce existing position
         if (!isset($array[$position])) {
-            throw new Exception(\strtr('Array position does not exist (:1)', [':1' => $position]));
+            throw new Exception(strtr('Array position does not exist (:1)', [':1' => $position]));
         }
 
         // offset
@@ -248,17 +216,15 @@ class ArrayHelper
     }
 
     /**
-     * @param $position
-     *
-     * @return array
+     * @param string|int $position
      *
      * @throws Exception
      */
-    public static function insertAfter(array &$array, $position, array $values)
+    public static function insertAfter(array $array, $position, array $values): array
     {
         // enforce existing position
         if (!isset($array[$position])) {
-            throw new Exception(\strtr('Array position does not exist (:1)', [':1' => $position]));
+            throw new Exception(strtr('Array position does not exist (:1)', [':1' => $position]));
         }
 
         // offset
@@ -275,45 +241,35 @@ class ArrayHelper
             }
         }
 
-        $array = \array_slice($array, 0, $offset, true) + $values + \array_slice($array, $offset, null, true);
-
-        return $array;
+        return \array_slice($array, 0, $offset, true) + $values + \array_slice($array, $offset, null, true);
     }
 
     /**
      * Returns the value of the first index of an array.
-     *
-     * @param mixed $default
-     *
-     * @return mixed
      */
     public static function getFirstValue(array $array, $default = null)
     {
-        $firstItem = \reset($array);
+        $firstItem = reset($array);
 
         return $firstItem ? $firstItem : $default;
     }
 
     /**
      * Returns the value of the last index of an array.
-     *
-     * @param mixed $default
-     *
-     * @return mixed
      */
     public static function getLastValue(array $array, $default = null)
     {
-        $lastItem = \end($array);
+        $lastItem = end($array);
 
         return $lastItem ? $lastItem : $default;
     }
 
     /**
-     * @return mixed
+     * Returns random value of array.
      */
     public static function getRandomValue(array $array)
     {
-        return $array[\array_rand($array)];
+        return $array[array_rand($array)];
     }
 
     /**
@@ -325,8 +281,8 @@ class ArrayHelper
             return $array;
         }
 
-        \reset($array);
-        unset($array[\key($array)]);
+        reset($array);
+        unset($array[key($array)]);
 
         return $array;
     }
@@ -336,20 +292,17 @@ class ArrayHelper
      */
     public static function removeLastElement(array $array): array
     {
-        \array_pop($array);
+        array_pop($array);
 
         return $array;
     }
 
     /**
-     * @param mixed $value
-     * @param bool  $strict
-     *
-     * @return array
+     * Removes array item by value.
      */
-    public static function removeByValue(array $array, $value, $strict = true)
+    public static function removeByValue(array $array, $value, bool $strict = true): array
     {
-        $key = \array_search($value, $array, $strict);
+        $key = array_search($value, $array, $strict);
         if (false !== $key) {
             unset($array[$key]);
         }
@@ -359,15 +312,13 @@ class ArrayHelper
 
     /**
      * Recursively converts array keys from camel case to underscore case.
-     *
-     * @return array
      */
-    public static function keysCamelToUnderscore(array $array)
+    public static function keysCamelToUnderscore(array $array): array
     {
         $newArray = [];
 
         foreach ($array as $key => $value) {
-            if (!\is_array($value)) {
+            if (false === \is_array($value)) {
                 unset($array[$key]);
                 $newArray[StringHelper::camelToUnderscore($key)] = $value;
             } else {
@@ -379,15 +330,10 @@ class ArrayHelper
         return $newArray;
     }
 
-    /**
-     * @param bool $recursive
-     *
-     * @return array
-     */
-    public static function unsetEmptyValues(array $array, $recursive = false)
+    public static function unsetEmptyValues(array $array, bool $recursive = false): array
     {
         foreach ($array as $key => $value) {
-            if (empty($value)) {
+            if (true === empty($value)) {
                 unset($array[$key]);
                 continue;
             }
@@ -400,45 +346,42 @@ class ArrayHelper
         return $array;
     }
 
-    /**
-     * @param $glue
-     *
-     * @return string
-     */
-    public static function implodeIgnoreEmpty($glue, array $pieces)
+    public static function implodeIgnoreEmpty(string $glue, array $pieces): string
     {
         $processedPieces = [];
         foreach ($pieces as $piece) {
-            if (!empty($piece)) {
+            if (false === empty($piece)) {
                 $processedPieces[] = $piece;
             }
         }
 
-        return \implode($glue, $processedPieces);
+        return implode($glue, $processedPieces);
+    }
+
+    public static function implodeIgnoreBlank(string $glue, array $pieces): string
+    {
+        $processedPieces = [];
+        foreach ($pieces as $piece) {
+            if (false === StringHelper::isBlank($piece)) {
+                $processedPieces[] = $piece;
+            }
+        }
+
+        return implode($glue, $processedPieces);
     }
 
     /**
      * Implodes array keys.
-     *
-     * @param $glue
-     *
-     * @return string
      */
-    public static function implodeKeys($glue, array $array)
+    public static function implodeKeys(string $glue, array $array): string
     {
-        return \implode($glue, \array_keys($array));
+        return implode($glue, array_keys($array));
     }
 
-    /**
-     * @param $delimiter
-     * @param $string
-     *
-     * @return array
-     */
-    public static function explodeIgnoreEmpty($delimiter, $string)
+    public static function explodeIgnoreEmpty(string $delimiter, string $string): array
     {
         $return = [];
-        $pieces = \explode($delimiter, $string);
+        $pieces = explode($delimiter, $string);
         foreach ($pieces as $value) {
             if (!empty($value)) {
                 $return[] = $value;
@@ -448,21 +391,16 @@ class ArrayHelper
         return $return;
     }
 
-    /**
-     * @param bool $recursive
-     *
-     * @return array
-     */
-    public static function valueToUpper(array $array, $recursive = true)
+    public static function valueToUpper(array $array, bool $recursive = true): array
     {
         $return = [];
 
         foreach ($array as $key => $value) {
-            if ($recursive && \is_array($value)) {
+            if (true === $recursive && true === \is_array($value)) {
                 $return[$key] = self::valueToUpper($value, $recursive);
+            } else {
+                $return[$key] = mb_strtoupper($value);
             }
-
-            $return[$key] = \mb_strtoupper($value);
         }
 
         return $return;
@@ -470,37 +408,31 @@ class ArrayHelper
 
     /**
      * Checks if given array is associative.
-     *
-     * @return bool
      */
-    public static function isAssoc(array $array)
+    public static function isAssoc(array $array): bool
     {
-        $keys = \array_keys($array);
+        $keys = array_keys($array);
 
-        return \array_keys($keys) !== $keys;
+        return array_keys($keys) !== $keys;
     }
 
     /**
      * Checks if associative indexes in array1 existing in array2.
      * This is useful for the validation of configuration arrays.
-     *
-     * @param bool $throwException
-     *
-     * @return bool
      */
-    public static function assocIndexesExist(array $arrayToCheck, array $arrayToCompareWith, $throwException = true)
+    public static function assocIndexesExist(array $arrayToCheck, array $arrayToCompareWith, bool $throwException = true): bool
     {
         $exists = true;
 
         foreach ($arrayToCheck as $key => $value) {
             if (self::isAssoc($arrayToCompareWith)) {
-                if (!\array_key_exists($key, $arrayToCompareWith)) {
+                if (false === \array_key_exists($key, $arrayToCompareWith)) {
                     if ($throwException) {
                         throw new \RuntimeException('Key does not exist (' . $key . ')');
                     } else {
                         $exists = false;
                     }
-                } elseif (\is_array($value)) {
+                } elseif (true === \is_array($value)) {
                     if (!$exists = self::assocIndexesExist($value, $arrayToCompareWith[$key], $throwException)) {
                         return false;
                     }
@@ -513,20 +445,13 @@ class ArrayHelper
 
     /**
      * Replaces values of an array.
-     *
-     * @param           $value
-     * @param           $replacement
-     * @param bool|true $recursively
-     * @param bool|true $caseSensitive
-     *
-     * @return array
      */
-    public static function replaceValue(array $array, $value, $replacement, $recursively = true, $caseSensitive = true)
+    public static function replaceValue(array $array, $value, $replacement, bool $recursively = true, bool $caseSensitive = true): array
     {
         foreach ($array as $k => $v) {
             if ($recursively && \is_array($v)) {
-                $array[$k] = self::replaceValue($array[$k], $value, $replacement, $recursively, $caseSensitive);
-            } elseif (\is_string($v) && StringHelper::is($v, $value, $caseSensitive)) {
+                $array[$k] = self::replaceValue($v, $value, $replacement, $recursively, $caseSensitive);
+            } elseif (true === \is_string($v) && StringHelper::is($v, $value, $caseSensitive)) {
                 $array[$k] = $replacement;
             }
         }
@@ -537,22 +462,21 @@ class ArrayHelper
     /**
      * Merges multiple arrays.
      *
-     * @return array
      * @source https://api.drupal.org/api/drupal/includes!bootstrap.inc/function/drupal_array_merge_deep_array/7
      */
-    public static function merge()
+    public static function merge(): array
     {
         $arrays = \func_get_args();
 
         $result = [];
 
         foreach ($arrays as $argumentIndex => $array) {
-            if (!\is_array($array)) {
-                throw new \InvalidArgumentException(\sprintf('Argument %d is not an array', $argumentIndex + 1));
+            if (false === \is_array($array)) {
+                throw new \InvalidArgumentException(sprintf('Argument %d is not an array', $argumentIndex + 1));
             }
 
             foreach ($array as $key => $value) {
-                if (\is_integer($key)) {
+                if (true === \is_integer($key)) {
                     $result[] = $value;
                 } elseif (isset($result[$key]) && \is_array($result[$key]) && \is_array($value)) {
                     $result[$key] = static::merge($result[$key], $value);
@@ -563,42 +487,5 @@ class ArrayHelper
         }
 
         return $result;
-    }
-
-    /**
-     * @param array $array
-     * @param null  $default
-     *
-     * @return mixed|null
-     *
-     * @deprecated please use ArrayHelper::getFirstValue($array, $default) instead
-     */
-    public static function getFirstIndex($array, $default = null)
-    {
-        return static::getFirstValue($array, $default);
-    }
-
-    /**
-     * @param $array
-     * @param $key
-     * @param $val
-     *
-     * @return array
-     *
-     * @deprecated use ArrayHelper::prepend() instead
-     */
-    public static function unshiftAssoc($array, $key, $val)
-    {
-        return static::prepend($array, $val, $key);
-    }
-
-    /**
-     * @return array
-     *
-     * @deprecated Use ArrayHelper::removeFirstElement($array)
-     */
-    public static function removeFirstIndex(array $array)
-    {
-        return self::removeFirstElement($array);
     }
 }

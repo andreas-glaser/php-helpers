@@ -58,10 +58,10 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      */
     public static function f($input = null)
     {
-        if ($input instanceof AttributesHelper) {
+        if ($input instanceof self) {
             return $input;
         } else {
-            return new AttributesHelper($input);
+            return new self($input);
         }
     }
 
@@ -85,23 +85,23 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      */
-    public function set($name, $value):self
+    public function set($name, $value): self
     {
-        $name = \mb_strtolower($name);
+        $name = mb_strtolower($name);
         if ('id' === $name) {
             $this->setId($value);
         } elseif ('class' === $name) {
             $this->addClass($value);
         } elseif ('style' === $name) {
-            $pieces = \explode(';', $value);
+            $pieces = explode(';', $value);
             foreach ($pieces as $definition) {
-                $p = \explode(':', $definition);
-                if (isset($p[0]) && isset($p[1])) {
+                $p = explode(':', $definition);
+                if (isset($p[0], $p[1])) {
                     $this->addStyle($p[0], $p[1]);
                 }
             }
         } elseif (StringHelper::startsWith('data-', $name)) {
-            $this->addData(\mb_substr($name, 5), $value);
+            $this->addData(mb_substr($name, 5), $value);
         } else {
             $this->attributes[$name] = $value;
         }
@@ -141,7 +141,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      */
-    public function setId($value):self
+    public function setId($value): self
     {
         $this->id = $value;
 
@@ -175,7 +175,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      */
-    public function removeId():self
+    public function removeId(): self
     {
         $this->id = null;
 
@@ -189,7 +189,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      */
-    public function addClass($name):self
+    public function addClass($name): self
     {
         $classes = StringHelper::explodeAndTrim(' ', $name);
         foreach ($classes as $className) {
@@ -228,7 +228,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      */
-    public function removeClass($name):self
+    public function removeClass($name): self
     {
         if ($this->hasClass($name)) {
             unset($this->classes[$name]);
@@ -247,7 +247,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
         return $this->classes;
     }
 
-    public function addStyle($name, $value):self
+    public function addStyle($name, $value): self
     {
         $this->styles[$name] = $value;
 
@@ -283,7 +283,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      */
-    public function removeStyle($name):self
+    public function removeStyle($name): self
     {
         if ($this->hasStyle($name)) {
             unset($this->styles[$name]);
@@ -311,7 +311,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      */
-    public function addData($name, $value):self
+    public function addData($name, $value): self
     {
         $this->data[$name] = $value;
 
@@ -350,7 +350,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      */
-    public function removeData($name):self
+    public function removeData($name): self
     {
         if ($this->hasData($name)) {
             unset($this->data[$name]);
@@ -368,7 +368,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      */
     public function getClassesImploded($glue = ' ')
     {
-        return \implode($glue, $this->classes);
+        return implode($glue, $this->classes);
     }
 
     /**
@@ -391,7 +391,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
         }
 
         foreach ($this->attributes as $name => $value) {
-            $attributes .= ' ' . $name . '="' . HtmlHelper::chars($value) . '"';
+            $attributes .= ' ' . $name . '="' . HtmlHelper::chars($value ?? '') . '"';
         }
 
         $data = $this->getData();
@@ -413,7 +413,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
             $attributes .= ' style="' . $stylesCompiled . '"';
         }
 
-        $attributes = \trim($attributes);
+        $attributes = trim($attributes);
 
         return !empty($attributes) ? ' ' . $attributes : '';
     }
@@ -429,7 +429,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
             $return['id'] = $id;
         }
 
-        if (\count($this->getClasses())) {
+        if (true === \count($this->getClasses())) {
             $return['class'] = $this->getClassesImploded();
         }
 

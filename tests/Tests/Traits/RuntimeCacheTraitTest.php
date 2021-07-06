@@ -14,16 +14,16 @@ class RuntimeCacheTraitTest extends BaseTest
     {
         $class = new RuntimeCacheTest();
 
-        self::assertTrue(\method_exists($class, 'rtcSet'));
-        self::assertTrue(\method_exists($class, 'rtcExists'));
-        self::assertTrue(\method_exists($class, 'rtcGet'));
-        self::assertTrue(\method_exists($class, 'rtcGetDelete'));
-        self::assertTrue(\method_exists($class, 'rtcDelete'));
-        self::assertTrue(\method_exists($class, 'rtcGroupGet'));
-        self::assertTrue(\method_exists($class, 'rtcGroupDelete'));
-        self::assertTrue(\method_exists($class, 'rtcGroupAdd'));
-        self::assertTrue(\method_exists($class, 'rtcGroupExists'));
-        self::assertTrue(\method_exists($class, 'rtcMakeId'));
+        self::assertTrue(method_exists($class, 'rtcSet'));
+        self::assertTrue(method_exists($class, 'rtcExists'));
+        self::assertTrue(method_exists($class, 'rtcGet'));
+        self::assertTrue(method_exists($class, 'rtcGetDelete'));
+        self::assertTrue(method_exists($class, 'rtcDelete'));
+        self::assertTrue(method_exists($class, 'rtcGroupGet'));
+        self::assertTrue(method_exists($class, 'rtcGroupDelete'));
+        self::assertTrue(method_exists($class, 'rtcGroupAdd'));
+        self::assertTrue(method_exists($class, 'rtcGroupExists'));
+        self::assertTrue(method_exists($class, 'rtcMakeId'));
 
         $id = $class->rtcMakeId('a', [1 => 2], new \stdClass(), 123);
         $group = 'MyGroup';
@@ -54,5 +54,5 @@ class RuntimeCacheTraitTest extends BaseTest
 
 class RuntimeCacheTest
 {
-    use  RuntimeCacheTrait;
+    use RuntimeCacheTrait;
 }

@@ -5,29 +5,12 @@ namespace AndreasGlaser\Helpers\View;
 use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
 use AndreasGlaser\Helpers\Validate\IOExpect;
 
-/**
- * Class PHPView.
- */
 class PHPView implements FactoryInterface
 {
-    /**
-     * @var array
-     */
-    protected static $globalData = [];
+    protected static array $globalData = [];
+    protected array $data = [];
+    protected ?string $file;
 
-    /**
-     * @var array
-     */
-    protected $data = [];
-
-    /**
-     * @var
-     */
-    protected $file;
-
-    /**
-     * PHPView constructor.
-     */
     public function __construct(string $file = null, array $data = [])
     {
         if ($file) {
@@ -44,7 +27,7 @@ class PHPView implements FactoryInterface
      *
      * @deprecated Use PHPView::f()
      */
-    public static function factory(string $file = null, array $data = []): PHPView
+    public static function factory(string $file = null, array $data = []): self
     {
         return static::f($file, $data);
     }
@@ -52,9 +35,9 @@ class PHPView implements FactoryInterface
     /**
      * @return \AndreasGlaser\Helpers\View\PHPView
      */
-    public static function f(string $file = null, array $data = []): PHPView
+    public static function f(string $file = null, array $data = []): self
     {
-        return new PHPView($file, $data);
+        return new self($file, $data);
     }
 
     /**
@@ -70,27 +53,16 @@ class PHPView implements FactoryInterface
         return $this;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function setGlobal(string $key, $value)
+    public static function setGlobal(string $key, $value): void
     {
         static::$globalData[$key] = $value;
     }
 
-    /**
-     * @return array
-     */
-    public static function getGlobalData()
+    public static function getGlobalData(): array
     {
         return self::$globalData;
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @return \AndreasGlaser\Helpers\View\PHPView
-     */
     public function set(string $key, $value): self
     {
         $this->data[$key] = $value;
@@ -98,10 +70,7 @@ class PHPView implements FactoryInterface
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
@@ -127,25 +96,22 @@ class PHPView implements FactoryInterface
      */
     protected function capture(string $viewFileName, array $data = [], array $global = []): string
     {
-        \extract($global, EXTR_SKIP);
-        \extract($data, EXTR_SKIP);
+        extract($global, EXTR_SKIP);
+        extract($data, EXTR_SKIP);
 
-        \ob_start();
+        ob_start();
 
         try {
             require $viewFileName;
         } catch (\Exception $e) {
-            \ob_end_clean();
+            ob_end_clean();
             throw $e;
         }
 
-        return \ob_get_clean();
+        return ob_get_clean();
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->render();
     }

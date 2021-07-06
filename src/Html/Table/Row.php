@@ -29,7 +29,7 @@ class Row implements RenderableInterface, FactoryInterface
      */
     public static function f(array $cells = null, $attributesHelper = null)
     {
-        return new Row($cells, $attributesHelper);
+        return new self($cells, $attributesHelper);
     }
 
     /**
@@ -51,7 +51,7 @@ class Row implements RenderableInterface, FactoryInterface
      *
      * @return $this
      */
-    public function addCell(Cell $cellHelper):self
+    public function addCell(Cell $cellHelper): self
     {
         $this->cells[] = $cellHelper;
 
@@ -77,7 +77,7 @@ class Row implements RenderableInterface, FactoryInterface
     /**
      * @return $this
      */
-    public function setAttributes(AttributesHelper $attributes):self
+    public function setAttributes(AttributesHelper $attributes): self
     {
         $this->attributes = $attributes;
 

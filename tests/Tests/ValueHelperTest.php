@@ -82,27 +82,6 @@ class ValueHelperTest extends BaseTest
         self::assertFalse(ValueHelper::isFloat(true));
     }
 
-    public function testIsDateTime()
-    {
-        self::assertTrue(ValueHelper::isDateTime('2015-03-23'));
-        self::assertTrue(ValueHelper::isDateTime('2015-03-23 22:21'));
-        self::assertTrue(ValueHelper::isDateTime('5pm'));
-        self::assertTrue(ValueHelper::isDateTime('+8 Weeks'));
-
-        self::assertFalse(ValueHelper::isDateTime('2015-00-00'));
-        self::assertFalse(ValueHelper::isDateTime('2015-00-00 00:00:00'));
-        self::assertFalse(ValueHelper::isDateTime('2015-13-23 22:21'));
-        self::assertFalse(ValueHelper::isDateTime('2015-12-23 25:21'));
-        self::assertFalse(ValueHelper::isDateTime('N/A'));
-        self::assertFalse(ValueHelper::isDateTime(null));
-        self::assertFalse(ValueHelper::isDateTime(''));
-        self::assertFalse(ValueHelper::isDateTime('    '));
-
-        self::assertTrue(ValueHelper::isDateTime(new \DateTime()));
-        self::assertTrue(ValueHelper::isDateTime('25/05/2017', 'd/m/Y'));
-        self::assertFalse(ValueHelper::isDateTime('25/05/2017', 'm/d/Y'));
-    }
-
     public function testIsBool()
     {
         self::assertTrue(ValueHelper::isBool(true));

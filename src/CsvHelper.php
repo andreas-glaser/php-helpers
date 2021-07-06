@@ -4,9 +4,6 @@ namespace AndreasGlaser\Helpers;
 
 use AndreasGlaser\Helpers\Validate\IOExpect;
 
-/**
- * Class CsvHelper.
- */
 class CsvHelper
 {
     public static function fileToArray(string $file, bool $isFirstLineTitle = false, int $length = 0, string $delimiter = ',', string $enclosure = '"', string $escape = '\\'): array
@@ -19,9 +16,9 @@ class CsvHelper
         $hasTitles = false;
         $rowNumber = 0;
 
-        $handle = \fopen($file, 'r');
+        $handle = fopen($file, 'r');
 
-        while (false !== ($row = \fgetcsv($handle, $length, $delimiter, $enclosure, $escape))) {
+        while (false !== ($row = fgetcsv($handle, $length, $delimiter, $enclosure, $escape))) {
             if (true === $isFirstLineTitle && false === $hasTitles) {
                 foreach ($row as $index => $title) {
                     $titles[$index] = $title;
@@ -43,19 +40,19 @@ class CsvHelper
             ++$rowNumber;
         }
 
-        \fclose($handle);
+        fclose($handle);
 
         return $result;
     }
 
     public static function arrayToCsvString(array $array, string $delimiter = ',', string $enclosure = '"', string $escape_char = '\\'): string
     {
-        $f = \fopen('php://memory', 'r+');
+        $f = fopen('php://memory', 'r+');
         foreach ($array as $item) {
-            \fputcsv($f, $item, $delimiter, $enclosure, $escape_char);
+            fputcsv($f, $item, $delimiter, $enclosure, $escape_char);
         }
-        \rewind($f);
+        rewind($f);
 
-        return \trim(\stream_get_contents($f));
+        return trim(stream_get_contents($f));
     }
 }

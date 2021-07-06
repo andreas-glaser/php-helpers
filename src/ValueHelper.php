@@ -8,77 +8,50 @@ namespace AndreasGlaser\Helpers;
 class ValueHelper
 {
     /**
-     * @param $string
-     *
-     * @return null
+     * @see https://www.php.net/manual/en/language.operators.comparison.php
      */
-    public static function emptyToNull(&$string)
+    public static function emptyToNull($value)
     {
-        return empty($string) ? null : $string;
+        return $value ?: null;
     }
 
     /**
      * Checks if the given value is empty. This method is useful for PHP <= 5.4,
      * where you cannot pass function returns directly into empty() eg. empty(date('Y-m-d')).
-     *
-     * @param $value
-     *
-     * @return bool
      */
-    public static function isEmpty($value)
+    public static function isEmpty($value): bool
     {
         return empty($value);
     }
 
     /**
      * Checks if given value is of type "integer".
-     *
-     * @param $value
-     *
-     * @return bool
      */
-    public static function isInteger($value)
+    public static function isInteger($value): bool
     {
-        if (\is_int($value)) {
+        if (true === \is_int($value)) {
             return true;
-        } elseif (!\is_string($value)) {
+        } elseif (false === \is_string($value)) {
             return false;
         }
 
-        return \preg_match('/^\d+$/', $value) > 0;
+        return preg_match('/^\d+$/', $value) > 0;
     }
 
     /**
      * Checks if given value is of type "float".
-     *
-     * @param $value
-     *
-     * @return bool
      */
-    public static function isFloat($value)
+    public static function isFloat($value): bool
     {
-        if (\is_float($value)) {
+        if (true === \is_float($value)) {
             return true;
-        } elseif (!\is_string($value)) {
+        } elseif (false === \is_string($value)) {
             return false;
         }
 
-        return \preg_match('/^[0-9]+\.[0-9]+$/', $value) > 0;
+        return preg_match('/^[0-9]+\.[0-9]+$/', $value) > 0;
     }
 
-    /**
-     * Alias for DateHelper::isDateTime().
-     *
-     * @param mixed $date
-     */
-    public static function isDateTime($date, string $format = null): bool
-    {
-        return DateHelper::isDateTime($date, $format);
-    }
-
-    /**
-     * @param $value
-     */
     public static function isBool($value): bool
     {
         return \is_bool($value);
@@ -86,45 +59,27 @@ class ValueHelper
 
     /**
      * Check if value is TRUE.
-     *
-     * @param $value
-     *
-     * @return bool
      */
-    public static function isTrue($value)
+    public static function isTrue($value): bool
     {
-        return self::isBool($value) && true === $value;
+        return true === $value;
     }
 
     /**
-     * * Check if value is FALSE.
-     *
-     * @param $value
-     *
-     * @return bool
+     * Check if value is FALSE.
      */
-    public static function isFalse($value)
+    public static function isFalse($value): bool
     {
-        return self::isBool($value) && false === $value;
+        return false === $value;
     }
 
-    /**
-     * @param $value
-     *
-     * @return bool
-     */
-    public static function isTrueLike($value)
+    public static function isTrueLike($value): bool
     {
-        return $value ? true : false;
+        return (bool)$value;
     }
 
-    /**
-     * @param $value
-     *
-     * @return bool
-     */
-    public static function isFalseLike($value)
+    public static function isFalseLike($value): bool
     {
-        return !$value ? true : false;
+        return !$value;
     }
 }

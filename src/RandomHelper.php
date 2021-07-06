@@ -2,17 +2,11 @@
 
 namespace AndreasGlaser\Helpers;
 
-/**
- * Class RandomHelper.
- */
 class RandomHelper
 {
-    /**
-     * @return bool
-     */
-    public static function trueFalse()
+    public static function trueFalse(): bool
     {
-        return 1 === \rand(0, 1);
+        return 1 === rand(0, 1);
     }
 
     /**
@@ -22,13 +16,13 @@ class RandomHelper
     public static function uniqid(string $prefix = ''): string
     {
         if (true === \function_exists('random_bytes')) {
-            $bytes = \random_bytes(7);
+            $bytes = random_bytes(7);
         } elseif (true === \function_exists('openssl_random_pseudo_bytes')) {
-            $bytes = \openssl_random_pseudo_bytes(7);
+            $bytes = openssl_random_pseudo_bytes(7);
         } else {
             throw new \Exception('No cryptographically secure random function available');
         }
 
-        return $prefix . \mb_substr(\bin2hex($bytes), 0, 13);
+        return $prefix . mb_substr(bin2hex($bytes), 0, 13);
     }
 }

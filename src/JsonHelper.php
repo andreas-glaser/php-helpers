@@ -9,31 +9,23 @@ class JsonHelper
 {
     /**
      * Validates JSON input.
-     *
-     * @param $string
-     *
-     * @return bool
      */
-    public static function isValid($string)
+    public static function isValid(?string $string): bool
     {
-        if (\is_int($string) || \is_float($string)) {
+        if (true === \is_int($string) || \is_float($string)) {
             return true;
         }
 
-        \json_decode($string);
+        json_decode($string);
 
-        return JSON_ERROR_NONE === \json_last_error();
+        return JSON_ERROR_NONE === json_last_error();
     }
 
     /**
      * Encodes json string for the use in JavaScript.
-     *
-     * @param $string
-     *
-     * @return string
      */
-    public static function encodeForJavaScript($string)
+    public static function encodeForJavaScript(?string $string): string
     {
-        return \json_encode($string, JSON_HEX_QUOT | JSON_HEX_APOS);
+        return json_encode($string, JSON_HEX_QUOT | JSON_HEX_APOS);
     }
 }

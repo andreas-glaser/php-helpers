@@ -49,7 +49,7 @@ abstract class BaseListHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      */
-    public function addItem($content, $attributes = null):self
+    public function addItem($content, $attributes = null): self
     {
         $index = \count($this->items);
         $this->items[$index]['content'] = $content;

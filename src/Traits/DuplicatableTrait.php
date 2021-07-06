@@ -2,18 +2,10 @@
 
 namespace AndreasGlaser\Helpers\Traits;
 
-/**
- * Class DuplicatableTrait.
- */
 trait DuplicatableTrait
 {
-    /**
-     * @return $this
-     */
-    public function duplicate()
+    public function duplicate(): self
     {
-        $duplicate = clone $this;
-
-        return $duplicate;
+        return clone $this;
     }
 }

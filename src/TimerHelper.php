@@ -2,19 +2,12 @@
 
 namespace AndreasGlaser\Helpers;
 
-/**
- * Class TimerHelper.
- */
 class TimerHelper
 {
-    protected static $timers;
+    protected static array $timers;
 
     /**
      * Starts timer.
-     *
-     * @param $alias
-     *
-     * @throws \RuntimeException
      */
     public static function start($alias)
     {
@@ -22,37 +15,25 @@ class TimerHelper
             throw new \RuntimeException('Timer has already been started.');
         }
 
-        self::$timers[$alias] = \microtime();
+        self::$timers[$alias] = microtime();
     }
 
     /**
      * Gets current time passed since start.
-     *
-     * @param $alias
-     *
-     * @return mixed
-     *
-     * @throws \RuntimeException
      */
-    public static function getDifference($alias)
+    public static function getDifference($alias): int
     {
         if (!isset(self::$timers[$alias])) {
             throw new \RuntimeException('Timer has not been started');
         }
 
-        return \microtime() - self::$timers[$alias];
+        return microtime() - self::$timers[$alias];
     }
 
     /**
      * Stops/Removes times and returns time passed since start.
-     *
-     * @param $alias
-     *
-     * @return mixed
-     *
-     * @throws \RuntimeException
      */
-    public static function stop($alias)
+    public static function stop(string $alias): int
     {
         if (!isset(self::$timers[$alias])) {
             throw new \RuntimeException('Timer has not been started');

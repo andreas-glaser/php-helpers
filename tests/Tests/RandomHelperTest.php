@@ -27,6 +27,6 @@ class RandomHelperTest extends BaseTest
             $uniqueIds[] = RandomHelper::uniqid();
         }
 
-        self::assertEquals(\count($uniqueIds), \count(\array_unique($uniqueIds)));
+        self::assertEquals(\count($uniqueIds), \count(array_unique($uniqueIds)));
     }
 }

@@ -13,10 +13,8 @@ class UrlHelper
      * http://example.com
      * http://example.com:8080 (if custom http port is used)
      * https://example.com:444 (if custom https port is used).
-     *
-     * @return string|null
      */
-    public static function protocolHostPort()
+    public static function protocolHostPort(): ?string
     {
         if (RequestHelper::isCli()) {
             return null;
@@ -40,18 +38,14 @@ class UrlHelper
 
     /**
      * Builds query part of url.
-     *
-     * @param array $parameters
-     *
-     * @return string|null
      */
-    public static function query(array $parameters = null, bool $mergeGetVariables = true)
+    public static function query(array $parameters = null, bool $mergeGetVariables = true): ?string
     {
         if ($mergeGetVariables) {
             if (null === $parameters) {
                 $parameters = $_GET;
             } else {
-                $parameters = \array_replace_recursive($_GET, $parameters);
+                $parameters = array_replace_recursive($_GET, $parameters);
             }
         }
 
@@ -59,15 +53,12 @@ class UrlHelper
             return null;
         }
 
-        $query = \http_build_query($parameters, '', '&');
+        $query = http_build_query($parameters, '', '&');
 
         return ('' === $query) ? '' : ('?' . $query);
     }
 
-    /**
-     * @return string|null
-     */
-    public static function currentUrl(bool $includeQuery = true, bool $urlEncode = false)
+    public static function currentUrl(bool $includeQuery = true, bool $urlEncode = false): ?string
     {
         if (RequestHelper::isCli()) {
             return null;
@@ -75,13 +66,10 @@ class UrlHelper
 
         $url = static::protocolHostPort() . static::currentUri($includeQuery, $urlEncode);
 
-        return $urlEncode ? \urlencode($url) : $url;
+        return $urlEncode ? urlencode($url) : $url;
     }
 
-    /**
-     * @return string|null
-     */
-    public static function currentUri(bool $includeQueryParams = true, bool $encode = false)
+    public static function currentUri(bool $includeQueryParams = true, bool $encode = false): ?string
     {
         if (RequestHelper::isCli()) {
             return null;
@@ -90,11 +78,11 @@ class UrlHelper
         $uri = $_SERVER['REQUEST_URI'];
 
         if (!$includeQueryParams) {
-            if ($separatorPosition = \strpos($uri, '?')) {
-                $uri = \substr($uri, 0, $separatorPosition);
+            if ($separatorPosition = strpos($uri, '?')) {
+                $uri = substr($uri, 0, $separatorPosition);
             }
         }
 
-        return $encode ? \urlencode($uri) : $uri;
+        return $encode ? urlencode($uri) : $uri;
     }
 }

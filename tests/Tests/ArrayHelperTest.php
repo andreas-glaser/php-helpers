@@ -390,7 +390,7 @@ class ArrayHelperTest extends BaseTest
             'k3' => 'v3',
         ];
 
-        self::assertTrue(\in_array(ArrayHelper::getRandomValue($testArray), $testArray));
+        self::assertTrue(\in_array(ArrayHelper::getRandomValue($testArray), $testArray, true));
     }
 
     public function testRemoveFirstElement()
@@ -647,5 +647,45 @@ class ArrayHelperTest extends BaseTest
         $this->expectException('\InvalidArgumentException');
         $this->expectExceptionMessage('Argument 2 is not an array');
         ArrayHelper::merge(['abc'], 123);
+    }
+
+    public function testImplodeIgnoreEmpty()
+    {
+        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreEmpty('+', ['first', 'second', 'third', '0', 'fourth']));
+        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreEmpty('+', ['first', 'second', 'third', '', 'fourth']));
+        self::assertEquals('first+second+third+ +fourth', ArrayHelper::implodeIgnoreEmpty('+', ['first', 'second', 'third', ' ', 'fourth']));
+        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreEmpty('+', ['first', 'second', 'third', false, 'fourth']));
+        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreEmpty('+', ['first', 'second', 'third', null, 'fourth']));
+    }
+
+    public function testImplodeIgnoreBlank()
+    {
+        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreBlank('+', ['first', 'second', 'third', '', 'fourth']));
+        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreBlank('+', ['first', 'second', 'third', ' ', 'fourth']));
+        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreBlank('+', ['first', 'second', 'third', '  ', 'fourth']));
+        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreBlank('+', ['first', 'second', 'third', false, 'fourth']));
+        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreBlank('+', ['first', 'second', 'third', null, 'fourth']));
+    }
+
+    public function testValueToUpper()
+    {
+        self::assertEquals(
+            [
+                'TEST',
+                'TEST2',
+                'hans' => 'XYZ',
+                [
+                    'test3' => 'ABC',
+                ],
+            ],
+            ArrayHelper::valueToUpper([
+                'Test',
+                'test2',
+                'hans' => 'xyz',
+                [
+                    'test3' => 'abc',
+                ],
+            ], true)
+        );
     }
 }

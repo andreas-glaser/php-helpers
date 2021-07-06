@@ -4,112 +4,66 @@ namespace AndreasGlaser\Helpers;
 
 use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
 
-/**
- * Class CounterHelper.
- */
 class CounterHelper implements FactoryInterface
 {
-    /**
-     * @var int
-     */
-    protected $initialValue = 0;
+    protected int $initialValue = 0;
+    protected int $currentValue = 0;
 
-    /**
-     * @var int
-     */
-    protected $currentValue = 0;
-
-    /**
-     * @param int|array $initialValue
-     *
-     * @return \AndreasGlaser\Helpers\CounterHelper
-     */
-    public static function f($initialValue = 0)
+    public static function f(int $initialValue = 0): self
     {
-        return new CounterHelper($initialValue);
+        return new self($initialValue);
     }
 
-    /**
-     * @param int|array $initialValue
-     */
-    public function __construct($initialValue = 0)
+    public function __construct(int $initialValue = 0)
     {
-        $this->initialValue = \is_array($initialValue) ? \count($initialValue) : (int)$initialValue;
+        $this->initialValue = $initialValue;
         $this->currentValue = $this->initialValue;
     }
 
-    /**
-     * @param $value
-     *
-     * @return $this
-     */
-    public function increaseBy($value):self
+    public function increaseBy(int $value): self
     {
-        $this->currentValue += (int)$value;
+        $this->currentValue += $value;
 
         return $this;
     }
 
-    /**
-     * @param $value
-     *
-     * @return $this
-     */
-    public function decreaseBy($value):self
+    public function decreaseBy(int $value): self
     {
-        $this->currentValue -= (int)$value;
+        $this->currentValue -= $value;
 
         return $this;
     }
 
-    /**
-     * @return \AndreasGlaser\Helpers\CounterHelper
-     */
-    public function plusOne()
+    public function plusOne(): self
     {
         return $this->increaseBy(1);
     }
 
-    /**
-     * @return \AndreasGlaser\Helpers\CounterHelper
-     */
-    public function minusOne()
+    public function minusOne(): self
     {
         return $this->decreaseBy(1);
     }
 
-    /**
-     * @return int
-     */
-    public function getInitialValue()
+    public function getInitialValue(): int
     {
         return $this->initialValue;
     }
 
-    /**
-     * @return int
-     */
-    public function getCurrentValue()
+    public function getCurrentValue(): int
     {
         return $this->currentValue;
     }
 
-    /**
-     * @return int
-     */
-    public function getDifference()
+    public function getDifference(): int
     {
         if ($this->initialValue === $this->currentValue) {
             return 0;
         }
 
-        return \abs($this->currentValue - $this->initialValue);
+        return abs($this->currentValue - $this->initialValue);
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return (string)$this->getCurrentValue();
     }

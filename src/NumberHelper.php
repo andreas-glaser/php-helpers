@@ -2,17 +2,9 @@
 
 namespace AndreasGlaser\Helpers;
 
-/**
- * Class NumberHelper.
- */
 class NumberHelper
 {
-    /**
-     * @param $number
-     *
-     * @return string
-     */
-    public static function ordinal($number)
+    public static function ordinal(int $number): string
     {
         if ($number % 100 > 10 && $number % 100 < 14) {
             return 'th';

@@ -2,23 +2,14 @@
 
 namespace AndreasGlaser\Helpers\Http;
 
-/**
- * Class RequestHelper.
- */
 class RequestHelper
 {
-    /**
-     * @return bool
-     */
-    public static function isCli()
+    public static function isCli(): bool
     {
         return !isset($_SERVER['REQUEST_METHOD']);
     }
 
-    /**
-     * @return bool
-     */
-    public static function isHttps()
+    public static function isHttps(): bool
     {
         return isset($_SERVER['HTTPS']) && 'off' !== $_SERVER['HTTPS'];
     }

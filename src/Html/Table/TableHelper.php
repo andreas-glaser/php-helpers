@@ -36,7 +36,7 @@ class TableHelper implements RenderableInterface, FactoryInterface
      */
     public static function f(array $headRows = null, array $bodyRows = null, $attributesHelper = null)
     {
-        return new TableHelper($headRows, $bodyRows, $attributesHelper);
+        return new self($headRows, $bodyRows, $attributesHelper);
     }
 
     /**
@@ -72,7 +72,7 @@ class TableHelper implements RenderableInterface, FactoryInterface
     /**
      * @return $this
      */
-    public function setAttributes(AttributesHelper $attributes):self
+    public function setAttributes(AttributesHelper $attributes): self
     {
         $this->attributes = $attributes;
 
@@ -110,7 +110,7 @@ class TableHelper implements RenderableInterface, FactoryInterface
      *
      * @return $this
      */
-    public function addBodyRow(Row $rowHelper):self
+    public function addBodyRow(Row $rowHelper): self
     {
         $this->bodyRows[] = $rowHelper;
 

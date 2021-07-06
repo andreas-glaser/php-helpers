@@ -29,7 +29,7 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
      */
     public static function f($attributes = null)
     {
-        return new DescriptionListHelper($attributes);
+        return new self($attributes);
     }
 
     /**
@@ -50,7 +50,7 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
      *
      * @return $this
      */
-    public function addItem($term, $content, $termAttributes = null, $contentAttributes = null):self
+    public function addItem($term, $content, $termAttributes = null, $contentAttributes = null): self
     {
         $index = \count($this->items);
         $this->items[$index]['term'] = $term;

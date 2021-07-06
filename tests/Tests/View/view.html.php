@@ -1,2 +1,2 @@
-<p><?php echo $global['name']; ?></p>
-<p><?php echo $data['link']; ?> (Rating: <?php echo $rating; ?>)</p>
+<p><?= $global['name']; ?></p>
+<p><?= $data['link']; ?> (Rating: <?= $rating; ?>)</p>

@@ -49,5 +49,7 @@ class IOHelperTest extends BaseTest
         \touch($tmpDir . DIRECTORY_SEPARATOR . 'test2' . DIRECTORY_SEPARATOR . 'file3');
 
         IOHelper::rmdirRecursive($tmpDir);
+
+        self::assertDirectoryNotExists($tmpDir);
     }
 }

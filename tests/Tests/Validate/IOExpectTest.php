@@ -3,6 +3,7 @@
 namespace AndreasGlaser\Helpers\Tests\Validate;
 
 use AndreasGlaser\Helpers\Exceptions\IOException;
+use AndreasGlaser\Helpers\IOHelper;
 use AndreasGlaser\Helpers\Tests\BaseTest;
 use AndreasGlaser\Helpers\Validate\IOExpect;
 
@@ -29,11 +30,25 @@ class IOExpectTest extends BaseTest
 
     public function testIsReadable()
     {
-        // todo
+        $tmpFile = IOHelper::createTmpFile();
+
+        chmod($tmpFile, 111);
+
+        $this->expectException(IOException::class);
+        $this->expectExceptionMessage(\sprintf('"%s" is not readable', $tmpFile));
+
+        IOExpect::isReadable($tmpFile);
     }
 
     public function testIsWritable()
     {
-        // todo
+        $tmpFile = IOHelper::createTmpFile();
+
+        chmod($tmpFile, 111);
+
+        $this->expectException(IOException::class);
+        $this->expectExceptionMessage(\sprintf('"%s" is not writable', $tmpFile));
+
+        IOExpect::isWritable($tmpFile);
     }
 }

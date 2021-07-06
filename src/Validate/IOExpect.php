@@ -26,14 +26,14 @@ class IOExpect
     public static function isReadable(string $path)
     {
         if (!\is_readable($path)) {
-            throw new IOException(\sprintf('"%s" is not a readable', $path), 0, null, $path);
+            throw new IOException(\sprintf('"%s" is not readable', $path), 0, null, $path);
         }
     }
 
     public static function isWritable(string $path)
     {
         if (!\is_writable($path)) {
-            throw new IOException(\sprintf('"%s" is not a writable', $path), 0, null, $path);
+            throw new IOException(\sprintf('"%s" is not writable', $path), 0, null, $path);
         }
     }
 }

@@ -5,117 +5,167 @@ namespace AndreasGlaser\Helpers\Validate;
 use AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException;
 
 /**
- * Class Expect.
+ * Expect provides type validation methods that throw exceptions on type mismatches.
+ * 
+ * This class contains methods for validating that values match expected types:
+ * - Basic types (int, float, string, bool)
+ * - Complex types (array, object, resource)
+ * - Special types (numeric, callable, scalar, null)
+ * 
+ * Each method throws UnexpectedTypeException if the value doesn't match the expected type.
  */
 class Expect
 {
     /**
-     * /**
-     * @param $value
+     * Validates that a value is an integer.
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not an integer
      */
     public static function int($value)
     {
-        if (false === \is_int($value)) {
+        if (!\is_int($value)) {
             throw new UnexpectedTypeException($value, 'integer');
         }
     }
 
     /**
-     * @param $value
+     * Validates that a value is a float.
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not a float
      */
     public static function float($value)
     {
-        if (false === \is_float($value)) {
+        if (!\is_float($value)) {
             throw new UnexpectedTypeException($value, 'float');
         }
     }
 
     /**
-     * @param $value
+     * Validates that a value is numeric.
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not numeric
      */
     public static function numeric($value)
     {
-        if (false === is_numeric($value)) {
+        if (!\is_numeric($value)) {
             throw new UnexpectedTypeException($value, 'numeric');
         }
     }
 
     /**
-     * @param $value
+     * Validates that a value is a boolean.
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not a boolean
      */
     public static function bool($value)
     {
-        if (false === \is_bool($value)) {
+        if (!\is_bool($value)) {
             throw new UnexpectedTypeException($value, 'boolean');
         }
     }
 
     /**
-     * @param $value
+     * Validates that a value is a string.
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not a string
      */
     public static function str($value)
     {
-        if (false === \is_string($value)) {
+        if (!\is_string($value)) {
             throw new UnexpectedTypeException($value, 'string');
         }
     }
 
     /**
-     * @param $value
+     * Validates that a value is an array.
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not an array
      */
     public static function arr($value)
     {
-        if (false === \is_array($value)) {
+        if (!\is_array($value)) {
             throw new UnexpectedTypeException($value, 'array');
         }
     }
 
     /**
-     * @param $value
+     * Validates that a value is an object.
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not an object
      */
     public static function obj($value)
     {
-        if (false === \is_object($value)) {
+        if (!\is_object($value)) {
             throw new UnexpectedTypeException($value, 'object');
         }
     }
 
     /**
-     * @param $value
+     * Validates that a value is a resource.
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not a resource
      */
     public static function res($value)
     {
-        if (false === \is_resource($value)) {
+        if (!\is_resource($value)) {
             throw new UnexpectedTypeException($value, 'resource');
         }
     }
 
     /**
-     * @param $value
+     * Validates that a value is callable.
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not callable
      */
     public static function isCallable($value)
     {
-        if (false === \is_callable($value)) {
+        if (!\is_callable($value)) {
             throw new UnexpectedTypeException($value, 'callable');
         }
     }
 
     /**
-     * @param $value
+     * Validates that a value is scalar (int, float, string, or bool).
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not scalar
      */
     public static function scalar($value)
     {
-        if (false === is_scalar($value)) {
+        if (!\is_scalar($value)) {
             throw new UnexpectedTypeException($value, 'scalar');
         }
     }
 
     /**
-     * @param $value
+     * Validates that a value is null.
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not null
      */
     public static function null($value)
     {
-        if (false === \is_null($value)) {
+        if (!\is_null($value)) {
             throw new UnexpectedTypeException($value, 'null');
         }
     }

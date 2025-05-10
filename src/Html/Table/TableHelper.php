@@ -8,41 +8,48 @@ use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
 use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 
 /**
- * Class TableHelper.
+ * Class TableHelper
+ * 
+ * A helper class for generating HTML tables with support for header and body rows.
+ * Implements RenderableInterface for HTML rendering and FactoryInterface for static factory methods.
  */
 class TableHelper implements RenderableInterface, FactoryInterface
 {
     /**
-     * @var Row[]
+     * @var Row[] Array of header rows in the table
      */
     protected $headRows = [];
 
     /**
-     * @var Row[]
+     * @var Row[] Array of body rows in the table
      */
     protected $bodyRows = [];
 
     /**
-     * @var \AndreasGlaser\Helpers\Html\AttributesHelper
+     * @var \AndreasGlaser\Helpers\Html\AttributesHelper HTML attributes for the table element
      */
     protected $attributes;
 
     /**
-     * @param array                       $headRows
-     * @param array                       $bodyRows
-     * @param AttributesHelper|array|null $attributesHelper
+     * Factory method to create a new TableHelper instance
+     *
+     * @param array                       $headRows        Array of header rows
+     * @param array                       $bodyRows        Array of body rows
+     * @param AttributesHelper|array|null $attributesHelper HTML attributes for the table
      *
      * @return \AndreasGlaser\Helpers\Html\Table\TableHelper
      */
     public static function f(array $headRows = null, array $bodyRows = null, $attributesHelper = null)
     {
-        return new self($headRows, $bodyRows, $attributesHelper);
+        return new TableHelper($headRows, $bodyRows, $attributesHelper);
     }
 
     /**
-     * @param array                       $headRows
-     * @param array                       $bodyRows
-     * @param AttributesHelper|array|null $attributesHelper
+     * Constructor for TableHelper
+     *
+     * @param array                       $headRows        Array of header rows
+     * @param array                       $bodyRows        Array of body rows
+     * @param AttributesHelper|array|null $attributesHelper HTML attributes for the table
      */
     public function __construct(array $headRows = null, array $bodyRows = null, $attributesHelper = null)
     {
@@ -62,6 +69,8 @@ class TableHelper implements RenderableInterface, FactoryInterface
     }
 
     /**
+     * Get the HTML attributes for the table
+     *
      * @return \AndreasGlaser\Helpers\Html\AttributesHelper
      */
     public function getAttributes()
@@ -70,9 +79,12 @@ class TableHelper implements RenderableInterface, FactoryInterface
     }
 
     /**
+     * Set the HTML attributes for the table
+     *
+     * @param AttributesHelper $attributes The attributes to set
      * @return $this
      */
-    public function setAttributes(AttributesHelper $attributes): self
+    public function setAttributes(AttributesHelper $attributes):self
     {
         $this->attributes = $attributes;
 
@@ -80,8 +92,10 @@ class TableHelper implements RenderableInterface, FactoryInterface
     }
 
     /**
-     * @param \AndreasGlaser\Helpers\Html\Table\Row $rowHelper
+     * Add a header row to the table
      *
+     * @param \AndreasGlaser\Helpers\Html\Table\Row $rowHelper      The row to add
+     * @param bool                                  $setCellAsHeaders Whether to set all cells in the row as header cells
      * @return $this
      */
     public function addHeadRow(Row $rowHelper, bool $setCellAsHeaders = true): self
@@ -98,6 +112,8 @@ class TableHelper implements RenderableInterface, FactoryInterface
     }
 
     /**
+     * Get all header rows in the table
+     *
      * @return \AndreasGlaser\Helpers\Html\Table\Row[]
      */
     public function getHeadRows()
@@ -106,11 +122,12 @@ class TableHelper implements RenderableInterface, FactoryInterface
     }
 
     /**
-     * @param \AndreasGlaser\Helpers\Html\Table\Row $rowHelper
+     * Add a body row to the table
      *
+     * @param \AndreasGlaser\Helpers\Html\Table\Row $rowHelper The row to add
      * @return $this
      */
-    public function addBodyRow(Row $rowHelper): self
+    public function addBodyRow(Row $rowHelper):self
     {
         $this->bodyRows[] = $rowHelper;
 
@@ -118,6 +135,8 @@ class TableHelper implements RenderableInterface, FactoryInterface
     }
 
     /**
+     * Get all body rows in the table
+     *
      * @return \AndreasGlaser\Helpers\Html\Table\Row[]
      */
     public function getBodyRows()
@@ -126,7 +145,10 @@ class TableHelper implements RenderableInterface, FactoryInterface
     }
 
     /**
-     * @return string
+     * Render the table as HTML
+     *
+     * @param RendererInterface|null $renderer Optional custom renderer
+     * @return string The rendered HTML table
      */
     public function render(RendererInterface $renderer = null)
     {

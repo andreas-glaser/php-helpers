@@ -412,7 +412,7 @@ class FormHelperTest extends BaseTest
 
         self::assertEquals(
             '<textarea id="delicious" name="vegetable[cucumber]"></textarea>',
-            FormHelper::textarea('vegetable[cucumber]', '', AttributesHelper::f(['id' => 'delicious']))
+            FormHelper::textarea('vegetable[cucumber]', null, AttributesHelper::f(['id' => 'delicious']))
         );
     }
 

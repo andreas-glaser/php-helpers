@@ -2,18 +2,45 @@
 
 namespace AndreasGlaser\Helpers;
 
+/**
+ * StringHelper provides utility methods for string manipulation and comparison.
+ * 
+ * This class contains static methods for common string operations such as:
+ * - String comparison and matching
+ * - String transformation (camelCase to underscore, etc.)
+ * - String cleaning and formatting
+ * - String manipulation (append, prepend, remove)
+ */
 class StringHelper
 {
-    public static function is(string $string, string $stringToMach, bool $caseSensitive = true): bool
+    /**
+     * Checks if two strings are equal.
+     *
+     * @param string $string The first string to compare
+     * @param string $stringToMach The second string to compare
+     * @param bool $caseSensitive Whether the comparison should be case-sensitive
+     *
+     * @return bool True if the strings are equal, false otherwise
+     */
+    public static function is($string, $stringToMach, $caseSensitive = true)
     {
         if (false === $caseSensitive) {
-            return 0 === strcasecmp($string, $stringToMach);
+            return 0 === \strcasecmp($string, $stringToMach);
         }
 
-        return 0 === strcmp($string, $stringToMach);
+        return 0 === \strcmp($string, $stringToMach);
     }
 
-    public static function isOneOf(string $string, array $stingsToCompare, bool $caseSensitive = true): bool
+    /**
+     * Checks if a string matches any of the strings in the given array.
+     *
+     * @param string $string The string to check
+     * @param array $stingsToCompare Array of strings to compare against
+     * @param bool $caseSensitive Whether the comparison should be case-sensitive
+     *
+     * @return bool True if the string matches any of the comparison strings, false otherwise
+     */
+    public static function isOneOf($string, array $stingsToCompare, $caseSensitive = true)
     {
         foreach ($stingsToCompare as $compareTo) {
             if (self::is($string, $compareTo, $caseSensitive)) {
@@ -24,28 +51,58 @@ class StringHelper
         return false;
     }
 
-    public static function contains(string $haystack, string $needle, bool $caseSensitive = true, string $encoding = 'UTF-8'): bool
+    /**
+     * Checks if a string contains another string.
+     *
+     * @param string $haystack The string to search in
+     * @param string $needle The string to search for
+     * @param bool $caseSensitive Whether the search should be case-sensitive
+     * @param string $encoding The character encoding to use
+     *
+     * @return bool True if the needle is found in the haystack, false otherwise
+     */
+    public static function contains($haystack, $needle, $caseSensitive = true, $encoding = 'UTF-8')
     {
         if (false === $caseSensitive) {
-            return false !== mb_stristr($haystack, $needle, null, $encoding);
+            return false !== \mb_stristr($haystack, $needle, null, $encoding);
         }
 
-        return false !== mb_strstr($haystack, $needle, null, $encoding);
+        return false !== \mb_strstr($haystack, $needle, null, $encoding);
     }
 
-    public static function startsWith(string $haystack, string $needle, bool $caseSensitive = true, string $encoding = 'UTF-8'): bool
+    /**
+     * Checks if a string starts with another string.
+     *
+     * @param string $haystack The string to check
+     * @param string $needle The string to look for at the start
+     * @param bool $caseSensitive Whether the comparison should be case-sensitive
+     * @param string $encoding The character encoding to use
+     *
+     * @return bool True if the haystack starts with the needle, false otherwise
+     */
+    public static function startsWith($haystack, $needle, bool $caseSensitive = true, $encoding = 'UTF-8'): bool
     {
         if (false === $caseSensitive) {
-            return 0 === strncasecmp($haystack, $needle, mb_strlen($needle, $encoding));
+            return 0 === \strncasecmp($haystack, $needle, \mb_strlen($needle, $encoding));
         }
 
-        return 0 === strncmp($haystack, $needle, mb_strlen($needle, $encoding));
+        return 0 === \strncmp($haystack, $needle, \mb_strlen($needle, $encoding));
     }
 
-    public static function endsWith(string $haystack, string $needle, bool $caseSensitive = true, $encoding = 'UTF-8'): bool
+    /**
+     * Checks if a string ends with another string.
+     *
+     * @param string $haystack The string to check
+     * @param string $needle The string to look for at the end
+     * @param bool $caseSensitive Whether the comparison should be case-sensitive
+     * @param string $encoding The character encoding to use
+     *
+     * @return bool True if the haystack ends with the needle, false otherwise
+     */
+    public static function endsWith($haystack, $needle, bool $caseSensitive = true, $encoding = 'UTF-8'): bool
     {
         // get length of needle
-        $length = mb_strlen($needle, $encoding);
+        $length = \mb_strlen($needle, $encoding);
 
         // always return true if needle is empty
         if (0 === $length) {
@@ -53,90 +110,196 @@ class StringHelper
         }
 
         if (false === $caseSensitive) {
-            return 0 === strcasecmp(mb_substr($haystack, -$length, null, $encoding), $needle);
+            return 0 === \strcasecmp(\mb_substr($haystack, -$length, null, $encoding), $needle);
         }
 
-        return 0 === strcmp(mb_substr($haystack, -$length, null, $encoding), $needle);
+        return 0 === \strcmp(\mb_substr($haystack, -$length, null, $encoding), $needle);
     }
 
-    public static function trimMulti(string $string, array $chars): string
+    /**
+     * Checks if a string is a valid datetime.
+     *
+     * @deprecated Please use ValueHelper::isDateTime($value) instead
+     * @param string $string The string to check
+     *
+     * @return bool True if the string is a valid datetime, false otherwise
+     */
+    public static function isDateTime($string)
+    {
+        return ValueHelper::isDateTime($string);
+    }
+
+    /**
+     * Trims multiple characters from both ends of a string.
+     *
+     * @param string $string The string to trim
+     * @param array $chars Array of characters to trim
+     *
+     * @return string The trimmed string
+     */
+    public static function trimMulti($string, array $chars)
     {
         foreach ($chars as $char) {
-            $string = trim($string, $char);
+            $string = \trim($string, $char);
         }
 
         return $string;
     }
 
-    public static function lTrimMulti(string $string, array $chars): string
+    /**
+     * Trims multiple characters from the left end of a string.
+     *
+     * @param string $string The string to trim
+     * @param array $chars Array of characters to trim
+     *
+     * @return string The trimmed string
+     */
+    public static function lTrimMulti($string, array $chars)
     {
         foreach ($chars as $char) {
-            $string = ltrim($string, $char);
+            $string = \ltrim($string, $char);
         }
 
         return $string;
     }
 
-    public static function rTrimMulti(string $string, array $chars): string
+    /**
+     * Trims multiple characters from the right end of a string.
+     *
+     * @param string $string The string to trim
+     * @param array $chars Array of characters to trim
+     *
+     * @return string The trimmed string
+     */
+    public static function rTrimMulti($string, array $chars)
     {
         foreach ($chars as $char) {
-            $string = rtrim($string, $char);
+            $string = \rtrim($string, $char);
         }
 
         return $string;
     }
 
-    public static function camelToUnderscore(string $string): string
+    /**
+     * Converts a camelCase string to underscore_case.
+     *
+     * @param string $string The string to convert
+     *
+     * @return string The converted string
+     */
+    public static function camelToUnderscore($string)
     {
-        if (true === is_numeric($string)) {
+        if (\is_numeric($string)) {
             return $string;
         }
 
-        preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $string, $matches);
+        \preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $string, $matches);
         $ret = $matches[0];
         foreach ($ret as &$match) {
-            $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
+            $match = $match == \strtoupper($match) ? \strtolower($match) : \lcfirst($match);
         }
 
-        return implode('_', $ret);
+        return \implode('_', $ret);
     }
 
-    public static function removeLineBreaks(string $string, string $replaceWith = ' '): ?string
+    /**
+     * Removes line breaks from a string.
+     *
+     * @param string $string The string to process
+     * @param string $replaceWith The string to replace line breaks with
+     *
+     * @return string The processed string
+     */
+    public static function removeLineBreaks($string, $replaceWith = ' ')
     {
-        return preg_replace('/[\r\n]+/', $replaceWith, $string);
+        return \preg_replace('/[\r\n]+/', $replaceWith, $string);
     }
 
-    public static function removeRedundantWhiteSpaces($string): ?string
+    /**
+     * Removes redundant whitespace from a string.
+     *
+     * @param string $string The string to process
+     *
+     * @return string The processed string with single spaces
+     */
+    public static function removeRedundantWhiteSpaces($string)
     {
-        return preg_replace('/\s+/', ' ', $string);
+        return \preg_replace('/\s+/', ' ', $string);
     }
 
-    public static function replaceWhiteSpacesWithUnderscores($string): string
+    /**
+     * Replaces all whitespace characters with underscores.
+     *
+     * @param string $string The string to process
+     *
+     * @return string The processed string
+     */
+    public static function replaceWhiteSpacesWithUnderscores($string)
     {
-        return str_replace(' ', '_', $string);
+        return \str_replace(' ', '_', $string);
     }
 
-    public static function machineReadable(string $string): string
+    /**
+     * Converts a string to a machine-readable format.
+     * Removes line breaks, redundant spaces, and converts to lowercase with underscores.
+     *
+     * @param string $string The string to convert
+     *
+     * @return string The machine-readable string
+     */
+    public static function machineReadable($string)
     {
-        return trim(self::replaceWhiteSpacesWithUnderscores(strtolower(self::removeRedundantWhiteSpaces(self::removeLineBreaks($string)))));
+        return \trim(self::replaceWhiteSpacesWithUnderscores(\strtolower(self::removeRedundantWhiteSpaces(self::removeLineBreaks($string)))));
     }
 
-    public static function append(string $string, string $stringToAppend): string
+    /**
+     * Appends a string to another string.
+     *
+     * @param string $string The base string
+     * @param string $stringToAppend The string to append
+     *
+     * @return string The concatenated string
+     */
+    public static function append($string, $stringToAppend)
     {
         return $string . $stringToAppend;
     }
 
-    public static function prepend(string $string, string $stringToPrepend): string
+    /**
+     * Prepends a string to another string.
+     *
+     * @param string $string The base string
+     * @param string $stringToPrepend The string to prepend
+     *
+     * @return string The concatenated string
+     */
+    public static function prepend($string, $stringToPrepend)
     {
         return $stringToPrepend . $string;
     }
 
-    public static function removeChar(string $string, string $char): string
+    /**
+     * Removes a specific character from a string.
+     *
+     * @param string $string The string to process
+     * @param string $char The character to remove
+     *
+     * @return string The processed string
+     */
+    public static function removeChar($string, $char)
     {
-        return str_replace($char, null, $string);
+        return \str_replace($char, null, $string);
     }
 
-    public static function removeChars(string $string, array $chars): string
+    /**
+     * Removes multiple characters from a string.
+     *
+     * @param string $string The string to process
+     * @param array $chars Array of characters to remove
+     *
+     * @return string The processed string
+     */
+    public static function removeChars($string, array $chars)
     {
         foreach ($chars as $char) {
             $string = self::removeChar($string, $char);
@@ -145,28 +308,42 @@ class StringHelper
         return $string;
     }
 
-    public static function explodeAndTrim(string $delimiter, string $string): array
+    /**
+     * Explodes a string by delimiter and trims each resulting element.
+     *
+     * @param string $delimiter The delimiter to split by
+     * @param string $string The string to split
+     *
+     * @return array Array of trimmed strings
+     */
+    public static function explodeAndTrim($delimiter, $string)
     {
         $return = [];
-        $pieces = explode($delimiter, $string);
+        $pieces = \explode($delimiter, $string);
 
         foreach ($pieces as $piece) {
-            $return[] = trim($piece);
+            $return[] = \trim($piece);
         }
 
         return $return;
     }
 
     /**
-     * Replaces multiple parts of a string.
+     * Replaces multiple strings in a subject string.
+     *
+     * @param string $subject The string to perform replacements on
+     * @param array $replacementMap Array of search => replace pairs
+     * @param bool $caseSensitive Whether the search should be case-sensitive
+     *
+     * @return string The processed string
      */
-    public static function replace(string $subject, array $replacementMap,bool $caseSensitive = true):string
+    public static function replace($subject, array $replacementMap, $caseSensitive = true)
     {
         foreach ($replacementMap as $search => $replace) {
             if ($caseSensitive) {
-                $subject = str_replace($search, $replace, $subject);
+                $subject = \str_replace($search, $replace, $subject);
             } else {
-                $subject = str_ireplace($search, $replace, $subject);
+                $subject = \str_ireplace($search, $replace, $subject);
             }
         }
 
@@ -174,21 +351,20 @@ class StringHelper
     }
 
     /**
-     * Limits a phrase to a given number of words.
-     *     $text = static::limit_words($text);.
+     * Limits a string to a specific number of words.
      *
-     * @param string $str      phrase to limit words of
-     * @param int    $limit    number of words to limit to
-     * @param string $end_char end character or entity
+     * @param string $str The string to limit
+     * @param int $limit Maximum number of words
+     * @param string|null $end_char String to append if the string is truncated
      *
-     * @return string
+     * @return string The truncated string
      */
     public static function limitWords($str, $limit = 100, $end_char = null)
     {
         $limit = (int)$limit;
         $end_char = (null === $end_char) ? '…' : $end_char;
 
-        if ('' === trim($str)) {
+        if ('' === \trim($str)) {
             return $str;
         }
 
@@ -196,25 +372,22 @@ class StringHelper
             return $end_char;
         }
 
-        preg_match('/^\s*+(?:\S++\s*+){1,' . $limit . '}/u', $str, $matches);
+        \preg_match('/^\s*+(?:\S++\s*+){1,' . $limit . '}/u', $str, $matches);
 
         // Only attach the end character if the matched string is shorter
         // than the starting string.
-        return rtrim($matches[0]) . ((\strlen($matches[0]) === \strlen($str)) ? '' : $end_char);
+        return \rtrim($matches[0]) . ((\strlen($matches[0]) === \strlen($str)) ? '' : $end_char);
     }
 
     /**
-     * Limits a phrase to a given number of characters.
-     *     $text = static::limit_chars($text);.
+     * Limits a string to a specific number of characters.
      *
-     * @param string $str            phrase to limit characters of
-     * @param int    $limit          number of characters to limit to
-     * @param string $end_char       end character or entity
-     * @param bool   $preserve_words enable or disable the preservation of words while limiting
+     * @param string $str The string to limit
+     * @param int $limit Maximum number of characters
+     * @param string|null $end_char String to append if the string is truncated
+     * @param bool $preserve_words Whether to preserve whole words
      *
-     * @return string
-     *
-     * @uses    strlen
+     * @return string The truncated string
      */
     public static function limitChars($str, $limit = 100, $end_char = null, $preserve_words = false)
     {
@@ -222,7 +395,7 @@ class StringHelper
 
         $limit = (int)$limit;
 
-        if ('' === trim($str) or \strlen($str) <= $limit) {
+        if ('' === \trim($str) or \strlen($str) <= $limit) {
             return $str;
         }
 
@@ -231,28 +404,30 @@ class StringHelper
         }
 
         if (false === $preserve_words) {
-            return rtrim(substr($str, 0, $limit)) . $end_char;
+            return \rtrim(\substr($str, 0, $limit)) . $end_char;
         }
 
         // Don't preserve words. The limit is considered the top limit.
         // No strings with a length longer than $limit should be returned.
-        if (false === preg_match('/^.{0,' . $limit . '}\s/us', $str, $matches)) {
+        if (!\preg_match('/^.{0,' . $limit . '}\s/us', $str, $matches)) {
             return $end_char;
         }
 
-        return rtrim($matches[0]) . ((\strlen($matches[0]) === \strlen($str)) ? '' : $end_char);
+        return \rtrim($matches[0]) . ((\strlen($matches[0]) === \strlen($str)) ? '' : $end_char);
     }
 
     /**
-     * @param string $prefix
+     * Generates an incremental ID with an optional prefix.
      *
-     * @return string
+     * @param string $prefix The prefix to use for the ID
+     *
+     * @return string The generated ID
      */
     public static function getIncrementalId($prefix = '__undefined__')
     {
         static $indexes = [];
 
-        if (false === \array_key_exists($prefix, $indexes)) {
+        if (!\array_key_exists($prefix, $indexes)) {
             $indexes[$prefix] = -1;
         }
 
@@ -262,57 +437,83 @@ class StringHelper
     }
 
     /**
-     * Checks if a string is blank. " " is considered as such.
+     * Checks if a string is blank (empty or contains only whitespace).
      *
-     * @param $string
+     * @param string $string The string to check
      *
-     * @return bool
+     * @return bool True if the string is blank, false otherwise
      */
     public static function isBlank($string)
     {
-        return !\strlen(trim((string)$string)) > 0;
+        return !\strlen(\trim((string)$string)) > 0;
     }
 
     /**
-     * @param string $encoding
+     * Removes a string from the start of another string.
+     *
+     * @param string $string The string to process
+     * @param string $stringToRemove The string to remove from the start
+     * @param bool $caseSensitive Whether the comparison should be case-sensitive
+     * @param string $encoding The character encoding to use
+     *
+     * @return string The processed string
      */
     public static function removeFromStart(string $string, string $stringToRemove, bool $caseSensitive = true, $encoding = 'UTF-8'): string
     {
         if (static::startsWith($string, $stringToRemove, $caseSensitive, $encoding)) {
-            return mb_substr($string, mb_strlen($stringToRemove, $encoding), null, $encoding);
+            return \mb_substr($string, \mb_strlen($stringToRemove, $encoding), null, $encoding);
         }
 
         return $string;
     }
 
     /**
-     * @param string $encoding
+     * Removes a string from the end of another string.
+     *
+     * @param string $string The string to process
+     * @param string $stringToRemove The string to remove from the end
+     * @param bool $caseSensitive Whether the comparison should be case-sensitive
+     * @param string $encoding The character encoding to use
+     *
+     * @return string The processed string
      */
     public static function removeFromEnd(string $string, string $stringToRemove, bool $caseSensitive = true, $encoding = 'UTF-8'): string
     {
         if (static::endsWith($string, $stringToRemove, $caseSensitive, $encoding)) {
-            return mb_substr($string, 0, -mb_strlen($stringToRemove, $encoding), $encoding);
+            return \mb_substr($string, 0, -\mb_strlen($stringToRemove, $encoding), $encoding);
         }
 
         return $string;
     }
 
+    /**
+     * Converts a string with line breaks into an array of lines.
+     *
+     * @param string $string The string to convert
+     *
+     * @return array Array of lines
+     */
     public static function linesToArray(string $string): array
     {
-        $lines = preg_split('/\r\n|\n|\r/', $string);
+        $lines = \preg_split('/\r\n|\n|\r/', $string);
 
         return false !== $lines ? $lines : [];
     }
-}
 
-// shortcut for strtr
-if (false === \function_exists('__')) {
+    /**
+     * Translates a string with optional parameters.
+     *
+     * @param string $string The string to translate
+     * @param array|null $params Parameters to replace in the string
+     *
+     * @return string The translated string
+     */
     function __($string, array $params = null)
     {
         if (!empty($params)) {
             return $string;
         }
 
-        return strtr($string, $params);
+        return \strtr($string, $params);
     }
 }

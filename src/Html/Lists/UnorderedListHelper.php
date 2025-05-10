@@ -6,12 +6,21 @@ use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 
 /**
- * Class UnorderedListHelper.
+ * UnorderedListHelper provides a helper for generating HTML unordered lists (<ul>).
+ *
+ * This class allows you to:
+ * - Add items to the unordered list
+ * - Render the list as HTML
+ *
+ * Inherits common list functionality from BaseListHelper.
  */
 class UnorderedListHelper extends BaseListHelper
 {
     /**
-     * @return string
+     * Renders the unordered list as HTML.
+     *
+     * @param RendererInterface|null $renderer Optional custom renderer
+     * @return string The rendered HTML <ul> element
      */
     public function render(RendererInterface $renderer = null)
     {

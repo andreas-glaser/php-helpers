@@ -8,32 +8,41 @@ use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
 use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 
 /**
- * Class Row.
+ * Class Row
+ * 
+ * Represents a row (tr) in an HTML table.
+ * Implements RenderableInterface for HTML rendering and FactoryInterface for static factory methods.
  */
 class Row implements RenderableInterface, FactoryInterface
 {
     /**
-     * @var Cell[]
+     * @var Cell[] Array of cells in this row
      */
     protected $cells = [];
 
     /**
-     * @var \AndreasGlaser\Helpers\Html\AttributesHelper
+     * @var \AndreasGlaser\Helpers\Html\AttributesHelper HTML attributes for the row
      */
     protected $attributes;
 
     /**
-     * @param AttributesHelper|array|null $attributesHelper
+     * Factory method to create a new Row instance
+     *
+     * @param array                       $cells           Array of cells to add to the row
+     * @param AttributesHelper|array|null $attributesHelper HTML attributes for the row
      *
      * @return \AndreasGlaser\Helpers\Html\Table\Row
      */
     public static function f(array $cells = null, $attributesHelper = null)
     {
-        return new self($cells, $attributesHelper);
+        return new Row($cells, $attributesHelper);
     }
 
     /**
-     * @param null $attributesHelper
+     * Constructor for Row
+     *
+     * @param array                       $cells           Array of cells to add to the row
+     * @param AttributesHelper|array|null $attributesHelper HTML attributes for the row
      */
     public function __construct(array $cells = null, $attributesHelper = null)
     {
@@ -47,11 +56,12 @@ class Row implements RenderableInterface, FactoryInterface
     }
 
     /**
-     * @param \AndreasGlaser\Helpers\Html\Table\Cell $cellHelper
+     * Add a cell to the row
      *
+     * @param \AndreasGlaser\Helpers\Html\Table\Cell $cellHelper The cell to add
      * @return $this
      */
-    public function addCell(Cell $cellHelper): self
+    public function addCell(Cell $cellHelper):self
     {
         $this->cells[] = $cellHelper;
 
@@ -59,6 +69,8 @@ class Row implements RenderableInterface, FactoryInterface
     }
 
     /**
+     * Get all cells in the row
+     *
      * @return \AndreasGlaser\Helpers\Html\Table\Cell[]
      */
     public function getCells()
@@ -67,6 +79,8 @@ class Row implements RenderableInterface, FactoryInterface
     }
 
     /**
+     * Get the HTML attributes of the row
+     *
      * @return \AndreasGlaser\Helpers\Html\AttributesHelper
      */
     public function getAttributes()
@@ -75,9 +89,12 @@ class Row implements RenderableInterface, FactoryInterface
     }
 
     /**
+     * Set the HTML attributes of the row
+     *
+     * @param AttributesHelper $attributes The attributes to set
      * @return $this
      */
-    public function setAttributes(AttributesHelper $attributes): self
+    public function setAttributes(AttributesHelper $attributes):self
     {
         $this->attributes = $attributes;
 
@@ -85,7 +102,10 @@ class Row implements RenderableInterface, FactoryInterface
     }
 
     /**
-     * @return string
+     * Render the row as HTML
+     *
+     * @param RendererInterface|null $renderer Optional custom renderer
+     * @return string The rendered HTML row
      */
     public function render(RendererInterface $renderer = null)
     {

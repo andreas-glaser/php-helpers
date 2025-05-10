@@ -8,34 +8,41 @@ use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
 use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 
 /**
- * Class DescriptionListHelper.
+ * DescriptionListHelper provides a helper for generating HTML description lists (<dl>).
+ *
+ * This class allows you to:
+ * - Add term/description pairs with custom attributes
+ * - Render the list as HTML
+ * - Use a factory method for instantiation
  */
 class DescriptionListHelper implements FactoryInterface, RenderableInterface
 {
     /**
-     * @var \AndreasGlaser\Helpers\Html\AttributesHelper
+     * @var \AndreasGlaser\Helpers\Html\AttributesHelper HTML attributes for the <dl> element
      */
     protected $attributes;
 
     /**
-     * @var array
+     * @var array List of term/description pairs and their attributes
      */
     protected $items = [];
 
     /**
-     * @param AttributesHelper|array|null $attributes
+     * Factory method to create a new DescriptionListHelper instance.
      *
-     * @return \AndreasGlaser\Helpers\Html\Lists\DescriptionListHelper
+     * @param AttributesHelper|array|null $attributes HTML attributes for the <dl> element
+     *
+     * @return \AndreasGlaser\Helpers\Html\Lists\DescriptionListHelper A new instance
      */
     public static function f($attributes = null)
     {
-        return new self($attributes);
+        return new DescriptionListHelper($attributes);
     }
 
     /**
      * DescriptionListHelper constructor.
      *
-     * @param AttributesHelper|array|null $attributes
+     * @param AttributesHelper|array|null $attributes HTML attributes for the <dl> element
      */
     public function __construct($attributes = null)
     {
@@ -43,14 +50,16 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
     }
 
     /**
-     * @param string $term
-     * @param string $content
-     * @param null   $termAttributes
-     * @param null   $contentAttributes
+     * Adds a term/description pair to the list.
      *
-     * @return $this
+     * @param string $term The term (dt)
+     * @param string $content The description (dd)
+     * @param AttributesHelper|array|null $termAttributes HTML attributes for the term
+     * @param AttributesHelper|array|null $contentAttributes HTML attributes for the description
+     *
+     * @return $this For method chaining
      */
-    public function addItem($term, $content, $termAttributes = null, $contentAttributes = null): self
+    public function addItem($term, $content, $termAttributes = null, $contentAttributes = null):self
     {
         $index = \count($this->items);
         $this->items[$index]['term'] = $term;
@@ -62,7 +71,10 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
     }
 
     /**
-     * @return string
+     * Renders the description list as HTML.
+     *
+     * @param RendererInterface|null $renderer Optional custom renderer
+     * @return string The rendered HTML <dl> element
      */
     public function render(RendererInterface $renderer = null)
     {

@@ -6,12 +6,21 @@ use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 
 /**
- * Class OrderedListHelper.
+ * OrderedListHelper provides a helper for generating HTML ordered lists (<ol>).
+ *
+ * This class allows you to:
+ * - Add items to the ordered list
+ * - Render the list as HTML
+ *
+ * Inherits common list functionality from BaseListHelper.
  */
 class OrderedListHelper extends BaseListHelper
 {
     /**
-     * @return string
+     * Renders the ordered list as HTML.
+     *
+     * @param RendererInterface|null $renderer Optional custom renderer
+     * @return string The rendered HTML <ol> element
      */
     public function render(RendererInterface $renderer = null)
     {

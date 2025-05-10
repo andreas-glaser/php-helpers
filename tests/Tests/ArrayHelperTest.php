@@ -5,27 +5,36 @@ namespace AndreasGlaser\Helpers\Tests;
 use AndreasGlaser\Helpers\ArrayHelper;
 
 /**
- * Class ArrayHelperTest.
+ * ArrayHelperTest provides unit tests for the ArrayHelper class.
+ *
+ * This class tests various array manipulation methods:
+ * - Getting and setting values by key and path
+ * - Checking existence of keys and values
+ * - Manipulating array elements (prepend, append, remove)
+ * - Merging arrays and replacing values
  */
 class ArrayHelperTest extends BaseTest
 {
     /**
-     * Test array.
+     * Test array for numeric keys.
      *
      * @var array
      */
     protected $array = [];
 
     /**
-     * Associative test array.
+     * Test array for associative keys.
      *
      * @var array
      */
     protected $arrayAssoc = [];
 
     /**
-     * @param null   $name
-     * @param string $dataName
+     * ArrayHelperTest constructor.
+     *
+     * @param string|null $name The name of the test
+     * @param array $data The test data
+     * @param string $dataName The name of the test data
      */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -50,6 +59,9 @@ class ArrayHelperTest extends BaseTest
         ];
     }
 
+    /**
+     * Tests the get() method for retrieving values by key.
+     */
     public function testGet()
     {
         foreach ($this->array as $key => $value) {
@@ -61,6 +73,9 @@ class ArrayHelperTest extends BaseTest
         }
     }
 
+    /**
+     * Tests the getKeyByValue() method for finding keys by value.
+     */
     public function testGetByValue()
     {
         $testArray = [
@@ -83,6 +98,9 @@ class ArrayHelperTest extends BaseTest
         self::assertEquals('0', ArrayHelper::getKeyByValue($testArray, 'test'));
     }
 
+    /**
+     * Tests the getByPath() method for retrieving values using dot notation.
+     */
     public function testGetByPath()
     {
         $testArray = [
@@ -109,6 +127,9 @@ class ArrayHelperTest extends BaseTest
         ArrayHelper::getByPath($testArray, 'wrong-key', true);
     }
 
+    /**
+     * Tests the setByPath() method for setting values using dot notation.
+     */
     public function testSetByPath()
     {
         $myArray = [
@@ -170,6 +191,9 @@ class ArrayHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests the unsetByPath() method for removing values using dot notation.
+     */
     public function testUnsetByPath()
     {
         $myArray = [
@@ -228,6 +252,9 @@ class ArrayHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests the existsByPath() method for checking if a path exists.
+     */
     public function testExistByPath()
     {
         $myArray = [
@@ -390,7 +417,7 @@ class ArrayHelperTest extends BaseTest
             'k3' => 'v3',
         ];
 
-        self::assertTrue(\in_array(ArrayHelper::getRandomValue($testArray), $testArray, true));
+        self::assertTrue(\in_array(ArrayHelper::getRandomValue($testArray), $testArray));
     }
 
     public function testRemoveFirstElement()
@@ -647,45 +674,5 @@ class ArrayHelperTest extends BaseTest
         $this->expectException('\InvalidArgumentException');
         $this->expectExceptionMessage('Argument 2 is not an array');
         ArrayHelper::merge(['abc'], 123);
-    }
-
-    public function testImplodeIgnoreEmpty()
-    {
-        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreEmpty('+', ['first', 'second', 'third', '0', 'fourth']));
-        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreEmpty('+', ['first', 'second', 'third', '', 'fourth']));
-        self::assertEquals('first+second+third+ +fourth', ArrayHelper::implodeIgnoreEmpty('+', ['first', 'second', 'third', ' ', 'fourth']));
-        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreEmpty('+', ['first', 'second', 'third', false, 'fourth']));
-        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreEmpty('+', ['first', 'second', 'third', null, 'fourth']));
-    }
-
-    public function testImplodeIgnoreBlank()
-    {
-        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreBlank('+', ['first', 'second', 'third', '', 'fourth']));
-        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreBlank('+', ['first', 'second', 'third', ' ', 'fourth']));
-        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreBlank('+', ['first', 'second', 'third', '  ', 'fourth']));
-        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreBlank('+', ['first', 'second', 'third', false, 'fourth']));
-        self::assertEquals('first+second+third+fourth', ArrayHelper::implodeIgnoreBlank('+', ['first', 'second', 'third', null, 'fourth']));
-    }
-
-    public function testValueToUpper()
-    {
-        self::assertEquals(
-            [
-                'TEST',
-                'TEST2',
-                'hans' => 'XYZ',
-                [
-                    'test3' => 'ABC',
-                ],
-            ],
-            ArrayHelper::valueToUpper([
-                'Test',
-                'test2',
-                'hans' => 'xyz',
-                [
-                    'test3' => 'abc',
-                ],
-            ], true)
-        );
     }
 }

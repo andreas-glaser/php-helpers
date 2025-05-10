@@ -5,10 +5,18 @@ namespace AndreasGlaser\Helpers\Tests;
 use AndreasGlaser\Helpers\CsvHelper;
 
 /**
- * Class CsvHelperTest.
+ * CsvHelperTest provides unit tests for the CsvHelper class.
+ *
+ * This class tests CSV file operations:
+ * - Parsing CSV files with title rows
+ * - Converting arrays to CSV strings
+ * - Handling different delimiters and quote characters
  */
 class CsvHelperTest extends BaseTest
 {
+    /**
+     * Tests parsing a CSV file with a title row into an associative array.
+     */
     public function testParseCsvWithTitleRow()
     {
         $csvFile = __DIR__ . '/../ExtraFiles/WithTitleRow.csv';
@@ -25,6 +33,9 @@ class CsvHelperTest extends BaseTest
         self::assertEquals('test xyz', $array[0]['value']);
     }
 
+    /**
+     * Tests converting arrays to CSV strings with various delimiters and quote characters.
+     */
     public function testArrayToCsvString()
     {
         $array1 = [

@@ -7,24 +7,33 @@ use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
 use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
 
 /**
- * Class BaseListHelper.
+ * BaseListHelper provides a base class for HTML list helpers.
+ *
+ * This abstract class implements common functionality for list helpers:
+ * - Managing list items and their attributes
+ * - Adding items to the list
+ * - Factory method for instantiation
+ *
+ * Subclasses should implement the render() method for specific list types.
  */
 abstract class BaseListHelper implements FactoryInterface, RenderableInterface
 {
     /**
-     * @var \AndreasGlaser\Helpers\Html\AttributesHelper
+     * @var \AndreasGlaser\Helpers\Html\AttributesHelper HTML attributes for the list element
      */
     protected $attributes;
 
     /**
-     * @var array
+     * @var array List items and their attributes
      */
     protected $items = [];
 
     /**
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|aaray|null $attributes
+     * Factory method to create a new list helper instance.
      *
-     * @return BaseListHelper
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributes HTML attributes for the list
+     *
+     * @return static A new instance of the list helper
      */
     public static function f($attributes = null)
     {
@@ -36,7 +45,7 @@ abstract class BaseListHelper implements FactoryInterface, RenderableInterface
     /**
      * BaseListHelper constructor.
      *
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributes
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributes HTML attributes for the list
      */
     public function __construct($attributes = null)
     {
@@ -44,12 +53,14 @@ abstract class BaseListHelper implements FactoryInterface, RenderableInterface
     }
 
     /**
-     * @param                                                         $content
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributes
+     * Adds an item to the list.
      *
-     * @return $this
+     * @param mixed $content The content of the list item
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributes HTML attributes for the item
+     *
+     * @return $this For method chaining
      */
-    public function addItem($content, $attributes = null): self
+    public function addItem($content, $attributes = null):self
     {
         $index = \count($this->items);
         $this->items[$index]['content'] = $content;

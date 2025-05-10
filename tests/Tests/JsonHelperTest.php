@@ -5,10 +5,18 @@ namespace AndreasGlaser\Helpers\Tests;
 use AndreasGlaser\Helpers\JsonHelper;
 
 /**
- * Class JsonHelperTest.
+ * JsonHelperTest provides unit tests for the JsonHelper class.
+ *
+ * This class tests JSON validation:
+ * - Validating various data types
+ * - Validating JSON strings
+ * - Validating complex JSON structures
  */
 class JsonHelperTest extends BaseTest
 {
+    /**
+     * Tests the isValid() method with various input types and JSON strings.
+     */
     public function testIsValid()
     {
         self::assertTrue(JsonHelper::isValid(123));

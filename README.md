@@ -22,10 +22,12 @@ A powerful utility class for array manipulation and operations.
 
 #### Key Functions:
 - `ArrayHelper::get(array $array, $key, $default = null)`: Get value by key with default fallback
+- `ArrayHelper::getKeyByValue(array $array, $value, $default = null, $strict = true)`: Get first key with matching value
 - `ArrayHelper::getByPath(array $array, $path, $throwException = false, $default = null)`: Get value using dot notation path
 - `ArrayHelper::setByPath(array $array, $path, $value)`: Set value using dot notation path
 - `ArrayHelper::unsetByPath(array $array, string $path)`: Remove value using dot notation path
 - `ArrayHelper::existsByPath(array $array, $path)`: Check if path exists
+- `ArrayHelper::issetByPath(array $array, $path)`: Check if path is set
 - `ArrayHelper::prepend(array $array, $value, $key = false)`: Add element at array start
 - `ArrayHelper::append(array $array, $value, $key = false)`: Add element at array end
 - `ArrayHelper::insertBefore(array &$array, $position, array $values)`: Insert values before position
@@ -36,164 +38,356 @@ A powerful utility class for array manipulation and operations.
 - `ArrayHelper::removeFirstElement(array $array)`: Remove first element
 - `ArrayHelper::removeLastElement(array $array)`: Remove last element
 - `ArrayHelper::removeByValue(array $array, $value, $strict = true)`: Remove element by value
-- `ArrayHelper::keysCamelToUnderscore(array $array)`: Convert array keys to underscore case
+- `ArrayHelper::keysCamelToUnderscore(array $array)`: Convert camelCase keys to snake_case
 - `ArrayHelper::unsetEmptyValues(array $array, $recursive = false)`: Remove empty values
+- `ArrayHelper::implodeIgnoreEmpty($glue, array $pieces)`: Join array elements ignoring empty values
+- `ArrayHelper::implodeKeys(string $glue, array $array)`: Join array keys with delimiter
+- `ArrayHelper::explodeIgnoreEmpty(string $delimiter, string $string)`: Split string ignoring empty values
+- `ArrayHelper::valueToUpper(array $array, $recursive = true)`: Convert values to uppercase
 - `ArrayHelper::isAssoc(array $array)`: Check if array is associative
-- `ArrayHelper::merge()`: Merge multiple arrays
+- `ArrayHelper::assocIndexesExist(array $arrayToCheck, array $arrayToCompareWith, $throwException = true)`: Check if indexes exist
+- `ArrayHelper::replaceValue(array $array, $value, $replacement, $recursively = true, $caseSensitive = true)`: Replace values in array
+- `ArrayHelper::merge(array $array1, array $array2)`: Merge arrays with proper handling of numeric keys
+- `ArrayHelper::getFirstIndex($array, $default = null)`: Get first array index
+- `ArrayHelper::unshiftAssoc($array, $key, $val)`: Add element at start with key
+- `ArrayHelper::removeFirstIndex(array $array)`: Remove first array index
 
 ### String Helper (`StringHelper.php`)
-Comprehensive string manipulation and formatting utilities.
+Comprehensive string manipulation and comparison utilities.
 
 #### Key Functions:
-- `StringHelper::is($string, $stringToMatch, $caseSensitive = true)`: Compare strings
+- `StringHelper::is($string, $stringToMatch, $caseSensitive = true)`: Compare strings with case sensitivity option
 - `StringHelper::isOneOf($string, array $stringsToCompare, $caseSensitive = true)`: Check if string matches any in array
-- `StringHelper::contains($haystack, $needle, $caseSensitive = true)`: Check if string contains substring
-- `StringHelper::startsWith($haystack, $needle, $caseSensitive = true)`: Check if string starts with
-- `StringHelper::endsWith($haystack, $needle, $caseSensitive = true)`: Check if string ends with
-- `StringHelper::trimMulti($string, array $chars)`: Trim multiple characters
-- `StringHelper::camelToUnderscore($string)`: Convert camelCase to snake_case
+- `StringHelper::contains($haystack, $needle, $caseSensitive = true, $encoding = 'UTF-8')`: Check if string contains substring
+- `StringHelper::startsWith($haystack, $needle, $caseSensitive = true, $encoding = 'UTF-8')`: Check if string starts with prefix
+- `StringHelper::endsWith($haystack, $needle, $caseSensitive = true, $encoding = 'UTF-8')`: Check if string ends with suffix
+- `StringHelper::trimMulti($string, array $chars)`: Remove multiple characters from both ends
+- `StringHelper::lTrimMulti($string, array $chars)`: Remove multiple characters from left end
+- `StringHelper::rTrimMulti($string, array $chars)`: Remove multiple characters from right end
+- `StringHelper::camelToUnderscore($string)`: Convert camelCase to underscore_case
 - `StringHelper::removeLineBreaks($string, $replaceWith = ' ')`: Remove line breaks
-- `StringHelper::removeRedundantWhiteSpaces($string)`: Remove extra spaces
+- `StringHelper::removeRedundantWhiteSpaces($string)`: Remove redundant whitespace
+- `StringHelper::replaceWhiteSpacesWithUnderscores($string)`: Replace spaces with underscores
 - `StringHelper::machineReadable($string)`: Convert to machine-readable format
+- `StringHelper::append($string, $stringToAppend)`: Append string
+- `StringHelper::prepend($string, $stringToPrepend)`: Prepend string
+- `StringHelper::removeChar($string, $char)`: Remove single character
+- `StringHelper::removeChars($string, array $chars)`: Remove multiple characters
+- `StringHelper::explodeAndTrim($delimiter, $string)`: Split string and trim each part
+- `StringHelper::replace($subject, array $replacementMap, $caseSensitive = true)`: Replace multiple values
 - `StringHelper::limitWords($str, $limit = 100, $end_char = null)`: Limit string to word count
-- `StringHelper::limitChars($str, $limit = 100, $end_char = null)`: Limit string to character count
-- `StringHelper::isBlank($string)`: Check if string is blank
-- `StringHelper::removeFromStart($string, $stringToRemove)`: Remove prefix
-- `StringHelper::removeFromEnd($string, $stringToRemove)`: Remove suffix
+- `StringHelper::limitChars($str, $limit = 100, $end_char = null, $preserve_words = false)`: Limit string to character count
+- `StringHelper::getIncrementalId($prefix = '__undefined__')`: Generate sequential ID
+- `StringHelper::isBlank($string)`: Check if string is empty or contains only whitespace
+- `StringHelper::removeFromStart($string, $stringToRemove, $caseSensitive = true, $encoding = 'UTF-8')`: Remove prefix
+- `StringHelper::removeFromEnd($string, $stringToRemove, $caseSensitive = true, $encoding = 'UTF-8')`: Remove suffix
+- `StringHelper::linesToArray($string)`: Convert string with line breaks to array
+- `StringHelper::__($string, array $params = null)`: String translation helper
 
 ### Date Helper (`DateHelper.php`)
-Date and time manipulation utilities.
+Date and time manipulation and validation utilities.
 
 #### Key Functions:
-- `DateHelper::format($date, $format)`: Format date
-- `DateHelper::isValid($date)`: Validate date
-- `DateHelper::isValidFormat($date, $format)`: Validate date format
-- `DateHelper::getAge($date)`: Calculate age from date
-- `DateHelper::getDaysBetween($date1, $date2)`: Calculate days between dates
-- `DateHelper::getMonthsBetween($date1, $date2)`: Calculate months between dates
-- `DateHelper::getYearsBetween($date1, $date2)`: Calculate years between dates
+- `DateHelper::isDateTime($date, $format = null)`: Check if value is valid datetime
+- `DateHelper::stringToDateTime($string, $timezone = null, $null = null)`: Convert string to DateTime object
+- `DateHelper::formatOrNull($dateTime, $format = 'Y-m-d H:i:s', $null = null)`: Format datetime or return null if invalid
+- `DateHelper::diffHours($dateTime1, $dateTime2)`: Calculate hour differences between datetimes
+- `DateHelper::diffDays($dateTime1, $dateTime2)`: Calculate day differences between datetimes
+- `DateHelper::diffMonths($dateTime1, $dateTime2)`: Calculate month differences between datetimes
+- `DateHelper::diffYears($dateTime1, $dateTime2)`: Calculate year differences between datetimes
 
 ### HTML Helper (`HtmlHelper.php`)
-HTML generation and manipulation utilities.
+HTML element generation and attribute handling utilities.
 
 #### Key Functions:
-- `HtmlHelper::tag($name, $content = null, array $attributes = [])`: Generate HTML tag
-- `HtmlHelper::link($url, $text = null, array $attributes = [])`: Generate link
-- `HtmlHelper::img($src, array $attributes = [])`: Generate image tag
-- `HtmlHelper::script($src, array $attributes = [])`: Generate script tag
-- `HtmlHelper::style($href, array $attributes = [])`: Generate style tag
-- `HtmlHelper::meta($name, $content, array $attributes = [])`: Generate meta tag
-- `HtmlHelper::escape($string)`: Escape HTML special characters
+- `HtmlHelper::chars($string)`: Convert special characters to HTML entities
+- `HtmlHelper::entities($string)`: Convert all applicable characters to HTML entities
+- `HtmlHelper::div($content, $attributes = null)`: Generate div element
+- `HtmlHelper::p($content, $attributes = null)`: Generate paragraph element
+- `HtmlHelper::span($content, $attributes = null)`: Generate span element
+- `HtmlHelper::h1($content, $attributes = null)` through `h6()`: Generate heading elements
+- `HtmlHelper::a($url, $content, $attributes = null)`: Generate anchor element
+- `HtmlHelper::image($src, $attributes = null)`: Generate image element
+- `HtmlHelper::autoParagraph($string)`: Convert line breaks to paragraphs
 
 ### JSON Helper (`JsonHelper.php`)
-JSON encoding and decoding utilities.
+JSON validation and manipulation utilities.
 
 #### Key Functions:
-- `JsonHelper::encode($value, $options = 0)`: Encode to JSON
-- `JsonHelper::decode($json, $assoc = false, $depth = 512)`: Decode from JSON
-- `JsonHelper::isValid($json)`: Validate JSON string
+- `JsonHelper::isValid($value)`: Validate various data types and JSON strings
+- Support for complex JSON structures and nested objects
 
 ### Number Helper (`NumberHelper.php`)
 Number formatting and manipulation utilities.
 
 #### Key Functions:
-- `NumberHelper::format($number, $decimals = 2)`: Format number
-- `NumberHelper::formatCurrency($number, $currency = 'USD')`: Format as currency
-- `NumberHelper::formatPercent($number, $decimals = 2)`: Format as percentage
-- `NumberHelper::isEven($number)`: Check if number is even
-- `NumberHelper::isOdd($number)`: Check if number is odd
+- `NumberHelper::ordinal($number)`: Convert number to ordinal suffix (1st, 2nd, 3rd, etc.)
 
 ### Random Helper (`RandomHelper.php`)
 Random value generation utilities.
 
 #### Key Functions:
-- `RandomHelper::string($length = 10)`: Generate random string
-- `RandomHelper::number($min = 0, $max = 100)`: Generate random number
-- `RandomHelper::element(array $array)`: Get random array element
-- `RandomHelper::boolean()`: Generate random boolean
-
-### Timer Helper (`TimerHelper.php`)
-Time measurement and execution timing utilities.
-
-#### Key Functions:
-- `TimerHelper::start()`: Start timer
-- `TimerHelper::stop()`: Stop timer
-- `TimerHelper::getTime()`: Get elapsed time
-- `TimerHelper::getMemory()`: Get memory usage
+- `RandomHelper::trueFalse()`: Generate random boolean value
+- `RandomHelper::uniqid($prefix = '')`: Generate unique identifier with optional prefix
 
 ### Value Helper (`ValueHelper.php`)
-Value manipulation and type conversion utilities.
+Value validation and type checking utilities.
 
 #### Key Functions:
-- `ValueHelper::isDateTime($value)`: Check if value is datetime
-- `ValueHelper::isJson($value)`: Check if value is JSON
-- `ValueHelper::isEmail($value)`: Check if value is email
-- `ValueHelper::isUrl($value)`: Check if value is URL
-- `ValueHelper::toArray($value)`: Convert to array
-- `ValueHelper::toString($value)`: Convert to string
+- `ValueHelper::emptyToNull(&$string)`: Convert empty value to null
+- `ValueHelper::isEmpty($value)`: Check if value is empty (works with function returns)
+- `ValueHelper::isInteger($value)`: Check if value is integer or string containing only digits
+- `ValueHelper::isFloat($value)`: Check if value is float or string containing valid float format
+- `ValueHelper::isDateTime($date, $format = null)`: Check if value is valid datetime
+- `ValueHelper::isBool($value)`: Check if value is boolean type
+- `ValueHelper::isTrue($value)`: Check if value is strictly TRUE
+- `ValueHelper::isFalse($value)`: Check if value is strictly FALSE
+- `ValueHelper::isTrueLike($value)`: Check if value evaluates to true in boolean context
+- `ValueHelper::isFalseLike($value)`: Check if value evaluates to false in boolean context
 
 ### Counter Helper (`CounterHelper.php`)
 Counter implementation for tracking and incrementing values.
 
 #### Key Functions:
-- `CounterHelper::increment()`: Increment counter
-- `CounterHelper::decrement()`: Decrement counter
-- `CounterHelper::getValue()`: Get current value
-- `CounterHelper::reset()`: Reset counter
+- `CounterHelper::f($initialValue = 0)`: Create counter instance
+- `CounterHelper::plusOne()`: Increment counter
+- `CounterHelper::minusOne()`: Decrement counter
+- `CounterHelper::getCurrentValue()`: Get current value
+- `CounterHelper::getInitialValue()`: Get initial value
+- `CounterHelper::getDifference()`: Calculate difference from initial value
 
 ### CSV Helper (`CsvHelper.php`)
 CSV file handling and manipulation utilities.
 
 #### Key Functions:
-- `CsvHelper::read($file)`: Read CSV file
-- `CsvHelper::write($file, array $data)`: Write to CSV file
-- `CsvHelper::parse($string)`: Parse CSV string
-- `CsvHelper::generate(array $data)`: Generate CSV string
+- `CsvHelper::fileToArray($file, $hasTitleRow = false)`: Parse CSV file to array
+- `CsvHelper::arrayToCsvString($array, $delimiter = ',', $enclosure = '"')`: Convert array to CSV string
 
 ### Email Helper (`EmailHelper.php`)
 Email validation and formatting utilities.
 
 #### Key Functions:
-- `EmailHelper::isValid($email)`: Validate email address
-- `EmailHelper::normalize($email)`: Normalize email address
-- `EmailHelper::getDomain($email)`: Get email domain
-- `EmailHelper::getLocalPart($email)`: Get email local part
+- `EmailHelper::clean($emails, $delimiters = [',', ';'])`: Clean and normalize email addresses
+- `EmailHelper::isValid($email)`: Validate email address format
 
 ### IO Helper (`IOHelper.php`)
-Input/Output utilities for file and stream operations.
+File system operations and temporary file handling.
 
 #### Key Functions:
-- `IOHelper::read($file)`: Read file
-- `IOHelper::write($file, $content)`: Write to file
-- `IOHelper::append($file, $content)`: Append to file
-- `IOHelper::delete($file)`: Delete file
-- `IOHelper::exists($file)`: Check if file exists
+- `IOHelper::createTmpDir($dir = null, $prefix = null, $absolute = false)`: Create temporary directory
+- `IOHelper::createTmpFile($dir = null, $prefix = null, $absolute = false)`: Create temporary file
+- `IOHelper::rmdirRecursive($dir)`: Recursively remove directory
 
-## Additional Components
+### Timer Helper (`TimerHelper.php`)
+Time measurement and execution timing utilities.
 
-### Color
+#### Key Functions:
+- `TimerHelper::start($alias)`: Start a new timer with specified alias
+- `TimerHelper::getDifference($alias)`: Get elapsed time for a running timer
+- `TimerHelper::stop($alias)`: Stop a timer and return elapsed time
+
+### Color Helper (`Color/HexHelper.php`)
 Color manipulation and conversion utilities.
 
-### HTTP
-HTTP request and response handling utilities.
+#### Key Functions:
+- `HexHelper::adjustBrightness($hex, $steps)`: Adjust brightness of a hex color code (-255 to 255)
 
-### HTML
-HTML-specific utilities and helpers.
+### HTTP Helpers
 
-### Validate
-Data validation utilities.
+#### Request Helper (`Http/RequestHelper.php`)
+Request environment detection utilities.
 
-### View
-View rendering and template utilities.
+#### Key Functions:
+- `RequestHelper::isCli()`: Check if script is running in CLI mode
+- `RequestHelper::isHttps()`: Check if request is using HTTPS
+
+#### URL Helper (`Http/UrlHelper.php`)
+URL manipulation and generation utilities.
+
+#### Key Functions:
+- `UrlHelper::protocolHostPort()`: Get protocol, host, and port string
+- `UrlHelper::query($parameters = null, $mergeGetVariables = true)`: Build query string from parameters
+- `UrlHelper::currentUrl($includeQuery = true, $urlEncode = false)`: Get current full URL
+- `UrlHelper::currentUri($includeQueryParams = true, $encode = false)`: Get current URI
+
+### HTML Helpers
+
+#### Form Helper (`Html/FormHelper.php`)
+HTML form element generation utilities.
+
+#### Key Functions:
+- `FormHelper::open($action = null, $method = 'GET', $attributesHelper = null)`: Create form opening tag
+- `FormHelper::close()`: Create form closing tag
+- `FormHelper::text($name, $value = null, $attributesHelper = null)`: Create text input
+- `FormHelper::password($name, $value = null, $attributesHelper = null)`: Create password input
+- `FormHelper::email($name, $value = null, $attributesHelper = null)`: Create email input
+- `FormHelper::color($name, $value = null, $attributesHelper = null)`: Create color input
+- `FormHelper::date($name, $value = null, $attributesHelper = null)`: Create date input
+- `FormHelper::datetime($name, $value = null, $attributesHelper = null)`: Create datetime input
+- `FormHelper::datetimeLocal($name, $value = null, $attributesHelper = null)`: Create datetime-local input
+- `FormHelper::month($name, $value = null, $attributesHelper = null)`: Create month input
+- `FormHelper::number($name, $value = null, $attributesHelper = null)`: Create number input
+- `FormHelper::range($name, $value, $min, $max, $attributesHelper = null)`: Create range input
+- `FormHelper::search($name, $value = null, $attributesHelper = null)`: Create search input
+- `FormHelper::tel($name, $value = null, $attributesHelper = null)`: Create telephone input
+- `FormHelper::time($name, $value = null, $attributesHelper = null)`: Create time input
+- `FormHelper::url($name, $value = null, $attributesHelper = null)`: Create URL input
+- `FormHelper::week($name, $value = null, $attributesHelper = null)`: Create week input
+- `FormHelper::hidden($name, $value = null, $attributesHelper = null)`: Create hidden input
+- `FormHelper::textarea($name, $value = null, $attributesHelper = null)`: Create textarea
+- `FormHelper::button($name, $value = null, $attributesHelper = null)`: Create button
+- `FormHelper::submit($name, $value = null, $attributesHelper = null)`: Create submit button
+- `FormHelper::label($value, $forId = null, $formId = null, $attributesHelper = null)`: Create label
+- `FormHelper::select($name, array $options, $checkedValue = null, $attributesHelper = null)`: Create select
+- `FormHelper::selectMultiple($name, array $options, $checkedValue = null, $attributesHelper = null)`: Create multiple select
+- `FormHelper::option($value, $text, $selected = false)`: Create option
+- `FormHelper::optgroup($label, $htmlContent, $attributesHelper = null)`: Create option group
+- `FormHelper::checkbox($name, $value = null, $checked = false, $attributesHelper = null)`: Create checkbox
+- `FormHelper::radio($name, $value = null, $checked = false, $attributesHelper = null)`: Create radio button
+
+#### Attributes Helper (`Html/AttributesHelper.php`)
+HTML attribute management utilities.
+
+#### Key Functions:
+- `AttributesHelper::f($attributes = null)`: Create attributes instance
+- `AttributesHelper::set($key, $value)`: Set attribute value
+- `AttributesHelper::get($key, $default = null)`: Get attribute value
+- `AttributesHelper::has($key)`: Check if attribute exists
+- `AttributesHelper::remove($key)`: Remove attribute
+- `AttributesHelper::render()`: Render attributes as HTML string
+
+#### Bootstrap Helper (`Html/BootstrapHelper.php`)
+Bootstrap-specific HTML generation utilities.
+
+#### Key Functions:
+- `BootstrapHelper::alert($content, $type = 'info', $dismissible = false)`: Create Bootstrap alert
+- `BootstrapHelper::badge($content, $type = 'primary')`: Create Bootstrap badge
+
+#### Table Helper (`Html/Table/TableHelper.php`)
+HTML table generation utilities.
+
+#### Key Functions:
+- `TableHelper::f($headRows = null, $bodyRows = null, $attributesHelper = null)`: Create table instance
+- `TableHelper::addHeadRow($rowHelper, $setCellAsHeaders = true)`: Add header row
+- `TableHelper::addBodyRow($rowHelper)`: Add body row
+- `TableHelper::render($renderer = null)`: Render table as HTML
+
+#### List Helpers
+
+##### Base List Helper (`Html/Lists/BaseListHelper.php`)
+Base class for HTML list generation.
+
+#### Key Functions:
+- `BaseListHelper::f($items = null, $attributesHelper = null)`: Create list instance
+- `BaseListHelper::addItem($content, $attributesHelper = null)`: Add item to list
+- `BaseListHelper::getItems()`: Get all list items
+- `BaseListHelper::getAttributes()`: Get list attributes
+
+##### Unordered List Helper (`Html/Lists/UnorderedListHelper.php`)
+HTML unordered list generation utilities.
+
+#### Key Functions:
+- `UnorderedListHelper::render($renderer = null)`: Render unordered list as HTML
+
+##### Ordered List Helper (`Html/Lists/OrderedListHelper.php`)
+HTML ordered list generation utilities.
+
+#### Key Functions:
+- `OrderedListHelper::render($renderer = null)`: Render ordered list as HTML
+
+##### Description List Helper (`Html/Lists/DescriptionListHelper.php`)
+HTML description list generation utilities.
+
+#### Key Functions:
+- `DescriptionListHelper::addTerm($term, $description, $attributesHelper = null)`: Add term and description
+- `DescriptionListHelper::render($renderer = null)`: Render description list as HTML
+
+### View Helper (`View/PHPView.php`)
+PHP template rendering and view management utilities.
+
+#### Key Functions:
+- `PHPView::f($file = null, $data = [])`: Create view instance
+- `PHPView::setGlobal($key, $value)`: Set global data accessible to all views
+- `PHPView::getGlobalData()`: Get all global data
+- `PHPView::setFile($filePath)`: Set template file path
+- `PHPView::set($key, $value)`: Set local data for view instance
+- `PHPView::getData()`: Get all local data
+- `PHPView::render($file = null)`: Render template with current data
+- `PHPView::__toString()`: Render template when used as string
+
+### Validation Helpers
+
+#### Expect Helper (`Validate/Expect.php`)
+Type validation utilities that throw exceptions on type mismatches.
+
+#### Key Functions:
+- `Expect::int($value)`: Validate integer type
+- `Expect::float($value)`: Validate float type
+- `Expect::numeric($value)`: Validate numeric type
+- `Expect::bool($value)`: Validate boolean type
+- `Expect::str($value)`: Validate string type
+- `Expect::arr($value)`: Validate array type
+- `Expect::obj($value)`: Validate object type
+- `Expect::res($value)`: Validate resource type
+- `Expect::isCallable($value)`: Validate callable type
+- `Expect::scalar($value)`: Validate scalar type
+- `Expect::null($value)`: Validate null type
+
+#### IO Expect Helper (`Validate/IOExpect.php`)
+File system validation utilities that throw exceptions on validation failures.
+
+#### Key Functions:
+- `IOExpect::isDir($path)`: Validate directory exists
+- `IOExpect::isFile($path)`: Validate file exists
+- `IOExpect::isReadable($path)`: Validate path is readable
+- `IOExpect::isWritable($path)`: Validate path is writable
 
 ### Traits
-Reusable traits for common functionality.
 
-### Interfaces
-Interface definitions for the library components.
+#### Runtime Cache Trait (`Traits/RuntimeCacheTrait.php`)
+In-memory caching functionality during script execution.
 
-### Exceptions
-Custom exception classes for error handling.
+#### Key Functions:
+- `rtcSet($data, $id, $group = '_default', $overwrite = true)`: Set value in cache
+- `rtcExists($id, $group = '_default')`: Check if value exists in cache
+- `rtcGet($id, $group = '_default', $default = null)`: Get value from cache
+- `rtcGetDelete($id, $group = '_default', $default = null)`: Get and remove value from cache
+- `rtcDelete($id, $group = '_default')`: Remove value from cache
+- `rtcGroupGet($group, $default = null)`: Get all values from cache group
+- `rtcGroupDelete($group)`: Remove entire cache group
+- `rtcGroupAdd($group)`: Create new cache group
+- `rtcGroupExists($group)`: Check if cache group exists
+- `rtcMakeId()`: Generate unique cache ID
+
+#### Duplicatable Trait (`Traits/DuplicatableTrait.php`)
+Object duplication functionality.
+
+#### Key Functions:
+- `duplicate()`: Create a deep copy of the object
+
+## Testing
+
+The library includes comprehensive unit tests for all components. Each helper class has a corresponding test class that verifies its functionality:
+
+- `ArrayHelperTest`: Tests array manipulation and path operations
+- `StringHelperTest`: Tests string comparison and manipulation methods
+- `DateHelperTest`: Tests date formatting and difference calculations
+- `HtmlHelperTest`: Tests HTML element generation and attributes
+- `JsonHelperTest`: Tests JSON validation for various data types
+- `NumberHelperTest`: Tests number formatting and ordinal conversion
+- `RandomHelperTest`: Tests random value generation
+- `ValueHelperTest`: Tests value validation and type checking
+- `CounterHelperTest`: Tests counter operations and assertions
+- `CsvHelperTest`: Tests CSV file operations and string conversion
+- `EmailHelperTest`: Tests email validation and cleaning
+- `IOHelperTest`: Tests file system operations
+
+Run the tests using:
+
+```bash
+composer install
+./vendor/phpunit/phpunit/phpunit
+```
 
 ## Usage
 
@@ -201,29 +395,24 @@ Custom exception classes for error handling.
 use AndreasGlaser\Helpers\ArrayHelper;
 use AndreasGlaser\Helpers\StringHelper;
 use AndreasGlaser\Helpers\DateHelper;
+use AndreasGlaser\Helpers\ValueHelper;
 
 // Array operations
-$array = ['a' => 1, 'b' => 2];
-$value = ArrayHelper::get($array, 'a', 'default'); // Returns 1
-$nestedArray = ['user' => ['profile' => ['name' => 'John']]];
-$name = ArrayHelper::getByPath($nestedArray, 'user.profile.name'); // Returns 'John'
+$array = ['user' => ['profile' => ['name' => 'John']]];
+$name = ArrayHelper::getByPath($array, 'user.profile.name'); // Returns 'John'
 
 // String operations
 $string = 'Hello World';
 $contains = StringHelper::contains($string, 'World'); // Returns true
 $startsWith = StringHelper::startsWith($string, 'Hello'); // Returns true
-$underscore = StringHelper::camelToUnderscore('helloWorld'); // Returns 'hello_world'
 
 // Date operations
 $date = new DateTime();
-$formatted = DateHelper::format($date, 'Y-m-d'); // Returns current date in Y-m-d format
-$isValid = DateHelper::isValid('2024-03-20'); // Returns true
-```
+$hours = DateHelper::diffHours($date, new DateTime('+1 day')); // Returns 24
 
-## Testing
-
-```bash
-composer test
+// Value validation
+$isValid = ValueHelper::isDateTime('2024-03-20'); // Returns true
+$isTruthy = ValueHelper::isTrueLike('yes'); // Returns true
 ```
 
 ## Contributing

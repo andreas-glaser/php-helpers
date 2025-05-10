@@ -5,10 +5,18 @@ namespace AndreasGlaser\Helpers\Tests;
 use AndreasGlaser\Helpers\DateHelper;
 
 /**
- * Class DateHelperTest.
+ * DateHelperTest provides unit tests for the DateHelper class.
+ *
+ * This class tests date manipulation and formatting:
+ * - Converting strings to DateTime objects
+ * - Formatting dates with fallback values
+ * - Calculating time differences (hours, days, months, years)
  */
 class DateHelperTest extends BaseTest
 {
+    /**
+     * Tests converting various string formats to DateTime objects.
+     */
     public function testStringToDateTime()
     {
         self::assertTrue(DateHelper::stringToDateTime('2015-03-23') instanceof \DateTime);
@@ -26,15 +34,21 @@ class DateHelperTest extends BaseTest
         self::assertEquals('DEFAULT', DateHelper::stringToDateTime('', null, 'DEFAULT'));
     }
 
+    /**
+     * Tests formatting dates with fallback values.
+     */
     public function testFormatOrNull()
     {
         self::assertEquals('23-03-2015', DateHelper::formatOrNull('2015-03-23', 'd-m-Y'));
         self::assertEquals('23-03-2015', DateHelper::formatOrNull(new \DateTime('2015-03-23'), 'd-m-Y'));
-        self::assertEquals(date('Y-m-d H:i:s'), DateHelper::formatOrNull('NOW'));
+        self::assertEquals(\date('Y-m-d H:i:s'), DateHelper::formatOrNull('NOW'));
         self::assertEquals(10, DateHelper::formatOrNull(new \stdClass(), 'Y-m-d', 10));
         self::assertNull(DateHelper::formatOrNull(-1));
     }
 
+    /**
+     * Tests calculating hour differences between dates.
+     */
     public function testDiffHours()
     {
         self::assertEquals(0, DateHelper::diffHours(new \DateTime('2017-01-01 12:00:00'), new \DateTime('2017-01-01 12:30:00')));
@@ -42,6 +56,9 @@ class DateHelperTest extends BaseTest
         self::assertEquals(24, DateHelper::diffHours(new \DateTime('2017-01-01 12:00:00'), new \DateTime('2017-01-02 12:00:00')));
     }
 
+    /**
+     * Tests calculating day differences between dates.
+     */
     public function testDiffDays()
     {
         self::assertEquals(1, DateHelper::diffDays(new \DateTime('2017-01-01'), new \DateTime('2017-01-02')));
@@ -51,6 +68,9 @@ class DateHelperTest extends BaseTest
         self::assertEquals(366, DateHelper::diffDays(new \DateTime('2016-01-01'), new \DateTime('2017-01-01'))); // leap year
     }
 
+    /**
+     * Tests calculating month differences between dates.
+     */
     public function testDiffMonths()
     {
         self::assertEquals(0, DateHelper::diffMonths(new \DateTime('2017-01-01'), new \DateTime('2017-01-22')));
@@ -59,6 +79,9 @@ class DateHelperTest extends BaseTest
         self::assertEquals(12, DateHelper::diffMonths(new \DateTime('2017-01-01'), new \DateTime('2018-01-01')));
     }
 
+    /**
+     * Tests calculating year differences between dates.
+     */
     public function testDiffYears()
     {
         self::assertEquals(0, DateHelper::diffYears(new \DateTime('2017-01-01'), new \DateTime('2017-12-31')));

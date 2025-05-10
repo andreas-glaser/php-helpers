@@ -5,15 +5,25 @@ namespace AndreasGlaser\Helpers\Tests;
 use AndreasGlaser\Helpers\RandomHelper;
 
 /**
- * Class RandomHelperTest.
+ * RandomHelperTest provides unit tests for the RandomHelper class.
+ *
+ * This class tests random value generation:
+ * - Generating random boolean values
+ * - Generating unique identifiers
  */
 class RandomHelperTest extends BaseTest
 {
+    /**
+     * Tests the trueFalse() method for generating random boolean values.
+     */
     public function testTrueFalse()
     {
         self::assertEquals('boolean', \gettype(RandomHelper::trueFalse()));
     }
 
+    /**
+     * Tests the uniqid() method for generating unique identifiers.
+     */
     public function testUniqid()
     {
         self::assertEquals(13, \strlen(RandomHelper::uniqid()));
@@ -27,6 +37,6 @@ class RandomHelperTest extends BaseTest
             $uniqueIds[] = RandomHelper::uniqid();
         }
 
-        self::assertEquals(\count($uniqueIds), \count(array_unique($uniqueIds)));
+        self::assertEquals(\count($uniqueIds), \count(\array_unique($uniqueIds)));
     }
 }

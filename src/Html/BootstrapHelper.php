@@ -5,15 +5,20 @@ namespace AndreasGlaser\Helpers\Html;
 use AndreasGlaser\Helpers\HtmlHelper;
 
 /**
- * Class BootstrapHelper.
+ * Class BootstrapHelper
+ * 
+ * Helper class for generating Bootstrap-specific HTML elements.
+ * Provides methods for creating Bootstrap components and elements.
  */
 class BootstrapHelper
 {
     /**
-     * @param                                                         $name
-     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper
+     * Creates a Bootstrap glyphicon span element
      *
-     * @return string
+     * @param string                                                         $name            The glyphicon name (without 'glyphicon-' prefix)
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper Additional HTML attributes
+     *
+     * @return string The rendered glyphicon HTML
      */
     public static function glyphIcon($name, $attributesHelper = null)
     {

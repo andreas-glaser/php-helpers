@@ -6,15 +6,28 @@ use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\HtmlHelper;
 
 /**
- * Class HtmlHelperTest.
+ * HtmlHelperTest provides unit tests for the HtmlHelper class.
+ *
+ * This class tests HTML element generation:
+ * - Basic elements (div, p, span)
+ * - Heading elements (h1-h6)
+ * - Links and images
+ * - HTML attributes handling
  */
 class HtmlHelperTest extends BaseTest
 {
     /**
-     * @var \AndreasGlaser\Helpers\Html\AttributesHelper
+     * @var \AndreasGlaser\Helpers\Html\AttributesHelper Test attributes for HTML elements
      */
     protected $testAttributes;
 
+    /**
+     * HtmlHelperTest constructor.
+     *
+     * @param string|null $name The name of the test
+     * @param array $data The test data
+     * @param string $dataName The name of the test data
+     */
     public function __construct(string $name = null, array $data = [], string $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
@@ -26,6 +39,9 @@ class HtmlHelperTest extends BaseTest
         $this->testAttributes->addData('beef-steak', 'XYZ ');
     }
 
+    /**
+     * Tests generating a div element with attributes.
+     */
     public function testDiv()
     {
         self::assertEquals(
@@ -34,6 +50,9 @@ class HtmlHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests generating a paragraph element with attributes.
+     */
     public function testP()
     {
         self::assertEquals(
@@ -42,6 +61,9 @@ class HtmlHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests generating a span element with attributes.
+     */
     public function testSpan()
     {
         self::assertEquals(
@@ -50,6 +72,9 @@ class HtmlHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests generating an h1 element with attributes.
+     */
     public function testH1()
     {
         self::assertEquals(
@@ -58,6 +83,9 @@ class HtmlHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests generating an h2 element with attributes.
+     */
     public function testH2()
     {
         self::assertEquals(
@@ -66,6 +94,9 @@ class HtmlHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests generating an h3 element with attributes.
+     */
     public function testH3()
     {
         self::assertEquals(
@@ -74,6 +105,9 @@ class HtmlHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests generating an h4 element with attributes.
+     */
     public function testH4()
     {
         self::assertEquals(
@@ -82,6 +116,9 @@ class HtmlHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests generating an h5 element with attributes.
+     */
     public function testH5()
     {
         self::assertEquals(
@@ -90,6 +127,9 @@ class HtmlHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests generating an h6 element with attributes.
+     */
     public function testH6()
     {
         self::assertEquals(
@@ -98,6 +138,9 @@ class HtmlHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests generating an anchor element with attributes.
+     */
     public function testA()
     {
         self::assertEquals(
@@ -106,6 +149,9 @@ class HtmlHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests generating an image element with attributes.
+     */
     public function testImage()
     {
         self::assertEquals(

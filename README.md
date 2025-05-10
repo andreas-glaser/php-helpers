@@ -203,13 +203,21 @@ use AndreasGlaser\Helpers\StringHelper;
 use AndreasGlaser\Helpers\DateHelper;
 
 // Array operations
-$array = ArrayHelper::flatten(['a' => ['b' => ['c' => 1]]]);
+$array = ['a' => 1, 'b' => 2];
+$value = ArrayHelper::get($array, 'a', 'default'); // Returns 1
+$nestedArray = ['user' => ['profile' => ['name' => 'John']]];
+$name = ArrayHelper::getByPath($nestedArray, 'user.profile.name'); // Returns 'John'
 
 // String operations
-$string = StringHelper::slugify('Hello World!');
+$string = 'Hello World';
+$contains = StringHelper::contains($string, 'World'); // Returns true
+$startsWith = StringHelper::startsWith($string, 'Hello'); // Returns true
+$underscore = StringHelper::camelToUnderscore('helloWorld'); // Returns 'hello_world'
 
 // Date operations
-$date = DateHelper::format(new DateTime(), 'Y-m-d');
+$date = new DateTime();
+$formatted = DateHelper::format($date, 'Y-m-d'); // Returns current date in Y-m-d format
+$isValid = DateHelper::isValid('2024-03-20'); // Returns true
 ```
 
 ## Testing

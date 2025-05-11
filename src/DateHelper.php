@@ -49,7 +49,8 @@ class DateHelper
             return false;
         }
 
-        return 0 === \DateTime::getLastErrors()['warning_count'];
+        $errors = \DateTime::getLastErrors();
+        return false === $errors || 0 === $errors['warning_count'];
     }
 
     /**

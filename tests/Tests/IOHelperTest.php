@@ -62,6 +62,25 @@ class IOHelperTest extends BaseTest
         \touch($tmpDir . DIRECTORY_SEPARATOR . 'test2' . DIRECTORY_SEPARATOR . 'file2');
         \touch($tmpDir . DIRECTORY_SEPARATOR . 'test2' . DIRECTORY_SEPARATOR . 'file3');
 
+        // Verify the directory and its contents exist before removal
+        self::assertTrue(\is_dir($tmpDir));
+        self::assertTrue(\is_dir($tmpDir . DIRECTORY_SEPARATOR . 'test1'));
+        self::assertTrue(\is_dir($tmpDir . DIRECTORY_SEPARATOR . 'test2'));
+        self::assertTrue(\is_dir($tmpDir . DIRECTORY_SEPARATOR . 'test3'));
+        self::assertTrue(\is_file($tmpDir . DIRECTORY_SEPARATOR . 'test1' . DIRECTORY_SEPARATOR . 'file1'));
+        self::assertTrue(\is_file($tmpDir . DIRECTORY_SEPARATOR . 'test2' . DIRECTORY_SEPARATOR . 'file2'));
+        self::assertTrue(\is_file($tmpDir . DIRECTORY_SEPARATOR . 'test2' . DIRECTORY_SEPARATOR . 'file3'));
+
+        // Remove the directory and its contents
         IOHelper::rmdirRecursive($tmpDir);
+
+        // Verify the directory and all its contents are removed
+        self::assertFalse(\is_dir($tmpDir));
+        self::assertFalse(\is_dir($tmpDir . DIRECTORY_SEPARATOR . 'test1'));
+        self::assertFalse(\is_dir($tmpDir . DIRECTORY_SEPARATOR . 'test2'));
+        self::assertFalse(\is_dir($tmpDir . DIRECTORY_SEPARATOR . 'test3'));
+        self::assertFalse(\is_file($tmpDir . DIRECTORY_SEPARATOR . 'test1' . DIRECTORY_SEPARATOR . 'file1'));
+        self::assertFalse(\is_file($tmpDir . DIRECTORY_SEPARATOR . 'test2' . DIRECTORY_SEPARATOR . 'file2'));
+        self::assertFalse(\is_file($tmpDir . DIRECTORY_SEPARATOR . 'test2' . DIRECTORY_SEPARATOR . 'file3'));
     }
 }

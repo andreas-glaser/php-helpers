@@ -29,11 +29,23 @@ class IOExpectTest extends BaseTest
 
     public function testIsReadable()
     {
-        // todo
+        // Test with a non-existent file
+        $nonExistentFile = \sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'non_existent_file_' . \uniqid();
+        
+        $this->expectException(IOException::class);
+        $this->expectExceptionMessage(\sprintf('"%s" is not readable', $nonExistentFile));
+        
+        IOExpect::isReadable($nonExistentFile);
     }
 
     public function testIsWritable()
     {
-        // todo
+        // Test with a non-existent file
+        $nonExistentFile = \sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'non_existent_file_' . \uniqid();
+        
+        $this->expectException(IOException::class);
+        $this->expectExceptionMessage(\sprintf('"%s" is not writable', $nonExistentFile));
+        
+        IOExpect::isWritable($nonExistentFile);
     }
 }

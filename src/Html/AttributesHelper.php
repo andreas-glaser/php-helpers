@@ -384,7 +384,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
             return $renderer->render($this);
         }
 
-        $attributes = null;
+        $attributes = '';
 
         if ($this->hasId()) {
             $attributes = 'id="' . $this->getId() . '"';
@@ -409,7 +409,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
         $styles = $this->getStyles();
 
         if (!empty($styles)) {
-            $stylesCompiled = null;
+            $stylesCompiled = '';
             foreach ($styles as $name => $value) {
                 $stylesCompiled .= $name . ':' . $value . ';';
             }

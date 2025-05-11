@@ -25,10 +25,10 @@ class StringHelper
     public static function is($string, $stringToMach, $caseSensitive = true)
     {
         if (false === $caseSensitive) {
-            return 0 === \strcasecmp($string, $stringToMach);
+            return 0 === \strcasecmp($string ?? '', $stringToMach ?? '');
         }
 
-        return 0 === \strcmp($string, $stringToMach);
+        return 0 === \strcmp($string ?? '', $stringToMach ?? '');
     }
 
     /**
@@ -64,10 +64,10 @@ class StringHelper
     public static function contains($haystack, $needle, $caseSensitive = true, $encoding = 'UTF-8')
     {
         if (false === $caseSensitive) {
-            return false !== \mb_stristr($haystack, $needle, null, $encoding);
+            return false !== \mb_stristr($haystack ?? '', $needle ?? '', false, $encoding);
         }
 
-        return false !== \mb_strstr($haystack, $needle, null, $encoding);
+        return false !== \mb_strstr($haystack ?? '', $needle ?? '', false, $encoding);
     }
 
     /**
@@ -83,10 +83,10 @@ class StringHelper
     public static function startsWith($haystack, $needle, bool $caseSensitive = true, $encoding = 'UTF-8'): bool
     {
         if (false === $caseSensitive) {
-            return 0 === \strncasecmp($haystack, $needle, \mb_strlen($needle, $encoding));
+            return 0 === \strncasecmp($haystack ?? '', $needle ?? '', \mb_strlen($needle ?? '', $encoding));
         }
 
-        return 0 === \strncmp($haystack, $needle, \mb_strlen($needle, $encoding));
+        return 0 === \strncmp($haystack ?? '', $needle ?? '', \mb_strlen($needle ?? '', $encoding));
     }
 
     /**
@@ -102,7 +102,7 @@ class StringHelper
     public static function endsWith($haystack, $needle, bool $caseSensitive = true, $encoding = 'UTF-8'): bool
     {
         // get length of needle
-        $length = \mb_strlen($needle, $encoding);
+        $length = \mb_strlen($needle ?? '', $encoding);
 
         // always return true if needle is empty
         if (0 === $length) {
@@ -110,10 +110,10 @@ class StringHelper
         }
 
         if (false === $caseSensitive) {
-            return 0 === \strcasecmp(\mb_substr($haystack, -$length, null, $encoding), $needle);
+            return 0 === \strcasecmp(\mb_substr($haystack ?? '', -$length, null, $encoding), $needle ?? '');
         }
 
-        return 0 === \strcmp(\mb_substr($haystack, -$length, null, $encoding), $needle);
+        return 0 === \strcmp(\mb_substr($haystack ?? '', -$length, null, $encoding), $needle ?? '');
     }
 
     /**

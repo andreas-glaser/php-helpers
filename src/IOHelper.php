@@ -35,7 +35,7 @@ class IOHelper
         IOExpect::isDir($destination);
         IOExpect::isWritable($destination);
 
-        $destinationFinal = $destination . DIRECTORY_SEPARATOR . \uniqid($prefix);
+        $destinationFinal = $destination . DIRECTORY_SEPARATOR . \uniqid($prefix ?? '');
 
         if (false === \mkdir($destinationFinal, 0777, true)) {
             throw new IOException(\sprintf('Tmp dir "%s" could not be created', $destinationFinal), 0, null, $destinationFinal);
@@ -76,7 +76,7 @@ class IOHelper
         IOExpect::isDir($destination);
         IOExpect::isWritable($destination);
 
-        $prefix = \uniqid($prefix);
+        $prefix = \uniqid($prefix ?? '');
 
         $filePath = \tempnam($destination, $prefix);
 

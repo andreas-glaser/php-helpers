@@ -28,7 +28,7 @@ class JsonHelper
             return true;
         }
 
-        \json_decode($string);
+        \json_decode($string ?? '');
 
         return JSON_ERROR_NONE === \json_last_error();
     }

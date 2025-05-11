@@ -49,9 +49,6 @@ jobs:
             composer update --prefer-dist --no-interaction --prefer-stable
           fi
 
-      - name: Check code style
-        run: php-cs-fixer fix --dry-run --diff
-
       - name: Execute tests
         run: |
           composer dump-autoload

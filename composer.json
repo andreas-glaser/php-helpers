@@ -24,7 +24,6 @@
     "phpunit/phpunit": "^9.5 || ^10.0",
     "friendsofphp/php-cs-fixer": "^3"
   },
-  "suggest": {},
   "config": {
     "bin-dir": "bin"
   },
@@ -35,7 +34,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "AndreasGlaser\\Helpers\\": "tests/"
+      "AndreasGlaser\\Helpers\\Tests\\": "tests/Tests/"
     }
   },
   "extra": {

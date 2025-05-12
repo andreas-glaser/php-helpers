@@ -12,6 +12,7 @@
     <testsuites>
         <testsuite name="Test Suite">
             <directory>tests/</directory>
+            <exclude>tests/Tests/BaseTest.php</exclude>
         </testsuite>
     </testsuites>
     <filter>

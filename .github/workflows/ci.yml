@@ -38,9 +38,9 @@ jobs:
       - name: Install dependencies
         run: |
           if [ "${{ matrix.dependencies }}" = "lowest" ]; then
-            composer install --no-interaction --prefer-stable --prefer-lowest
+            composer update --no-interaction --prefer-dist --prefer-stable --prefer-lowest
           else
-            composer install --no-interaction --prefer-stable
+            composer install --no-interaction --prefer-dist
           fi
 
       - name: Dump autoload

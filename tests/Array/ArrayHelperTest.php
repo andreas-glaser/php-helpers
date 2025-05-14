@@ -60,6 +60,29 @@ class ArrayHelperTest extends BaseTest
         ];
     }
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->array = [
+            123,
+            'Test',
+            new \stdClass(),
+            [],
+            true,
+            false,
+        ];
+
+        $this->arrayAssoc = [
+            'Index1' => 123,
+            'Index2' => 'Test',
+            'Index3' => new \stdClass(),
+            'Index4' => [],
+            'Index5' => true,
+            'Index6' => false,
+        ];
+    }
+
     /**
      * Tests the get() method for retrieving values by key.
      */

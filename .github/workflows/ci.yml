@@ -53,4 +53,4 @@ jobs:
         env:
           XDEBUG_MODE: coverage
         run: |
-          bin/phpunit --coverage-text --no-configuration
+          bin/phpunit --coverage-text

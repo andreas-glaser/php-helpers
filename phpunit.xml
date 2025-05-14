@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5.xsd"
     colors="true"
     bootstrap="vendor/autoload.php"
     failOnRisky="true"
     beStrictAboutTestsThatDoNotTestAnything="true">
 
-    <!-- 1. tests to run -->
+    <!-- 1️⃣  project files that coverage / deprecations apply to -->
+    <source>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </source>
+
+    <!-- 2️⃣  optional: how to show the report -->
+    <coverage>
+        <report>
+            <!-- prints the short summary you saw in the log -->
+            <text outputFile="php://stdout" showOnlySummary="true"/>
+        </report>
+    </coverage>
+
+    <!-- 3️⃣  which tests to run -->
     <testsuites>
         <testsuite name="default">
             <directory>tests</directory>
@@ -13,21 +30,7 @@
         </testsuite>
     </testsuites>
 
-    <!-- 2. project code that belongs in coverage metrics -->
-    <source>
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
-    </source>
-
-    <!-- 3. (optional) print a short report on stdout -->
-    <coverage>
-        <report>
-            <text outputFile="php://stdout" showOnlySummary="true"/>
-        </report>
-    </coverage>
-
-    <!-- 4. runtime tweaks -->
+    <!-- 4️⃣  runtime tweaks -->
     <php>
         <env name="XDEBUG_MODE" value="coverage"/>
         <ini name="error_reporting" value="E_ALL"/>

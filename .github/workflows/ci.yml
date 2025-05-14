@@ -50,4 +50,7 @@ jobs:
         run: composer dump-autoload --ansi
 
       - name: Run tests
-        run: bin/phpunit --coverage-text
+        env:
+          XDEBUG_MODE: coverage
+        run: |
+          bin/phpunit --coverage-text --no-configuration

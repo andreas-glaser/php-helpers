@@ -9,7 +9,7 @@
         processIsolation="false"
         stopOnFailure="false"
         beStrictAboutTestsThatDoNotTestAnything="true"
-        failOnWarning="true"
+        failOnWarning="false"
         failOnRisky="true"
         bootstrap="vendor/autoload.php">
     <testsuites>

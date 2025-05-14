@@ -1,8 +1,9 @@
 <?php
 
-namespace AndreasGlaser\Helpers\Tests;
+namespace AndreasGlaser\Helpers\Tests\Number;
 
 use AndreasGlaser\Helpers\NumberHelper;
+use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
  * NumberHelperTest provides unit tests for the NumberHelper class.

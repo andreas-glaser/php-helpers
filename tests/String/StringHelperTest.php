@@ -1,8 +1,9 @@
 <?php
 
-namespace AndreasGlaser\Helpers\Tests;
+namespace AndreasGlaser\Helpers\Tests\String;
 
 use AndreasGlaser\Helpers\StringHelper;
+use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
  * StringHelperTest provides unit tests for the StringHelper class.

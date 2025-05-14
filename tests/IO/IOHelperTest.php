@@ -1,9 +1,10 @@
 <?php
 
-namespace AndreasGlaser\Helpers\Tests;
+namespace AndreasGlaser\Helpers\Tests\IO;
 
 use AndreasGlaser\Helpers\IOHelper;
 use AndreasGlaser\Helpers\StringHelper;
+use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
  * IOHelperTest provides unit tests for the IOHelper class.

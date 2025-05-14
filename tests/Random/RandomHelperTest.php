@@ -1,8 +1,9 @@
 <?php
 
-namespace AndreasGlaser\Helpers\Tests;
+namespace AndreasGlaser\Helpers\Tests\Random;
 
 use AndreasGlaser\Helpers\RandomHelper;
+use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
  * RandomHelperTest provides unit tests for the RandomHelper class.

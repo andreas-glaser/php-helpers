@@ -8,11 +8,14 @@
         convertWarningsToExceptions="true"
         processIsolation="false"
         stopOnFailure="false"
+        beStrictAboutTestsThatDoNotTestAnything="true"
+        failOnWarning="true"
+        failOnRisky="true"
         bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="Test Suite">
             <directory>tests/</directory>
-            <exclude>tests/Tests/BaseTest.php</exclude>
+            <exclude>tests/BaseTest.php</exclude>
         </testsuite>
     </testsuites>
     <filter>
@@ -21,7 +24,7 @@
         </whitelist>
     </filter>
     <php>
-        <ini name="error_reporting" value="-1 &amp; ~E_DEPRECATED &amp; ~E_USER_DEPRECATED"/>
+        <ini name="error_reporting" value="E_ALL"/>
         <ini name="xdebug.mode" value="coverage"/>
         <env name="XDEBUG_MODE" value="coverage"/>
     </php>

@@ -1,8 +1,9 @@
 <?php
 
-namespace AndreasGlaser\Helpers\Tests;
+namespace AndreasGlaser\Helpers\Tests\Json;
 
 use AndreasGlaser\Helpers\JsonHelper;
+use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
  * JsonHelperTest provides unit tests for the JsonHelper class.

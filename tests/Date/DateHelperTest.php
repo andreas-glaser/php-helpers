@@ -1,8 +1,9 @@
 <?php
 
-namespace AndreasGlaser\Helpers\Tests;
+namespace AndreasGlaser\Helpers\Tests\Date;
 
 use AndreasGlaser\Helpers\DateHelper;
+use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
  * DateHelperTest provides unit tests for the DateHelper class.

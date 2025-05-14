@@ -1,9 +1,10 @@
 <?php
 
-namespace AndreasGlaser\Helpers\Tests;
+namespace AndreasGlaser\Helpers\Tests\Html;
 
 use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\HtmlHelper;
+use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
  * HtmlHelperTest provides unit tests for the HtmlHelper class.

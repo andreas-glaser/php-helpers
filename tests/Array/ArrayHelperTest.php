@@ -1,8 +1,9 @@
 <?php
 
-namespace AndreasGlaser\Helpers\Tests;
+namespace AndreasGlaser\Helpers\Tests\Array;
 
 use AndreasGlaser\Helpers\ArrayHelper;
+use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
  * ArrayHelperTest provides unit tests for the ArrayHelper class.

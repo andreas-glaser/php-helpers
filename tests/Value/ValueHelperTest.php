@@ -1,8 +1,9 @@
 <?php
 
-namespace AndreasGlaser\Helpers\Tests;
+namespace AndreasGlaser\Helpers\Tests\Value;
 
 use AndreasGlaser\Helpers\ValueHelper;
+use AndreasGlaser\Helpers\Tests\BaseTest;
 
 /**
  * ValueHelperTest provides unit tests for the ValueHelper class.

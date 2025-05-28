@@ -265,4 +265,384 @@ class HtmlHelper
 
         return $html;
     }
+
+    /**
+     * Creates a strong (bold) element.
+     *
+     * @param mixed $content The content to make bold
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered strong element
+     */
+    public static function strong($content, $attributesHelper = null): string
+    {
+        return '<strong' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</strong>';
+    }
+
+    /**
+     * Creates an em (emphasis/italic) element.
+     *
+     * @param mixed $content The content to emphasize
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered em element
+     */
+    public static function em($content, $attributesHelper = null): string
+    {
+        return '<em' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</em>';
+    }
+
+    /**
+     * Creates a code element.
+     *
+     * @param mixed $content The code content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered code element
+     */
+    public static function code($content, $attributesHelper = null): string
+    {
+        return '<code' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</code>';
+    }
+
+    /**
+     * Creates a pre element.
+     *
+     * @param mixed $content The preformatted content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered pre element
+     */
+    public static function pre($content, $attributesHelper = null): string
+    {
+        return '<pre' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</pre>';
+    }
+
+    /**
+     * Creates a blockquote element.
+     *
+     * @param mixed $content The quote content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered blockquote element
+     */
+    public static function blockquote($content, $attributesHelper = null): string
+    {
+        return '<blockquote' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</blockquote>';
+    }
+
+    /**
+     * Creates a cite element.
+     *
+     * @param mixed $content The citation content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered cite element
+     */
+    public static function cite($content, $attributesHelper = null): string
+    {
+        return '<cite' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</cite>';
+    }
+
+    /**
+     * Creates a mark element.
+     *
+     * @param mixed $content The content to highlight
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered mark element
+     */
+    public static function mark($content, $attributesHelper = null): string
+    {
+        return '<mark' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</mark>';
+    }
+
+    /**
+     * Creates a time element.
+     *
+     * @param mixed $content The time content
+     * @param string|null $datetime The machine-readable datetime
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered time element
+     */
+    public static function time($content, $datetime = null, $attributesHelper = null): string
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        if ($datetime !== null) {
+            $attributesHelper->set('datetime', $datetime);
+        }
+        return '<time' . $attributesHelper . '>' . $content . '</time>';
+    }
+
+    /**
+     * Creates a small element.
+     *
+     * @param mixed $content The content to make smaller
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered small element
+     */
+    public static function small($content, $attributesHelper = null): string
+    {
+        return '<small' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</small>';
+    }
+
+    /**
+     * Creates a sub element.
+     *
+     * @param mixed $content The subscript content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered sub element
+     */
+    public static function sub($content, $attributesHelper = null): string
+    {
+        return '<sub' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</sub>';
+    }
+
+    /**
+     * Creates a sup element.
+     *
+     * @param mixed $content The superscript content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered sup element
+     */
+    public static function sup($content, $attributesHelper = null): string
+    {
+        return '<sup' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</sup>';
+    }
+
+    /**
+     * Creates an abbr element.
+     *
+     * @param mixed $content The abbreviated content
+     * @param string|null $title The full form of the abbreviation
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered abbr element
+     */
+    public static function abbr($content, $title = null, $attributesHelper = null): string
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        if ($title !== null) {
+            $attributesHelper->set('title', $title);
+        }
+        return '<abbr' . $attributesHelper . '>' . $content . '</abbr>';
+    }
+
+    /**
+     * Creates an article element.
+     *
+     * @param mixed $content The article content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered article element
+     */
+    public static function article($content, $attributesHelper = null): string
+    {
+        return '<article' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</article>';
+    }
+
+    /**
+     * Creates a section element.
+     *
+     * @param mixed $content The section content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered section element
+     */
+    public static function section($content, $attributesHelper = null): string
+    {
+        return '<section' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</section>';
+    }
+
+    /**
+     * Creates a nav element.
+     *
+     * @param mixed $content The navigation content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered nav element
+     */
+    public static function nav($content, $attributesHelper = null): string
+    {
+        return '<nav' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</nav>';
+    }
+
+    /**
+     * Creates an aside element.
+     *
+     * @param mixed $content The aside content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered aside element
+     */
+    public static function aside($content, $attributesHelper = null): string
+    {
+        return '<aside' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</aside>';
+    }
+
+    /**
+     * Creates a header element.
+     *
+     * @param mixed $content The header content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered header element
+     */
+    public static function header($content, $attributesHelper = null): string
+    {
+        return '<header' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</header>';
+    }
+
+    /**
+     * Creates a footer element.
+     *
+     * @param mixed $content The footer content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered footer element
+     */
+    public static function footer($content, $attributesHelper = null): string
+    {
+        return '<footer' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</footer>';
+    }
+
+    /**
+     * Creates a main element.
+     *
+     * @param mixed $content The main content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered main element
+     */
+    public static function main($content, $attributesHelper = null): string
+    {
+        return '<main' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</main>';
+    }
+
+    /**
+     * Creates a figure element.
+     *
+     * @param mixed $content The figure content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered figure element
+     */
+    public static function figure($content, $attributesHelper = null): string
+    {
+        return '<figure' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</figure>';
+    }
+
+    /**
+     * Creates a figcaption element.
+     *
+     * @param mixed $content The figcaption content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered figcaption element
+     */
+    public static function figcaption($content, $attributesHelper = null): string
+    {
+        return '<figcaption' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</figcaption>';
+    }
+
+    /**
+     * Creates a details element.
+     *
+     * @param mixed $content The details content
+     * @param bool $open Whether the details should be open by default
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered details element
+     */
+    public static function details($content, $open = false, $attributesHelper = null): string
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        if ($open) {
+            $attributesHelper->set('open', 'open');
+        }
+        return '<details' . $attributesHelper . '>' . $content . '</details>';
+    }
+
+    /**
+     * Creates a summary element.
+     *
+     * @param mixed $content The summary content
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered summary element
+     */
+    public static function summary($content, $attributesHelper = null): string
+    {
+        return '<summary' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</summary>';
+    }
+
+    /**
+     * Creates a dialog element.
+     *
+     * @param mixed $content The dialog content
+     * @param bool $open Whether the dialog should be open
+     * @param bool $modal Whether the dialog should be modal
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered dialog element
+     */
+    public static function dialog($content, $open = false, $modal = false, $attributesHelper = null): string
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        if ($open) {
+            $attributesHelper->set('open', 'open');
+        }
+        if ($modal) {
+            $attributesHelper->set('modal', 'modal');
+        }
+        return '<dialog' . $attributesHelper . '>' . $content . '</dialog>';
+    }
+
+    /**
+     * Creates a meter element.
+     *
+     * @param mixed $content The meter content/label
+     * @param float $value The current value
+     * @param float|null $min The minimum value
+     * @param float|null $max The maximum value
+     * @param float|null $low The low value threshold
+     * @param float|null $high The high value threshold
+     * @param float|null $optimum The optimum value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered meter element
+     */
+    public static function meter($content, $value, $min = null, $max = null, $low = null, $high = null, $optimum = null, $attributesHelper = null): string
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        $attributesHelper->set('value', $value);
+        if ($min !== null) $attributesHelper->set('min', $min);
+        if ($max !== null) $attributesHelper->set('max', $max);
+        if ($low !== null) $attributesHelper->set('low', $low);
+        if ($high !== null) $attributesHelper->set('high', $high);
+        if ($optimum !== null) $attributesHelper->set('optimum', $optimum);
+        return '<meter' . $attributesHelper . '>' . $content . '</meter>';
+    }
+
+    /**
+     * Creates a progress element.
+     *
+     * @param mixed $content The progress content/label
+     * @param float|null $value The current value
+     * @param float|null $max The maximum value
+     * @param \AndreasGlaser\Helpers\Html\AttributesHelper|array|null $attributesHelper HTML attributes
+     *
+     * @return string The rendered progress element
+     */
+    public static function progress($content, $value = null, $max = null, $attributesHelper = null): string
+    {
+        $attributesHelper = AttributesHelper::f($attributesHelper);
+        if ($value !== null) $attributesHelper->set('value', $value);
+        if ($max !== null) $attributesHelper->set('max', $max);
+        return '<progress' . $attributesHelper . '>' . $content . '</progress>';
+    }
 }

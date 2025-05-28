@@ -99,15 +99,53 @@ Date and time manipulation and validation utilities.
 HTML element generation and attribute handling utilities.
 
 #### Key Functions:
-- `HtmlHelper::chars($string)`: Convert special characters to HTML entities
-- `HtmlHelper::entities($string)`: Convert all applicable characters to HTML entities
-- `HtmlHelper::div($content, $attributes = null)`: Generate div element
-- `HtmlHelper::p($content, $attributes = null)`: Generate paragraph element
-- `HtmlHelper::span($content, $attributes = null)`: Generate span element
-- `HtmlHelper::h1($content, $attributes = null)` through `h6()`: Generate heading elements
-- `HtmlHelper::a($url, $content, $attributes = null)`: Generate anchor element
-- `HtmlHelper::image($src, $attributes = null)`: Generate image element
-- `HtmlHelper::autoParagraph($string)`: Convert line breaks to paragraphs
+- `HtmlHelper::chars($value, $double_encode = true)`: Convert special characters to HTML entities
+- `HtmlHelper::entities($value, $double_encode = true)`: Convert all applicable characters to HTML entities
+- `HtmlHelper::div($content, $attributesHelper = null)`: Create div element
+- `HtmlHelper::p($content, $attributesHelper = null)`: Create paragraph element
+- `HtmlHelper::span($content, $attributesHelper = null)`: Create span element
+- `HtmlHelper::h1($content, $attributesHelper = null)` through `h6()`: Create heading elements
+- `HtmlHelper::a($url, $content, $attributesHelper = null)`: Create anchor element
+- `HtmlHelper::image($src, $attributesHelper = null)`: Create image element
+- `HtmlHelper::autoParagraph($str, $br = true)`: Convert text to paragraphs
+
+##### Text Formatting Elements:
+- `HtmlHelper::strong($content, $attributesHelper = null)`: Create strong (bold) element
+- `HtmlHelper::em($content, $attributesHelper = null)`: Create emphasis (italic) element
+- `HtmlHelper::code($content, $attributesHelper = null)`: Create code element
+- `HtmlHelper::pre($content, $attributesHelper = null)`: Create preformatted text element
+- `HtmlHelper::mark($content, $attributesHelper = null)`: Create highlighted text element
+- `HtmlHelper::small($content, $attributesHelper = null)`: Create small text element
+- `HtmlHelper::sub($content, $attributesHelper = null)`: Create subscript element
+- `HtmlHelper::sup($content, $attributesHelper = null)`: Create superscript element
+
+##### Semantic Elements:
+- `HtmlHelper::blockquote($content, $attributesHelper = null)`: Create blockquote element
+- `HtmlHelper::cite($content, $attributesHelper = null)`: Create citation element
+- `HtmlHelper::time($content, $datetime = null, $attributesHelper = null)`: Create time element with optional datetime attribute
+- `HtmlHelper::abbr($content, $title = null, $attributesHelper = null)`: Create abbreviation element with optional title
+
+##### Structural Elements:
+- `HtmlHelper::article($content, $attributesHelper = null)`: Create article element
+- `HtmlHelper::section($content, $attributesHelper = null)`: Create section element
+- `HtmlHelper::nav($content, $attributesHelper = null)`: Create navigation element
+- `HtmlHelper::aside($content, $attributesHelper = null)`: Create aside element
+- `HtmlHelper::header($content, $attributesHelper = null)`: Create header element
+- `HtmlHelper::footer($content, $attributesHelper = null)`: Create footer element
+- `HtmlHelper::main($content, $attributesHelper = null)`: Create main element
+
+##### Media Elements:
+- `HtmlHelper::figure($content, $attributesHelper = null)`: Create figure element
+- `HtmlHelper::figcaption($content, $attributesHelper = null)`: Create figure caption element
+
+##### Interactive Elements:
+- `HtmlHelper::details($content, $open = false, $attributesHelper = null)`: Create details element with optional open state
+- `HtmlHelper::summary($content, $attributesHelper = null)`: Create summary element for details
+- `HtmlHelper::dialog($content, $open = false, $modal = false, $attributesHelper = null)`: Create dialog element with optional open and modal states
+
+##### Progress & Measurement Elements:
+- `HtmlHelper::meter($content, $value, $min = null, $max = null, $low = null, $high = null, $optimum = null, $attributesHelper = null)`: Create meter element with value ranges
+- `HtmlHelper::progress($content, $value = null, $max = null, $attributesHelper = null)`: Create progress element with optional value and max
 
 ### JSON Helper (`JsonHelper.php`)
 JSON validation and manipulation utilities.

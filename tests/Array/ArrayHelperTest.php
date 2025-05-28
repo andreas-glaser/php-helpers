@@ -30,36 +30,6 @@ class ArrayHelperTest extends BaseTest
      */
     protected $arrayAssoc = [];
 
-    /**
-     * ArrayHelperTest constructor.
-     *
-     * @param string|null $name The name of the test
-     * @param array $data The test data
-     * @param string $dataName The name of the test data
-     */
-    public function __construct($name = null, array $data = [], $dataName = '')
-    {
-        parent::__construct($name, $data, $dataName);
-
-        $this->array = [
-            123,
-            'Test',
-            new \stdClass(),
-            [],
-            true,
-            false,
-        ];
-
-        $this->arrayAssoc = [
-            'Index1' => 123,
-            'Index2' => 'Test',
-            'Index3' => new \stdClass(),
-            'Index4' => [],
-            'Index5' => true,
-            'Index6' => false,
-        ];
-    }
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -85,6 +55,10 @@ class ArrayHelperTest extends BaseTest
 
     /**
      * Tests the get() method for retrieving values by key.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::get
+     * @return void
      */
     public function testGet()
     {
@@ -99,6 +73,11 @@ class ArrayHelperTest extends BaseTest
 
     /**
      * Tests the getKeyByValue() method for finding keys by value.
+     * Tests various scenarios including strict/non-strict comparison and default values.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::getKeyByValue
+     * @return void
      */
     public function testGetByValue()
     {
@@ -124,6 +103,11 @@ class ArrayHelperTest extends BaseTest
 
     /**
      * Tests the getByPath() method for retrieving values using dot notation.
+     * Tests accessing nested array values, custom delimiters, and error handling.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::getByPath
+     * @return void
      */
     public function testGetByPath()
     {
@@ -153,6 +137,11 @@ class ArrayHelperTest extends BaseTest
 
     /**
      * Tests the setByPath() method for setting values using dot notation.
+     * Tests setting values at different nesting levels and error handling.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::setByPath
+     * @return void
      */
     public function testSetByPath()
     {
@@ -217,6 +206,11 @@ class ArrayHelperTest extends BaseTest
 
     /**
      * Tests the unsetByPath() method for removing values using dot notation.
+     * Tests removing values at different nesting levels and handling non-existent paths.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::unsetByPath
+     * @return void
      */
     public function testUnsetByPath()
     {
@@ -278,6 +272,11 @@ class ArrayHelperTest extends BaseTest
 
     /**
      * Tests the existsByPath() method for checking if a path exists.
+     * Tests various path combinations and custom delimiters.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::existsByPath
+     * @return void
      */
     public function testExistByPath()
     {
@@ -313,6 +312,14 @@ class ArrayHelperTest extends BaseTest
         self::assertTrue(ArrayHelper::existsByPath($myArray, 'index2:index3:index5', ':'));
     }
 
+    /**
+     * Tests the issetByPath() method for checking if a path exists and is not null.
+     * Tests various path combinations including null values.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::issetByPath
+     * @return void
+     */
     public function testIssetByPath()
     {
         $myArray = [
@@ -351,6 +358,14 @@ class ArrayHelperTest extends BaseTest
         self::assertTrue(ArrayHelper::issetByPath($myArray, 'index2:index3:index5', ':'));
     }
 
+    /**
+     * Tests the prepend() method for adding elements to the beginning of an array.
+     * Tests both numeric and associative arrays.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::prepend
+     * @return void
+     */
     public function testPrepend()
     {
         $testArray = [
@@ -392,6 +407,14 @@ class ArrayHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests the append() method for adding elements to the end of an array.
+     * Tests both numeric and associative arrays.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::append
+     * @return void
+     */
     public function testAppend()
     {
         $testArray = [
@@ -433,6 +456,14 @@ class ArrayHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests the getRandomValue() method for retrieving a random array value.
+     * Verifies that the returned value exists in the original array.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::getRandomValue
+     * @return void
+     */
     public function testGetRandomValue()
     {
         $testArray = [
@@ -444,6 +475,14 @@ class ArrayHelperTest extends BaseTest
         self::assertTrue(\in_array(ArrayHelper::getRandomValue($testArray), $testArray));
     }
 
+    /**
+     * Tests the removeFirstElement() method.
+     * Tests removal from numeric arrays, associative arrays, and empty arrays.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::removeFirstElement
+     * @return void
+     */
     public function testRemoveFirstElement()
     {
         self::assertEquals([
@@ -465,6 +504,14 @@ class ArrayHelperTest extends BaseTest
         self::assertEquals([], ArrayHelper::removeFirstElement([]));
     }
 
+    /**
+     * Tests the removeLastElement() method.
+     * Tests removal from numeric arrays, associative arrays, and empty arrays.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::removeLastElement
+     * @return void
+     */
     public function testRemoveLastElement()
     {
         self::assertEquals([
@@ -486,6 +533,14 @@ class ArrayHelperTest extends BaseTest
         self::assertEquals([], ArrayHelper::removeLastElement([]));
     }
 
+    /**
+     * Tests the removeByValue() method.
+     * Tests strict and non-strict value comparison during removal.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::removeByValue
+     * @return void
+     */
     public function testRemoveByValue()
     {
         $array = [
@@ -528,6 +583,13 @@ class ArrayHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests the implodeKeys() method for joining array keys with a delimiter.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::implodeKeys
+     * @return void
+     */
     public function testImplodeKeys()
     {
         self::assertEquals(
@@ -536,6 +598,14 @@ class ArrayHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests the explodeIgnoreEmpty() method.
+     * Verifies that empty elements are properly filtered out.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::explodeIgnoreEmpty
+     * @return void
+     */
     public function testExplodeIgnoreEmpty()
     {
         $testString = '1,2, 3,,4,,,,5,6,cheese,,cake';
@@ -555,6 +625,14 @@ class ArrayHelperTest extends BaseTest
         self::assertTrue(($expectedArray === $explodedArray));
     }
 
+    /**
+     * Tests the replaceValue() method.
+     * Tests value replacement with various options for recursion and case sensitivity.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::replaceValue
+     * @return void
+     */
     public function testReplaceValue()
     {
         $testArray = [
@@ -630,6 +708,14 @@ class ArrayHelperTest extends BaseTest
         );
     }
 
+    /**
+     * Tests the merge() method.
+     * Tests various array merging scenarios and error handling.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ArrayHelper::merge
+     * @return void
+     */
     public function testMerge()
     {
         $array1 = [

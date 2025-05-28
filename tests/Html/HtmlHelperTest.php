@@ -22,16 +22,9 @@ class HtmlHelperTest extends BaseTest
      */
     protected $testAttributes;
 
-    /**
-     * HtmlHelperTest constructor.
-     *
-     * @param string|null $name The name of the test
-     * @param array $data The test data
-     * @param string $dataName The name of the test data
-     */
-    public function __construct(string $name = null, array $data = [], string $dataName = '')
+    protected function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
+        parent::setUp();
 
         $this->testAttributes = new AttributesHelper(['class' => 'horseradish']);
         $this->testAttributes->setId('CHESTNUT');
@@ -42,6 +35,11 @@ class HtmlHelperTest extends BaseTest
 
     /**
      * Tests generating a div element with attributes.
+     * Verifies that the div element is properly generated with all specified attributes.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\HtmlHelper::div
+     * @return void
      */
     public function testDiv()
     {
@@ -53,6 +51,11 @@ class HtmlHelperTest extends BaseTest
 
     /**
      * Tests generating a paragraph element with attributes.
+     * Verifies that the p element is properly generated with all specified attributes.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\HtmlHelper::p
+     * @return void
      */
     public function testP()
     {
@@ -64,6 +67,11 @@ class HtmlHelperTest extends BaseTest
 
     /**
      * Tests generating a span element with attributes.
+     * Verifies that the span element is properly generated with all specified attributes.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\HtmlHelper::span
+     * @return void
      */
     public function testSpan()
     {
@@ -75,6 +83,11 @@ class HtmlHelperTest extends BaseTest
 
     /**
      * Tests generating an h1 element with attributes.
+     * Verifies that the h1 element is properly generated with all specified attributes.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\HtmlHelper::h1
+     * @return void
      */
     public function testH1()
     {
@@ -86,6 +99,11 @@ class HtmlHelperTest extends BaseTest
 
     /**
      * Tests generating an h2 element with attributes.
+     * Verifies that the h2 element is properly generated with all specified attributes.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\HtmlHelper::h2
+     * @return void
      */
     public function testH2()
     {
@@ -97,6 +115,11 @@ class HtmlHelperTest extends BaseTest
 
     /**
      * Tests generating an h3 element with attributes.
+     * Verifies that the h3 element is properly generated with all specified attributes.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\HtmlHelper::h3
+     * @return void
      */
     public function testH3()
     {
@@ -108,6 +131,11 @@ class HtmlHelperTest extends BaseTest
 
     /**
      * Tests generating an h4 element with attributes.
+     * Verifies that the h4 element is properly generated with all specified attributes.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\HtmlHelper::h4
+     * @return void
      */
     public function testH4()
     {
@@ -119,6 +147,11 @@ class HtmlHelperTest extends BaseTest
 
     /**
      * Tests generating an h5 element with attributes.
+     * Verifies that the h5 element is properly generated with all specified attributes.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\HtmlHelper::h5
+     * @return void
      */
     public function testH5()
     {
@@ -130,6 +163,11 @@ class HtmlHelperTest extends BaseTest
 
     /**
      * Tests generating an h6 element with attributes.
+     * Verifies that the h6 element is properly generated with all specified attributes.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\HtmlHelper::h6
+     * @return void
      */
     public function testH6()
     {
@@ -141,6 +179,11 @@ class HtmlHelperTest extends BaseTest
 
     /**
      * Tests generating an anchor element with attributes.
+     * Verifies that the a element is properly generated with href and all specified attributes.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\HtmlHelper::a
+     * @return void
      */
     public function testA()
     {
@@ -152,6 +195,11 @@ class HtmlHelperTest extends BaseTest
 
     /**
      * Tests generating an image element with attributes.
+     * Verifies that the img element is properly generated with src and all specified attributes.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\HtmlHelper::image
+     * @return void
      */
     public function testImage()
     {

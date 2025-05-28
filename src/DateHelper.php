@@ -40,7 +40,7 @@ class DateHelper
         } else {
             try {
                 $dateTime = new \DateTime($date);
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 return false;
             }
         }

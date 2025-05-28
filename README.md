@@ -4,8 +4,7 @@ A comprehensive collection of PHP helper functions and classes to simplify commo
 
 ## Requirements
 
-- PHP 7.4 or higher
-- PHP 8.0 or higher
+- PHP ^8.2|^8.3|^8.4
 - ext-mbstring
 - ext-json
 

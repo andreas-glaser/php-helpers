@@ -314,55 +314,28 @@ PHP template rendering and view management utilities.
 - `PHPView::render($file = null)`: Render template with current data
 - `PHPView::__toString()`: Render template when used as string
 
-### Validation Helpers
-
-#### Expect Helper (`Validate/Expect.php`)
-Type validation utilities that throw exceptions on type mismatches.
+### Validation Helper (`ValidationHelper.php`)
+Comprehensive validation utilities for common data formats.
 
 #### Key Functions:
-- `Expect::int($value)`: Validate integer type
-- `Expect::float($value)`: Validate float type
-- `Expect::numeric($value)`: Validate numeric type
-- `Expect::bool($value)`: Validate boolean type
-- `Expect::str($value)`: Validate string type
-- `Expect::arr($value)`: Validate array type
-- `Expect::obj($value)`: Validate object type
-- `Expect::res($value)`: Validate resource type
-- `Expect::isCallable($value)`: Validate callable type
-- `Expect::scalar($value)`: Validate scalar type
-- `Expect::null($value)`: Validate null type
+- `ValidationHelper::isValidEmail($email)`: Validate email address with modern TLD support
+- `ValidationHelper::isValidIPv4($ip)`: Validate IPv4 address
+- `ValidationHelper::isValidIPv6($ip)`: Validate IPv6 address
+- `ValidationHelper::isValidIP($ip, $allowPrivate = true, $allowReserved = true)`: Validate IP address (v4 or v6) with options for private/reserved ranges
 
-#### IO Expect Helper (`Validate/IOExpect.php`)
-File system validation utilities that throw exceptions on validation failures.
+### Network Helper (`Validate/NetworkHelper.php`)
+Network-related validation utilities.
 
 #### Key Functions:
-- `IOExpect::isDir($path)`: Validate directory exists
-- `IOExpect::isFile($path)`: Validate file exists
-- `IOExpect::isReadable($path)`: Validate path is readable
-- `IOExpect::isWritable($path)`: Validate path is writable
-
-### Traits
-
-#### Runtime Cache Trait (`Traits/RuntimeCacheTrait.php`)
-In-memory caching functionality during script execution.
-
-#### Key Functions:
-- `rtcSet($data, $id, $group = '_default', $overwrite = true)`: Set value in cache
-- `rtcExists($id, $group = '_default')`: Check if value exists in cache
-- `rtcGet($id, $group = '_default', $default = null)`: Get value from cache
-- `rtcGetDelete($id, $group = '_default', $default = null)`: Get and remove value from cache
-- `rtcDelete($id, $group = '_default')`: Remove value from cache
-- `rtcGroupGet($group, $default = null)`: Get all values from cache group
-- `rtcGroupDelete($group)`: Remove entire cache group
-- `rtcGroupAdd($group)`: Create new cache group
-- `rtcGroupExists($group)`: Check if cache group exists
-- `rtcMakeId()`: Generate unique cache ID
-
-#### Duplicatable Trait (`Traits/DuplicatableTrait.php`)
-Object duplication functionality.
-
-#### Key Functions:
-- `duplicate()`: Create a deep copy of the object
+- `NetworkHelper::isValidIPv4($ip)`: Validate IPv4 address format
+- `NetworkHelper::isValidIPv6($ip)`: Validate IPv6 address format
+- `NetworkHelper::isValidIP($ip, $allowPrivate = true, $allowReserved = true)`: Validate IP address (both IPv4 and IPv6) with support for private and reserved range validation
+- `NetworkHelper::isValidPort($port, $allowSystemPorts = true, $allowUserPorts = true, $allowDynamicPorts = true)`: Validate port number with customizable range restrictions
+- `NetworkHelper::isValidDomain($domain, $allowSingleLabel = false, $allowPunycode = true)`: Validate domain name with support for Punycode and single-label domains
+- `NetworkHelper::isValidMac($mac, $allowColonFormat = true, $allowHyphenFormat = true, $allowBareFormat = true)`: Validate MAC address in various formats
+- `NetworkHelper::isValidCidr($cidr)`: Validate CIDR notation for both IPv4 and IPv6
+- `NetworkHelper::isValidSubnetMask($mask)`: Validate IPv4 subnet mask
+- `NetworkHelper::getCommonPort($service)`: Get common port number for well-known services
 
 ## Testing
 

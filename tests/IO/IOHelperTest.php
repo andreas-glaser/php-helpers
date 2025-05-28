@@ -18,6 +18,11 @@ class IOHelperTest extends BaseTest
 {
     /**
      * Tests creating temporary directories with various options.
+     * Verifies directory creation, permissions, and custom prefix/path handling.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\IOHelper::createTmpDir
+     * @return void
      */
     public function testCreateTmpDir()
     {
@@ -34,6 +39,11 @@ class IOHelperTest extends BaseTest
 
     /**
      * Tests creating temporary files with various options.
+     * Verifies file creation, permissions, and custom prefix/path handling.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\IOHelper::createTmpFile
+     * @return void
      */
     public function testCreateTmpFile()
     {
@@ -50,6 +60,11 @@ class IOHelperTest extends BaseTest
 
     /**
      * Tests recursive directory removal.
+     * Verifies complete removal of directory tree including nested files and directories.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\IOHelper::rmdirRecursive
+     * @return void
      */
     public function testRmdirRecursive()
     {

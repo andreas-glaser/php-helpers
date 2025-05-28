@@ -26,6 +26,11 @@ class StringHelperTest extends BaseTest
 
     /**
      * Tests the is() method for exact string comparison with case sensitivity option.
+     * Verifies exact matches with both case-sensitive and case-insensitive comparisons.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\StringHelper::is
+     * @return void
      */
     public function testIs()
     {
@@ -36,6 +41,11 @@ class StringHelperTest extends BaseTest
 
     /**
      * Tests the isOneOf() method for checking if a string matches any in an array with case sensitivity option.
+     * Verifies matching against multiple strings with both case-sensitive and case-insensitive comparisons.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\StringHelper::isOneOf
+     * @return void
      */
     public function testIsOneOf()
     {
@@ -46,6 +56,11 @@ class StringHelperTest extends BaseTest
 
     /**
      * Tests the contains() method for checking if a string contains a substring with case sensitivity option.
+     * Verifies substring detection with both case-sensitive and case-insensitive searches.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\StringHelper::contains
+     * @return void
      */
     public function testContains()
     {
@@ -56,6 +71,11 @@ class StringHelperTest extends BaseTest
 
     /**
      * Tests the startsWith() method for checking if a string starts with a prefix with case sensitivity option.
+     * Verifies prefix detection with both case-sensitive and case-insensitive comparisons, including null handling.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\StringHelper::startsWith
+     * @return void
      */
     public function testStringStartsWith()
     {
@@ -70,6 +90,11 @@ class StringHelperTest extends BaseTest
 
     /**
      * Tests the endsWith() method for checking if a string ends with a suffix with case sensitivity option.
+     * Verifies suffix detection with both case-sensitive and case-insensitive comparisons, including null handling.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\StringHelper::endsWith
+     * @return void
      */
     public function testStringEndsWith()
     {
@@ -84,6 +109,11 @@ class StringHelperTest extends BaseTest
 
     /**
      * Tests the trimMulti() method for removing multiple characters from both ends of a string.
+     * Verifies removal of multiple substrings from both ends of the input string.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\StringHelper::trimMulti
+     * @return void
      */
     public function testTrimMulti()
     {
@@ -93,6 +123,11 @@ class StringHelperTest extends BaseTest
 
     /**
      * Tests the rTrimMulti() method for removing multiple characters from the right end of a string.
+     * Verifies removal of multiple substrings from the right end of the input string.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\StringHelper::rTrimMulti
+     * @return void
      */
     public function testRTrimMulti()
     {
@@ -102,6 +137,11 @@ class StringHelperTest extends BaseTest
 
     /**
      * Tests the lTrimMulti() method for removing multiple characters from the left end of a string.
+     * Verifies removal of multiple substrings from the left end of the input string.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\StringHelper::lTrimMulti
+     * @return void
      */
     public function testLTrimMulti()
     {
@@ -111,6 +151,11 @@ class StringHelperTest extends BaseTest
 
     /**
      * Tests the getIncrementalId() method for generating sequential IDs with optional prefix.
+     * Verifies sequential number generation and optional prefix handling.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\StringHelper::getIncrementalId
+     * @return void
      */
     public function testGetIncrementalId()
     {
@@ -127,6 +172,11 @@ class StringHelperTest extends BaseTest
 
     /**
      * Tests the isDateTime() method for validating various datetime string formats.
+     * Verifies validation of various date/time formats and handling of invalid inputs.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\StringHelper::isDateTime
+     * @return void
      */
     public function testIsDateTime()
     {
@@ -144,6 +194,11 @@ class StringHelperTest extends BaseTest
 
     /**
      * Tests the isBlank() method for checking if a string is empty or contains only whitespace.
+     * Verifies detection of empty strings, whitespace-only strings, and non-blank strings.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\StringHelper::isBlank
+     * @return void
      */
     public function testIsBlank()
     {
@@ -157,6 +212,11 @@ class StringHelperTest extends BaseTest
 
     /**
      * Tests the removeFromStart() method for removing a prefix from a string with case sensitivity option.
+     * Verifies prefix removal with both case-sensitive and case-insensitive comparisons.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\StringHelper::removeFromStart
+     * @return void
      */
     public function testRemoveFromStart()
     {
@@ -168,6 +228,11 @@ class StringHelperTest extends BaseTest
 
     /**
      * Tests the removeFromEnd() method for removing a suffix from a string with case sensitivity option.
+     * Verifies suffix removal with both case-sensitive and case-insensitive comparisons.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\StringHelper::removeFromEnd
+     * @return void
      */
     public function testRemoveFromEnd()
     {
@@ -179,6 +244,11 @@ class StringHelperTest extends BaseTest
 
     /**
      * Tests the linesToArray() method for converting a string with line breaks into an array of lines.
+     * Verifies handling of different line ending styles (LF, CR, CRLF).
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\StringHelper::linesToArray
+     * @return void
      */
     public function testLinesToArray()
     {

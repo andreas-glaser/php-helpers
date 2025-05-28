@@ -16,6 +16,11 @@ class RandomHelperTest extends BaseTest
 {
     /**
      * Tests the trueFalse() method for generating random boolean values.
+     * Verifies that the method returns a boolean value.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\RandomHelper::trueFalse
+     * @return void
      */
     public function testTrueFalse()
     {
@@ -24,6 +29,11 @@ class RandomHelperTest extends BaseTest
 
     /**
      * Tests the uniqid() method for generating unique identifiers.
+     * Verifies length of generated IDs, prefix handling, and uniqueness of generated values.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\RandomHelper::uniqid
+     * @return void
      */
     public function testUniqid()
     {

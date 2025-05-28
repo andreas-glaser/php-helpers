@@ -17,6 +17,11 @@ class DateHelperTest extends BaseTest
 {
     /**
      * Tests converting various string formats to DateTime objects.
+     * Verifies handling of valid dates, invalid dates, and custom fallback values.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\DateHelper::stringToDateTime
+     * @return void
      */
     public function testStringToDateTime()
     {
@@ -37,6 +42,11 @@ class DateHelperTest extends BaseTest
 
     /**
      * Tests formatting dates with fallback values.
+     * Verifies formatting of DateTime objects, strings, and handling of invalid inputs.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\DateHelper::formatOrNull
+     * @return void
      */
     public function testFormatOrNull()
     {
@@ -49,6 +59,11 @@ class DateHelperTest extends BaseTest
 
     /**
      * Tests calculating hour differences between dates.
+     * Verifies calculation of hour differences including partial hours and multiple days.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\DateHelper::diffHours
+     * @return void
      */
     public function testDiffHours()
     {
@@ -59,6 +74,11 @@ class DateHelperTest extends BaseTest
 
     /**
      * Tests calculating day differences between dates.
+     * Verifies calculation of day differences including month boundaries and leap years.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\DateHelper::diffDays
+     * @return void
      */
     public function testDiffDays()
     {
@@ -71,6 +91,11 @@ class DateHelperTest extends BaseTest
 
     /**
      * Tests calculating month differences between dates.
+     * Verifies calculation of month differences including partial months and year boundaries.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\DateHelper::diffMonths
+     * @return void
      */
     public function testDiffMonths()
     {
@@ -82,6 +107,11 @@ class DateHelperTest extends BaseTest
 
     /**
      * Tests calculating year differences between dates.
+     * Verifies calculation of year differences including partial years.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\DateHelper::diffYears
+     * @return void
      */
     public function testDiffYears()
     {

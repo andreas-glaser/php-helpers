@@ -24,6 +24,10 @@ class ValueHelperTest extends BaseTest
      * - Null
      * - False
      * - Empty arrays
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ValueHelper::emptyToNull
+     * @return void
      */
     public function testEmptyToNull()
     {
@@ -61,6 +65,10 @@ class ValueHelperTest extends BaseTest
      * - Empty values
      * - Non-empty values
      * - Edge cases
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ValueHelper::isEmpty
+     * @return void
      */
     public function testIsEmpty()
     {
@@ -87,6 +95,10 @@ class ValueHelperTest extends BaseTest
      * - Integer values
      * - String representations of integers
      * - Non-integer values
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ValueHelper::isInteger
+     * @return void
      */
     public function testIsInteger()
     {
@@ -108,6 +120,10 @@ class ValueHelperTest extends BaseTest
      * - Float values
      * - String representations of floats
      * - Non-float values
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ValueHelper::isFloat
+     * @return void
      */
     public function testIsFloat()
     {
@@ -131,6 +147,10 @@ class ValueHelperTest extends BaseTest
      * - Invalid dates
      * - DateTime objects
      * - Custom format validation
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ValueHelper::isDateTime
+     * @return void
      */
     public function testIsDateTime()
     {
@@ -159,6 +179,10 @@ class ValueHelperTest extends BaseTest
      * Tests:
      * - Boolean values
      * - Non-boolean values
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ValueHelper::isBool
+     * @return void
      */
     public function testIsBool()
     {
@@ -176,6 +200,10 @@ class ValueHelperTest extends BaseTest
      * Tests:
      * - Boolean true
      * - Non-true values
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ValueHelper::isTrue
+     * @return void
      */
     public function testIsTrue()
     {
@@ -194,6 +222,10 @@ class ValueHelperTest extends BaseTest
      * Tests:
      * - Boolean false
      * - Non-false values
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ValueHelper::isFalse
+     * @return void
      */
     public function testIsFalse()
     {
@@ -207,12 +239,16 @@ class ValueHelperTest extends BaseTest
     }
 
     /**
-     * Tests the isTrueLike() method for checking truthy values.
+     * Tests the isTrueLike() method for checking values that evaluate to true.
      * 
      * Tests:
      * - Boolean true
-     * - Truthy values (1, '1', 'true', etc.)
+     * - Truthy values (1, "1", non-empty arrays)
      * - Non-truthy values
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ValueHelper::isTrueLike
+     * @return void
      */
     public function testIsTrueLike()
     {
@@ -229,12 +265,16 @@ class ValueHelperTest extends BaseTest
     }
 
     /**
-     * Tests the isFalseLike() method for checking falsy values.
+     * Tests the isFalseLike() method for checking values that evaluate to false.
      * 
      * Tests:
      * - Boolean false
-     * - Falsy values (0, '0', 'false', etc.)
+     * - Falsy values (0, "", null, empty arrays)
      * - Non-falsy values
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\ValueHelper::isFalseLike
+     * @return void
      */
     public function testIsFalseLike()
     {

@@ -15,6 +15,11 @@ class NumberHelperTest extends BaseTest
 {
     /**
      * Tests the ordinal() method for converting numbers to ordinal suffixes.
+     * Verifies correct ordinal suffix generation for different numbers (1st, 2nd, 3rd, 4th, etc.).
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\NumberHelper::ordinal
+     * @return void
      */
     public function testOrdinal()
     {

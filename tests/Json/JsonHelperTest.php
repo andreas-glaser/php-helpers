@@ -17,6 +17,15 @@ class JsonHelperTest extends BaseTest
 {
     /**
      * Tests the isValid() method with various input types and JSON strings.
+     * Verifies validation of:
+     * - Primitive types (numbers, booleans, null)
+     * - String representations of JSON values
+     * - Arrays and objects
+     * - Nested structures
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\JsonHelper::isValid
+     * @return void
      */
     public function testIsValid()
     {

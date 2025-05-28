@@ -283,15 +283,37 @@ HTML form element generation utilities.
 - `FormHelper::radio($name, $value = null, $checked = false, $attributesHelper = null)`: Create radio button
 
 #### Attributes Helper (`Html/AttributesHelper.php`)
-HTML attribute management utilities.
+A powerful utility class for managing HTML attributes with proper escaping and validation.
 
-#### Key Functions:
-- `AttributesHelper::f($attributes = null)`: Create attributes instance
-- `AttributesHelper::set($key, $value)`: Set attribute value
-- `AttributesHelper::get($key, $default = null)`: Get attribute value
-- `AttributesHelper::has($key)`: Check if attribute exists
-- `AttributesHelper::remove($key)`: Remove attribute
-- `AttributesHelper::render()`: Render attributes as HTML string
+```php
+// Create a new instance with initial attributes
+$attrs = AttributesHelper::f(['class' => 'btn']);
+
+// Add more classes and attributes
+$attrs->addClass('btn-primary')
+     ->addStyle('margin', '10px')
+     ->addData('toggle', 'modal');
+
+// Render as HTML attributes string
+echo $attrs; // outputs: class="btn btn-primary" style="margin:10px" data-toggle="modal"
+```
+
+##### Key Features:
+- Type-safe attribute handling
+- HTML escaping for security
+- CSS style parsing and validation
+- Data attribute management
+- Class name management
+
+##### Main Methods:
+- `AttributesHelper::f($input = null)`: Create new instance (recommended factory method)
+- `setAttribute(string $name, mixed $value)`: Set any attribute with validation
+- `setId(string $value)`: Set the ID attribute
+- `addClass(string|array $classes)`: Add one or more CSS classes
+- `addData(string $name, mixed $value)`: Add a data attribute
+- `addStyle(string $property, string $value)`: Add a CSS style property
+- `render()`: Convert to HTML attributes string
+- `toArray()`: Get all attributes as an array
 
 #### Bootstrap Helper (`Html/BootstrapHelper.php`)
 Bootstrap-specific HTML generation utilities.

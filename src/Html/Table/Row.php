@@ -33,7 +33,7 @@ class Row implements RenderableInterface, FactoryInterface
      *
      * @return \AndreasGlaser\Helpers\Html\Table\Row
      */
-    public static function f(array $cells = null, $attributesHelper = null)
+    public static function f(array $cells = null, $attributesHelper = null): self
     {
         return new Row($cells, $attributesHelper);
     }
@@ -73,7 +73,7 @@ class Row implements RenderableInterface, FactoryInterface
      *
      * @return \AndreasGlaser\Helpers\Html\Table\Cell[]
      */
-    public function getCells()
+    public function getCells(): array
     {
         return $this->cells;
     }
@@ -83,7 +83,7 @@ class Row implements RenderableInterface, FactoryInterface
      *
      * @return \AndreasGlaser\Helpers\Html\AttributesHelper
      */
-    public function getAttributes()
+    public function getAttributes(): AttributesHelper
     {
         return $this->attributes;
     }
@@ -107,7 +107,7 @@ class Row implements RenderableInterface, FactoryInterface
      * @param RendererInterface|null $renderer Optional custom renderer
      * @return string The rendered HTML row
      */
-    public function render(RendererInterface $renderer = null)
+    public function render(RendererInterface $renderer = null): string
     {
         if ($renderer) {
             return $renderer->render($this);

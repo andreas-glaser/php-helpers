@@ -29,7 +29,7 @@ class ArrayHelper
      *
      * @return mixed The value if found, default value otherwise
      */
-    public static function get(array $array, $key, $default = null)
+    public static function get(array $array, $key, $default = null): mixed
     {
         return \array_key_exists($key, $array) ? $array[$key] : $default;
     }
@@ -44,7 +44,7 @@ class ArrayHelper
      *
      * @return mixed|null The key if found, default value otherwise
      */
-    public static function getKeyByValue(array $array, $value, $default = null, $strict = true)
+    public static function getKeyByValue(array $array, $value, $default = null, $strict = true): mixed
     {
         $key = \array_search($value, $array, $strict);
 
@@ -64,7 +64,7 @@ class ArrayHelper
      *
      * @throws \RuntimeException If path doesn't exist and $throwException is true
      */
-    public static function getByPath(array $array, $path, $throwException = false, $default = null, $delimiter = self::PATH_DELIMITER)
+    public static function getByPath(array $array, $path, $throwException = false, $default = null, $delimiter = self::PATH_DELIMITER): mixed
     {
         $pieces = \explode($delimiter, $path);
 
@@ -98,7 +98,7 @@ class ArrayHelper
      *
      * @throws \RuntimeException If path exists but is not an array
      */
-    public static function setByPath(array $array, $path, $value, $delimiter = self::PATH_DELIMITER)
+    public static function setByPath(array $array, $path, $value, $delimiter = self::PATH_DELIMITER): array
     {
         $current = &$array;
         $pathParts = \explode($delimiter, $path);
@@ -171,7 +171,7 @@ class ArrayHelper
      *
      * @return bool True if the path exists
      */
-    public static function existsByPath(array $array, $path, $delimiter = self::PATH_DELIMITER)
+    public static function existsByPath(array $array, $path, $delimiter = self::PATH_DELIMITER): bool
     {
         $current = &$array;
         $pathParts = \explode($delimiter, $path);
@@ -196,7 +196,7 @@ class ArrayHelper
      *
      * @return bool True if the path is set
      */
-    public static function issetByPath(array $array, $path, $delimiter = self::PATH_DELIMITER)
+    public static function issetByPath(array $array, $path, $delimiter = self::PATH_DELIMITER): bool
     {
         $current = &$array;
         $pathParts = \explode($delimiter, $path);
@@ -221,7 +221,7 @@ class ArrayHelper
      *
      * @return array The modified array
      */
-    public static function prepend(array $array, $value, $key = false)
+    public static function prepend(array $array, $value, $key = false): array
     {
         $array = \array_reverse($array, true);
 
@@ -243,7 +243,7 @@ class ArrayHelper
      *
      * @return array The modified array
      */
-    public static function append(array $array, $value, $key = false)
+    public static function append(array $array, $value, $key = false): array
     {
         if (false !== $key) {
             $array[$key] = $value;
@@ -265,7 +265,7 @@ class ArrayHelper
      *
      * @throws Exception If the position doesn't exist
      */
-    public static function insertBefore(array &$array, $position, array $values)
+    public static function insertBefore(array &$array, $position, array $values): void
     {
         // enforce existing position
         if (!isset($array[$position])) {
@@ -286,7 +286,7 @@ class ArrayHelper
             }
         }
 
-        return \array_slice($array, 0, $offset, true) + $values + \array_slice($array, $offset, null, true);
+        $array = \array_slice($array, 0, $offset, true) + $values + \array_slice($array, $offset, null, true);
     }
 
     /**
@@ -300,7 +300,7 @@ class ArrayHelper
      *
      * @throws Exception If the position doesn't exist
      */
-    public static function insertAfter(array &$array, $position, array $values)
+    public static function insertAfter(array &$array, $position, array $values): void
     {
         // enforce existing position
         if (!isset($array[$position])) {
@@ -322,8 +322,6 @@ class ArrayHelper
         }
 
         $array = \array_slice($array, 0, $offset, true) + $values + \array_slice($array, $offset, null, true);
-
-        return $array;
     }
 
     /**
@@ -334,7 +332,7 @@ class ArrayHelper
      *
      * @return mixed The first value or default
      */
-    public static function getFirstValue(array $array, $default = null)
+    public static function getFirstValue(array $array, $default = null): mixed
     {
         $firstItem = \reset($array);
 
@@ -349,7 +347,7 @@ class ArrayHelper
      *
      * @return mixed The last value or default
      */
-    public static function getLastValue(array $array, $default = null)
+    public static function getLastValue(array $array, $default = null): mixed
     {
         $lastItem = \end($array);
 
@@ -363,7 +361,7 @@ class ArrayHelper
      *
      * @return mixed A random value from the array
      */
-    public static function getRandomValue(array $array)
+    public static function getRandomValue(array $array): mixed
     {
         return $array[\array_rand($array)];
     }
@@ -410,7 +408,7 @@ class ArrayHelper
      *
      * @return array The modified array
      */
-    public static function removeByValue(array $array, $value, $strict = true)
+    public static function removeByValue(array $array, $value, $strict = true): array
     {
         $key = \array_search($value, $array, $strict);
         if (false !== $key) {
@@ -427,7 +425,7 @@ class ArrayHelper
      *
      * @return array The modified array
      */
-    public static function keysCamelToUnderscore(array $array)
+    public static function keysCamelToUnderscore(array $array): array
     {
         $newArray = [];
 
@@ -452,7 +450,7 @@ class ArrayHelper
      *
      * @return array The modified array
      */
-    public static function unsetEmptyValues(array $array, $recursive = false)
+    public static function unsetEmptyValues(array $array, $recursive = false): array
     {
         foreach ($array as $key => $value) {
             if (empty($value)) {
@@ -476,7 +474,7 @@ class ArrayHelper
      *
      * @return string The joined string
      */
-    public static function implodeIgnoreEmpty($glue, array $pieces)
+    public static function implodeIgnoreEmpty($glue, array $pieces): string
     {
         $processedPieces = [];
         foreach ($pieces as $piece) {
@@ -496,7 +494,7 @@ class ArrayHelper
      *
      * @return string The joined string
      */
-    public static function implodeKeys($glue, array $array)
+    public static function implodeKeys($glue, array $array): string
     {
         return \implode($glue, \array_keys($array));
     }
@@ -509,7 +507,7 @@ class ArrayHelper
      *
      * @return array The resulting array
      */
-    public static function explodeIgnoreEmpty($delimiter, $string)
+    public static function explodeIgnoreEmpty($delimiter, $string): array
     {
         $return = [];
         $pieces = \explode($delimiter, $string);
@@ -530,7 +528,7 @@ class ArrayHelper
      *
      * @return array The modified array
      */
-    public static function valueToUpper(array $array, $recursive = true)
+    public static function valueToUpper(array $array, $recursive = true): array
     {
         $return = [];
 
@@ -552,7 +550,7 @@ class ArrayHelper
      *
      * @return bool True if the array is associative
      */
-    public static function isAssoc(array $array)
+    public static function isAssoc(array $array): bool
     {
         $keys = \array_keys($array);
 
@@ -570,7 +568,7 @@ class ArrayHelper
      *
      * @throws \RuntimeException If keys are missing and $throwException is true
      */
-    public static function assocIndexesExist(array $arrayToCheck, array $arrayToCompareWith, $throwException = true)
+    public static function assocIndexesExist(array $arrayToCheck, array $arrayToCompareWith, $throwException = true): bool
     {
         $exists = true;
 
@@ -604,7 +602,7 @@ class ArrayHelper
      *
      * @return array The modified array
      */
-    public static function replaceValue(array $array, $value, $replacement, $recursively = true, $caseSensitive = true)
+    public static function replaceValue(array $array, $value, $replacement, $recursively = true, $caseSensitive = true): array
     {
         foreach ($array as $k => $v) {
             if ($recursively && \is_array($v)) {
@@ -624,7 +622,7 @@ class ArrayHelper
      *
      * @return array The merged array
      */
-    public static function merge()
+    public static function merge(): array
     {
         $arrays = \func_get_args();
 
@@ -657,7 +655,7 @@ class ArrayHelper
      *
      * @return mixed The first index or default
      */
-    public static function getFirstIndex($array, $default = null)
+    public static function getFirstIndex($array, $default = null): mixed
     {
         return static::getFirstValue($array, $default);
     }
@@ -671,7 +669,7 @@ class ArrayHelper
      *
      * @return array The modified array
      */
-    public static function unshiftAssoc($array, $key, $val)
+    public static function unshiftAssoc($array, $key, $val): array
     {
         return static::prepend($array, $val, $key);
     }
@@ -683,7 +681,7 @@ class ArrayHelper
      *
      * @return array The modified array
      */
-    public static function removeFirstIndex(array $array)
+    public static function removeFirstIndex(array $array): array
     {
         return self::removeFirstElement($array);
     }

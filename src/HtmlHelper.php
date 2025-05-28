@@ -23,7 +23,7 @@ class HtmlHelper
      *
      * @return string The encoded string
      */
-    public static function chars($value, $double_encode = true)
+    public static function chars($value, $double_encode = true): string
     {
         return \htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8', $double_encode);
     }
@@ -36,7 +36,7 @@ class HtmlHelper
      *
      * @return string The encoded string
      */
-    public static function entities($value, $double_encode = true)
+    public static function entities($value, $double_encode = true): string
     {
         return \htmlentities((string)$value, ENT_QUOTES, 'UTF-8', $double_encode);
     }
@@ -49,7 +49,7 @@ class HtmlHelper
      *
      * @return string The rendered div element
      */
-    public static function div($content, $attributesHelper = null)
+    public static function div($content, $attributesHelper = null): string
     {
         return '<div' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</div>';
     }
@@ -62,7 +62,7 @@ class HtmlHelper
      *
      * @return string The rendered paragraph element
      */
-    public static function p($content, $attributesHelper = null)
+    public static function p($content, $attributesHelper = null): string
     {
         return '<p' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</p>';
     }
@@ -75,7 +75,7 @@ class HtmlHelper
      *
      * @return string The rendered span element
      */
-    public static function span($content, $attributesHelper = null)
+    public static function span($content, $attributesHelper = null): string
     {
         return '<span' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</span>';
     }
@@ -88,7 +88,7 @@ class HtmlHelper
      *
      * @return string The rendered heading element
      */
-    public static function h1($content, $attributesHelper = null)
+    public static function h1($content, $attributesHelper = null): string
     {
         return '<h1' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</h1>';
     }
@@ -101,7 +101,7 @@ class HtmlHelper
      *
      * @return string The rendered heading element
      */
-    public static function h2($content, $attributesHelper = null)
+    public static function h2($content, $attributesHelper = null): string
     {
         return '<h2' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</h2>';
     }
@@ -114,7 +114,7 @@ class HtmlHelper
      *
      * @return string The rendered heading element
      */
-    public static function h3($content, $attributesHelper = null)
+    public static function h3($content, $attributesHelper = null): string
     {
         return '<h3' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</h3>';
     }
@@ -127,7 +127,7 @@ class HtmlHelper
      *
      * @return string The rendered heading element
      */
-    public static function h4($content, $attributesHelper = null)
+    public static function h4($content, $attributesHelper = null): string
     {
         return '<h4' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</h4>';
     }
@@ -140,7 +140,7 @@ class HtmlHelper
      *
      * @return string The rendered heading element
      */
-    public static function h5($content, $attributesHelper = null)
+    public static function h5($content, $attributesHelper = null): string
     {
         return '<h5' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</h5>';
     }
@@ -153,7 +153,7 @@ class HtmlHelper
      *
      * @return string The rendered heading element
      */
-    public static function h6($content, $attributesHelper = null)
+    public static function h6($content, $attributesHelper = null): string
     {
         return '<h6' . ($attributesHelper ? AttributesHelper::f($attributesHelper) : null) . '>' . $content . '</h6>';
     }
@@ -167,7 +167,7 @@ class HtmlHelper
      *
      * @return string The rendered anchor element
      */
-    public static function a($href, $content, $attributesHelper = null)
+    public static function a($href, $content, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('href', $href);
@@ -183,7 +183,7 @@ class HtmlHelper
      *
      * @return string The rendered image element
      */
-    public static function image($src, $attributesHelper = null)
+    public static function image($src, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('src', $src);
@@ -205,7 +205,7 @@ class HtmlHelper
      *
      * @return string The HTML formatted text
      */
-    public static function autoParagraph($str, $br = true)
+    public static function autoParagraph($str, $br = true): string
     {
         // Trim whitespace
         if ('' === ($str = \trim($str))) {
@@ -255,7 +255,7 @@ class HtmlHelper
      *
      * @return string The HTML formatted paragraphs
      */
-    public static function arrayToParagraphs($paragraphs)
+    public static function arrayToParagraphs($paragraphs): string
     {
         $html = '';
 

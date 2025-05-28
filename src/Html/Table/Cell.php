@@ -41,7 +41,7 @@ class Cell implements RenderableInterface, FactoryInterface
      *
      * @return \AndreasGlaser\Helpers\Html\Table\Cell
      */
-    public static function f($content = null, $attributesHelper = null, bool $isHeader = false)
+    public static function f($content = null, $attributesHelper = null, bool $isHeader = false): self
     {
         return new Cell($content, $attributesHelper, $isHeader);
     }
@@ -65,7 +65,7 @@ class Cell implements RenderableInterface, FactoryInterface
      *
      * @return string|null
      */
-    public function getContent()
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -103,7 +103,7 @@ class Cell implements RenderableInterface, FactoryInterface
      *
      * @return int|null The number of columns this cell spans
      */
-    public function getColSpan()
+    public function getColSpan(): ?int
     {
         return $this->attributes->get('colspan');
     }
@@ -128,7 +128,7 @@ class Cell implements RenderableInterface, FactoryInterface
      *
      * @return int|null The number of rows this cell spans
      */
-    public function getRowSpan()
+    public function getRowSpan(): ?int
     {
         return $this->attributes->get('rowspan');
     }
@@ -160,7 +160,7 @@ class Cell implements RenderableInterface, FactoryInterface
      * @return string|null The scope value
      * @deprecated Not supported in HTML5. http://www.w3schools.com/tags/att_td_scope.asp
      */
-    public function getScope()
+    public function getScope(): ?string
     {
         return $this->attributes->get('scope');
     }
@@ -170,7 +170,7 @@ class Cell implements RenderableInterface, FactoryInterface
      *
      * @return \AndreasGlaser\Helpers\Html\AttributesHelper
      */
-    public function getAttributes()
+    public function getAttributes(): AttributesHelper
     {
         return $this->attributes;
     }
@@ -204,7 +204,7 @@ class Cell implements RenderableInterface, FactoryInterface
      * @param RendererInterface|null $renderer Optional custom renderer
      * @return string The rendered HTML cell
      */
-    public function render(RendererInterface $renderer = null)
+    public function render(RendererInterface $renderer = null): string
     {
         if ($renderer) {
             return $renderer->render($this);

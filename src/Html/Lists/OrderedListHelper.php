@@ -22,7 +22,7 @@ class OrderedListHelper extends BaseListHelper
      * @param RendererInterface|null $renderer Optional custom renderer
      * @return string The rendered HTML <ol> element
      */
-    public function render(RendererInterface $renderer = null)
+    public function render(RendererInterface $renderer = null): string
     {
         if ($renderer) {
             return $renderer->render($this);

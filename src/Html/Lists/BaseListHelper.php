@@ -35,7 +35,7 @@ abstract class BaseListHelper implements FactoryInterface, RenderableInterface
      *
      * @return static A new instance of the list helper
      */
-    public static function f($attributes = null)
+    public static function f($attributes = null): static
     {
         $className = \get_called_class();
 

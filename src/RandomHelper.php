@@ -19,7 +19,7 @@ class RandomHelper
      *
      * @return bool A random boolean value
      */
-    public static function trueFalse()
+    public static function trueFalse(): bool
     {
         return 1 === \rand(0, 1);
     }

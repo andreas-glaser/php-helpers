@@ -15,5 +15,5 @@ interface RendererInterface
      * @param mixed $data The data to render
      * @return string The rendered output
      */
-    public function render($data);
+    public function render($data): string;
 }

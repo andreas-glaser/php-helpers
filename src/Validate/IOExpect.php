@@ -23,7 +23,7 @@ class IOExpect
      *
      * @throws IOException If the path is not a directory
      */
-    public static function isDir(string $path)
+    public static function isDir(string $path): void
     {
         if (!\is_dir($path)) {
             throw new IOException(\sprintf('"%s" is not a directory', $path), 0, null, $path);
@@ -37,7 +37,7 @@ class IOExpect
      *
      * @throws IOException If the path is not a file
      */
-    public static function isFile(string $path)
+    public static function isFile(string $path): void
     {
         if (!\is_file($path)) {
             throw new IOException(\sprintf('"%s" is not a file', $path), 0, null, $path);
@@ -51,7 +51,7 @@ class IOExpect
      *
      * @throws IOException If the path is not readable
      */
-    public static function isReadable(string $path)
+    public static function isReadable(string $path): void
     {
         if (!\is_readable($path)) {
             throw new IOException(\sprintf('"%s" is not readable', $path), 0, null, $path);
@@ -65,7 +65,7 @@ class IOExpect
      *
      * @throws IOException If the path is not writable
      */
-    public static function isWritable(string $path)
+    public static function isWritable(string $path): void
     {
         if (!\is_writable($path)) {
             throw new IOException(\sprintf('"%s" is not writable', $path), 0, null, $path);

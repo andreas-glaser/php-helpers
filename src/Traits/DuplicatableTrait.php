@@ -18,7 +18,7 @@ trait DuplicatableTrait
      *
      * @return $this A new instance with the same property values
      */
-    public function duplicate()
+    public function duplicate(): static
     {
         $duplicate = clone $this;
 

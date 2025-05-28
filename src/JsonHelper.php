@@ -22,7 +22,7 @@ class JsonHelper
      *
      * @return bool True if the value is valid JSON, false otherwise
      */
-    public static function isValid($string)
+    public static function isValid($string): bool
     {
         if (\is_int($string) || \is_float($string)) {
             return true;
@@ -44,7 +44,7 @@ class JsonHelper
      *
      * @return string The encoded string safe for JavaScript use
      */
-    public static function encodeForJavaScript($string)
+    public static function encodeForJavaScript($string): string
     {
         return \json_encode($string, JSON_HEX_QUOT | JSON_HEX_APOS);
     }

@@ -27,7 +27,7 @@ class EmailHelper
      *
      * @return array Array of unique, valid email addresses
      */
-    public static function clean($emails, array $delimiters = [',', '|', ';'])
+    public static function clean($emails, array $delimiters = [',', '|', ';']): array
     {
         $cleanedEmails = [];
 
@@ -69,7 +69,7 @@ class EmailHelper
      *
      * @return bool True if the email address is valid
      */
-    public static function isValid($email)
+    public static function isValid($email): bool
     {
         return (bool)\filter_var($email, FILTER_VALIDATE_EMAIL);
     }

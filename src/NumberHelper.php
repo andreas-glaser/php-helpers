@@ -24,7 +24,7 @@ class NumberHelper
      *
      * @return string The ordinal indicator suffix ('st', 'nd', 'rd', or 'th')
      */
-    public static function ordinal($number)
+    public static function ordinal($number): string
     {
         if ($number % 100 > 10 && $number % 100 < 14) {
             return 'th';

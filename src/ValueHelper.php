@@ -17,7 +17,7 @@ class ValueHelper
      *
      * @return mixed|null The original value if not empty, null otherwise
      */
-    public static function emptyToNull(&$string)
+    public static function emptyToNull(&$string): mixed
     {
         return empty($string) ? null : $string;
     }
@@ -32,7 +32,7 @@ class ValueHelper
      *
      * @return bool True if the value is empty, false otherwise
      */
-    public static function isEmpty($value)
+    public static function isEmpty($value): bool
     {
         return empty($value);
     }
@@ -46,7 +46,7 @@ class ValueHelper
      *
      * @return bool True if the value is an integer or a string containing only digits
      */
-    public static function isInteger($value)
+    public static function isInteger($value): bool
     {
         if (\is_int($value)) {
             return true;
@@ -66,7 +66,7 @@ class ValueHelper
      *
      * @return bool True if the value is a float or a string containing a valid float format
      */
-    public static function isFloat($value)
+    public static function isFloat($value): bool
     {
         if (\is_float($value)) {
             return true;
@@ -109,7 +109,7 @@ class ValueHelper
      *
      * @return bool True if the value is a boolean and equals true
      */
-    public static function isTrue($value)
+    public static function isTrue($value): bool
     {
         return self::isBool($value) && true === $value;
     }
@@ -121,7 +121,7 @@ class ValueHelper
      *
      * @return bool True if the value is a boolean and equals false
      */
-    public static function isFalse($value)
+    public static function isFalse($value): bool
     {
         return self::isBool($value) && false === $value;
     }
@@ -133,7 +133,7 @@ class ValueHelper
      *
      * @return bool True if the value evaluates to true
      */
-    public static function isTrueLike($value)
+    public static function isTrueLike($value): bool
     {
         return $value ? true : false;
     }
@@ -145,7 +145,7 @@ class ValueHelper
      *
      * @return bool True if the value evaluates to false
      */
-    public static function isFalseLike($value)
+    public static function isFalseLike($value): bool
     {
         return !$value ? true : false;
     }

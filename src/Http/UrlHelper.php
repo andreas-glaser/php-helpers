@@ -22,7 +22,7 @@ class UrlHelper
      *
      * @return string|null The protocol, host, and port string, or null if running in CLI
      */
-    public static function protocolHostPort()
+    public static function protocolHostPort(): ?string
     {
         if (RequestHelper::isCli()) {
             return null;
@@ -52,7 +52,7 @@ class UrlHelper
      *
      * @return string|null The query string (including '?'), or null if no parameters
      */
-    public static function query(array $parameters = null, bool $mergeGetVariables = true)
+    public static function query(array $parameters = null, bool $mergeGetVariables = true): ?string
     {
         if ($mergeGetVariables) {
             if (null === $parameters) {
@@ -79,7 +79,7 @@ class UrlHelper
      *
      * @return string|null The current URL, or null if running in CLI
      */
-    public static function currentUrl(bool $includeQuery = true, bool $urlEncode = false)
+    public static function currentUrl(bool $includeQuery = true, bool $urlEncode = false): ?string
     {
         if (RequestHelper::isCli()) {
             return null;
@@ -98,7 +98,7 @@ class UrlHelper
      *
      * @return string|null The current URI, or null if running in CLI
      */
-    public static function currentUri(bool $includeQueryParams = true, bool $encode = false)
+    public static function currentUri(bool $includeQueryParams = true, bool $encode = false): ?string
     {
         if (RequestHelper::isCli()) {
             return null;

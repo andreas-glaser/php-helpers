@@ -66,7 +66,7 @@ trait RuntimeCacheTrait
      *
      * @return mixed The cached value or the default value
      */
-    public function rtcGet(string $id, string $group = '_default', $default = null)
+    public function rtcGet(string $id, string $group = '_default', $default = null): mixed
     {
         if (!$this->rtcExists($id, $group)) {
             return $default;
@@ -84,7 +84,7 @@ trait RuntimeCacheTrait
      *
      * @return mixed The cached value or the default value
      */
-    public function rtcGetDelete(string $id, string $group = '_default', $default = null)
+    public function rtcGetDelete(string $id, string $group = '_default', $default = null): mixed
     {
         $result = $this->rtcGet($id, $group, $default);
         $this->rtcDelete($id, $group);
@@ -117,7 +117,7 @@ trait RuntimeCacheTrait
      *
      * @return mixed The group's cached values or the default value
      */
-    public function rtcGroupGet(string $group, $default = null)
+    public function rtcGroupGet(string $group, $default = null): mixed
     {
         return $this->rtcGroupExists($group) ? $this->runtimeCache[$group] : $default;
     }

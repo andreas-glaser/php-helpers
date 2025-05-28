@@ -52,7 +52,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @return \AndreasGlaser\Helpers\Html\AttributesHelper
      * @deprecated Will be removed in 1.0 - use "Object::f()" instead
      */
-    public static function create(array $attributes = null)
+    public static function create(array $attributes = null): self
     {
         return self::f($attributes);
     }
@@ -63,7 +63,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param AttributesHelper|array|null $input Initial attributes or existing AttributesHelper instance
      * @return \AndreasGlaser\Helpers\Html\AttributesHelper
      */
-    public static function f($input = null)
+    public static function f($input = null): static
     {
         if ($input instanceof AttributesHelper) {
             return $input;
@@ -123,7 +123,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param string $name The attribute name to check
      * @return bool True if the attribute exists
      */
-    public function has($name)
+    public function has($name): bool
     {
         return isset($this->attributes[$name]);
     }
@@ -135,7 +135,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param mixed  $default Default value if attribute doesn't exist
      * @return mixed The attribute value or default
      */
-    public function get($name, $default = null)
+    public function get($name, $default = null): mixed
     {
         return $this->has($name) ? $this->attributes[$name] : $default;
     }
@@ -158,7 +158,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return bool True if ID exists
      */
-    public function hasId()
+    public function hasId(): bool
     {
         return !\is_null($this->id);
     }
@@ -169,7 +169,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param mixed $default Default value if ID doesn't exist
      * @return string|null The ID value or default
      */
-    public function getId($default = null)
+    public function getId($default = null): ?string
     {
         return $this->hasId() ? $this->id : $default;
     }
@@ -208,7 +208,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param string $name The class name to check
      * @return bool True if the class exists
      */
-    public function hasClass($name)
+    public function hasClass($name): bool
     {
         return isset($this->classes[$name]);
     }
@@ -218,7 +218,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return bool True if any classes exist
      */
-    public function hasClasses()
+    public function hasClasses(): bool
     {
         return !empty($this->classes);
     }
@@ -243,7 +243,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return array Associative array of class names
      */
-    public function getClasses()
+    public function getClasses(): array
     {
         return $this->classes;
     }
@@ -268,7 +268,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param string $name The style property name to check
      * @return bool True if the style exists
      */
-    public function hasStyle($name)
+    public function hasStyle($name): bool
     {
         return isset($this->styles[$name]);
     }
@@ -278,7 +278,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return bool True if any styles exist
      */
-    public function hasStyles()
+    public function hasStyles(): bool
     {
         return !empty($this->styles);
     }
@@ -303,7 +303,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return array Associative array of style properties and values
      */
-    public function getStyles()
+    public function getStyles(): array
     {
         return $this->styles;
     }
@@ -329,7 +329,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param string|null $name The data attribute name to check (without 'data-' prefix)
      * @return bool True if the data attribute exists or if any data attributes exist
      */
-    public function hasData($name = null)
+    public function hasData($name = null): bool
     {
         return \is_null($name) ? !empty($this->data) : isset($this->data[$name]);
     }
@@ -341,7 +341,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param mixed       $default Default value if attribute doesn't exist
      * @return array|mixed The data attribute value(s) or default
      */
-    public function getData($name = null, $default = null)
+    public function getData($name = null, $default = null): mixed
     {
         return $this->hasData($name) ? (\is_null($name) ? $this->data : $this->data[$name]) : $default;
     }
@@ -367,7 +367,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param string $glue The string to use between class names
      * @return string The imploded class names
      */
-    public function getClassesImploded($glue = ' ')
+    public function getClassesImploded($glue = ' '): string
     {
         return \implode($glue, $this->classes);
     }
@@ -378,7 +378,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      * @param RendererInterface|null $renderer Optional custom renderer
      * @return string The rendered HTML attributes
      */
-    public function render(RendererInterface $renderer = null)
+    public function render(RendererInterface $renderer = null): string
     {
         if ($renderer) {
             return $renderer->render($this);
@@ -427,7 +427,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return array The attributes as an array
      */
-    public function getAsArray()
+    public function getAsArray(): array
     {
         $return = [];
 
@@ -455,7 +455,7 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
      *
      * @return string The rendered HTML attributes
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->render();
     }

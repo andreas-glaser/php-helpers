@@ -22,7 +22,7 @@ class FormHelper
      *
      * @return string The rendered form opening tag
      */
-    public static function open($action = null, $method = 'GET', $attributesHelper = null)
+    public static function open($action = null, $method = 'GET', $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('action', $action);
@@ -36,7 +36,7 @@ class FormHelper
      *
      * @return string The rendered form closing tag
      */
-    public static function close()
+    public static function close(): string
     {
         return '</form>';
     }
@@ -50,7 +50,7 @@ class FormHelper
      *
      * @return string The rendered text input
      */
-    public static function text($name, $value = null, $attributesHelper = null)
+    public static function text($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -69,7 +69,7 @@ class FormHelper
      *
      * @return string The rendered password input
      */
-    public static function password($name, $value = null, $attributesHelper = null)
+    public static function password($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -88,7 +88,7 @@ class FormHelper
      *
      * @return string The rendered email input
      */
-    public static function email($name, $value = null, $attributesHelper = null)
+    public static function email($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -107,7 +107,7 @@ class FormHelper
      *
      * @return string The rendered color input
      */
-    public static function color($name, $value = null, $attributesHelper = null)
+    public static function color($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -126,7 +126,7 @@ class FormHelper
      *
      * @return string The rendered date input
      */
-    public static function date($name, $value = null, $attributesHelper = null)
+    public static function date($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -145,7 +145,7 @@ class FormHelper
      *
      * @return string The rendered datetime input
      */
-    public static function datetime($name, $value = null, $attributesHelper = null)
+    public static function datetime($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -164,7 +164,7 @@ class FormHelper
      *
      * @return string The rendered datetime-local input
      */
-    public static function datetimeLocal($name, $value = null, $attributesHelper = null)
+    public static function datetimeLocal($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -183,7 +183,7 @@ class FormHelper
      *
      * @return string The rendered month input
      */
-    public static function month($name, $value = null, $attributesHelper = null)
+    public static function month($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -202,7 +202,7 @@ class FormHelper
      *
      * @return string The rendered number input
      */
-    public static function number($name, $value = null, $attributesHelper = null)
+    public static function number($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -223,7 +223,7 @@ class FormHelper
      *
      * @return string The rendered range input
      */
-    public static function range($name, $value, $min, $max, $attributesHelper = null)
+    public static function range($name, $value, $min, $max, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -244,7 +244,7 @@ class FormHelper
      *
      * @return string The rendered search input
      */
-    public static function search($name, $value = null, $attributesHelper = null)
+    public static function search($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -263,7 +263,7 @@ class FormHelper
      *
      * @return string The rendered telephone input
      */
-    public static function tel($name, $value = null, $attributesHelper = null)
+    public static function tel($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -282,7 +282,7 @@ class FormHelper
      *
      * @return string The rendered time input
      */
-    public static function time($name, $value = null, $attributesHelper = null)
+    public static function time($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -301,7 +301,7 @@ class FormHelper
      *
      * @return string The rendered URL input
      */
-    public static function url($name, $value = null, $attributesHelper = null)
+    public static function url($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -320,7 +320,7 @@ class FormHelper
      *
      * @return string The rendered week input
      */
-    public static function week($name, $value = null, $attributesHelper = null)
+    public static function week($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -339,7 +339,7 @@ class FormHelper
      *
      * @return string The rendered hidden input
      */
-    public static function hidden($name, $value = null, $attributesHelper = null)
+    public static function hidden($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -358,7 +358,7 @@ class FormHelper
      *
      * @return string The rendered textarea
      */
-    public static function textarea($name, $value = null, $attributesHelper = null)
+    public static function textarea($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -375,7 +375,7 @@ class FormHelper
      *
      * @return string The rendered button
      */
-    public static function button($name, $value = null, $attributesHelper = null)
+    public static function button($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -393,7 +393,7 @@ class FormHelper
      *
      * @return string The rendered submit button
      */
-    public static function submit($name, $value = null, $attributesHelper = null)
+    public static function submit($name, $value = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -412,7 +412,7 @@ class FormHelper
      *
      * @return string The rendered label
      */
-    public static function label($value, $forId = null, $formId = null, $attributesHelper = null)
+    public static function label($value, $forId = null, $formId = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
 
@@ -437,7 +437,7 @@ class FormHelper
      *
      * @return string The rendered select element
      */
-    public static function select($name, array $options, $checkedValue = null, $attributesHelper = null)
+    public static function select($name, array $options, $checkedValue = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -468,7 +468,7 @@ class FormHelper
      *
      * @return string The rendered multiple select element
      */
-    public static function selectMultiple($name, array $options, $checkedValue = null, $attributesHelper = null)
+    public static function selectMultiple($name, array $options, $checkedValue = null, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -499,7 +499,7 @@ class FormHelper
      *
      * @return string The rendered option element
      */
-    public static function option($value, $text, $selected = false)
+    public static function option($value, $text, $selected = false): string
     {
         $attributesHelper = AttributesHelper::f();
         $attributesHelper->set('value', $value);
@@ -520,7 +520,7 @@ class FormHelper
      *
      * @return string The rendered optgroup element
      */
-    public static function optgroup($label, $htmlContent, $attributesHelper = null)
+    public static function optgroup($label, $htmlContent, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('label', $label);
@@ -538,7 +538,7 @@ class FormHelper
      *
      * @return string The rendered checkbox input
      */
-    public static function checkbox($name, $value = null, $checked = false, $attributesHelper = null)
+    public static function checkbox($name, $value = null, $checked = false, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);
@@ -562,7 +562,7 @@ class FormHelper
      *
      * @return string The rendered radio input
      */
-    public static function radio($name, $value = null, $checked = false, $attributesHelper = null)
+    public static function radio($name, $value = null, $checked = false, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
         $attributesHelper->set('name', $name);

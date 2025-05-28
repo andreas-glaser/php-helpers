@@ -98,7 +98,7 @@ class IOHelper
      *
      * @throws IOException If the directory cannot be removed or if it's not readable/writable
      */
-    public static function rmdirRecursive(string $dir)
+    public static function rmdirRecursive(string $dir): void
     {
         IOExpect::isDir($dir);
         IOExpect::isReadable($dir);

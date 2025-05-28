@@ -58,15 +58,15 @@ class DateHelper
      *
      * @param mixed $string The string to convert
      * @param DateTimeZone|null $timezone The timezone to use
-     * @param mixed $null The value to return if conversion fails
+     * @param mixed $defaultReturn The value to return if conversion fails
      *
-     * @return \DateTime|null The DateTime object or null if conversion fails
+     * @return mixed The DateTime object if successful, or the default return value if conversion fails
      *
      * @throws \Exception If the string cannot be converted to a DateTime
      */
-    public static function stringToDateTime($string, DateTimeZone $timezone = null, $null = null)
+    public static function stringToDateTime($string, DateTimeZone $timezone = null, mixed $defaultReturn = null): mixed
     {
-        return self::isDateTime($string) ? new \DateTime($string, $timezone) : $null;
+        return self::isDateTime($string) ? new \DateTime($string, $timezone) : $defaultReturn;
     }
 
     /**
@@ -80,7 +80,7 @@ class DateHelper
      *
      * @throws \Exception If the datetime cannot be formatted
      */
-    public static function formatOrNull($dateTime, $format = 'Y-m-d H:i:s', $null = null)
+    public static function formatOrNull($dateTime, $format = 'Y-m-d H:i:s', $null = null): ?string
     {
         if ($dateTime instanceof \DateTime) {
             return $dateTime->format($format);

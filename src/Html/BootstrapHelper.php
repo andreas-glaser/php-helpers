@@ -20,7 +20,7 @@ class BootstrapHelper
      *
      * @return string The rendered glyphicon HTML
      */
-    public static function glyphIcon($name, $attributesHelper = null)
+    public static function glyphIcon($name, $attributesHelper = null): string
     {
         $attributesHelper = AttributesHelper::f($attributesHelper);
 

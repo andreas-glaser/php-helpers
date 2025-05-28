@@ -314,15 +314,6 @@ PHP template rendering and view management utilities.
 - `PHPView::render($file = null)`: Render template with current data
 - `PHPView::__toString()`: Render template when used as string
 
-### Validation Helper (`ValidationHelper.php`)
-Comprehensive validation utilities for common data formats.
-
-#### Key Functions:
-- `ValidationHelper::isValidEmail($email)`: Validate email address with modern TLD support
-- `ValidationHelper::isValidIPv4($ip)`: Validate IPv4 address
-- `ValidationHelper::isValidIPv6($ip)`: Validate IPv6 address
-- `ValidationHelper::isValidIP($ip, $allowPrivate = true, $allowReserved = true)`: Validate IP address (v4 or v6) with options for private/reserved ranges
-
 ### Network Helper (`Validate/NetworkHelper.php`)
 Network-related validation utilities.
 
@@ -336,6 +327,18 @@ Network-related validation utilities.
 - `NetworkHelper::isValidCidr($cidr)`: Validate CIDR notation for both IPv4 and IPv6
 - `NetworkHelper::isValidSubnetMask($mask)`: Validate IPv4 subnet mask
 - `NetworkHelper::getCommonPort($service)`: Get common port number for well-known services
+
+##### DNS Operations:
+- `NetworkHelper::getDnsRecords($domain, $type = 'ALL')`: Get DNS records for a domain with support for all record types (A, AAAA, MX, NS, TXT, etc.)
+- `NetworkHelper::isValidMxRecord($domain)`: Check if a domain has valid MX records
+- `NetworkHelper::getReverseDns($ip)`: Get reverse DNS (PTR) record for an IP address
+- `NetworkHelper::hasValidSpfRecord($domain)`: Check if a domain has a valid SPF record
+- `NetworkHelper::hasDkimRecord($domain, $selector)`: Check if a domain has a valid DKIM record for a selector
+
+##### Socket and Port Operations:
+- `NetworkHelper::isPortOpen($host, $port, $timeout = 2.0)`: Check if a specific port is open on a host
+- `NetworkHelper::getOpenPorts($host, array $ports, $timeout = 1.0)`: Scan multiple ports on a host
+- `NetworkHelper::getServiceByPort($port)`: Get service name for a port number (e.g., 80 → "http")
 
 ## Testing
 

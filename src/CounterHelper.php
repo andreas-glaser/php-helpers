@@ -30,7 +30,7 @@ class CounterHelper implements FactoryInterface
      *
      * @return \AndreasGlaser\Helpers\CounterHelper A new counter instance
      */
-    public static function f($initialValue = 0)
+    public static function f($initialValue = 0): self
     {
         return new CounterHelper($initialValue);
     }
@@ -79,7 +79,7 @@ class CounterHelper implements FactoryInterface
      *
      * @return \AndreasGlaser\Helpers\CounterHelper For method chaining
      */
-    public function plusOne()
+    public function plusOne(): self
     {
         return $this->increaseBy(1);
     }
@@ -89,7 +89,7 @@ class CounterHelper implements FactoryInterface
      *
      * @return \AndreasGlaser\Helpers\CounterHelper For method chaining
      */
-    public function minusOne()
+    public function minusOne(): self
     {
         return $this->decreaseBy(1);
     }
@@ -99,7 +99,7 @@ class CounterHelper implements FactoryInterface
      *
      * @return int The initial value
      */
-    public function getInitialValue()
+    public function getInitialValue(): int
     {
         return $this->initialValue;
     }
@@ -109,7 +109,7 @@ class CounterHelper implements FactoryInterface
      *
      * @return int The current value
      */
-    public function getCurrentValue()
+    public function getCurrentValue(): int
     {
         return $this->currentValue;
     }

@@ -15,5 +15,5 @@ interface RenderableInterface
      * @param RendererInterface $renderer Optional custom renderer
      * @return string The rendered output
      */
-    public function render(RendererInterface $renderer);
+    public function render(RendererInterface $renderer): string;
 }

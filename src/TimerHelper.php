@@ -22,7 +22,7 @@ class TimerHelper
      *
      * @throws \RuntimeException If a timer with the same alias is already running
      */
-    public static function start($alias)
+    public static function start($alias): void
     {
         if (isset(self::$timers[$alias])) {
             throw new \RuntimeException('Timer has already been started.');
@@ -40,7 +40,7 @@ class TimerHelper
      *
      * @throws \RuntimeException If the specified timer has not been started
      */
-    public static function getDifference($alias)
+    public static function getDifference($alias): float
     {
         if (!isset(self::$timers[$alias])) {
             throw new \RuntimeException('Timer has not been started');
@@ -58,7 +58,7 @@ class TimerHelper
      *
      * @throws \RuntimeException If the specified timer has not been started
      */
-    public static function stop($alias)
+    public static function stop($alias): float
     {
         if (!isset(self::$timers[$alias])) {
             throw new \RuntimeException('Timer has not been started');

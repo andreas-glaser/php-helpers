@@ -39,7 +39,7 @@ class TableHelper implements RenderableInterface, FactoryInterface
      *
      * @return \AndreasGlaser\Helpers\Html\Table\TableHelper
      */
-    public static function f(array $headRows = null, array $bodyRows = null, $attributesHelper = null)
+    public static function f(array $headRows = null, array $bodyRows = null, $attributesHelper = null): self
     {
         return new TableHelper($headRows, $bodyRows, $attributesHelper);
     }
@@ -73,7 +73,7 @@ class TableHelper implements RenderableInterface, FactoryInterface
      *
      * @return \AndreasGlaser\Helpers\Html\AttributesHelper
      */
-    public function getAttributes()
+    public function getAttributes(): AttributesHelper
     {
         return $this->attributes;
     }
@@ -116,7 +116,7 @@ class TableHelper implements RenderableInterface, FactoryInterface
      *
      * @return \AndreasGlaser\Helpers\Html\Table\Row[]
      */
-    public function getHeadRows()
+    public function getHeadRows(): array
     {
         return $this->headRows;
     }
@@ -139,7 +139,7 @@ class TableHelper implements RenderableInterface, FactoryInterface
      *
      * @return \AndreasGlaser\Helpers\Html\Table\Row[]
      */
-    public function getBodyRows()
+    public function getBodyRows(): array
     {
         return $this->bodyRows;
     }
@@ -150,7 +150,7 @@ class TableHelper implements RenderableInterface, FactoryInterface
      * @param RendererInterface|null $renderer Optional custom renderer
      * @return string The rendered HTML table
      */
-    public function render(RendererInterface $renderer = null)
+    public function render(RendererInterface $renderer = null): string
     {
         if ($renderer) {
             return $renderer->render($this);

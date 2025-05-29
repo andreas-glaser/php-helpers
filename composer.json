@@ -1,9 +1,22 @@
 {
   "name": "andreas-glaser/php-helpers",
-  "description": "A simple php library of various helper functions and classes.",
+  "description": "A comprehensive collection of PHP utility functions for array manipulation, string operations, date handling, HTML generation, form building, validation, and more. Modern PHP 8.2+ library with full type safety.",
   "keywords": [
     "php",
-    "helper"
+    "helpers",
+    "utilities",
+    "array-manipulation",
+    "string-manipulation",
+    "date-time",
+    "html-generation",
+    "form-builder",
+    "validation",
+    "type-safe",
+    "php8",
+    "modern-php",
+    "data-manipulation",
+    "utility-functions",
+    "development-tools"
   ],
   "homepage": "https://github.com/andreas-glaser/php-helpers",
   "type": "library",
@@ -16,7 +29,7 @@
     }
   ],
   "require": {
-    "php": "^8.2|^8.3|^8.4",
+    "php": "^8.2|^8.3",
     "ext-mbstring": "*",
     "ext-json": "*"
   },
@@ -40,8 +53,8 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-main": "1.3.x-dev",
-      "dev-dev": "1.4.x-dev"
+      "dev-main": "2.0.x-dev",
+      "dev-dev": "3.0.x-dev"
     }
   }
 }

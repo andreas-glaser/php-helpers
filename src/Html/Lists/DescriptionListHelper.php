@@ -34,7 +34,7 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
      *
      * @return \AndreasGlaser\Helpers\Html\Lists\DescriptionListHelper A new instance
      */
-    public static function f($attributes = null)
+    public static function f($attributes = null): self
     {
         return new DescriptionListHelper($attributes);
     }
@@ -76,7 +76,7 @@ class DescriptionListHelper implements FactoryInterface, RenderableInterface
      * @param RendererInterface|null $renderer Optional custom renderer
      * @return string The rendered HTML <dl> element
      */
-    public function render(RendererInterface $renderer = null)
+    public function render(RendererInterface $renderer = null): string
     {
         if ($renderer) {
             return $renderer->render($this);

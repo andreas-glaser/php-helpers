@@ -7,63 +7,90 @@ use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
 use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
 use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 use AndreasGlaser\Helpers\StringHelper;
-use AndreasGlaser\Helpers\Traits\DuplicatableTrait;
+use InvalidArgumentException;
 
 /**
- * Class AttributesHelper
+ * AttributesHelper manages HTML element attributes with proper escaping and validation.
+ *
+ * Features:
+ * - Type-safe attribute handling
+ * - HTML escaping for security
+ * - CSS style parsing and validation
+ * - Data attribute management
+ * - Class name management
  * 
- * Helper class for managing HTML element attributes.
- * Provides methods for handling common HTML attributes like id, class, style, and data attributes.
- * Implements FactoryInterface for static factory methods and RenderableInterface for HTML rendering.
+ * @example
+ * ```php
+ * // Create a new instance with initial attributes
+ * $attrs = AttributesHelper::f(['class' => 'btn']);
+ * 
+ * // Add more classes and attributes
+ * $attrs->addClass('btn-primary')
+ *      ->addStyle('margin', '10px')
+ *      ->addData('toggle', 'modal');
+ * 
+ * // Render as HTML attributes string
+ * echo $attrs; // outputs: class="btn btn-primary" style="margin:10px" data-toggle="modal"
+ * ```
  */
 class AttributesHelper implements FactoryInterface, RenderableInterface
 {
-    use DuplicatableTrait;
+    private const VALID_ATTRIBUTE_PATTERN = '/^[a-zA-Z0-9_\-]+$/';
+    private const VALID_CSS_PROPERTY_PATTERN = '/^[a-zA-Z0-9\-]+$/';
+
+    /** @var string|null */
+    private ?string $id = null;
+
+    /** @var array<string, bool> */
+    private array $classes = [];
+
+    /** @var array<string, string> */
+    private array $data = [];
+
+    /** @var array<string, string> */
+    private array $styles = [];
+
+    /** @var array<string, string> */
+    private array $attributes = [];
 
     /**
-     * @var string|null The HTML element's ID attribute
+     * Creates a new AttributesHelper instance.
+     *
+     * @param array<string, mixed>|null $attributes Initial attributes
+     * @throws InvalidArgumentException If invalid attributes are provided
      */
-    protected $id = null;
+    public function __construct(?array $attributes = null)
+    {
+        if ($attributes !== null) {
+            foreach ($attributes as $name => $value) {
+                $this->set($name, $value);
+            }
+        }
+    }
 
     /**
-     * @var array Associative array of CSS classes
-     */
-    protected $classes = [];
-
-    /**
-     * @var array Associative array of data attributes
-     */
-    protected $data = [];
-
-    /**
-     * @var array Associative array of inline styles
-     */
-    protected $styles = [];
-
-    /**
-     * @var array Associative array of custom attributes
-     */
-    protected $attributes = [];
-
-    /**
-     * Factory method to create a new instance (deprecated)
+     * Factory method to create a new instance (deprecated).
      *
      * @param array|null $attributes Initial attributes to set
-     * @return \AndreasGlaser\Helpers\Html\AttributesHelper
-     * @deprecated Will be removed in 1.0 - use "Object::f()" instead
+     * @return self
+     * @deprecated Will be removed in 1.0 - use "f()" instead
      */
-    public static function create(array $attributes = null)
+    public static function create(array $attributes = null): self
     {
         return self::f($attributes);
     }
 
     /**
-     * Factory method to create a new instance
+     * Factory method to create a new instance.
      *
-     * @param AttributesHelper|array|null $input Initial attributes or existing AttributesHelper instance
-     * @return \AndreasGlaser\Helpers\Html\AttributesHelper
+     * This method implements the FactoryInterface and is the recommended way to create
+     * new instances of AttributesHelper. If an AttributesHelper instance is passed,
+     * it will be returned as is. Otherwise, a new instance will be created.
+     *
+     * @param AttributesHelper|array|null $input Initial attributes or existing instance
+     * @return static
      */
-    public static function f($input = null)
+    public static function f($input = null): static
     {
         if ($input instanceof AttributesHelper) {
             return $input;
@@ -73,390 +100,267 @@ class AttributesHelper implements FactoryInterface, RenderableInterface
     }
 
     /**
-     * Constructor
+     * Sets an attribute with validation.
      *
-     * @param array|null $attributes Initial attributes to set
-     */
-    public function __construct(array $attributes = null)
-    {
-        if (null !== $attributes) {
-            foreach ($attributes as $name => $value) {
-                $this->set($name, $value);
-            }
-        }
-    }
-
-    /**
-     * Sets a custom attribute
-     *
-     * @param string $name  The attribute name
-     * @param mixed  $value The attribute value
+     * @param string $name The attribute name
+     * @param mixed $value The attribute value
      * @return $this
+     * @throws InvalidArgumentException If attribute name is invalid
      */
-    public function set($name, $value):self
+    public function set(string $name, mixed $value): self
     {
-        $name = \mb_strtolower($name);
-        if ('id' === $name) {
-            $this->setId($value);
-        } elseif ('class' === $name) {
-            $this->addClass($value);
-        } elseif ('style' === $name) {
-            $pieces = \explode(';', $value);
-            foreach ($pieces as $definition) {
-                $p = \explode(':', $definition);
-                if (isset($p[0]) && isset($p[1])) {
-                    $this->addStyle($p[0], $p[1]);
-                }
-            }
-        } elseif (StringHelper::startsWith('data-', $name)) {
-            $this->addData(\mb_substr($name, 5), $value);
-        } else {
-            $this->attributes[$name] = $value;
+        $name = mb_strtolower($name);
+        
+        if (!preg_match(self::VALID_ATTRIBUTE_PATTERN, $name)) {
+            throw new InvalidArgumentException("Invalid attribute name: $name");
         }
 
+        if ($name === 'id') {
+            return $this->setId((string)$value);
+        }
+        
+        if ($name === 'class') {
+            return $this->addClass((string)$value);
+        }
+        
+        if ($name === 'style') {
+            return $this->parseStyles((string)$value);
+        }
+        
+        if (str_starts_with($name, 'data-')) {
+            return $this->addData(substr($name, 5), $value);
+        }
+
+        $this->attributes[$name] = (string)$value;
         return $this;
     }
 
     /**
-     * Checks if a custom attribute has been set
-     *
-     * @param string $name The attribute name to check
-     * @return bool True if the attribute exists
-     */
-    public function has($name)
-    {
-        return isset($this->attributes[$name]);
-    }
-
-    /**
-     * Gets a custom attribute value
-     *
-     * @param string $name    The attribute name
-     * @param mixed  $default Default value if attribute doesn't exist
-     * @return mixed The attribute value or default
-     */
-    public function get($name, $default = null)
-    {
-        return $this->has($name) ? $this->attributes[$name] : $default;
-    }
-
-    /**
-     * Sets the ID attribute
+     * Sets the ID attribute.
      *
      * @param string $value The ID value
      * @return $this
+     * @throws InvalidArgumentException If ID is invalid
      */
-    public function setId($value):self
+    public function setId(string $value): self
     {
+        if (!preg_match(self::VALID_ATTRIBUTE_PATTERN, $value)) {
+            throw new InvalidArgumentException("Invalid ID value: $value");
+        }
+        
         $this->id = $value;
-
         return $this;
     }
 
     /**
-     * Checks if ID attribute has been set
+     * Adds one or more CSS classes.
      *
-     * @return bool True if ID exists
-     */
-    public function hasId()
-    {
-        return !\is_null($this->id);
-    }
-
-    /**
-     * Gets the ID attribute value
-     *
-     * @param mixed $default Default value if ID doesn't exist
-     * @return string|null The ID value or default
-     */
-    public function getId($default = null)
-    {
-        return $this->hasId() ? $this->id : $default;
-    }
-
-    /**
-     * Removes the ID attribute
-     *
+     * @param string|array $classes Space-separated classes or array of classes
      * @return $this
      */
-    public function removeId():self
+    public function addClass(string|array $classes): self
     {
-        $this->id = null;
-
-        return $this;
-    }
-
-    /**
-     * Adds one or more CSS classes
-     *
-     * @param string|array $name Class name(s) to add
-     * @return $this
-     */
-    public function addClass($name):self
-    {
-        $classes = StringHelper::explodeAndTrim(' ', $name);
-        foreach ($classes as $className) {
-            $this->classes[$className] = $className;
+        $classArray = is_array($classes) ? $classes : StringHelper::explodeAndTrim(' ', $classes);
+        
+        foreach ($classArray as $class) {
+            if (preg_match(self::VALID_ATTRIBUTE_PATTERN, $class)) {
+                $this->classes[$class] = true;
+            }
         }
 
         return $this;
     }
 
     /**
-     * Checks if a CSS class has been added
+     * Adds a data attribute with proper escaping.
      *
-     * @param string $name The class name to check
-     * @return bool True if the class exists
+     * @param string $name The data attribute name (without 'data-' prefix)
+     * @param mixed $value The attribute value
+     * @return $this
+     * @throws InvalidArgumentException If name is invalid
      */
-    public function hasClass($name)
+    public function addData(string $name, mixed $value): self
     {
-        return isset($this->classes[$name]);
+        if (!preg_match(self::VALID_ATTRIBUTE_PATTERN, $name)) {
+            throw new InvalidArgumentException("Invalid data attribute name: $name");
+        }
+
+        $this->data[$name] = (string)$value;
+        return $this;
     }
 
     /**
-     * Checks if any CSS classes have been added
+     * Adds a style property with validation.
      *
-     * @return bool True if any classes exist
+     * @param string $property The CSS property
+     * @param string $value The CSS value
+     * @return $this
+     * @throws InvalidArgumentException If property name is invalid
      */
-    public function hasClasses()
+    public function addStyle(string $property, string $value): self
     {
-        return !empty($this->classes);
+        $property = trim($property);
+        
+        if (!preg_match(self::VALID_CSS_PROPERTY_PATTERN, $property)) {
+            throw new InvalidArgumentException("Invalid CSS property: $property");
+        }
+
+        $this->styles[$property] = trim($value);
+        return $this;
     }
 
     /**
-     * Removes a CSS class
+     * Parses a CSS style string safely.
      *
-     * @param string $name The class name to remove
+     * @param string $styleString The CSS style string
      * @return $this
      */
-    public function removeClass($name):self
+    private function parseStyles(string $styleString): self
     {
-        if ($this->hasClass($name)) {
-            unset($this->classes[$name]);
+        // Handle complex values with semicolons (like urls)
+        preg_match_all('/([^:;]+):([^;]+)(?:;|$)/', $styleString, $matches, PREG_SET_ORDER);
+        
+        foreach ($matches as $match) {
+            if (isset($match[1], $match[2])) {
+                $this->addStyle($match[1], $match[2]);
+            }
         }
 
         return $this;
     }
 
     /**
-     * Gets all CSS classes
+     * Creates an immutable copy with modifications.
      *
-     * @return array Associative array of class names
+     * @param callable $modifier Function to modify the attributes
+     * @return static
      */
-    public function getClasses()
+    public function with(callable $modifier): static
     {
-        return $this->classes;
+        $copy = clone $this;
+        $modifier($copy);
+        return $copy;
     }
 
     /**
-     * Adds an inline style
-     *
-     * @param string $name  The style property name
-     * @param string $value The style property value
-     * @return $this
-     */
-    public function addStyle($name, $value):self
-    {
-        $this->styles[$name] = $value;
-
-        return $this;
-    }
-
-    /**
-     * Checks if a style has been added
-     *
-     * @param string $name The style property name to check
-     * @return bool True if the style exists
-     */
-    public function hasStyle($name)
-    {
-        return isset($this->styles[$name]);
-    }
-
-    /**
-     * Checks if any styles have been added
-     *
-     * @return bool True if any styles exist
-     */
-    public function hasStyles()
-    {
-        return !empty($this->styles);
-    }
-
-    /**
-     * Removes a style
-     *
-     * @param string $name The style property name to remove
-     * @return $this
-     */
-    public function removeStyle($name):self
-    {
-        if ($this->hasStyle($name)) {
-            unset($this->styles[$name]);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Gets all styles
-     *
-     * @return array Associative array of style properties and values
-     */
-    public function getStyles()
-    {
-        return $this->styles;
-    }
-
-    /**
-     * Adds a data attribute
-     * Example: <span data-mydata="hello"></span>
-     *
-     * @param string $name  The data attribute name (without 'data-' prefix)
-     * @param mixed  $value The data attribute value
-     * @return $this
-     */
-    public function addData($name, $value):self
-    {
-        $this->data[$name] = $value;
-
-        return $this;
-    }
-
-    /**
-     * Checks if specific or any data attributes have been added
-     *
-     * @param string|null $name The data attribute name to check (without 'data-' prefix)
-     * @return bool True if the data attribute exists or if any data attributes exist
-     */
-    public function hasData($name = null)
-    {
-        return \is_null($name) ? !empty($this->data) : isset($this->data[$name]);
-    }
-
-    /**
-     * Gets all or a single data attribute
-     *
-     * @param string|null $name    The data attribute name (without 'data-' prefix)
-     * @param mixed       $default Default value if attribute doesn't exist
-     * @return array|mixed The data attribute value(s) or default
-     */
-    public function getData($name = null, $default = null)
-    {
-        return $this->hasData($name) ? (\is_null($name) ? $this->data : $this->data[$name]) : $default;
-    }
-
-    /**
-     * Removes a data attribute
-     *
-     * @param string $name The data attribute name to remove (without 'data-' prefix)
-     * @return $this
-     */
-    public function removeData($name):self
-    {
-        if ($this->hasData($name)) {
-            unset($this->data[$name]);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Gets all CSS classes as an imploded string
-     *
-     * @param string $glue The string to use between class names
-     * @return string The imploded class names
-     */
-    public function getClassesImploded($glue = ' ')
-    {
-        return \implode($glue, $this->classes);
-    }
-
-    /**
-     * Renders the attributes as an HTML string
+     * Renders the attributes as an HTML string.
      *
      * @param RendererInterface|null $renderer Optional custom renderer
      * @return string The rendered HTML attributes
      */
-    public function render(RendererInterface $renderer = null)
+    public function render(?RendererInterface $renderer = null): string
     {
         if ($renderer) {
             return $renderer->render($this);
         }
 
-        $attributes = '';
+        $parts = [];
 
-        if ($this->hasId()) {
-            $attributes = 'id="' . $this->getId() . '"';
+        if ($this->id !== null) {
+            $parts[] = 'id="' . HtmlHelper::chars($this->id) . '"';
         }
 
-        if ($this->hasClasses()) {
-            $attributes .= ' class="' . HtmlHelper::chars($this->getClassesImploded()) . '"';
+        if (!empty($this->classes)) {
+            $parts[] = 'class="' . HtmlHelper::chars(implode(' ', array_keys($this->classes))) . '"';
         }
 
         foreach ($this->attributes as $name => $value) {
-            $attributes .= ' ' . $name . '="' . HtmlHelper::chars($value) . '"';
+            $parts[] = $name . '="' . HtmlHelper::chars($value) . '"';
         }
 
-        $data = $this->getData();
+        foreach ($this->data as $key => $value) {
+            $parts[] = 'data-' . $key . '="' . HtmlHelper::chars($value) . '"';
+        }
 
-        if (!empty($data)) {
-            foreach ($data as $key => $value) {
-                $attributes .= ' data-' . $key . '="' . $value . '"';
+        if (!empty($this->styles)) {
+            $styles = [];
+            foreach ($this->styles as $property => $value) {
+                $styles[] = $property . ':' . $value;
             }
+            $parts[] = 'style="' . HtmlHelper::chars(implode(';', $styles)) . '"';
         }
 
-        $styles = $this->getStyles();
-
-        if (!empty($styles)) {
-            $stylesCompiled = '';
-            foreach ($styles as $name => $value) {
-                $stylesCompiled .= $name . ':' . $value . ';';
-            }
-
-            $attributes .= ' style="' . $stylesCompiled . '"';
-        }
-
-        $attributes = \trim($attributes);
-
-        return !empty($attributes) ? ' ' . $attributes : '';
+        return empty($parts) ? '' : ' ' . implode(' ', $parts);
     }
 
     /**
-     * Gets all attributes as an associative array
+     * Gets all attributes as an array.
      *
-     * @return array The attributes as an array
+     * @return array<string, mixed>
      */
-    public function getAsArray()
+    public function toArray(): array
     {
-        $return = [];
+        $result = [];
 
-        if ($id = $this->getId()) {
-            $return['id'] = $id;
+        if ($this->id !== null) {
+            $result['id'] = $this->id;
         }
 
-        if (\count($this->getClasses())) {
-            $return['class'] = $this->getClassesImploded();
+        if (!empty($this->classes)) {
+            $result['class'] = implode(' ', array_keys($this->classes));
         }
 
-        foreach ($this->getData() as $key => $value) {
-            $return['data-' . $key] = $value;
+        foreach ($this->data as $key => $value) {
+            $result['data-' . $key] = $value;
         }
 
-        foreach ($this->attributes as $key => $value) {
-            $return[$key] = $value;
+        if (!empty($this->styles)) {
+            $styleStrings = [];
+            foreach ($this->styles as $property => $value) {
+                $styleStrings[] = $property . ':' . $value;
+            }
+            $result['style'] = implode(';', $styleStrings);
         }
 
-        return $return;
+        return array_merge($result, $this->attributes);
     }
 
     /**
-     * String representation of the attributes
+     * String representation of the attributes.
      *
-     * @return string The rendered HTML attributes
+     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->render();
+    }
+
+    // Getter methods for immutability
+
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return array<string, bool>
+     */
+    public function getClasses(): array
+    {
+        return $this->classes;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getData(): array
+    {
+        return $this->data;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getStyles(): array
+    {
+        return $this->styles;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getAttributes(): array
+    {
+        return $this->attributes;
     }
 }

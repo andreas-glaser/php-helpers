@@ -4,7 +4,7 @@ A comprehensive collection of PHP helper functions and classes to simplify commo
 
 ## Requirements
 
-- PHP ^8.2|^8.3|^8.4
+- PHP ^8.2|^8.3
 - ext-mbstring
 - ext-json
 
@@ -99,15 +99,53 @@ Date and time manipulation and validation utilities.
 HTML element generation and attribute handling utilities.
 
 #### Key Functions:
-- `HtmlHelper::chars($string)`: Convert special characters to HTML entities
-- `HtmlHelper::entities($string)`: Convert all applicable characters to HTML entities
-- `HtmlHelper::div($content, $attributes = null)`: Generate div element
-- `HtmlHelper::p($content, $attributes = null)`: Generate paragraph element
-- `HtmlHelper::span($content, $attributes = null)`: Generate span element
-- `HtmlHelper::h1($content, $attributes = null)` through `h6()`: Generate heading elements
-- `HtmlHelper::a($url, $content, $attributes = null)`: Generate anchor element
-- `HtmlHelper::image($src, $attributes = null)`: Generate image element
-- `HtmlHelper::autoParagraph($string)`: Convert line breaks to paragraphs
+- `HtmlHelper::chars($value, $double_encode = true)`: Convert special characters to HTML entities
+- `HtmlHelper::entities($value, $double_encode = true)`: Convert all applicable characters to HTML entities
+- `HtmlHelper::div($content, $attributesHelper = null)`: Create div element
+- `HtmlHelper::p($content, $attributesHelper = null)`: Create paragraph element
+- `HtmlHelper::span($content, $attributesHelper = null)`: Create span element
+- `HtmlHelper::h1($content, $attributesHelper = null)` through `h6()`: Create heading elements
+- `HtmlHelper::a($url, $content, $attributesHelper = null)`: Create anchor element
+- `HtmlHelper::image($src, $attributesHelper = null)`: Create image element
+- `HtmlHelper::autoParagraph($str, $br = true)`: Convert text to paragraphs
+
+##### Text Formatting Elements:
+- `HtmlHelper::strong($content, $attributesHelper = null)`: Create strong (bold) element
+- `HtmlHelper::em($content, $attributesHelper = null)`: Create emphasis (italic) element
+- `HtmlHelper::code($content, $attributesHelper = null)`: Create code element
+- `HtmlHelper::pre($content, $attributesHelper = null)`: Create preformatted text element
+- `HtmlHelper::mark($content, $attributesHelper = null)`: Create highlighted text element
+- `HtmlHelper::small($content, $attributesHelper = null)`: Create small text element
+- `HtmlHelper::sub($content, $attributesHelper = null)`: Create subscript element
+- `HtmlHelper::sup($content, $attributesHelper = null)`: Create superscript element
+
+##### Semantic Elements:
+- `HtmlHelper::blockquote($content, $attributesHelper = null)`: Create blockquote element
+- `HtmlHelper::cite($content, $attributesHelper = null)`: Create citation element
+- `HtmlHelper::time($content, $datetime = null, $attributesHelper = null)`: Create time element with optional datetime attribute
+- `HtmlHelper::abbr($content, $title = null, $attributesHelper = null)`: Create abbreviation element with optional title
+
+##### Structural Elements:
+- `HtmlHelper::article($content, $attributesHelper = null)`: Create article element
+- `HtmlHelper::section($content, $attributesHelper = null)`: Create section element
+- `HtmlHelper::nav($content, $attributesHelper = null)`: Create navigation element
+- `HtmlHelper::aside($content, $attributesHelper = null)`: Create aside element
+- `HtmlHelper::header($content, $attributesHelper = null)`: Create header element
+- `HtmlHelper::footer($content, $attributesHelper = null)`: Create footer element
+- `HtmlHelper::main($content, $attributesHelper = null)`: Create main element
+
+##### Media Elements:
+- `HtmlHelper::figure($content, $attributesHelper = null)`: Create figure element
+- `HtmlHelper::figcaption($content, $attributesHelper = null)`: Create figure caption element
+
+##### Interactive Elements:
+- `HtmlHelper::details($content, $open = false, $attributesHelper = null)`: Create details element with optional open state
+- `HtmlHelper::summary($content, $attributesHelper = null)`: Create summary element for details
+- `HtmlHelper::dialog($content, $open = false, $modal = false, $attributesHelper = null)`: Create dialog element with optional open and modal states
+
+##### Progress & Measurement Elements:
+- `HtmlHelper::meter($content, $value, $min = null, $max = null, $low = null, $high = null, $optimum = null, $attributesHelper = null)`: Create meter element with value ranges
+- `HtmlHelper::progress($content, $value = null, $max = null, $attributesHelper = null)`: Create progress element with optional value and max
 
 ### JSON Helper (`JsonHelper.php`)
 JSON validation and manipulation utilities.
@@ -194,20 +232,118 @@ Color manipulation and conversion utilities.
 ### HTTP Helpers
 
 #### Request Helper (`Http/RequestHelper.php`)
-Request environment detection utilities.
+Request environment detection and comprehensive HTTP request analysis utilities.
 
 #### Key Functions:
+
+##### Environment Detection:
 - `RequestHelper::isCli()`: Check if script is running in CLI mode
-- `RequestHelper::isHttps()`: Check if request is using HTTPS
+- `RequestHelper::isHttps()`: Check if request is using HTTPS (enhanced with proxy detection)
+- `RequestHelper::isSecure()`: Check if request is secure (HTTPS or localhost)
+- `RequestHelper::isLocalhost()`: Check if request is from localhost
+
+##### HTTP Method Analysis:
+- `RequestHelper::getMethod()`: Get the HTTP request method (GET, POST, etc.)
+- `RequestHelper::isMethod($method)`: Check if request method matches given method
+- `RequestHelper::isGet()`: Check if request is GET
+- `RequestHelper::isPost()`: Check if request is POST
+- `RequestHelper::isPut()`: Check if request is PUT
+- `RequestHelper::isDelete()`: Check if request is DELETE
+- `RequestHelper::isHead()`: Check if request is HEAD
+- `RequestHelper::isOptions()`: Check if request is OPTIONS
+- `RequestHelper::isPatch()`: Check if request is PATCH
+
+##### Request Type Detection:
+- `RequestHelper::isAjax()`: Check if request is AJAX/XMLHttpRequest
+- `RequestHelper::isApi()`: Check if request is likely an API request
+- `RequestHelper::isMobile()`: Check if request is from mobile device
+- `RequestHelper::isBot()`: Check if request is from bot/crawler
+
+##### Client Information:
+- `RequestHelper::getClientIp($trustProxies = true)`: Get client IP address with proxy support
+- `RequestHelper::getUserAgent()`: Get user agent string
+- `RequestHelper::getReferrer()`: Get referrer URL
+- `RequestHelper::getProtocol()`: Get request protocol (HTTP/1.1, HTTP/2, etc.)
+- `RequestHelper::getPort()`: Get request port
+- `RequestHelper::getHost()`: Get host name
+
+##### Content Analysis:
+- `RequestHelper::getContentType()`: Get request content type
+- `RequestHelper::isContentType($type)`: Check if content type matches
+- `RequestHelper::isJson()`: Check if request has JSON content type
+- `RequestHelper::isXml()`: Check if request has XML content type
+- `RequestHelper::getContentLength()`: Get content length
+- `RequestHelper::getAcceptedLanguages()`: Get accepted languages from Accept-Language header
+
+##### Header Management:
+- `RequestHelper::getHeader($name, $default = null)`: Get specific request header
+- `RequestHelper::hasHeader($name)`: Check if header exists
+- `RequestHelper::getAllHeaders()`: Get all request headers
+
+##### Security and Validation:
+- `RequestHelper::isLegitimate()`: Basic security check for legitimate requests
+- `RequestHelper::getRequestTime()`: Get request timestamp
+- `RequestHelper::isWithinRateLimit($maxRequests, $timeWindow, $identifier = null)`: Basic rate limiting
+
+##### Utility Methods:
+- `RequestHelper::getRequestInfo()`: Get comprehensive request information array
+- `RequestHelper::setTrustedProxyHeaders($headers)`: Set trusted proxy headers
+- `RequestHelper::getTrustedProxyHeaders()`: Get current trusted proxy headers
 
 #### URL Helper (`Http/UrlHelper.php`)
-URL manipulation and generation utilities.
+Comprehensive URL manipulation, validation, and generation utilities for HTTP requests.
 
-#### Key Functions:
-- `UrlHelper::protocolHostPort()`: Get protocol, host, and port string
-- `UrlHelper::query($parameters = null, $mergeGetVariables = true)`: Build query string from parameters
-- `UrlHelper::currentUrl($includeQuery = true, $urlEncode = false)`: Get current full URL
-- `UrlHelper::currentUri($includeQueryParams = true, $encode = false)`: Get current URI
+##### Current URL/URI Methods:
+- `UrlHelper::protocolHostPort()`: Get protocol, host, and port string based on server configuration
+- `UrlHelper::query($parameters = null, $mergeGetVariables = true)`: Build query string from parameters with optional $_GET merging
+- `UrlHelper::currentUrl($includeQuery = true, $urlEncode = false)`: Get current full URL with optional query string and encoding
+- `UrlHelper::currentUri($includeQueryParams = true, $encode = false)`: Get current URI with optional query parameters and encoding
+
+##### URL Parsing and Validation:
+- `UrlHelper::isValidUrl($url, $allowedSchemes = ['http', 'https'])`: Validate URL with configurable allowed schemes
+- `UrlHelper::parseUrl($url)`: Parse URL components into structured array
+- `UrlHelper::buildUrl($components)`: Build URL from component array
+- `UrlHelper::isStandardPort($scheme, $port)`: Check if port is standard for given scheme
+
+##### URL Manipulation:
+- `UrlHelper::addQueryParams($url, $params, $encode = true)`: Add or modify query parameters in URL
+- `UrlHelper::removeQueryParams($url, $paramsToRemove)`: Remove specific query parameters from URL
+- `UrlHelper::changeScheme($url, $scheme)`: Change URL scheme (e.g., HTTP to HTTPS)
+- `UrlHelper::normalize($url)`: Normalize URL by cleaning up common issues
+
+##### Path Manipulation:
+- `UrlHelper::normalizePath($path)`: Normalize URL path by resolving . and .. segments
+- `UrlHelper::joinPaths(...$segments)`: Join multiple path segments into single path
+- `UrlHelper::getDirectory($path)`: Get directory path from URL path
+- `UrlHelper::getFilename($path)`: Get filename from URL path
+- `UrlHelper::getExtension($path)`: Get file extension from URL path
+
+##### Domain and Host Utilities:
+- `UrlHelper::getDomain($url)`: Extract domain from URL
+- `UrlHelper::getSubdomain($url, $levels = 2)`: Extract subdomain with configurable root domain levels
+- `UrlHelper::getRootDomain($url, $levels = 2)`: Get root domain with configurable levels
+- `UrlHelper::isSameDomain($url1, $url2)`: Check if two URLs have same domain
+
+##### Encoding and Decoding:
+- `UrlHelper::encode($string)`: URL encode string with RFC 3986 compliance
+- `UrlHelper::decode($string)`: URL decode string
+- `UrlHelper::encodePath($path)`: Encode only path component of URL
+- `UrlHelper::encodeQuery($params, $rfc3986 = true)`: Encode query string parameters
+
+##### URL Conversion and Transformation:
+- `UrlHelper::toAbsolute($relativeUrl, $baseUrl)`: Convert relative URL to absolute
+- `UrlHelper::toRelative($absoluteUrl, $baseUrl)`: Convert absolute URL to relative
+
+##### Utility Methods:
+- `UrlHelper::currentUrlWithModifications($queryModifications = [], $queryRemovals = [])`: Get current URL with query modifications
+- `UrlHelper::isSecureUrl($url)`: Check if URL uses HTTPS scheme
+- `UrlHelper::getStandardPort($scheme)`: Get standard port for scheme
+- `UrlHelper::sanitize($url, $allowedSchemes = ['http', 'https'])`: Sanitize URL by removing dangerous protocols
+- `UrlHelper::modifiedQuery($params = [], $remove = [])`: Generate query string from current URL with modifications
+
+##### Constants:
+- URL schemes: `SCHEME_HTTP`, `SCHEME_HTTPS`, `SCHEME_FTP`, `SCHEME_SFTP`, `SCHEME_FILE`
+- Standard ports array: `STANDARD_PORTS` with common protocol ports
 
 ### HTML Helpers
 
@@ -245,22 +381,67 @@ HTML form element generation utilities.
 - `FormHelper::radio($name, $value = null, $checked = false, $attributesHelper = null)`: Create radio button
 
 #### Attributes Helper (`Html/AttributesHelper.php`)
-HTML attribute management utilities.
+A powerful utility class for managing HTML attributes with proper escaping and validation.
 
-#### Key Functions:
-- `AttributesHelper::f($attributes = null)`: Create attributes instance
-- `AttributesHelper::set($key, $value)`: Set attribute value
-- `AttributesHelper::get($key, $default = null)`: Get attribute value
-- `AttributesHelper::has($key)`: Check if attribute exists
-- `AttributesHelper::remove($key)`: Remove attribute
-- `AttributesHelper::render()`: Render attributes as HTML string
+```php
+// Create a new instance with initial attributes
+$attrs = AttributesHelper::f(['class' => 'btn']);
+
+// Add more classes and attributes
+$attrs->addClass('btn-primary')
+     ->addStyle('margin', '10px')
+     ->addData('toggle', 'modal');
+
+// Render as HTML attributes string
+echo $attrs; // outputs: class="btn btn-primary" style="margin:10px" data-toggle="modal"
+```
+
+##### Key Features:
+- Type-safe attribute handling
+- HTML escaping for security
+- CSS style parsing and validation
+- Data attribute management
+- Class name management
+
+##### Main Methods:
+- `AttributesHelper::f($input = null)`: Create new instance (recommended factory method)
+- `setAttribute(string $name, mixed $value)`: Set any attribute with validation
+- `setId(string $value)`: Set the ID attribute
+- `addClass(string|array $classes)`: Add one or more CSS classes
+- `addData(string $name, mixed $value)`: Add a data attribute
+- `addStyle(string $property, string $value)`: Add a CSS style property
+- `render()`: Convert to HTML attributes string
+- `toArray()`: Get all attributes as an array
 
 #### Bootstrap Helper (`Html/BootstrapHelper.php`)
 Bootstrap-specific HTML generation utilities.
 
 #### Key Functions:
-- `BootstrapHelper::alert($content, $type = 'info', $dismissible = false)`: Create Bootstrap alert
-- `BootstrapHelper::badge($content, $type = 'primary')`: Create Bootstrap badge
+- `BootstrapHelper::glyphIcon($name, $attributesHelper = null)`: Create Bootstrap glyphicon span element
+
+```php
+use AndreasGlaser\Helpers\Html\BootstrapHelper;
+
+// Basic glyphicon
+echo BootstrapHelper::glyphIcon('home');
+// Output: <span class="glyphicon glyphicon-home"></span>
+
+// With additional attributes
+echo BootstrapHelper::glyphIcon('search', [
+    'id' => 'search-icon',
+    'class' => 'icon-large text-primary',
+    'title' => 'Search',
+    'data-toggle' => 'tooltip'
+]);
+// Output: <span id="search-icon" class="icon-large text-primary glyphicon glyphicon-search" title="Search" data-toggle="tooltip"></span>
+
+// Using AttributesHelper
+$attrs = AttributesHelper::f()
+    ->setId('my-icon')
+    ->addClass('text-danger')
+    ->addData('action', 'delete');
+echo BootstrapHelper::glyphIcon('trash', $attrs);
+```
 
 #### Table Helper (`Html/Table/TableHelper.php`)
 HTML table generation utilities.
@@ -314,72 +495,111 @@ PHP template rendering and view management utilities.
 - `PHPView::render($file = null)`: Render template with current data
 - `PHPView::__toString()`: Render template when used as string
 
+### Network Helper (`Validate/NetworkHelper.php`)
+Network-related validation utilities.
+
+#### Key Functions:
+- `NetworkHelper::isValidIPv4($ip)`: Validate IPv4 address format
+- `NetworkHelper::isValidIPv6($ip)`: Validate IPv6 address format
+- `NetworkHelper::isValidIP($ip, $allowPrivate = true, $allowReserved = true)`: Validate IP address (both IPv4 and IPv6) with support for private and reserved range validation
+- `NetworkHelper::isValidPort($port, $allowSystemPorts = true, $allowUserPorts = true, $allowDynamicPorts = true)`: Validate port number with customizable range restrictions
+- `NetworkHelper::isValidDomain($domain, $allowSingleLabel = false, $allowPunycode = true)`: Validate domain name with support for Punycode and single-label domains
+- `NetworkHelper::isValidMac($mac, $allowColonFormat = true, $allowHyphenFormat = true, $allowBareFormat = true)`: Validate MAC address in various formats
+- `NetworkHelper::isValidCidr($cidr)`: Validate CIDR notation for both IPv4 and IPv6
+- `NetworkHelper::isValidSubnetMask($mask)`: Validate IPv4 subnet mask
+- `NetworkHelper::getCommonPort($service)`: Get common port number for well-known services
+
+##### DNS Operations:
+- `NetworkHelper::getDnsRecords($domain, $type = 'ALL')`: Get DNS records for a domain with support for all record types (A, AAAA, MX, NS, TXT, etc.)
+- `NetworkHelper::isValidMxRecord($domain)`: Check if a domain has valid MX records
+- `NetworkHelper::getReverseDns($ip)`: Get reverse DNS (PTR) record for an IP address
+- `NetworkHelper::hasValidSpfRecord($domain)`: Check if a domain has a valid SPF record
+- `NetworkHelper::hasDkimRecord($domain, $selector)`: Check if a domain has a valid DKIM record for a selector
+
+##### Socket and Port Operations:
+- `NetworkHelper::isPortOpen($host, $port, $timeout = 2.0)`: Check if a specific port is open on a host
+- `NetworkHelper::getOpenPorts($host, array $ports, $timeout = 1.0)`: Scan multiple ports on a host
+- `NetworkHelper::getServiceByPort($port)`: Get service name for a port number (e.g., 80 → "http")
+
 ### Validation Helpers
 
 #### Expect Helper (`Validate/Expect.php`)
-Type validation utilities that throw exceptions on type mismatches.
+Type validation utilities that throw exceptions on type mismatches. All methods throw `UnexpectedTypeException` if the value doesn't match the expected type.
 
-#### Key Functions:
-- `Expect::int($value)`: Validate integer type
-- `Expect::float($value)`: Validate float type
-- `Expect::numeric($value)`: Validate numeric type
-- `Expect::bool($value)`: Validate boolean type
-- `Expect::str($value)`: Validate string type
-- `Expect::arr($value)`: Validate array type
-- `Expect::obj($value)`: Validate object type
-- `Expect::res($value)`: Validate resource type
-- `Expect::isCallable($value)`: Validate callable type
-- `Expect::scalar($value)`: Validate scalar type
-- `Expect::null($value)`: Validate null type
+##### Basic Type Validation:
+- `Expect::int($value)`: Validates that a value is an integer
+- `Expect::float($value)`: Validates that a value is a float
+- `Expect::str($value)`: Validates that a value is a string
+- `Expect::bool($value)`: Validates that a value is a boolean
+- `Expect::arr($value)`: Validates that a value is an array
+- `Expect::obj($value)`: Validates that a value is an object
+- `Expect::res($value)`: Validates that a value is a resource
+- `Expect::null($value)`: Validates that a value is null
 
-#### IO Expect Helper (`Validate/IOExpect.php`)
-File system validation utilities that throw exceptions on validation failures.
+##### Special Type Validation:
+- `Expect::numeric($value)`: Validates that a value is numeric (int, float, or numeric string)
+- `Expect::isCallable($value)`: Validates that a value is callable (function, closure, method array, etc.)
+- `Expect::scalar($value)`: Validates that a value is scalar (int, float, string, or bool)
 
-#### Key Functions:
-- `IOExpect::isDir($path)`: Validate directory exists
-- `IOExpect::isFile($path)`: Validate file exists
-- `IOExpect::isReadable($path)`: Validate path is readable
-- `IOExpect::isWritable($path)`: Validate path is writable
+##### Built-in PHP Type Validation:
+- `Expect::countable($value)`: Validates that a value is countable (array or implements Countable)
+- `Expect::iterable($value)`: Validates that a value is iterable (array or implements Traversable)
+- `Expect::finite($value)`: Validates that a value is a finite number (not infinite or NaN)
+- `Expect::infinite($value)`: Validates that a value is an infinite number
+- `Expect::nan($value)`: Validates that a value is NaN (Not a Number)
 
-### Traits
+#### IOExpect Helper (`Validate/IOExpect.php`)
+File system validation utilities that throw exceptions on validation failures. All methods throw `IOException` if the validation fails.
 
-#### Runtime Cache Trait (`Traits/RuntimeCacheTrait.php`)
-In-memory caching functionality during script execution.
+##### Path Existence and Type Validation:
+- `IOExpect::exists($path)`: Validates that a path exists (file or directory)
+- `IOExpect::doesNotExist($path)`: Validates that a path does not exist
+- `IOExpect::isDir($path)`: Validates that a path exists and is a directory
+- `IOExpect::isFile($path)`: Validates that a path exists and is a file
+- `IOExpect::isLink($path)`: Validates that a path is a symbolic link
 
-#### Key Functions:
-- `rtcSet($data, $id, $group = '_default', $overwrite = true)`: Set value in cache
-- `rtcExists($id, $group = '_default')`: Check if value exists in cache
-- `rtcGet($id, $group = '_default', $default = null)`: Get value from cache
-- `rtcGetDelete($id, $group = '_default', $default = null)`: Get and remove value from cache
-- `rtcDelete($id, $group = '_default')`: Remove value from cache
-- `rtcGroupGet($group, $default = null)`: Get all values from cache group
-- `rtcGroupDelete($group)`: Remove entire cache group
-- `rtcGroupAdd($group)`: Create new cache group
-- `rtcGroupExists($group)`: Check if cache group exists
-- `rtcMakeId()`: Generate unique cache ID
+##### Permission Validation:
+- `IOExpect::isReadable($path)`: Validates that a path is readable
+- `IOExpect::isWritable($path)`: Validates that a path is writable
+- `IOExpect::isExecutable($path)`: Validates that a path is executable
+- `IOExpect::parentDirWritable($path)`: Validates that parent directory exists and is writable
 
-#### Duplicatable Trait (`Traits/DuplicatableTrait.php`)
-Object duplication functionality.
+##### Directory Content Validation:
+- `IOExpect::isDirEmpty($path)`: Validates that a directory is empty
+- `IOExpect::isDirNotEmpty($path)`: Validates that a directory is not empty
 
-#### Key Functions:
-- `duplicate()`: Create a deep copy of the object
+##### File Content and Properties Validation:
+- `IOExpect::isFileNotEmpty($path)`: Validates that a file is not empty
+- `IOExpect::hasMinSize($path, $minSize)`: Validates that a file has minimum size in bytes
+- `IOExpect::hasMaxSize($path, $maxSize)`: Validates that a file has maximum size in bytes
+- `IOExpect::hasExtension($path, $extension)`: Validates that a file has specific extension
+- `IOExpect::hasAllowedExtension($path, $extensions)`: Validates that a file has one of allowed extensions
+- `IOExpect::hasMimeType($path, $expectedMimeType)`: Validates that a file matches specific MIME type
+
 
 ## Testing
 
 The library includes comprehensive unit tests for all components. Each helper class has a corresponding test class that verifies its functionality:
 
 - `ArrayHelperTest`: Tests array manipulation and path operations
-- `StringHelperTest`: Tests string comparison and manipulation methods
+- `AttributesHelperTest`: Tests HTML attribute management and validation
+- `BootstrapHelperTest`: Tests Bootstrap component generation and glyphicon creation
+- `CounterHelperTest`: Tests counter operations and assertions
+- `CsvHelperTest`: Tests CSV file operations and string conversion
 - `DateHelperTest`: Tests date formatting and difference calculations
+- `EmailHelperTest`: Tests email validation and cleaning
+- `ExpectTest`: Tests type validation and exception throwing
+- `FormHelperTest`: Tests HTML form element generation and validation
 - `HtmlHelperTest`: Tests HTML element generation and attributes
+- `IOExpectTest`: Tests file system validation and IOException handling
+- `IOHelperTest`: Tests file system operations
 - `JsonHelperTest`: Tests JSON validation for various data types
 - `NumberHelperTest`: Tests number formatting and ordinal conversion
 - `RandomHelperTest`: Tests random value generation
+- `RequestHelperTest`: Tests comprehensive HTTP request analysis including environment detection, method analysis, client information, content analysis, and security features
+- `StringHelperTest`: Tests string comparison and manipulation methods
+- `UrlHelperTest`: Tests comprehensive URL manipulation including validation, parsing, path operations, domain extraction, encoding, and utility methods
 - `ValueHelperTest`: Tests value validation and type checking
-- `CounterHelperTest`: Tests counter operations and assertions
-- `CsvHelperTest`: Tests CSV file operations and string conversion
-- `EmailHelperTest`: Tests email validation and cleaning
-- `IOHelperTest`: Tests file system operations
 
 Run the tests using:
 
@@ -395,6 +615,12 @@ use AndreasGlaser\Helpers\ArrayHelper;
 use AndreasGlaser\Helpers\StringHelper;
 use AndreasGlaser\Helpers\DateHelper;
 use AndreasGlaser\Helpers\ValueHelper;
+use AndreasGlaser\Helpers\CsvHelper;
+use AndreasGlaser\Helpers\EmailHelper;
+use AndreasGlaser\Helpers\Html\FormHelper;
+use AndreasGlaser\Helpers\Html\AttributesHelper;
+use AndreasGlaser\Helpers\Validate\Expect;
+use AndreasGlaser\Helpers\Validate\IOExpect;
 
 // Array operations
 $array = ['user' => ['profile' => ['name' => 'John']]];
@@ -411,7 +637,61 @@ $hours = DateHelper::diffHours($date, new DateTime('+1 day')); // Returns 24
 
 // Value validation
 $isValid = ValueHelper::isDateTime('2024-03-20'); // Returns true
-$isTruthy = ValueHelper::isTrueLike('yes'); // Returns true
+
+// CSV operations
+$csvData = [
+    ['Name', 'Email', 'Age'],
+    ['John Doe', 'john@example.com', '30'],
+    ['Jane Smith', 'jane@example.com', '25']
+];
+$csvString = CsvHelper::arrayToCsvString($csvData);
+// Result: "Name,Email,Age\nJohn Doe,john@example.com,30\nJane Smith,jane@example.com,25"
+
+// Read CSV file to array
+$data = CsvHelper::fileToArray('users.csv', true); // true for header row
+// With custom delimiter
+$data = CsvHelper::fileToArray('data.csv', false, 0, ';'); // semicolon delimiter
+
+// Email operations
+$validEmail = EmailHelper::isValid('user@example.com'); // Returns true
+$invalidEmail = EmailHelper::isValid('invalid-email'); // Returns false
+
+// Clean and normalize email addresses
+$emails = 'user@example.com, invalid-email, admin@test.com; contact@domain.org';
+$cleanEmails = EmailHelper::clean($emails); // Returns ['user@example.com', 'admin@test.com', 'contact@domain.org']
+
+// Clean with custom delimiters
+$emails = 'user@example.com:admin@test.com#contact@domain.org';
+$cleanEmails = EmailHelper::clean($emails, [':', '#']); // Returns ['user@example.com', 'admin@test.com', 'contact@domain.org']
+
+// Clean array of emails
+$emailArray = ['user@example.com', 'invalid', 'admin@test.com'];
+$cleanEmails = EmailHelper::clean($emailArray); // Returns ['user@example.com', 'admin@test.com']
+
+// Form generation
+echo FormHelper::open('/users', 'POST', ['class' => 'user-form']);
+echo FormHelper::text('name', 'John Doe', ['id' => 'name', 'required' => 'required']);
+echo FormHelper::email('email', 'john@example.com', ['placeholder' => 'Enter email']);
+echo FormHelper::select('country', ['US' => 'United States', 'CA' => 'Canada'], 'US');
+echo FormHelper::textarea('bio', 'Tell us about yourself', ['rows' => 5]);
+echo FormHelper::submit('submit', 'Create User', ['class' => 'btn btn-primary']);
+echo FormHelper::close();
+
+// HTML attribute management
+$attrs = AttributesHelper::f(['class' => 'btn'])
+    ->addClass('btn-primary')
+    ->addStyle('margin', '10px')
+    ->addData('toggle', 'modal');
+echo $attrs; // outputs: class="btn btn-primary" style="margin:10px" data-toggle="modal"
+
+// Type validation with exceptions
+Expect::int(42);           // Valid - no exception
+Expect::str('hello');      // Valid - no exception
+Expect::finite(42.5);      // Valid - finite number
+
+// File system validation
+IOExpect::isFile('/path/to/file.txt');    // Throws IOException if not a file
+IOExpect::isReadable('/path/to/file.txt'); // Throws IOException if not readable
 ```
 
 ## Contributing

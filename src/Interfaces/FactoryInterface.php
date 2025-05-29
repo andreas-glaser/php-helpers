@@ -14,5 +14,5 @@ interface FactoryInterface
      *
      * @return static A new instance of the implementing class
      */
-    public static function f();
+    public static function f(): static;
 }

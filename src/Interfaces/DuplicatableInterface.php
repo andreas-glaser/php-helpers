@@ -14,5 +14,5 @@ interface DuplicatableInterface
      *
      * @return static A new instance with the same property values
      */
-    public function duplicate();
+    public function duplicate(): static;
 }

@@ -22,7 +22,7 @@ class StringHelper
      *
      * @return bool True if the strings are equal, false otherwise
      */
-    public static function is($string, $stringToMach, $caseSensitive = true)
+    public static function is($string, $stringToMach, $caseSensitive = true): bool
     {
         if (false === $caseSensitive) {
             return 0 === \strcasecmp($string ?? '', $stringToMach ?? '');
@@ -40,7 +40,7 @@ class StringHelper
      *
      * @return bool True if the string matches any of the comparison strings, false otherwise
      */
-    public static function isOneOf($string, array $stingsToCompare, $caseSensitive = true)
+    public static function isOneOf($string, array $stingsToCompare, $caseSensitive = true): bool
     {
         foreach ($stingsToCompare as $compareTo) {
             if (self::is($string, $compareTo, $caseSensitive)) {
@@ -61,7 +61,7 @@ class StringHelper
      *
      * @return bool True if the needle is found in the haystack, false otherwise
      */
-    public static function contains($haystack, $needle, $caseSensitive = true, $encoding = 'UTF-8')
+    public static function contains($haystack, $needle, $caseSensitive = true, $encoding = 'UTF-8'): bool
     {
         if (false === $caseSensitive) {
             return false !== \mb_stristr($haystack ?? '', $needle ?? '', false, $encoding);
@@ -124,7 +124,7 @@ class StringHelper
      *
      * @return bool True if the string is a valid datetime, false otherwise
      */
-    public static function isDateTime($string)
+    public static function isDateTime($string): bool
     {
         return ValueHelper::isDateTime($string);
     }
@@ -137,7 +137,7 @@ class StringHelper
      *
      * @return string The trimmed string
      */
-    public static function trimMulti($string, array $chars)
+    public static function trimMulti($string, array $chars): string
     {
         foreach ($chars as $char) {
             $string = \trim($string, $char);
@@ -154,7 +154,7 @@ class StringHelper
      *
      * @return string The trimmed string
      */
-    public static function lTrimMulti($string, array $chars)
+    public static function lTrimMulti($string, array $chars): string
     {
         foreach ($chars as $char) {
             $string = \ltrim($string, $char);
@@ -171,7 +171,7 @@ class StringHelper
      *
      * @return string The trimmed string
      */
-    public static function rTrimMulti($string, array $chars)
+    public static function rTrimMulti($string, array $chars): string
     {
         foreach ($chars as $char) {
             $string = \rtrim($string, $char);
@@ -187,7 +187,7 @@ class StringHelper
      *
      * @return string The converted string
      */
-    public static function camelToUnderscore($string)
+    public static function camelToUnderscore($string): string
     {
         if (\is_numeric($string)) {
             return $string;
@@ -210,7 +210,7 @@ class StringHelper
      *
      * @return string The processed string
      */
-    public static function removeLineBreaks($string, $replaceWith = ' ')
+    public static function removeLineBreaks($string, $replaceWith = ' '): string
     {
         return \preg_replace('/[\r\n]+/', $replaceWith, $string);
     }
@@ -222,7 +222,7 @@ class StringHelper
      *
      * @return string The processed string with single spaces
      */
-    public static function removeRedundantWhiteSpaces($string)
+    public static function removeRedundantWhiteSpaces($string): string
     {
         return \preg_replace('/\s+/', ' ', $string);
     }
@@ -234,7 +234,7 @@ class StringHelper
      *
      * @return string The processed string
      */
-    public static function replaceWhiteSpacesWithUnderscores($string)
+    public static function replaceWhiteSpacesWithUnderscores($string): string
     {
         return \str_replace(' ', '_', $string);
     }
@@ -247,7 +247,7 @@ class StringHelper
      *
      * @return string The machine-readable string
      */
-    public static function machineReadable($string)
+    public static function machineReadable($string): string
     {
         return \trim(self::replaceWhiteSpacesWithUnderscores(\strtolower(self::removeRedundantWhiteSpaces(self::removeLineBreaks($string)))));
     }
@@ -260,7 +260,7 @@ class StringHelper
      *
      * @return string The concatenated string
      */
-    public static function append($string, $stringToAppend)
+    public static function append($string, $stringToAppend): string
     {
         return $string . $stringToAppend;
     }
@@ -273,7 +273,7 @@ class StringHelper
      *
      * @return string The concatenated string
      */
-    public static function prepend($string, $stringToPrepend)
+    public static function prepend($string, $stringToPrepend): string
     {
         return $stringToPrepend . $string;
     }
@@ -286,7 +286,7 @@ class StringHelper
      *
      * @return string The processed string
      */
-    public static function removeChar($string, $char)
+    public static function removeChar($string, $char): string
     {
         return \str_replace($char, null, $string);
     }
@@ -299,7 +299,7 @@ class StringHelper
      *
      * @return string The processed string
      */
-    public static function removeChars($string, array $chars)
+    public static function removeChars($string, array $chars): string
     {
         foreach ($chars as $char) {
             $string = self::removeChar($string, $char);
@@ -316,7 +316,7 @@ class StringHelper
      *
      * @return array Array of trimmed strings
      */
-    public static function explodeAndTrim($delimiter, $string)
+    public static function explodeAndTrim($delimiter, $string): array
     {
         $return = [];
         $pieces = \explode($delimiter, $string);
@@ -337,7 +337,7 @@ class StringHelper
      *
      * @return string The processed string
      */
-    public static function replace($subject, array $replacementMap, $caseSensitive = true)
+    public static function replace($subject, array $replacementMap, $caseSensitive = true): string
     {
         foreach ($replacementMap as $search => $replace) {
             if ($caseSensitive) {
@@ -359,7 +359,7 @@ class StringHelper
      *
      * @return string The truncated string
      */
-    public static function limitWords($str, $limit = 100, $end_char = null)
+    public static function limitWords($str, $limit = 100, $end_char = null): string
     {
         $limit = (int)$limit;
         $end_char = (null === $end_char) ? '…' : $end_char;
@@ -389,7 +389,7 @@ class StringHelper
      *
      * @return string The truncated string
      */
-    public static function limitChars($str, $limit = 100, $end_char = null, $preserve_words = false)
+    public static function limitChars($str, $limit = 100, $end_char = null, $preserve_words = false): string
     {
         $end_char = (null === $end_char) ? '…' : $end_char;
 
@@ -423,7 +423,7 @@ class StringHelper
      *
      * @return string The generated ID
      */
-    public static function getIncrementalId($prefix = '__undefined__')
+    public static function getIncrementalId($prefix = '__undefined__'): string
     {
         static $indexes = [];
 
@@ -443,7 +443,7 @@ class StringHelper
      *
      * @return bool True if the string is blank, false otherwise
      */
-    public static function isBlank($string)
+    public static function isBlank($string): bool
     {
         return !\strlen(\trim((string)$string)) > 0;
     }

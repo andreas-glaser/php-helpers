@@ -99,7 +99,7 @@ class PHPView implements FactoryInterface
      * @param string $key The key to store the value under
      * @param mixed $value The value to store
      */
-    public static function setGlobal(string $key, $value)
+    public static function setGlobal(string $key, $value): void
     {
         static::$globalData[$key] = $value;
     }
@@ -109,7 +109,7 @@ class PHPView implements FactoryInterface
      *
      * @return array All global data
      */
-    public static function getGlobalData()
+    public static function getGlobalData(): array
     {
         return self::$globalData;
     }
@@ -134,7 +134,7 @@ class PHPView implements FactoryInterface
      *
      * @return array All local data
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
@@ -187,7 +187,7 @@ class PHPView implements FactoryInterface
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->render();
     }

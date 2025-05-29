@@ -781,4 +781,555 @@ class UrlHelperTest extends TestCase
             $this->assertEquals('/test?param=value', $currentUri);
         }
     }
+
+    // ========================================
+    // Tests for new URL parsing and validation methods
+    // ========================================
+
+    /**
+     * Tests isValidUrl() method with valid URLs.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::isValidUrl
+     * @return void
+     */
+    public function testIsValidUrlWithValidUrls()
+    {
+        $validUrls = [
+            'http://example.com',
+            'https://www.example.com',
+            'https://subdomain.example.com/path?query=value#fragment',
+            'http://example.com:8080',
+            'https://example.com/path/to/file.php'
+        ];
+
+        foreach ($validUrls as $url) {
+            $this->assertTrue(UrlHelper::isValidUrl($url), "Failed for URL: $url");
+        }
+    }
+
+    /**
+     * Tests isValidUrl() method with invalid URLs.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::isValidUrl
+     * @return void
+     */
+    public function testIsValidUrlWithInvalidUrls()
+    {
+        $invalidUrls = [
+            '',
+            'not-a-url',
+            'javascript:alert("xss")',
+            'ftp://example.com', // not in allowed schemes
+            '://example.com'
+        ];
+
+        foreach ($invalidUrls as $url) {
+            $this->assertFalse(UrlHelper::isValidUrl($url), "Failed for URL: $url");
+        }
+    }
+
+    /**
+     * Tests parseUrl() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::parseUrl
+     * @return void
+     */
+    public function testParseUrl()
+    {
+        $url = 'https://user:pass@example.com:8080/path/to/file?query=value#fragment';
+        $parsed = UrlHelper::parseUrl($url);
+
+        $this->assertEquals('https', $parsed['scheme']);
+        $this->assertEquals('example.com', $parsed['host']);
+        $this->assertEquals(8080, $parsed['port']);
+        $this->assertEquals('user', $parsed['user']);
+        $this->assertEquals('pass', $parsed['pass']);
+        $this->assertEquals('/path/to/file', $parsed['path']);
+        $this->assertEquals('query=value', $parsed['query']);
+        $this->assertEquals('fragment', $parsed['fragment']);
+    }
+
+    /**
+     * Tests buildUrl() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::buildUrl
+     * @return void
+     */
+    public function testBuildUrl()
+    {
+        $components = [
+            'scheme' => 'https',
+            'host' => 'example.com',
+            'port' => 8080,
+            'path' => '/test',
+            'query' => 'param=value',
+            'fragment' => 'section'
+        ];
+
+        $result = UrlHelper::buildUrl($components);
+
+        $this->assertEquals('https://example.com:8080/test?param=value#section', $result);
+    }
+
+    /**
+     * Tests isStandardPort() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::isStandardPort
+     * @return void
+     */
+    public function testIsStandardPort()
+    {
+        $this->assertTrue(UrlHelper::isStandardPort('http', 80));
+        $this->assertTrue(UrlHelper::isStandardPort('https', 443));
+        $this->assertTrue(UrlHelper::isStandardPort('ftp', 21));
+        $this->assertFalse(UrlHelper::isStandardPort('http', 8080));
+        $this->assertFalse(UrlHelper::isStandardPort('https', 8443));
+    }
+
+    // ========================================
+    // Tests for URL manipulation methods
+    // ========================================
+
+    /**
+     * Tests addQueryParams() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::addQueryParams
+     * @return void
+     */
+    public function testAddQueryParams()
+    {
+        $url = 'https://example.com/path?existing=value';
+        $params = ['new' => 'param', 'another' => 'test'];
+
+        $result = UrlHelper::addQueryParams($url, $params);
+
+        $this->assertStringContainsString('existing=value', $result);
+        $this->assertStringContainsString('new=param', $result);
+        $this->assertStringContainsString('another=test', $result);
+    }
+
+    /**
+     * Tests removeQueryParams() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::removeQueryParams
+     * @return void
+     */
+    public function testRemoveQueryParams()
+    {
+        $url = 'https://example.com/path?param1=value1&param2=value2&param3=value3';
+        $result = UrlHelper::removeQueryParams($url, ['param2']);
+
+        $this->assertStringContainsString('param1=value1', $result);
+        $this->assertStringNotContainsString('param2=value2', $result);
+        $this->assertStringContainsString('param3=value3', $result);
+    }
+
+    /**
+     * Tests changeScheme() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::changeScheme
+     * @return void
+     */
+    public function testChangeScheme()
+    {
+        $url = 'http://example.com/path';
+        $result = UrlHelper::changeScheme($url, 'https');
+
+        $this->assertEquals('https://example.com/path', $result);
+    }
+
+    /**
+     * Tests normalize() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::normalize
+     * @return void
+     */
+    public function testNormalize()
+    {
+        $url = 'EXAMPLE.COM/path/../other/./file';
+        $result = UrlHelper::normalize($url);
+
+        $this->assertEquals('http://example.com/other/file', $result);
+    }
+
+    // ========================================
+    // Tests for path manipulation methods
+    // ========================================
+
+    /**
+     * Tests normalizePath() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::normalizePath
+     * @return void
+     */
+    public function testNormalizePath()
+    {
+        $paths = [
+            '/path/../other/./file' => '/other/file',
+            '/path/to/../from/file' => '/path/from/file',
+            '/../path' => '/path',
+            '/path/..' => '/',
+            '/path/to/file/../..' => '/path'
+        ];
+
+        foreach ($paths as $input => $expected) {
+            $result = UrlHelper::normalizePath($input);
+            $this->assertEquals($expected, $result, "Failed for path: $input");
+        }
+    }
+
+    /**
+     * Tests joinPaths() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::joinPaths
+     * @return void
+     */
+    public function testJoinPaths()
+    {
+        $result = UrlHelper::joinPaths('/base', 'path', 'to', 'file');
+        $this->assertEquals('/base/path/to/file', $result);
+
+        $result = UrlHelper::joinPaths('relative', 'path');
+        $this->assertEquals('relative/path', $result);
+    }
+
+    /**
+     * Tests path utility methods.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::getDirectory
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::getFilename
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::getExtension
+     * @return void
+     */
+    public function testPathUtilities()
+    {
+        $path = '/path/to/file.php';
+
+        $this->assertEquals('/path/to', UrlHelper::getDirectory($path));
+        $this->assertEquals('file.php', UrlHelper::getFilename($path));
+        $this->assertEquals('php', UrlHelper::getExtension($path));
+    }
+
+    // ========================================
+    // Tests for domain and host utilities
+    // ========================================
+
+    /**
+     * Tests getDomain() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::getDomain
+     * @return void
+     */
+    public function testGetDomain()
+    {
+        $url = 'https://subdomain.example.com/path';
+        $result = UrlHelper::getDomain($url);
+
+        $this->assertEquals('subdomain.example.com', $result);
+    }
+
+    /**
+     * Tests getSubdomain() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::getSubdomain
+     * @return void
+     */
+    public function testGetSubdomain()
+    {
+        $url = 'https://api.v1.example.com/path';
+        $result = UrlHelper::getSubdomain($url, 2); // example.com is root
+
+        $this->assertEquals('api.v1', $result);
+
+        // No subdomain case
+        $url2 = 'https://example.com/path';
+        $result2 = UrlHelper::getSubdomain($url2, 2);
+
+        $this->assertNull($result2);
+    }
+
+    /**
+     * Tests getRootDomain() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::getRootDomain
+     * @return void
+     */
+    public function testGetRootDomain()
+    {
+        $url = 'https://api.subdomain.example.com/path';
+        $result = UrlHelper::getRootDomain($url, 2);
+
+        $this->assertEquals('example.com', $result);
+    }
+
+    /**
+     * Tests isSameDomain() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::isSameDomain
+     * @return void
+     */
+    public function testIsSameDomain()
+    {
+        $url1 = 'https://api.example.com/v1';
+        $url2 = 'https://api.example.com/v2';
+        $url3 = 'https://different.com/path';
+
+        $this->assertTrue(UrlHelper::isSameDomain($url1, $url2));
+        $this->assertFalse(UrlHelper::isSameDomain($url1, $url3));
+    }
+
+    // ========================================
+    // Tests for encoding and decoding methods
+    // ========================================
+
+    /**
+     * Tests encode() and decode() methods.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::encode
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::decode
+     * @return void
+     */
+    public function testEncodeAndDecode()
+    {
+        $string = 'hello world/test+value';
+        $encoded = UrlHelper::encode($string);
+        $decoded = UrlHelper::decode($encoded);
+
+        $this->assertNotEquals($string, $encoded);
+        $this->assertEquals($string, $decoded);
+    }
+
+    /**
+     * Tests encodePath() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::encodePath
+     * @return void
+     */
+    public function testEncodePath()
+    {
+        $path = '/path with spaces/to/file name.txt';
+        $result = UrlHelper::encodePath($path);
+
+        $this->assertStringContainsString('path%20with%20spaces', $result);
+        $this->assertStringContainsString('file%20name.txt', $result);
+    }
+
+    /**
+     * Tests encodeQuery() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::encodeQuery
+     * @return void
+     */
+    public function testEncodeQuery()
+    {
+        $params = ['key with spaces' => 'value with spaces', 'normal' => 'value'];
+        $result = UrlHelper::encodeQuery($params);
+
+        $this->assertStringContainsString('key%20with%20spaces', $result);
+        $this->assertStringContainsString('value%20with%20spaces', $result);
+    }
+
+    // ========================================
+    // Tests for URL conversion methods
+    // ========================================
+
+    /**
+     * Tests toAbsolute() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::toAbsolute
+     * @return void
+     */
+    public function testToAbsolute()
+    {
+        $baseUrl = 'https://example.com/path/to/';
+        
+        // Relative path
+        $relative = 'file.php';
+        $result = UrlHelper::toAbsolute($relative, $baseUrl);
+        $this->assertEquals('https://example.com/path/to/file.php', $result);
+
+        // Absolute path
+        $absolute = '/other/path';
+        $result = UrlHelper::toAbsolute($absolute, $baseUrl);
+        $this->assertEquals('https://example.com/other/path', $result);
+
+        // Already absolute URL
+        $alreadyAbsolute = 'https://other.com/path';
+        $result = UrlHelper::toAbsolute($alreadyAbsolute, $baseUrl);
+        $this->assertEquals('https://other.com/path', $result);
+    }
+
+    /**
+     * Tests toRelative() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::toRelative
+     * @return void
+     */
+    public function testToRelative()
+    {
+        $baseUrl = 'https://example.com/path/to/base';
+        $absoluteUrl = 'https://example.com/path/to/other/file.php';
+
+        $result = UrlHelper::toRelative($absoluteUrl, $baseUrl);
+
+        $this->assertEquals('../other/file.php', $result);
+    }
+
+    // ========================================
+    // Tests for utility methods
+    // ========================================
+
+    /**
+     * Tests currentUrlWithModifications() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::currentUrlWithModifications
+     * @return void
+     */
+    public function testCurrentUrlWithModifications()
+    {
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['SERVER_NAME'] = 'example.com';
+        $_SERVER['SERVER_PORT'] = '80';
+        $_SERVER['REQUEST_URI'] = '/test?existing=value&remove=this';
+        unset($_SERVER['HTTPS']);
+
+        $result = UrlHelper::currentUrlWithModifications(['new' => 'param'], ['remove']);
+
+        $this->assertStringContainsString('existing=value', $result);
+        $this->assertStringContainsString('new=param', $result);
+        $this->assertStringNotContainsString('remove=this', $result);
+    }
+
+    /**
+     * Tests isSecureUrl() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::isSecureUrl
+     * @return void
+     */
+    public function testIsSecureUrl()
+    {
+        $this->assertTrue(UrlHelper::isSecureUrl('https://example.com'));
+        $this->assertFalse(UrlHelper::isSecureUrl('http://example.com'));
+    }
+
+    /**
+     * Tests getStandardPort() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::getStandardPort
+     * @return void
+     */
+    public function testGetStandardPort()
+    {
+        $this->assertEquals(80, UrlHelper::getStandardPort('http'));
+        $this->assertEquals(443, UrlHelper::getStandardPort('https'));
+        $this->assertEquals(21, UrlHelper::getStandardPort('ftp'));
+        $this->assertNull(UrlHelper::getStandardPort('unknown'));
+    }
+
+    /**
+     * Tests sanitize() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::sanitize
+     * @return void
+     */
+    public function testSanitize()
+    {
+        // Valid URL
+        $validUrl = 'https://example.com/path';
+        $result = UrlHelper::sanitize($validUrl);
+        $this->assertEquals($validUrl, $result);
+
+        // Dangerous URL
+        $dangerousUrl = 'javascript:alert("xss")';
+        $result = UrlHelper::sanitize($dangerousUrl);
+        $this->assertNull($result);
+
+        // Invalid URL
+        $invalidUrl = 'not-a-url';
+        $result = UrlHelper::sanitize($invalidUrl);
+        $this->assertNull($result);
+    }
+
+    /**
+     * Tests modifiedQuery() method.
+     *
+     * @test
+     * @covers \AndreasGlaser\Helpers\Http\UrlHelper::modifiedQuery
+     * @return void
+     */
+    public function testModifiedQuery()
+    {
+        $_GET = ['existing' => 'value', 'remove' => 'this'];
+
+        $result = UrlHelper::modifiedQuery(['new' => 'param'], ['remove']);
+
+        $this->assertStringContainsString('existing=value', $result);
+        $this->assertStringContainsString('new=param', $result);
+        $this->assertStringNotContainsString('remove=this', $result);
+    }
+
+    /**
+     * Tests constants are properly defined.
+     *
+     * @test
+     * @return void
+     */
+    public function testConstants()
+    {
+        $this->assertEquals('http', UrlHelper::SCHEME_HTTP);
+        $this->assertEquals('https', UrlHelper::SCHEME_HTTPS);
+        $this->assertEquals('ftp', UrlHelper::SCHEME_FTP);
+        $this->assertEquals(80, UrlHelper::STANDARD_PORTS['http']);
+        $this->assertEquals(443, UrlHelper::STANDARD_PORTS['https']);
+    }
+
+    /**
+     * Tests edge cases and error handling.
+     *
+     * @test
+     * @return void
+     */
+    public function testEdgeCasesAndErrorHandling()
+    {
+        // Empty URL parsing returns array with null values, not null
+        $parsed = UrlHelper::parseUrl('');
+        $this->assertIsArray($parsed);
+        $this->assertNull($parsed['scheme']);
+        $this->assertNull($parsed['host']);
+        
+        // Invalid URL for domain extraction
+        $this->assertNull(UrlHelper::getDomain('invalid-url'));
+        
+        // Empty path normalization
+        $this->assertEquals('/', UrlHelper::normalizePath(''));
+        
+        // Empty params for addQueryParams
+        $url = 'https://example.com';
+        $this->assertEquals($url, UrlHelper::addQueryParams($url, []));
+    }
 } 

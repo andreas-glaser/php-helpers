@@ -290,66 +290,60 @@ Request environment detection and comprehensive HTTP request analysis utilities.
 - `RequestHelper::setTrustedProxyHeaders($headers)`: Set trusted proxy headers
 - `RequestHelper::getTrustedProxyHeaders()`: Get current trusted proxy headers
 
-```php
-use AndreasGlaser\Helpers\Http\RequestHelper;
-
-// Environment detection
-$isCli = RequestHelper::isCli();
-$isHttps = RequestHelper::isHttps();
-$isSecure = RequestHelper::isSecure();
-
-// Method analysis
-$method = RequestHelper::getMethod(); // 'GET', 'POST', etc.
-$isPost = RequestHelper::isPost();
-
-// Request type detection
-$isAjax = RequestHelper::isAjax();
-$isApi = RequestHelper::isApi();
-$isMobile = RequestHelper::isMobile();
-$isBot = RequestHelper::isBot();
-
-// Client information
-$clientIp = RequestHelper::getClientIp();
-$userAgent = RequestHelper::getUserAgent();
-$referrer = RequestHelper::getReferrer();
-
-// Content analysis
-$contentType = RequestHelper::getContentType();
-$isJson = RequestHelper::isJson();
-$languages = RequestHelper::getAcceptedLanguages();
-
-// Header management
-$authHeader = RequestHelper::getHeader('Authorization');
-$hasCustomHeader = RequestHelper::hasHeader('X-Custom-Header');
-$allHeaders = RequestHelper::getAllHeaders();
-
-// Security
-$isLegitimate = RequestHelper::isLegitimate();
-$withinLimits = RequestHelper::isWithinRateLimit(100, 3600); // 100 requests per hour
-
-// Comprehensive request info
-$requestInfo = RequestHelper::getRequestInfo();
-/*
-Returns array with:
-- environment, method, uri, host, port, protocol
-- is_secure, is_https, is_ajax, is_api, is_mobile, is_bot
-- client_ip, user_agent, referrer, content_type, content_length
-- accepted_languages, timestamp, is_legitimate
-*/
-
-// Proxy configuration
-RequestHelper::setTrustedProxyHeaders(['HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP']);
-$trustedHeaders = RequestHelper::getTrustedProxyHeaders();
-```
-
 #### URL Helper (`Http/UrlHelper.php`)
-URL manipulation and generation utilities.
+Comprehensive URL manipulation, validation, and generation utilities for HTTP requests.
 
-#### Key Functions:
-- `UrlHelper::protocolHostPort()`: Get protocol, host, and port string
-- `UrlHelper::query($parameters = null, $mergeGetVariables = true)`: Build query string from parameters
-- `UrlHelper::currentUrl($includeQuery = true, $urlEncode = false)`: Get current full URL
-- `UrlHelper::currentUri($includeQueryParams = true, $encode = false)`: Get current URI
+##### Current URL/URI Methods:
+- `UrlHelper::protocolHostPort()`: Get protocol, host, and port string based on server configuration
+- `UrlHelper::query($parameters = null, $mergeGetVariables = true)`: Build query string from parameters with optional $_GET merging
+- `UrlHelper::currentUrl($includeQuery = true, $urlEncode = false)`: Get current full URL with optional query string and encoding
+- `UrlHelper::currentUri($includeQueryParams = true, $encode = false)`: Get current URI with optional query parameters and encoding
+
+##### URL Parsing and Validation:
+- `UrlHelper::isValidUrl($url, $allowedSchemes = ['http', 'https'])`: Validate URL with configurable allowed schemes
+- `UrlHelper::parseUrl($url)`: Parse URL components into structured array
+- `UrlHelper::buildUrl($components)`: Build URL from component array
+- `UrlHelper::isStandardPort($scheme, $port)`: Check if port is standard for given scheme
+
+##### URL Manipulation:
+- `UrlHelper::addQueryParams($url, $params, $encode = true)`: Add or modify query parameters in URL
+- `UrlHelper::removeQueryParams($url, $paramsToRemove)`: Remove specific query parameters from URL
+- `UrlHelper::changeScheme($url, $scheme)`: Change URL scheme (e.g., HTTP to HTTPS)
+- `UrlHelper::normalize($url)`: Normalize URL by cleaning up common issues
+
+##### Path Manipulation:
+- `UrlHelper::normalizePath($path)`: Normalize URL path by resolving . and .. segments
+- `UrlHelper::joinPaths(...$segments)`: Join multiple path segments into single path
+- `UrlHelper::getDirectory($path)`: Get directory path from URL path
+- `UrlHelper::getFilename($path)`: Get filename from URL path
+- `UrlHelper::getExtension($path)`: Get file extension from URL path
+
+##### Domain and Host Utilities:
+- `UrlHelper::getDomain($url)`: Extract domain from URL
+- `UrlHelper::getSubdomain($url, $levels = 2)`: Extract subdomain with configurable root domain levels
+- `UrlHelper::getRootDomain($url, $levels = 2)`: Get root domain with configurable levels
+- `UrlHelper::isSameDomain($url1, $url2)`: Check if two URLs have same domain
+
+##### Encoding and Decoding:
+- `UrlHelper::encode($string)`: URL encode string with RFC 3986 compliance
+- `UrlHelper::decode($string)`: URL decode string
+- `UrlHelper::encodePath($path)`: Encode only path component of URL
+- `UrlHelper::encodeQuery($params, $rfc3986 = true)`: Encode query string parameters
+
+##### URL Conversion and Transformation:
+- `UrlHelper::toAbsolute($relativeUrl, $baseUrl)`: Convert relative URL to absolute
+- `UrlHelper::toRelative($absoluteUrl, $baseUrl)`: Convert absolute URL to relative
+
+##### Utility Methods:
+- `UrlHelper::currentUrlWithModifications($queryModifications = [], $queryRemovals = [])`: Get current URL with query modifications
+- `UrlHelper::isSecureUrl($url)`: Check if URL uses HTTPS scheme
+- `UrlHelper::getStandardPort($scheme)`: Get standard port for scheme
+- `UrlHelper::sanitize($url, $allowedSchemes = ['http', 'https'])`: Sanitize URL by removing dangerous protocols
+- `UrlHelper::modifiedQuery($params = [], $remove = [])`: Generate query string from current URL with modifications
+
+##### Constants:
+- URL schemes: `SCHEME_HTTP`, `SCHEME_HTTPS`, `SCHEME_FTP`, `SCHEME_SFTP`, `SCHEME_FILE`
+- Standard ports array: `STANDARD_PORTS` with common protocol ports
 
 ### HTML Helpers
 
@@ -604,7 +598,7 @@ The library includes comprehensive unit tests for all components. Each helper cl
 - `RandomHelperTest`: Tests random value generation
 - `RequestHelperTest`: Tests comprehensive HTTP request analysis including environment detection, method analysis, client information, content analysis, and security features
 - `StringHelperTest`: Tests string comparison and manipulation methods
-- `UrlHelperTest`: Tests URL generation, query string building, and server environment handling
+- `UrlHelperTest`: Tests comprehensive URL manipulation including validation, parsing, path operations, domain extraction, encoding, and utility methods
 - `ValueHelperTest`: Tests value validation and type checking
 
 Run the tests using:

@@ -319,8 +319,31 @@ echo $attrs; // outputs: class="btn btn-primary" style="margin:10px" data-toggle
 Bootstrap-specific HTML generation utilities.
 
 #### Key Functions:
-- `BootstrapHelper::alert($content, $type = 'info', $dismissible = false)`: Create Bootstrap alert
-- `BootstrapHelper::badge($content, $type = 'primary')`: Create Bootstrap badge
+- `BootstrapHelper::glyphIcon($name, $attributesHelper = null)`: Create Bootstrap glyphicon span element
+
+```php
+use AndreasGlaser\Helpers\Html\BootstrapHelper;
+
+// Basic glyphicon
+echo BootstrapHelper::glyphIcon('home');
+// Output: <span class="glyphicon glyphicon-home"></span>
+
+// With additional attributes
+echo BootstrapHelper::glyphIcon('search', [
+    'id' => 'search-icon',
+    'class' => 'icon-large text-primary',
+    'title' => 'Search',
+    'data-toggle' => 'tooltip'
+]);
+// Output: <span id="search-icon" class="icon-large text-primary glyphicon glyphicon-search" title="Search" data-toggle="tooltip"></span>
+
+// Using AttributesHelper
+$attrs = AttributesHelper::f()
+    ->setId('my-icon')
+    ->addClass('text-danger')
+    ->addData('action', 'delete');
+echo BootstrapHelper::glyphIcon('trash', $attrs);
+```
 
 #### Table Helper (`Html/Table/TableHelper.php`)
 HTML table generation utilities.
@@ -462,6 +485,7 @@ The library includes comprehensive unit tests for all components. Each helper cl
 
 - `ArrayHelperTest`: Tests array manipulation and path operations
 - `AttributesHelperTest`: Tests HTML attribute management and validation
+- `BootstrapHelperTest`: Tests Bootstrap component generation and glyphicon creation
 - `CounterHelperTest`: Tests counter operations and assertions
 - `CsvHelperTest`: Tests CSV file operations and string conversion
 - `DateHelperTest`: Tests date formatting and difference calculations

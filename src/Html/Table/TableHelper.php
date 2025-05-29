@@ -3,7 +3,6 @@
 namespace AndreasGlaser\Helpers\Html\Table;
 
 use AndreasGlaser\Helpers\Html\AttributesHelper;
-use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
 use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
 use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 
@@ -11,9 +10,9 @@ use AndreasGlaser\Helpers\Interfaces\RendererInterface;
  * Class TableHelper
  * 
  * A helper class for generating HTML tables with support for header and body rows.
- * Implements RenderableInterface for HTML rendering and FactoryInterface for static factory methods.
+ * Implements RenderableInterface for HTML rendering.
  */
-class TableHelper implements RenderableInterface, FactoryInterface
+class TableHelper implements RenderableInterface
 {
     /**
      * @var Row[] Array of header rows in the table

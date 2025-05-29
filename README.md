@@ -604,6 +604,7 @@ The library includes comprehensive unit tests for all components. Each helper cl
 - `RandomHelperTest`: Tests random value generation
 - `RequestHelperTest`: Tests comprehensive HTTP request analysis including environment detection, method analysis, client information, content analysis, and security features
 - `StringHelperTest`: Tests string comparison and manipulation methods
+- `TableHelperTest`: Tests HTML table generation, attribute handling, and rendering functionality
 - `UrlHelperTest`: Tests comprehensive URL manipulation including validation, parsing, path operations, domain extraction, encoding, and utility methods
 - `ValueHelperTest`: Tests value validation and type checking
 

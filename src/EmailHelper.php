@@ -30,28 +30,51 @@ class EmailHelper
     public static function clean($emails, array $delimiters = [',', '|', ';']): array
     {
         $cleanedEmails = [];
+        $emailsToProcess = [];
 
+        // First, collect all email strings to process
         if (\is_array($emails) || $emails instanceof Traversable) {
             foreach ($emails as $email) {
                 if (\is_array($email) || $email instanceof Traversable) {
+                    // Handle nested arrays recursively
                     $cleanedEmails = \array_merge($cleanedEmails, self::clean($email, $delimiters));
+                } else {
+                    // Add non-array items to processing list
+                    $emailsToProcess[] = $email;
                 }
             }
         } else {
-            $emails = [$emails];
+            // Single email string
+            $emailsToProcess[] = $emails;
         }
 
-        foreach ($emails as $email) {
+        // Process each email string
+        foreach ($emailsToProcess as $email) {
+            if (!\is_string($email)) {
+                continue; // Skip non-string values
+            }
+
             if (!empty($delimiters)) {
-                foreach ($delimiters as $separator) {
-                    foreach (\explode($separator, $email) as $emailSeparated) {
-                        $emailSeparated = \trim($emailSeparated);
-                        if (self::isValid($emailSeparated)) {
-                            $cleanedEmails[] = $emailSeparated;
-                        }
+                // Split by all delimiters and collect results
+                $emailParts = [$email];
+                
+                foreach ($delimiters as $delimiter) {
+                    $newParts = [];
+                    foreach ($emailParts as $part) {
+                        $newParts = \array_merge($newParts, \explode($delimiter, $part));
+                    }
+                    $emailParts = $newParts;
+                }
+                
+                // Validate and add each part
+                foreach ($emailParts as $emailPart) {
+                    $emailPart = \trim($emailPart);
+                    if (self::isValid($emailPart)) {
+                        $cleanedEmails[] = $emailPart;
                     }
                 }
             } else {
+                // No delimiters, just validate the email
                 $email = \trim($email);
                 if (self::isValid($email)) {
                     $cleanedEmails[] = $email;

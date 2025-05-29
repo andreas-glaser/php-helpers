@@ -364,16 +364,18 @@ class EmailHelperTest extends TestCase
      */
     public function testCleanWithNestedArrays()
     {
-        // The EmailHelper has a bug with nested arrays, so let's test the expected behavior
-        // This test documents the current behavior rather than the ideal behavior
         $emails = [
             ['test@example.com', 'user@domain.com'],
             ['another@example.org', 'invalid-email']
         ];
 
-        // This will cause a TypeError due to the implementation bug
-        $this->expectException(\TypeError::class);
-        EmailHelper::clean($emails);
+        $result = EmailHelper::clean($emails);
+
+        $this->assertContains('test@example.com', $result);
+        $this->assertContains('user@domain.com', $result);
+        $this->assertContains('another@example.org', $result);
+        $this->assertNotContains('invalid-email', $result);
+        $this->assertCount(3, $result);
     }
 
     /**

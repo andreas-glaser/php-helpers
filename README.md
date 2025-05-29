@@ -492,6 +492,7 @@ use AndreasGlaser\Helpers\StringHelper;
 use AndreasGlaser\Helpers\DateHelper;
 use AndreasGlaser\Helpers\ValueHelper;
 use AndreasGlaser\Helpers\CsvHelper;
+use AndreasGlaser\Helpers\EmailHelper;
 use AndreasGlaser\Helpers\Html\FormHelper;
 use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\Validate\Expect;
@@ -526,6 +527,22 @@ $csvString = CsvHelper::arrayToCsvString($csvData);
 $data = CsvHelper::fileToArray('users.csv', true); // true for header row
 // With custom delimiter
 $data = CsvHelper::fileToArray('data.csv', false, 0, ';'); // semicolon delimiter
+
+// Email operations
+$validEmail = EmailHelper::isValid('user@example.com'); // Returns true
+$invalidEmail = EmailHelper::isValid('invalid-email'); // Returns false
+
+// Clean and normalize email addresses
+$emails = 'user@example.com, invalid-email, admin@test.com; contact@domain.org';
+$cleanEmails = EmailHelper::clean($emails); // Returns ['user@example.com', 'admin@test.com', 'contact@domain.org']
+
+// Clean with custom delimiters
+$emails = 'user@example.com:admin@test.com#contact@domain.org';
+$cleanEmails = EmailHelper::clean($emails, [':', '#']); // Returns ['user@example.com', 'admin@test.com', 'contact@domain.org']
+
+// Clean array of emails
+$emailArray = ['user@example.com', 'invalid', 'admin@test.com'];
+$cleanEmails = EmailHelper::clean($emailArray); // Returns ['user@example.com', 'admin@test.com']
 
 // Form generation
 echo FormHelper::open('/users', 'POST', ['class' => 'user-form']);

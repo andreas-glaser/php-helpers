@@ -232,11 +232,115 @@ Color manipulation and conversion utilities.
 ### HTTP Helpers
 
 #### Request Helper (`Http/RequestHelper.php`)
-Request environment detection utilities.
+Request environment detection and comprehensive HTTP request analysis utilities.
 
 #### Key Functions:
+
+##### Environment Detection:
 - `RequestHelper::isCli()`: Check if script is running in CLI mode
-- `RequestHelper::isHttps()`: Check if request is using HTTPS
+- `RequestHelper::isHttps()`: Check if request is using HTTPS (enhanced with proxy detection)
+- `RequestHelper::isSecure()`: Check if request is secure (HTTPS or localhost)
+- `RequestHelper::isLocalhost()`: Check if request is from localhost
+
+##### HTTP Method Analysis:
+- `RequestHelper::getMethod()`: Get the HTTP request method (GET, POST, etc.)
+- `RequestHelper::isMethod($method)`: Check if request method matches given method
+- `RequestHelper::isGet()`: Check if request is GET
+- `RequestHelper::isPost()`: Check if request is POST
+- `RequestHelper::isPut()`: Check if request is PUT
+- `RequestHelper::isDelete()`: Check if request is DELETE
+- `RequestHelper::isHead()`: Check if request is HEAD
+- `RequestHelper::isOptions()`: Check if request is OPTIONS
+- `RequestHelper::isPatch()`: Check if request is PATCH
+
+##### Request Type Detection:
+- `RequestHelper::isAjax()`: Check if request is AJAX/XMLHttpRequest
+- `RequestHelper::isApi()`: Check if request is likely an API request
+- `RequestHelper::isMobile()`: Check if request is from mobile device
+- `RequestHelper::isBot()`: Check if request is from bot/crawler
+
+##### Client Information:
+- `RequestHelper::getClientIp($trustProxies = true)`: Get client IP address with proxy support
+- `RequestHelper::getUserAgent()`: Get user agent string
+- `RequestHelper::getReferrer()`: Get referrer URL
+- `RequestHelper::getProtocol()`: Get request protocol (HTTP/1.1, HTTP/2, etc.)
+- `RequestHelper::getPort()`: Get request port
+- `RequestHelper::getHost()`: Get host name
+
+##### Content Analysis:
+- `RequestHelper::getContentType()`: Get request content type
+- `RequestHelper::isContentType($type)`: Check if content type matches
+- `RequestHelper::isJson()`: Check if request has JSON content type
+- `RequestHelper::isXml()`: Check if request has XML content type
+- `RequestHelper::getContentLength()`: Get content length
+- `RequestHelper::getAcceptedLanguages()`: Get accepted languages from Accept-Language header
+
+##### Header Management:
+- `RequestHelper::getHeader($name, $default = null)`: Get specific request header
+- `RequestHelper::hasHeader($name)`: Check if header exists
+- `RequestHelper::getAllHeaders()`: Get all request headers
+
+##### Security and Validation:
+- `RequestHelper::isLegitimate()`: Basic security check for legitimate requests
+- `RequestHelper::getRequestTime()`: Get request timestamp
+- `RequestHelper::isWithinRateLimit($maxRequests, $timeWindow, $identifier = null)`: Basic rate limiting
+
+##### Utility Methods:
+- `RequestHelper::getRequestInfo()`: Get comprehensive request information array
+- `RequestHelper::setTrustedProxyHeaders($headers)`: Set trusted proxy headers
+- `RequestHelper::getTrustedProxyHeaders()`: Get current trusted proxy headers
+
+```php
+use AndreasGlaser\Helpers\Http\RequestHelper;
+
+// Environment detection
+$isCli = RequestHelper::isCli();
+$isHttps = RequestHelper::isHttps();
+$isSecure = RequestHelper::isSecure();
+
+// Method analysis
+$method = RequestHelper::getMethod(); // 'GET', 'POST', etc.
+$isPost = RequestHelper::isPost();
+
+// Request type detection
+$isAjax = RequestHelper::isAjax();
+$isApi = RequestHelper::isApi();
+$isMobile = RequestHelper::isMobile();
+$isBot = RequestHelper::isBot();
+
+// Client information
+$clientIp = RequestHelper::getClientIp();
+$userAgent = RequestHelper::getUserAgent();
+$referrer = RequestHelper::getReferrer();
+
+// Content analysis
+$contentType = RequestHelper::getContentType();
+$isJson = RequestHelper::isJson();
+$languages = RequestHelper::getAcceptedLanguages();
+
+// Header management
+$authHeader = RequestHelper::getHeader('Authorization');
+$hasCustomHeader = RequestHelper::hasHeader('X-Custom-Header');
+$allHeaders = RequestHelper::getAllHeaders();
+
+// Security
+$isLegitimate = RequestHelper::isLegitimate();
+$withinLimits = RequestHelper::isWithinRateLimit(100, 3600); // 100 requests per hour
+
+// Comprehensive request info
+$requestInfo = RequestHelper::getRequestInfo();
+/*
+Returns array with:
+- environment, method, uri, host, port, protocol
+- is_secure, is_https, is_ajax, is_api, is_mobile, is_bot
+- client_ip, user_agent, referrer, content_type, content_length
+- accepted_languages, timestamp, is_legitimate
+*/
+
+// Proxy configuration
+RequestHelper::setTrustedProxyHeaders(['HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP']);
+$trustedHeaders = RequestHelper::getTrustedProxyHeaders();
+```
 
 #### URL Helper (`Http/UrlHelper.php`)
 URL manipulation and generation utilities.
@@ -498,6 +602,7 @@ The library includes comprehensive unit tests for all components. Each helper cl
 - `JsonHelperTest`: Tests JSON validation for various data types
 - `NumberHelperTest`: Tests number formatting and ordinal conversion
 - `RandomHelperTest`: Tests random value generation
+- `RequestHelperTest`: Tests comprehensive HTTP request analysis including environment detection, method analysis, client information, content analysis, and security features
 - `StringHelperTest`: Tests string comparison and manipulation methods
 - `UrlHelperTest`: Tests URL generation, query string building, and server environment handling
 - `ValueHelperTest`: Tests value validation and type checking

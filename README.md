@@ -1,5 +1,11 @@
 # PHP Helpers
 
+[![CI](https://github.com/andreas-glaser/php-helpers/workflows/CI/badge.svg)](https://github.com/andreas-glaser/php-helpers/actions)
+[![PHP Version](https://img.shields.io/badge/php-8.2%2B-blue.svg)](https://www.php.net/)
+[![Latest Stable Version](https://img.shields.io/packagist/v/andreas-glaser/php-helpers.svg)](https://packagist.org/packages/andreas-glaser/php-helpers)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Total Downloads](https://img.shields.io/packagist/dt/andreas-glaser/php-helpers.svg)](https://packagist.org/packages/andreas-glaser/php-helpers)
+
 A comprehensive collection of PHP helper functions and classes to simplify common programming tasks.
 
 ## Requirements

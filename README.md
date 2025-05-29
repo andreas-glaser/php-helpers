@@ -400,6 +400,111 @@ Network-related validation utilities.
 - `NetworkHelper::getOpenPorts($host, array $ports, $timeout = 1.0)`: Scan multiple ports on a host
 - `NetworkHelper::getServiceByPort($port)`: Get service name for a port number (e.g., 80 → "http")
 
+### Validation Helpers
+
+#### Expect Helper (`Validate/Expect.php`)
+Type validation utilities that throw exceptions on type mismatches. All methods throw `UnexpectedTypeException` if the value doesn't match the expected type.
+
+##### Basic Type Validation:
+- `Expect::int($value)`: Validates that a value is an integer
+- `Expect::float($value)`: Validates that a value is a float
+- `Expect::str($value)`: Validates that a value is a string
+- `Expect::bool($value)`: Validates that a value is a boolean
+- `Expect::arr($value)`: Validates that a value is an array
+- `Expect::obj($value)`: Validates that a value is an object
+- `Expect::res($value)`: Validates that a value is a resource
+- `Expect::null($value)`: Validates that a value is null
+
+##### Special Type Validation:
+- `Expect::numeric($value)`: Validates that a value is numeric (int, float, or numeric string)
+- `Expect::isCallable($value)`: Validates that a value is callable (function, closure, method array, etc.)
+- `Expect::scalar($value)`: Validates that a value is scalar (int, float, string, or bool)
+
+##### Built-in PHP Type Validation:
+- `Expect::countable($value)`: Validates that a value is countable (array or implements Countable)
+- `Expect::iterable($value)`: Validates that a value is iterable (array or implements Traversable)
+- `Expect::finite($value)`: Validates that a value is a finite number (not infinite or NaN)
+- `Expect::infinite($value)`: Validates that a value is an infinite number
+- `Expect::nan($value)`: Validates that a value is NaN (Not a Number)
+
+#### IOExpect Helper (`Validate/IOExpect.php`)
+File system validation utilities that throw exceptions on validation failures. All methods throw `IOException` if the validation fails.
+
+##### Path Existence and Type Validation:
+- `IOExpect::exists($path)`: Validates that a path exists (file or directory)
+- `IOExpect::doesNotExist($path)`: Validates that a path does not exist
+- `IOExpect::isDir($path)`: Validates that a path exists and is a directory
+- `IOExpect::isFile($path)`: Validates that a path exists and is a file
+- `IOExpect::isLink($path)`: Validates that a path is a symbolic link
+
+##### Permission Validation:
+- `IOExpect::isReadable($path)`: Validates that a path is readable
+- `IOExpect::isWritable($path)`: Validates that a path is writable
+- `IOExpect::isExecutable($path)`: Validates that a path is executable
+- `IOExpect::parentDirWritable($path)`: Validates that parent directory exists and is writable
+
+##### Directory Content Validation:
+- `IOExpect::isDirEmpty($path)`: Validates that a directory is empty
+- `IOExpect::isDirNotEmpty($path)`: Validates that a directory is not empty
+
+##### File Content and Properties Validation:
+- `IOExpect::isFileNotEmpty($path)`: Validates that a file is not empty
+- `IOExpect::hasMinSize($path, $minSize)`: Validates that a file has minimum size in bytes
+- `IOExpect::hasMaxSize($path, $maxSize)`: Validates that a file has maximum size in bytes
+- `IOExpect::hasExtension($path, $extension)`: Validates that a file has specific extension
+- `IOExpect::hasAllowedExtension($path, $extensions)`: Validates that a file has one of allowed extensions
+- `IOExpect::hasMimeType($path, $expectedMimeType)`: Validates that a file matches specific MIME type
+
+```php
+use AndreasGlaser\Helpers\Validate\Expect;
+use AndreasGlaser\Helpers\Validate\IOExpect;
+use AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException;
+use AndreasGlaser\Helpers\Exceptions\IOException;
+
+// Type validation examples
+try {
+    Expect::int(42);        // Valid - no exception
+    Expect::str('hello');   // Valid - no exception
+    Expect::arr([1, 2, 3]); // Valid - no exception
+    
+    Expect::int('42');      // Throws UnexpectedTypeException
+} catch (UnexpectedTypeException $e) {
+    echo $e->getMessage(); // "Expected argument of type "integer", "string" given"
+}
+
+// Advanced type validation
+Expect::countable([1, 2, 3]);               // Valid - arrays are countable
+Expect::iterable(new ArrayIterator([1, 2])); // Valid - implements Traversable
+Expect::finite(42.5);                       // Valid - finite number
+Expect::infinite(INF);                      // Valid - infinite value
+Expect::nan(NAN);                          // Valid - NaN value
+
+// File system validation examples
+try {
+    IOExpect::isFile('/path/to/file.txt');           // Valid if file exists
+    IOExpect::isReadable('/path/to/file.txt');       // Valid if file is readable
+    IOExpect::hasExtension('/path/to/file.txt', 'txt'); // Valid if extension matches
+    
+    IOExpect::isDir('/path/to/directory');           // Valid if directory exists
+    IOExpect::isWritable('/path/to/directory');      // Valid if directory is writable
+    IOExpect::isDirEmpty('/path/to/directory');      // Valid if directory is empty
+    
+    // File size validation
+    IOExpect::hasMinSize('/path/to/file.txt', 1024); // Must be at least 1KB
+    IOExpect::hasMaxSize('/path/to/file.txt', 1048576); // Must be at most 1MB
+    
+    // Extension validation
+    IOExpect::hasAllowedExtension('/path/to/image.jpg', ['jpg', 'png', 'gif']);
+    
+    // MIME type validation
+    IOExpect::hasMimeType('/path/to/image.jpg', 'image/jpeg');
+    
+} catch (IOException $e) {
+    echo $e->getMessage(); // Specific error message about what validation failed
+    echo $e->getPath();    // Get the path that caused the error
+}
+```
+
 ## Testing
 
 The library includes comprehensive unit tests for all components. Each helper class has a corresponding test class that verifies its functionality:
@@ -416,6 +521,8 @@ The library includes comprehensive unit tests for all components. Each helper cl
 - `CsvHelperTest`: Tests CSV file operations and string conversion
 - `EmailHelperTest`: Tests email validation and cleaning
 - `IOHelperTest`: Tests file system operations
+- `ExpectTest`: Tests type validation and exception throwing
+- `IOExpectTest`: Tests file system validation and IOException handling
 
 Run the tests using:
 
@@ -431,6 +538,8 @@ use AndreasGlaser\Helpers\ArrayHelper;
 use AndreasGlaser\Helpers\StringHelper;
 use AndreasGlaser\Helpers\DateHelper;
 use AndreasGlaser\Helpers\ValueHelper;
+use AndreasGlaser\Helpers\Validate\Expect;
+use AndreasGlaser\Helpers\Validate\IOExpect;
 
 // Array operations
 $array = ['user' => ['profile' => ['name' => 'John']]];
@@ -447,7 +556,15 @@ $hours = DateHelper::diffHours($date, new DateTime('+1 day')); // Returns 24
 
 // Value validation
 $isValid = ValueHelper::isDateTime('2024-03-20'); // Returns true
-$isTruthy = ValueHelper::isTrueLike('yes'); // Returns true
+
+// Type validation with exceptions
+Expect::int(42);           // Valid - no exception
+Expect::str('hello');      // Valid - no exception
+Expect::finite(42.5);      // Valid - finite number
+
+// File system validation
+IOExpect::isFile('/path/to/file.txt');    // Throws IOException if not a file
+IOExpect::isReadable('/path/to/file.txt'); // Throws IOException if not readable
 ```
 
 ## Contributing

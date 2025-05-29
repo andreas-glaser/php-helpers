@@ -11,6 +11,7 @@ use AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException;
  * - Basic types (int, float, string, bool)
  * - Complex types (array, object, resource)
  * - Special types (numeric, callable, scalar, null)
+ * - Built-in PHP types (countable, iterable, finite, infinite, nan)
  * 
  * Each method throws UnexpectedTypeException if the value doesn't match the expected type.
  */
@@ -167,6 +168,76 @@ class Expect
     {
         if (!\is_null($value)) {
             throw new UnexpectedTypeException($value, 'null');
+        }
+    }
+
+    /**
+     * Validates that a value is countable (array or implements Countable).
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not countable
+     */
+    public static function countable($value): void
+    {
+        if (!\is_countable($value)) {
+            throw new UnexpectedTypeException($value, 'countable');
+        }
+    }
+
+    /**
+     * Validates that a value is iterable (array or implements Traversable).
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not iterable
+     */
+    public static function iterable($value): void
+    {
+        if (!\is_iterable($value)) {
+            throw new UnexpectedTypeException($value, 'iterable');
+        }
+    }
+
+    /**
+     * Validates that a value is a finite number (not infinite or NaN).
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not a finite number
+     */
+    public static function finite($value): void
+    {
+        if ((!\is_int($value) && !\is_float($value)) || !\is_finite($value)) {
+            throw new UnexpectedTypeException($value, 'finite number');
+        }
+    }
+
+    /**
+     * Validates that a value is an infinite number.
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not infinite
+     */
+    public static function infinite($value): void
+    {
+        if (!\is_float($value) || !\is_infinite($value)) {
+            throw new UnexpectedTypeException($value, 'infinite number');
+        }
+    }
+
+    /**
+     * Validates that a value is NaN (Not a Number).
+     *
+     * @param mixed $value The value to validate
+     *
+     * @throws UnexpectedTypeException If the value is not NaN
+     */
+    public static function nan($value): void
+    {
+        if (!\is_float($value) || !\is_nan($value)) {
+            throw new UnexpectedTypeException($value, 'NaN');
         }
     }
 }

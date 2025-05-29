@@ -462,20 +462,20 @@ The library includes comprehensive unit tests for all components. Each helper cl
 
 - `ArrayHelperTest`: Tests array manipulation and path operations
 - `AttributesHelperTest`: Tests HTML attribute management and validation
-- `StringHelperTest`: Tests string comparison and manipulation methods
+- `CounterHelperTest`: Tests counter operations and assertions
+- `CsvHelperTest`: Tests CSV file operations and string conversion
 - `DateHelperTest`: Tests date formatting and difference calculations
-- `HtmlHelperTest`: Tests HTML element generation and attributes
+- `EmailHelperTest`: Tests email validation and cleaning
+- `ExpectTest`: Tests type validation and exception throwing
 - `FormHelperTest`: Tests HTML form element generation and validation
+- `HtmlHelperTest`: Tests HTML element generation and attributes
+- `IOExpectTest`: Tests file system validation and IOException handling
+- `IOHelperTest`: Tests file system operations
 - `JsonHelperTest`: Tests JSON validation for various data types
 - `NumberHelperTest`: Tests number formatting and ordinal conversion
 - `RandomHelperTest`: Tests random value generation
+- `StringHelperTest`: Tests string comparison and manipulation methods
 - `ValueHelperTest`: Tests value validation and type checking
-- `CounterHelperTest`: Tests counter operations and assertions
-- `CsvHelperTest`: Tests CSV file operations and string conversion
-- `EmailHelperTest`: Tests email validation and cleaning
-- `IOHelperTest`: Tests file system operations
-- `ExpectTest`: Tests type validation and exception throwing
-- `IOExpectTest`: Tests file system validation and IOException handling
 
 Run the tests using:
 
@@ -491,6 +491,7 @@ use AndreasGlaser\Helpers\ArrayHelper;
 use AndreasGlaser\Helpers\StringHelper;
 use AndreasGlaser\Helpers\DateHelper;
 use AndreasGlaser\Helpers\ValueHelper;
+use AndreasGlaser\Helpers\CsvHelper;
 use AndreasGlaser\Helpers\Html\FormHelper;
 use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\Validate\Expect;
@@ -511,6 +512,20 @@ $hours = DateHelper::diffHours($date, new DateTime('+1 day')); // Returns 24
 
 // Value validation
 $isValid = ValueHelper::isDateTime('2024-03-20'); // Returns true
+
+// CSV operations
+$csvData = [
+    ['Name', 'Email', 'Age'],
+    ['John Doe', 'john@example.com', '30'],
+    ['Jane Smith', 'jane@example.com', '25']
+];
+$csvString = CsvHelper::arrayToCsvString($csvData);
+// Result: "Name,Email,Age\nJohn Doe,john@example.com,30\nJane Smith,jane@example.com,25"
+
+// Read CSV file to array
+$data = CsvHelper::fileToArray('users.csv', true); // true for header row
+// With custom delimiter
+$data = CsvHelper::fileToArray('data.csv', false, 0, ';'); // semicolon delimiter
 
 // Form generation
 echo FormHelper::open('/users', 'POST', ['class' => 'user-form']);

@@ -590,6 +590,7 @@ The library includes comprehensive unit tests for all components. Each helper cl
 - `ArrayHelperTest`: Tests array manipulation and path operations
 - `AttributesHelperTest`: Tests HTML attribute management and validation
 - `BootstrapHelperTest`: Tests Bootstrap component generation and glyphicon creation
+- `CellTest`: Tests HTML table cell functionality including content management, header cells, colspan/rowspan, scope attributes, and rendering
 - `CounterHelperTest`: Tests counter operations and assertions
 - `CsvHelperTest`: Tests CSV file operations and string conversion
 - `DateHelperTest`: Tests date formatting and difference calculations
@@ -603,6 +604,7 @@ The library includes comprehensive unit tests for all components. Each helper cl
 - `NumberHelperTest`: Tests number formatting and ordinal conversion
 - `RandomHelperTest`: Tests random value generation
 - `RequestHelperTest`: Tests comprehensive HTTP request analysis including environment detection, method analysis, client information, content analysis, and security features
+- `RowTest`: Tests HTML table row functionality including cell management, attribute handling, and rendering with proper structure
 - `StringHelperTest`: Tests string comparison and manipulation methods
 - `TableHelperTest`: Tests HTML table generation, attribute handling, and rendering functionality
 - `UrlHelperTest`: Tests comprehensive URL manipulation including validation, parsing, path operations, domain extraction, encoding, and utility methods

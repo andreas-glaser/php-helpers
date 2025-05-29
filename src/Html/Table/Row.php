@@ -3,7 +3,6 @@
 namespace AndreasGlaser\Helpers\Html\Table;
 
 use AndreasGlaser\Helpers\Html\AttributesHelper;
-use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
 use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
 use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 
@@ -11,9 +10,9 @@ use AndreasGlaser\Helpers\Interfaces\RendererInterface;
  * Class Row
  * 
  * Represents a row (tr) in an HTML table.
- * Implements RenderableInterface for HTML rendering and FactoryInterface for static factory methods.
+ * Implements RenderableInterface for HTML rendering.
  */
-class Row implements RenderableInterface, FactoryInterface
+class Row implements RenderableInterface
 {
     /**
      * @var Cell[] Array of cells in this row
@@ -24,19 +23,6 @@ class Row implements RenderableInterface, FactoryInterface
      * @var \AndreasGlaser\Helpers\Html\AttributesHelper HTML attributes for the row
      */
     protected $attributes;
-
-    /**
-     * Factory method to create a new Row instance
-     *
-     * @param array                       $cells           Array of cells to add to the row
-     * @param AttributesHelper|array|null $attributesHelper HTML attributes for the row
-     *
-     * @return \AndreasGlaser\Helpers\Html\Table\Row
-     */
-    public static function f(array $cells = null, $attributesHelper = null): self
-    {
-        return new Row($cells, $attributesHelper);
-    }
 
     /**
      * Constructor for Row

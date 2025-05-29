@@ -3,7 +3,6 @@
 namespace AndreasGlaser\Helpers\Html\Table;
 
 use AndreasGlaser\Helpers\Html\AttributesHelper;
-use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
 use AndreasGlaser\Helpers\Interfaces\RenderableInterface;
 use AndreasGlaser\Helpers\Interfaces\RendererInterface;
 use AndreasGlaser\Helpers\StringHelper;
@@ -13,9 +12,9 @@ use AndreasGlaser\Helpers\Validate\Expect;
  * Class Cell
  * 
  * Represents a table cell (td) or header cell (th) in an HTML table.
- * Implements RenderableInterface for HTML rendering and FactoryInterface for static factory methods.
+ * Implements RenderableInterface for HTML rendering.
  */
-class Cell implements RenderableInterface, FactoryInterface
+class Cell implements RenderableInterface
 {
     /**
      * @var string|null The content of the cell
@@ -105,7 +104,8 @@ class Cell implements RenderableInterface, FactoryInterface
      */
     public function getColSpan(): ?int
     {
-        return $this->attributes->get('colspan');
+        $attributes = $this->attributes->getAttributes();
+        return isset($attributes['colspan']) ? (int)$attributes['colspan'] : null;
     }
 
     /**
@@ -130,7 +130,8 @@ class Cell implements RenderableInterface, FactoryInterface
      */
     public function getRowSpan(): ?int
     {
-        return $this->attributes->get('rowspan');
+        $attributes = $this->attributes->getAttributes();
+        return isset($attributes['rowspan']) ? (int)$attributes['rowspan'] : null;
     }
 
     /**
@@ -162,7 +163,8 @@ class Cell implements RenderableInterface, FactoryInterface
      */
     public function getScope(): ?string
     {
-        return $this->attributes->get('scope');
+        $attributes = $this->attributes->getAttributes();
+        return isset($attributes['scope']) ? $attributes['scope'] : null;
     }
 
     /**

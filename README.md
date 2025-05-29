@@ -499,6 +499,7 @@ The library includes comprehensive unit tests for all components. Each helper cl
 - `NumberHelperTest`: Tests number formatting and ordinal conversion
 - `RandomHelperTest`: Tests random value generation
 - `StringHelperTest`: Tests string comparison and manipulation methods
+- `UrlHelperTest`: Tests URL generation, query string building, and server environment handling
 - `ValueHelperTest`: Tests value validation and type checking
 
 Run the tests using:

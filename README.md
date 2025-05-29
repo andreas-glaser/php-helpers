@@ -455,64 +455,17 @@ File system validation utilities that throw exceptions on validation failures. A
 - `IOExpect::hasAllowedExtension($path, $extensions)`: Validates that a file has one of allowed extensions
 - `IOExpect::hasMimeType($path, $expectedMimeType)`: Validates that a file matches specific MIME type
 
-```php
-use AndreasGlaser\Helpers\Validate\Expect;
-use AndreasGlaser\Helpers\Validate\IOExpect;
-use AndreasGlaser\Helpers\Exceptions\UnexpectedTypeException;
-use AndreasGlaser\Helpers\Exceptions\IOException;
-
-// Type validation examples
-try {
-    Expect::int(42);        // Valid - no exception
-    Expect::str('hello');   // Valid - no exception
-    Expect::arr([1, 2, 3]); // Valid - no exception
-    
-    Expect::int('42');      // Throws UnexpectedTypeException
-} catch (UnexpectedTypeException $e) {
-    echo $e->getMessage(); // "Expected argument of type "integer", "string" given"
-}
-
-// Advanced type validation
-Expect::countable([1, 2, 3]);               // Valid - arrays are countable
-Expect::iterable(new ArrayIterator([1, 2])); // Valid - implements Traversable
-Expect::finite(42.5);                       // Valid - finite number
-Expect::infinite(INF);                      // Valid - infinite value
-Expect::nan(NAN);                          // Valid - NaN value
-
-// File system validation examples
-try {
-    IOExpect::isFile('/path/to/file.txt');           // Valid if file exists
-    IOExpect::isReadable('/path/to/file.txt');       // Valid if file is readable
-    IOExpect::hasExtension('/path/to/file.txt', 'txt'); // Valid if extension matches
-    
-    IOExpect::isDir('/path/to/directory');           // Valid if directory exists
-    IOExpect::isWritable('/path/to/directory');      // Valid if directory is writable
-    IOExpect::isDirEmpty('/path/to/directory');      // Valid if directory is empty
-    
-    // File size validation
-    IOExpect::hasMinSize('/path/to/file.txt', 1024); // Must be at least 1KB
-    IOExpect::hasMaxSize('/path/to/file.txt', 1048576); // Must be at most 1MB
-    
-    // Extension validation
-    IOExpect::hasAllowedExtension('/path/to/image.jpg', ['jpg', 'png', 'gif']);
-    
-    // MIME type validation
-    IOExpect::hasMimeType('/path/to/image.jpg', 'image/jpeg');
-    
-} catch (IOException $e) {
-    echo $e->getMessage(); // Specific error message about what validation failed
-    echo $e->getPath();    // Get the path that caused the error
-}
-```
 
 ## Testing
 
 The library includes comprehensive unit tests for all components. Each helper class has a corresponding test class that verifies its functionality:
 
 - `ArrayHelperTest`: Tests array manipulation and path operations
+- `AttributesHelperTest`: Tests HTML attribute management and validation
 - `StringHelperTest`: Tests string comparison and manipulation methods
 - `DateHelperTest`: Tests date formatting and difference calculations
 - `HtmlHelperTest`: Tests HTML element generation and attributes
+- `FormHelperTest`: Tests HTML form element generation and validation
 - `JsonHelperTest`: Tests JSON validation for various data types
 - `NumberHelperTest`: Tests number formatting and ordinal conversion
 - `RandomHelperTest`: Tests random value generation
@@ -538,6 +491,8 @@ use AndreasGlaser\Helpers\ArrayHelper;
 use AndreasGlaser\Helpers\StringHelper;
 use AndreasGlaser\Helpers\DateHelper;
 use AndreasGlaser\Helpers\ValueHelper;
+use AndreasGlaser\Helpers\Html\FormHelper;
+use AndreasGlaser\Helpers\Html\AttributesHelper;
 use AndreasGlaser\Helpers\Validate\Expect;
 use AndreasGlaser\Helpers\Validate\IOExpect;
 
@@ -556,6 +511,22 @@ $hours = DateHelper::diffHours($date, new DateTime('+1 day')); // Returns 24
 
 // Value validation
 $isValid = ValueHelper::isDateTime('2024-03-20'); // Returns true
+
+// Form generation
+echo FormHelper::open('/users', 'POST', ['class' => 'user-form']);
+echo FormHelper::text('name', 'John Doe', ['id' => 'name', 'required' => 'required']);
+echo FormHelper::email('email', 'john@example.com', ['placeholder' => 'Enter email']);
+echo FormHelper::select('country', ['US' => 'United States', 'CA' => 'Canada'], 'US');
+echo FormHelper::textarea('bio', 'Tell us about yourself', ['rows' => 5]);
+echo FormHelper::submit('submit', 'Create User', ['class' => 'btn btn-primary']);
+echo FormHelper::close();
+
+// HTML attribute management
+$attrs = AttributesHelper::f(['class' => 'btn'])
+    ->addClass('btn-primary')
+    ->addStyle('margin', '10px')
+    ->addData('toggle', 'modal');
+echo $attrs; // outputs: class="btn btn-primary" style="margin:10px" data-toggle="modal"
 
 // Type validation with exceptions
 Expect::int(42);           // Valid - no exception

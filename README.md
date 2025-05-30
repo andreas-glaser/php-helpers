@@ -57,6 +57,82 @@ A powerful utility class for array manipulation and operations.
 - `ArrayHelper::unshiftAssoc($array, $key, $val)`: Add element at start with key
 - `ArrayHelper::removeFirstIndex(array $array)`: Remove first array index
 
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\ArrayHelper;
+
+// Basic array access with defaults
+$config = ['database' => ['host' => 'localhost', 'port' => 3306]];
+$host = ArrayHelper::get($config, 'database.host', 'default-host'); // "localhost"
+$timeout = ArrayHelper::get($config, 'timeout', 30); // 30 (default value)
+
+// Dot notation path operations
+$user = ['profile' => ['personal' => ['name' => 'John', 'age' => 30]]];
+$name = ArrayHelper::getByPath($user, 'profile.personal.name'); // "John"
+$email = ArrayHelper::getByPath($user, 'profile.contact.email', false, 'no-email'); // "no-email"
+
+// Setting values with dot notation
+$data = [];
+ArrayHelper::setByPath($data, 'user.settings.theme', 'dark');
+// Result: ['user' => ['settings' => ['theme' => 'dark']]]
+
+// Array manipulation
+$fruits = ['apple', 'banana'];
+$moreFruits = ArrayHelper::prepend($fruits, 'orange'); // ['orange', 'apple', 'banana']
+$evenMore = ArrayHelper::append($moreFruits, 'grape'); // ['orange', 'apple', 'banana', 'grape']
+
+// Array element operations
+$numbers = [10, 20, 30, 40, 50];
+$first = ArrayHelper::getFirstValue($numbers); // 10
+$last = ArrayHelper::getLastValue($numbers); // 50
+$random = ArrayHelper::getRandomValue($numbers); // Random number from array
+
+// Key-value operations
+$roles = ['admin' => 'Administrator', 'user' => 'Regular User', 'guest' => 'Guest'];
+$adminKey = ArrayHelper::getKeyByValue($roles, 'Administrator'); // 'admin'
+
+// String operations
+$tags = ['php', '', 'programming', null, 'web'];
+$cleanTags = ArrayHelper::unsetEmptyValues($tags); // ['php', 'programming', 'web']
+$tagString = ArrayHelper::implodeIgnoreEmpty(', ', $tags); // "php, programming, web"
+
+// Array structure operations
+$mixed = ['firstName' => 'John', 'lastName' => 'Doe'];
+$isAssoc = ArrayHelper::isAssoc($mixed); // true
+
+$snakeCase = ArrayHelper::keysCamelToUnderscore(['firstName' => 'John', 'lastName' => 'Doe']);
+// Result: ['first_name' => 'John', 'last_name' => 'Doe']
+
+// Value transformations
+$words = ['hello', 'world'];
+$uppercase = ArrayHelper::valueToUpper($words); // ['HELLO', 'WORLD']
+
+// String to array conversion
+$csvData = "apple,,banana,  ,cherry";
+$fruits = ArrayHelper::explodeIgnoreEmpty(',', $csvData); // ['apple', 'banana', 'cherry']
+
+// Complex array merging
+$array1 = [0 => 'a', 1 => 'b', 'key1' => 'value1'];
+$array2 = [0 => 'c', 1 => 'd', 'key2' => 'value2'];
+$merged = ArrayHelper::merge($array1, $array2);
+// Properly handles numeric and string keys
+
+// Advanced operations
+$products = [
+    ['name' => 'Laptop', 'price' => 1000],
+    ['name' => 'Phone', 'price' => 500],
+    ['name' => 'Tablet', 'price' => 300]
+];
+
+// Insert new product before 'Phone'
+ArrayHelper::insertBefore($products, 1, [['name' => 'Desktop', 'price' => 800]]);
+
+// Replace all occurrences of a value
+$items = ['red', 'blue', 'red', 'green'];
+$updated = ArrayHelper::replaceValue($items, 'red', 'crimson');
+// Result: ['crimson', 'blue', 'crimson', 'green']
+```
+
 ### String Helper (`StringHelper.php`)
 Comprehensive string manipulation and comparison utilities.
 
@@ -89,6 +165,101 @@ Comprehensive string manipulation and comparison utilities.
 - `StringHelper::linesToArray($string)`: Convert string with line breaks to array
 - `StringHelper::__($string, array $params = null)`: String translation helper
 
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\StringHelper;
+
+// String comparison and validation
+$password = "MySecretPassword";
+$isValid = StringHelper::is($password, "MySecretPassword"); // true
+$isCaseInsensitive = StringHelper::is($password, "mysecretpassword", false); // true
+
+// Multiple string matching
+$userRole = "admin";
+$isAuthorized = StringHelper::isOneOf($userRole, ['admin', 'moderator', 'editor']); // true
+
+// String content checking
+$email = "user@example.com";
+$hasAt = StringHelper::contains($email, "@"); // true
+$isGmail = StringHelper::contains($email, "gmail", false); // false
+$startsWithUser = StringHelper::startsWith($email, "user"); // true
+$endsWithCom = StringHelper::endsWith($email, ".com"); // true
+
+// String cleaning and formatting
+$messy = "  ,,;;Hello World!!  ,,;;  ";
+$cleaned = StringHelper::trimMulti($messy, [' ', ',', ';', '!']); // "Hello World"
+
+$leftCleaned = StringHelper::lTrimMulti($messy, [' ', ',', ';']); // "Hello World!!  ,,;;  "
+$rightCleaned = StringHelper::rTrimMulti($messy, [' ', ',', ';', '!']); // "  ,,;;Hello World"
+
+// Case conversion
+$camelCase = "firstName";
+$snakeCase = StringHelper::camelToUnderscore($camelCase); // "first_name"
+
+// Whitespace management
+$multiLine = "Line 1\n\nLine 2\r\nLine 3";
+$singleLine = StringHelper::removeLineBreaks($multiLine); // "Line 1 Line 2 Line 3"
+$withDashes = StringHelper::removeLineBreaks($multiLine, " - "); // "Line 1 - Line 2 - Line 3"
+
+$redundant = "Too    many     spaces";
+$normalized = StringHelper::removeRedundantWhiteSpaces($redundant); // "Too many spaces"
+
+$spaced = "Hello World";
+$underscored = StringHelper::replaceWhiteSpacesWithUnderscores($spaced); // "Hello_World"
+
+// Machine-readable formatting
+$title = "My Article Title!";
+$slug = StringHelper::machineReadable($title); // "my-article-title"
+
+// String building
+$base = "Hello";
+$withAppend = StringHelper::append($base, " World"); // "Hello World"
+$withPrepend = StringHelper::prepend($base, "Say "); // "Say Hello"
+
+// Character removal
+$phone = "123-456-7890";
+$digitsOnly = StringHelper::removeChar($phone, "-"); // "1234567890"
+
+$messy = "H@e#l$l%o W^o&r*l(d)";
+$clean = StringHelper::removeChars($messy, ['@', '#', '$', '%', '^', '&', '*', '(', ')']);
+// Result: "Hello World"
+
+// Advanced string operations
+$csv = "apple, banana , cherry , date";
+$fruits = StringHelper::explodeAndTrim(',', $csv); // ['apple', 'banana', 'cherry', 'date']
+
+// Multiple replacements
+$template = "Hello {name}, welcome to {site}!";
+$message = StringHelper::replace($template, [
+    '{name}' => 'John',
+    '{site}' => 'Our Website'
+]); // "Hello John, welcome to Our Website!"
+
+// Text limiting
+$longText = "This is a very long article with many words that we want to truncate.";
+$summary = StringHelper::limitWords($longText, 8); // "This is a very long article with many..."
+$excerpt = StringHelper::limitChars($longText, 30, '...', true); // "This is a very long article..."
+
+// Utility functions
+$emptyString = "   ";
+$isBlank = StringHelper::isBlank($emptyString); // true
+
+$url = "https://example.com/page";
+$withoutProtocol = StringHelper::removeFromStart($url, "https://"); // "example.com/page"
+
+$filename = "document.pdf";
+$withoutExtension = StringHelper::removeFromEnd($filename, ".pdf"); // "document"
+
+// Multi-line text processing
+$paragraph = "Line 1\nLine 2\nLine 3";
+$lines = StringHelper::linesToArray($paragraph); // ['Line 1', 'Line 2', 'Line 3']
+
+// ID generation
+$id1 = StringHelper::getIncrementalId("item"); // "item_1"
+$id2 = StringHelper::getIncrementalId("item"); // "item_2"
+$id3 = StringHelper::getIncrementalId("user"); // "user_1"
+```
+
 ### Date Helper (`DateHelper.php`)
 Date and time manipulation and validation utilities.
 
@@ -100,6 +271,89 @@ Date and time manipulation and validation utilities.
 - `DateHelper::diffDays($dateTime1, $dateTime2)`: Calculate day differences between datetimes
 - `DateHelper::diffMonths($dateTime1, $dateTime2)`: Calculate month differences between datetimes
 - `DateHelper::diffYears($dateTime1, $dateTime2)`: Calculate year differences between datetimes
+
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\DateHelper;
+
+// Date validation
+$validDate = DateHelper::isDateTime('2024-03-20'); // true
+$validFormat = DateHelper::isDateTime('20/03/2024', 'd/m/Y'); // true
+$invalidDate = DateHelper::isDateTime('invalid-date'); // false
+
+// String to DateTime conversion
+$dateTime1 = DateHelper::stringToDateTime('2024-03-20 15:30:00');
+$dateTime2 = DateHelper::stringToDateTime('2024-03-20', new DateTimeZone('Europe/London'));
+$nullResult = DateHelper::stringToDateTime('invalid', null, 'default-value'); // 'default-value'
+
+// Safe formatting with null handling
+$date = new DateTime('2024-03-20 15:30:00');
+$formatted = DateHelper::formatOrNull($date, 'Y-m-d'); // "2024-03-20"
+$customFormat = DateHelper::formatOrNull($date, 'd/m/Y H:i'); // "20/03/2024 15:30"
+$nullFormat = DateHelper::formatOrNull(null, 'Y-m-d', 'No date'); // "No date"
+
+// Date difference calculations
+$start = new DateTime('2024-01-01 10:00:00');
+$end = new DateTime('2024-01-02 14:30:00');
+
+// Hour differences
+$hourDiff = DateHelper::diffHours($start, $end); // 28.5 hours
+$hourDiffReverse = DateHelper::diffHours($end, $start); // -28.5 hours
+
+// Day differences
+$dayDiff = DateHelper::diffDays($start, $end); // 1 day
+$dayDiffExact = DateHelper::diffDays(
+    new DateTime('2024-01-01'),
+    new DateTime('2024-01-15')
+); // 14 days
+
+// Month differences
+$monthStart = new DateTime('2024-01-15');
+$monthEnd = new DateTime('2024-04-20');
+$monthDiff = DateHelper::diffMonths($monthStart, $monthEnd); // 3 months
+
+// Year differences
+$yearStart = new DateTime('2020-06-15');
+$yearEnd = new DateTime('2024-08-20');
+$yearDiff = DateHelper::diffYears($yearStart, $yearEnd); // 4 years
+
+// Practical examples
+$userBirthday = DateHelper::stringToDateTime('1990-05-15');
+$currentDate = new DateTime();
+
+if (DateHelper::isDateTime('1990-05-15')) {
+    $age = DateHelper::diffYears($userBirthday, $currentDate);
+    echo "User is {$age} years old";
+}
+
+// Event duration calculation
+$eventStart = DateHelper::stringToDateTime('2024-03-20 09:00:00');
+$eventEnd = DateHelper::stringToDateTime('2024-03-20 17:30:00');
+$duration = DateHelper::diffHours($eventStart, $eventEnd); // 8.5 hours
+
+// Project timeline
+$projectStart = new DateTime('2024-01-01');
+$projectEnd = new DateTime('2024-06-30');
+$projectDuration = DateHelper::diffDays($projectStart, $projectEnd); // 181 days
+$projectMonths = DateHelper::diffMonths($projectStart, $projectEnd); // 5 months
+
+// Format validation and conversion
+$userInput = '2024/03/20';
+if (DateHelper::isDateTime($userInput, 'Y/m/d')) {
+    $converted = DateHelper::stringToDateTime($userInput);
+    $standardFormat = DateHelper::formatOrNull($converted, 'Y-m-d'); // "2024-03-20"
+}
+
+// Handle timezone conversions
+$utcDate = DateHelper::stringToDateTime('2024-03-20 12:00:00', new DateTimeZone('UTC'));
+$localDate = DateHelper::stringToDateTime('2024-03-20 12:00:00', new DateTimeZone('America/New_York'));
+$timeDiff = DateHelper::diffHours($utcDate, $localDate); // Time zone difference
+
+// Null-safe operations
+$maybeDate = DateHelper::stringToDateTime($userInput, null, null);
+$safeFormat = DateHelper::formatOrNull($maybeDate, 'F j, Y', 'Invalid date');
+// Returns formatted date or "Invalid date" if parsing failed
+```
 
 ### HTML Helper (`HtmlHelper.php`)
 HTML element generation and attribute handling utilities.
@@ -153,12 +407,193 @@ HTML element generation and attribute handling utilities.
 - `HtmlHelper::meter($content, $value, $min = null, $max = null, $low = null, $high = null, $optimum = null, $attributesHelper = null)`: Create meter element with value ranges
 - `HtmlHelper::progress($content, $value = null, $max = null, $attributesHelper = null)`: Create progress element with optional value and max
 
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\HtmlHelper;
+use AndreasGlaser\Helpers\Html\AttributesHelper;
+
+// Basic HTML elements
+echo HtmlHelper::div('Hello World'); // <div>Hello World</div>
+echo HtmlHelper::p('This is a paragraph.'); // <p>This is a paragraph.</p>
+echo HtmlHelper::span('Inline text'); // <span>Inline text</span>
+
+// Headings
+echo HtmlHelper::h1('Main Title'); // <h1>Main Title</h1>
+echo HtmlHelper::h2('Subtitle'); // <h2>Subtitle</h2>
+echo HtmlHelper::h3('Section Title'); // <h3>Section Title</h3>
+
+// Links and images
+echo HtmlHelper::a('https://example.com', 'Visit Example'); 
+// <a href="https://example.com">Visit Example</a>
+
+echo HtmlHelper::image('logo.png');
+// <img src="logo.png" />
+
+// With attributes
+$attrs = AttributesHelper::f(['class' => 'btn btn-primary', 'id' => 'main-button']);
+echo HtmlHelper::a('https://example.com', 'Click Me', $attrs);
+// <a href="https://example.com" class="btn btn-primary" id="main-button">Click Me</a>
+
+// Text formatting elements
+echo HtmlHelper::strong('Important text'); // <strong>Important text</strong>
+echo HtmlHelper::em('Emphasized text'); // <em>Emphasized text</em>
+echo HtmlHelper::code('$variable = "value";'); // <code>$variable = "value";</code>
+echo HtmlHelper::mark('Highlighted text'); // <mark>Highlighted text</mark>
+echo HtmlHelper::small('Fine print'); // <small>Fine print</small>
+
+// Preformatted text
+$codeBlock = "function hello() {\n    return 'Hello World';\n}";
+echo HtmlHelper::pre($codeBlock);
+// <pre>function hello() {
+//     return 'Hello World';
+// }</pre>
+
+// Subscript and superscript
+echo HtmlHelper::sub('2'); // <sub>2</sub> (for H₂O)
+echo HtmlHelper::sup('2'); // <sup>2</sup> (for x²)
+
+// Semantic elements
+echo HtmlHelper::blockquote('To be or not to be, that is the question.');
+// <blockquote>To be or not to be, that is the question.</blockquote>
+
+echo HtmlHelper::cite('Shakespeare'); // <cite>Shakespeare</cite>
+
+echo HtmlHelper::time('March 20, 2024', '2024-03-20');
+// <time datetime="2024-03-20">March 20, 2024</time>
+
+echo HtmlHelper::abbr('HTML', 'HyperText Markup Language');
+// <abbr title="HyperText Markup Language">HTML</abbr>
+
+// Structural elements
+echo HtmlHelper::article('Article content here');
+// <article>Article content here</article>
+
+echo HtmlHelper::section('Section content');
+// <section>Section content</section>
+
+echo HtmlHelper::nav('Navigation content');
+// <nav>Navigation content</nav>
+
+echo HtmlHelper::aside('Sidebar content');
+// <aside>Sidebar content</aside>
+
+echo HtmlHelper::header('Header content');
+// <header>Header content</header>
+
+echo HtmlHelper::footer('Footer content');
+// <footer>Footer content</footer>
+
+echo HtmlHelper::main('Main content');
+// <main>Main content</main>
+
+// Media elements
+$imageContent = HtmlHelper::image('photo.jpg') . HtmlHelper::figcaption('Photo caption');
+echo HtmlHelper::figure($imageContent);
+// <figure><img src="photo.jpg" /><figcaption>Photo caption</figcaption></figure>
+
+// Interactive elements
+$detailsContent = 'Hidden content that can be revealed';
+echo HtmlHelper::details($detailsContent, false);
+// <details>Hidden content that can be revealed</details>
+
+$summaryContent = HtmlHelper::summary('Click to expand') . $detailsContent;
+echo HtmlHelper::details($summaryContent, true);
+// <details open>...</details>
+
+$dialogContent = 'This is a modal dialog';
+echo HtmlHelper::dialog($dialogContent, true, true);
+// <dialog open modal>This is a modal dialog</dialog>
+
+// Progress and measurement elements
+echo HtmlHelper::progress('Loading...', 50, 100);
+// <progress value="50" max="100">Loading...</progress>
+
+echo HtmlHelper::meter('Disk usage', 8, 0, 10, 2, 9, 5);
+// <meter value="8" min="0" max="10" low="2" high="9" optimum="5">Disk usage</meter>
+
+// HTML entity handling
+$userInput = '<script>alert("XSS")</script>';
+echo HtmlHelper::chars($userInput);
+// &lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;
+
+$htmlContent = 'Price: €50 & "Free" shipping';
+echo HtmlHelper::entities($htmlContent);
+// Price: &euro;50 &amp; &quot;Free&quot; shipping
+
+// Auto-paragraph conversion
+$text = "First paragraph.\n\nSecond paragraph.\nWith line break.";
+echo HtmlHelper::autoParagraph($text);
+// <p>First paragraph.</p>
+// <p>Second paragraph.<br />
+// With line break.</p>
+
+// Complex example: Building a card component
+$cardAttrs = AttributesHelper::f(['class' => 'card']);
+$headerAttrs = AttributesHelper::f(['class' => 'card-header']);
+$bodyAttrs = AttributesHelper::f(['class' => 'card-body']);
+
+$cardHeader = HtmlHelper::div('Card Title', $headerAttrs);
+$cardBody = HtmlHelper::div(
+    HtmlHelper::p('Card content goes here.') .
+    HtmlHelper::a('#', 'Read More', AttributesHelper::f(['class' => 'btn btn-primary'])),
+    $bodyAttrs
+);
+
+echo HtmlHelper::div($cardHeader . $cardBody, $cardAttrs);
+// <div class="card">
+//     <div class="card-header">Card Title</div>
+//     <div class="card-body">
+//         <p>Card content goes here.</p>
+//         <a href="#" class="btn btn-primary">Read More</a>
+//     </div>
+// </div>
+```
+
 ### JSON Helper (`JsonHelper.php`)
 JSON validation and manipulation utilities.
 
 #### Key Functions:
 - `JsonHelper::isValid($value)`: Validate various data types and JSON strings
 - Support for complex JSON structures and nested objects
+
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\JsonHelper;
+
+// Basic JSON validation
+$validJson = '{"name": "John", "age": 30}';
+$isValid = JsonHelper::isValid($validJson); // true
+
+$invalidJson = '{"name": "John", "age":}';
+$isInvalid = JsonHelper::isValid($invalidJson); // false
+
+// Array validation
+$array = ['name' => 'John', 'age' => 30];
+$arrayValid = JsonHelper::isValid($array); // true
+
+// Complex nested structures
+$complexData = [
+    'users' => [
+        ['id' => 1, 'name' => 'John', 'active' => true],
+        ['id' => 2, 'name' => 'Jane', 'active' => false]
+    ],
+    'meta' => ['total' => 2, 'page' => 1]
+];
+$complexValid = JsonHelper::isValid($complexData); // true
+
+// Object validation
+$stdClass = new stdClass();
+$stdClass->name = 'Test';
+$objectValid = JsonHelper::isValid($stdClass); // true
+
+// Practical usage in API validation
+function validateApiRequest($input) {
+    if (!JsonHelper::isValid($input)) {
+        throw new InvalidArgumentException('Invalid JSON data');
+    }
+    return json_decode($input, true);
+}
+```
 
 ### Number Helper (`NumberHelper.php`)
 Comprehensive number formatting, conversion, validation, and mathematical operation utilities.
@@ -415,12 +850,98 @@ CSV file handling and manipulation utilities.
 - `CsvHelper::fileToArray($file, $hasTitleRow = false)`: Parse CSV file to array
 - `CsvHelper::arrayToCsvString($array, $delimiter = ',', $enclosure = '"')`: Convert array to CSV string
 
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\CsvHelper;
+
+// Convert array to CSV string
+$userData = [
+    ['Name', 'Email', 'Age'],
+    ['John Doe', 'john@example.com', '30'],
+    ['Jane Smith', 'jane@example.com', '25'],
+    ['Bob Johnson', 'bob@example.com', '35']
+];
+
+$csvString = CsvHelper::arrayToCsvString($userData);
+// Result: "Name,Email,Age\nJohn Doe,john@example.com,30\n..."
+
+// Custom delimiter
+$csvWithSemicolon = CsvHelper::arrayToCsvString($userData, ';');
+// Result: "Name;Email;Age\nJohn Doe;john@example.com;30\n..."
+
+// Read CSV file to array (with header row)
+$data = CsvHelper::fileToArray('users.csv', true);
+// Returns associative array with header keys
+
+// Read CSV file without header
+$rawData = CsvHelper::fileToArray('data.csv', false);
+// Returns indexed array
+
+// Practical example: Export users to CSV
+$users = [
+    ['id' => 1, 'name' => 'John', 'email' => 'john@example.com'],
+    ['id' => 2, 'name' => 'Jane', 'email' => 'jane@example.com']
+];
+
+// Convert to CSV format
+$csvData = [['ID', 'Name', 'Email']];
+foreach ($users as $user) {
+    $csvData[] = [$user['id'], $user['name'], $user['email']];
+}
+
+$csvOutput = CsvHelper::arrayToCsvString($csvData);
+file_put_contents('users_export.csv', $csvOutput);
+```
+
 ### Email Helper (`EmailHelper.php`)
 Email validation and formatting utilities.
 
 #### Key Functions:
 - `EmailHelper::clean($emails, $delimiters = [',', ';'])`: Clean and normalize email addresses
 - `EmailHelper::isValid($email)`: Validate email address format
+
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\EmailHelper;
+
+// Email validation
+$validEmail = EmailHelper::isValid('user@example.com'); // true
+$invalidEmail = EmailHelper::isValid('invalid-email'); // false
+$anotherValid = EmailHelper::isValid('test.email+tag@domain.co.uk'); // true
+
+// Clean email list from string
+$emailString = 'user@example.com, invalid-email, admin@test.com; contact@domain.org';
+$cleanEmails = EmailHelper::clean($emailString);
+// Result: ['user@example.com', 'admin@test.com', 'contact@domain.org']
+
+// Custom delimiters
+$customDelimited = 'user@example.com:admin@test.com#contact@domain.org';
+$cleanCustom = EmailHelper::clean($customDelimited, [':', '#']);
+// Result: ['user@example.com', 'admin@test.com', 'contact@domain.org']
+
+// Clean array of emails
+$emailArray = ['user@example.com', 'invalid', 'admin@test.com', '', 'test@domain.com'];
+$cleanedArray = EmailHelper::clean($emailArray);
+// Result: ['user@example.com', 'admin@test.com', 'test@domain.com']
+
+// Practical example: Newsletter signup validation
+function processNewsletterSignup($emailInput) {
+    $emails = EmailHelper::clean($emailInput);
+    $validEmails = [];
+    
+    foreach ($emails as $email) {
+        if (EmailHelper::isValid($email)) {
+            $validEmails[] = $email;
+        }
+    }
+    
+    return $validEmails;
+}
+
+$signupInput = 'john@example.com, jane@invalid, bob@test.com';
+$validSubscribers = processNewsletterSignup($signupInput);
+// Result: ['john@example.com', 'bob@test.com']
+```
 
 ### IO Helper (`IOHelper.php`)
 File system operations and temporary file handling.
@@ -430,6 +951,59 @@ File system operations and temporary file handling.
 - `IOHelper::createTmpFile($dir = null, $prefix = null, $absolute = false)`: Create temporary file
 - `IOHelper::rmdirRecursive($dir)`: Recursively remove directory
 
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\IOHelper;
+
+// Create temporary directory
+$tmpDir = IOHelper::createTmpDir(); // Creates temp dir in system temp
+$customTmpDir = IOHelper::createTmpDir('/custom/path', 'myapp_'); // Custom location with prefix
+$absoluteTmpDir = IOHelper::createTmpDir(null, 'app_', true); // Absolute path returned
+
+// Create temporary file
+$tmpFile = IOHelper::createTmpFile(); // Creates temp file in system temp
+$customTmpFile = IOHelper::createTmpFile('/tmp', 'data_'); // Custom location with prefix
+$absoluteTmpFile = IOHelper::createTmpFile(null, 'log_', true); // Absolute path returned
+
+// Recursive directory removal
+$testDir = '/path/to/directory/with/subdirs';
+IOHelper::rmdirRecursive($testDir); // Removes directory and all contents
+
+// Practical example: File processing workflow
+function processUploadedFiles($files) {
+    // Create temporary working directory
+    $workDir = IOHelper::createTmpDir(null, 'upload_processing_');
+    
+    try {
+        foreach ($files as $file) {
+            // Create temporary file for processing
+            $tmpFile = IOHelper::createTmpFile($workDir, 'process_');
+            
+            // Process file (resize, convert, etc.)
+            // ... processing logic here ...
+            
+            // Clean up individual temp file when done
+            unlink($tmpFile);
+        }
+    } finally {
+        // Clean up entire working directory
+        IOHelper::rmdirRecursive($workDir);
+    }
+}
+
+// Batch file processing
+$processingDir = IOHelper::createTmpDir(null, 'batch_');
+$logFile = IOHelper::createTmpFile($processingDir, 'processing_log_');
+
+// Write processing logs
+file_put_contents($logFile, "Processing started at " . date('Y-m-d H:i:s') . "\n");
+
+// ... do processing work ...
+
+// Cleanup when done
+IOHelper::rmdirRecursive($processingDir);
+```
+
 ### Timer Helper (`TimerHelper.php`)
 Time measurement and execution timing utilities.
 
@@ -438,11 +1012,145 @@ Time measurement and execution timing utilities.
 - `TimerHelper::getDifference($alias)`: Get elapsed time for a running timer
 - `TimerHelper::stop($alias)`: Stop a timer and return elapsed time
 
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\TimerHelper;
+
+// Basic timing
+TimerHelper::start('page_load');
+// ... do some work ...
+$pageLoadTime = TimerHelper::stop('page_load'); // Returns elapsed time in seconds
+
+// Multiple timers
+TimerHelper::start('database_query');
+TimerHelper::start('api_call');
+
+// Check elapsed time without stopping
+sleep(1);
+$dbElapsed = TimerHelper::getDifference('database_query'); // ~1.0 seconds
+
+// Complete the operations
+sleep(2);
+$apiTime = TimerHelper::stop('api_call'); // ~3.0 seconds
+$dbTime = TimerHelper::stop('database_query'); // ~3.0 seconds
+
+// Performance monitoring example
+function monitoredFunction() {
+    TimerHelper::start('function_execution');
+    
+    // Simulate some work
+    TimerHelper::start('database_operations');
+    // ... database work ...
+    $dbTime = TimerHelper::stop('database_operations');
+    
+    TimerHelper::start('api_requests');
+    // ... API calls ...
+    $apiTime = TimerHelper::stop('api_requests');
+    
+    $totalTime = TimerHelper::stop('function_execution');
+    
+    return [
+        'total_time' => $totalTime,
+        'database_time' => $dbTime,
+        'api_time' => $apiTime,
+        'other_time' => $totalTime - $dbTime - $apiTime
+    ];
+}
+
+// Benchmark comparison
+function benchmarkSortingAlgorithms($data) {
+    $results = [];
+    
+    // Test bubble sort
+    $testData1 = $data;
+    TimerHelper::start('bubble_sort');
+    bubbleSort($testData1);
+    $results['bubble_sort'] = TimerHelper::stop('bubble_sort');
+    
+    // Test quick sort
+    $testData2 = $data;
+    TimerHelper::start('quick_sort');
+    quickSort($testData2);
+    $results['quick_sort'] = TimerHelper::stop('quick_sort');
+    
+    return $results;
+}
+
+// Request processing timing
+TimerHelper::start('request_processing');
+
+TimerHelper::start('authentication');
+// ... authenticate user ...
+$authTime = TimerHelper::stop('authentication');
+
+TimerHelper::start('business_logic');
+// ... main application logic ...
+$businessTime = TimerHelper::stop('business_logic');
+
+TimerHelper::start('response_generation');
+// ... generate response ...
+$responseTime = TimerHelper::stop('response_generation');
+
+$totalRequestTime = TimerHelper::stop('request_processing');
+
+// Log performance metrics
+error_log("Request timing - Auth: {$authTime}s, Business: {$businessTime}s, Response: {$responseTime}s, Total: {$totalRequestTime}s");
+```
+
 ### Color Helper (`Color/HexHelper.php`)
 Color manipulation and conversion utilities.
 
 #### Key Functions:
 - `HexHelper::adjustBrightness($hex, $steps)`: Adjust brightness of a hex color code (-255 to 255)
+
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\Color\HexHelper;
+
+// Brighten colors
+$originalColor = '#3498db';
+$lighterColor = HexHelper::adjustBrightness($originalColor, 50); // Lighter blue
+$darkerColor = HexHelper::adjustBrightness($originalColor, -50); // Darker blue
+
+// Maximum brightness adjustments
+$white = HexHelper::adjustBrightness('#000000', 255); // Black to white
+$black = HexHelper::adjustBrightness('#ffffff', -255); // White to black
+
+// Theme color generation
+$primaryColor = '#2c3e50';
+$colors = [
+    'primary' => $primaryColor,
+    'primary_light' => HexHelper::adjustBrightness($primaryColor, 30),
+    'primary_lighter' => HexHelper::adjustBrightness($primaryColor, 60),
+    'primary_dark' => HexHelper::adjustBrightness($primaryColor, -30),
+    'primary_darker' => HexHelper::adjustBrightness($primaryColor, -60),
+];
+
+// Dynamic hover effects
+function generateHoverColor($baseColor) {
+    return HexHelper::adjustBrightness($baseColor, 20);
+}
+
+$buttonColor = '#e74c3c';
+$buttonHover = generateHoverColor($buttonColor); // Lighter red for hover state
+
+// Color palette generation
+function generateColorPalette($baseColor, $steps = 5) {
+    $palette = [];
+    $stepSize = 255 / $steps;
+    
+    for ($i = -$steps; $i <= $steps; $i++) {
+        $adjustment = $i * $stepSize;
+        $palette[] = HexHelper::adjustBrightness($baseColor, $adjustment);
+    }
+    
+    return $palette;
+}
+
+$brandColor = '#9b59b6';
+$purplePalette = generateColorPalette($brandColor, 3);
+// Returns array of purple shades from dark to light
+```
 
 ### HTTP Helpers
 

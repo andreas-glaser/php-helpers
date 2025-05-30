@@ -189,15 +189,46 @@ Value validation and type checking utilities.
 - `ValueHelper::isFalseLike($value)`: Check if value evaluates to false in boolean context
 
 ### Counter Helper (`CounterHelper.php`)
-Counter implementation for tracking and incrementing values.
+Counter implementation for tracking and incrementing values with comprehensive functionality.
+
+The CounterHelper provides a flexible counter that can be initialized with integer values or arrays (counts elements). It supports fluent method chaining for multiple operations and tracks both initial and current values for difference calculations.
 
 #### Key Functions:
-- `CounterHelper::f($initialValue = 0)`: Create counter instance
-- `CounterHelper::plusOne()`: Increment counter
-- `CounterHelper::minusOne()`: Decrement counter
-- `CounterHelper::getCurrentValue()`: Get current value
-- `CounterHelper::getInitialValue()`: Get initial value
-- `CounterHelper::getDifference()`: Calculate difference from initial value
+
+##### Factory and Instantiation:
+- `CounterHelper::f($initialValue = 0)`: Factory method to create counter instance
+  - Accepts integers or arrays (counts array elements as initial value)
+  - Returns new CounterHelper instance
+
+##### Value Operations:
+- `CounterHelper::increaseBy($value)`: Increase counter by specified amount (supports method chaining)
+- `CounterHelper::decreaseBy($value)`: Decrease counter by specified amount (supports method chaining)
+- `CounterHelper::plusOne()`: Increment counter by 1 (supports method chaining)
+- `CounterHelper::minusOne()`: Decrement counter by 1 (supports method chaining)
+
+##### Value Tracking:
+- `CounterHelper::getCurrentValue()`: Get current counter value
+- `CounterHelper::getInitialValue()`: Get initial counter value
+- `CounterHelper::getDifference()`: Calculate absolute difference between current and initial values
+
+##### Utility:
+- `CounterHelper::__toString()`: Convert counter to string representation of current value
+
+#### Usage Examples:
+```php
+// Basic usage
+$counter = CounterHelper::f(10);
+$counter->plusOne()->increaseBy(5)->minusOne(); // Result: 15
+
+// Array initialization  
+$items = ['a', 'b', 'c'];
+$inventory = CounterHelper::f($items); // Starts with count of 3
+
+// Difference tracking
+$counter = CounterHelper::f(100);
+$counter->decreaseBy(25);
+echo $counter->getDifference(); // Outputs: 25
+```
 
 ### CSV Helper (`CsvHelper.php`)
 CSV file handling and manipulation utilities.
@@ -587,13 +618,13 @@ File system validation utilities that throw exceptions on validation failures. A
 
 The library includes comprehensive unit tests for all components. Each helper class has a corresponding test class that verifies its functionality:
 
-- `ArrayHelperTest`: Tests array manipulation and path operations
+- `ArrayHelperTest`: Tests array manipulation methods including get, set, path operations, and utility functions
 - `AttributesHelperTest`: Tests HTML attribute management and validation
 - `BootstrapHelperTest`: Tests Bootstrap component generation and glyphicon creation
 - `CellTest`: Tests HTML table cell functionality including content management, header cells, colspan/rowspan, scope attributes, and rendering
-- `CounterHelperTest`: Tests counter operations and assertions
+- `CounterHelperTest`: Tests counter functionality including factory methods, incrementing/decrementing operations, value tracking, method chaining, and comprehensive edge cases
 - `CsvHelperTest`: Tests CSV file operations and string conversion
-- `DateHelperTest`: Tests date formatting and difference calculations
+- `DateHelperTest`: Tests date and time manipulation methods
 - `EmailHelperTest`: Tests email validation and cleaning
 - `ExpectTest`: Tests type validation and exception throwing
 - `FormHelperTest`: Tests HTML form element generation and validation

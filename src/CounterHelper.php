@@ -2,8 +2,6 @@
 
 namespace AndreasGlaser\Helpers;
 
-use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
-
 /**
  * CounterHelper provides utility methods for counting and tracking numeric values.
  * 
@@ -11,7 +9,7 @@ use AndreasGlaser\Helpers\Interfaces\FactoryInterface;
  * and compared against its initial value. Useful for tracking progress,
  * counting items, or measuring changes in values.
  */
-class CounterHelper implements FactoryInterface
+class CounterHelper
 {
     /**
      * @var int The starting value of the counter

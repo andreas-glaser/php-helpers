@@ -606,6 +606,7 @@ The library includes comprehensive unit tests for all components. Each helper cl
 - `RequestHelperTest`: Tests comprehensive HTTP request analysis including environment detection, method analysis, client information, content analysis, and security features
 - `RowTest`: Tests HTML table row functionality including cell management, attribute handling, and rendering with proper structure
 - `StringHelperTest`: Tests string comparison and manipulation methods
+- `TimerHelperTest`: Tests timing functionality including starting/stopping timers, measuring elapsed time, exception handling, and multiple timer management
 - `TableHelperTest`: Tests HTML table generation, attribute handling, and rendering functionality
 - `UrlHelperTest`: Tests comprehensive URL manipulation including validation, parsing, path operations, domain extraction, encoding, and utility methods
 - `ValueHelperTest`: Tests value validation and type checking

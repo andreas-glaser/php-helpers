@@ -28,7 +28,7 @@ class TimerHelper
             throw new \RuntimeException('Timer has already been started.');
         }
 
-        self::$timers[$alias] = \microtime();
+        self::$timers[$alias] = \microtime(true);
     }
 
     /**
@@ -46,7 +46,7 @@ class TimerHelper
             throw new \RuntimeException('Timer has not been started');
         }
 
-        return \microtime() - self::$timers[$alias];
+        return \microtime(true) - self::$timers[$alias];
     }
 
     /**

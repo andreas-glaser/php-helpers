@@ -161,10 +161,91 @@ JSON validation and manipulation utilities.
 - Support for complex JSON structures and nested objects
 
 ### Number Helper (`NumberHelper.php`)
-Number formatting and manipulation utilities.
+Comprehensive number formatting, conversion, validation, and mathematical operation utilities.
+
+The NumberHelper provides extensive functionality for working with numbers including formatting, mathematical calculations, base conversions, Roman numerals, statistical operations, and validation methods.
 
 #### Key Functions:
+
+##### Basic Formatting:
 - `NumberHelper::ordinal($number)`: Convert number to ordinal suffix (1st, 2nd, 3rd, etc.)
+- `NumberHelper::format($number, $decimals = 2, $decimalSeparator = '.', $thousandsSeparator = ',')`: Format number with thousands separators and decimal places
+- `NumberHelper::parse($formattedNumber, $decimalSeparator = '.', $thousandsSeparator = ',')`: Parse formatted number string back to numeric value
+
+##### Percentage Operations:
+- `NumberHelper::percentage($number, $isDecimal = true, $decimals = 2)`: Convert number to percentage string with % symbol
+- `NumberHelper::percentageOf($value, $total, $decimals = 4)`: Calculate percentage of a value from total
+
+##### Mathematical Operations:
+- `NumberHelper::round($number, $precision = 0, $mode = PHP_ROUND_HALF_UP)`: Round number with specified precision and mode
+- `NumberHelper::clamp($number, $min, $max)`: Clamp number between minimum and maximum values
+- `NumberHelper::difference($a, $b)`: Calculate absolute difference between two numbers
+
+##### File Size Formatting:
+- `NumberHelper::fileSize($bytes, $decimals = 2, $binary = true)`: Convert bytes to human readable format (KB, MB, GB, etc.)
+  - Supports both binary (1024) and decimal (1000) units
+
+##### Roman Numeral Conversion:
+- `NumberHelper::toRoman($number)`: Convert number (1-3999) to Roman numerals
+- `NumberHelper::fromRoman($roman)`: Convert Roman numerals back to numbers
+
+##### Number Base Conversion:
+- `NumberHelper::changeBase($number, $fromBase, $toBase)`: Convert numbers between different bases (2-36)
+
+##### Number Validation:
+- `NumberHelper::inRange($number, $min, $max)`: Check if number is within specified range (inclusive)
+- `NumberHelper::isEven($number)`: Check if number is even
+- `NumberHelper::isOdd($number)`: Check if number is odd
+- `NumberHelper::isPrime($number)`: Check if number is prime
+
+##### Statistical Operations:
+- `NumberHelper::average($numbers)`: Calculate average of an array of numbers
+- `NumberHelper::median($numbers)`: Find median value in an array of numbers
+
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\NumberHelper;
+
+// Basic formatting
+echo NumberHelper::format(1234567.89); // "1,234,567.89"
+echo NumberHelper::format(1234567.89, 1, ',', ' '); // "1 234 567,9"
+
+// Ordinal numbers
+echo NumberHelper::ordinal(1) . NumberHelper::ordinal(22); // "st" . "nd" = "stnd"
+
+// Percentages
+echo NumberHelper::percentage(0.75); // "75.00%"
+echo NumberHelper::percentageOf(75, 300); // 0.25 (25%)
+
+// File sizes
+echo NumberHelper::fileSize(1536); // "1.50 KB"
+echo NumberHelper::fileSize(1000000, 2, false); // "1.00 MB" (decimal)
+
+// Roman numerals
+echo NumberHelper::toRoman(1984); // "MCMLXXXIV"
+echo NumberHelper::fromRoman("MCMLXXXIV"); // 1984
+
+// Number base conversion
+echo NumberHelper::changeBase(255, 10, 16); // "ff"
+echo NumberHelper::changeBase("ff", 16, 10); // "255"
+
+// Mathematical operations
+echo NumberHelper::clamp(150, 0, 100); // 100
+echo NumberHelper::round(1.235, 2); // 1.24
+
+// Validation
+var_dump(NumberHelper::isPrime(17)); // true
+var_dump(NumberHelper::isEven(42)); // true
+var_dump(NumberHelper::inRange(15, 10, 20)); // true
+
+// Statistics
+echo NumberHelper::average([1, 2, 3, 4, 5]); // 3.0
+echo NumberHelper::median([1, 2, 3, 4, 5]); // 3.0
+
+// Parsing
+echo NumberHelper::parse("1,234.56"); // 1234.56
+echo NumberHelper::parse("1 234,56", ",", " "); // 1234.56
+```
 
 ### Random Helper (`RandomHelper.php`)
 Random value generation utilities.
@@ -632,7 +713,7 @@ The library includes comprehensive unit tests for all components. Each helper cl
 - `IOExpectTest`: Tests file system validation and IOException handling
 - `IOHelperTest`: Tests file system operations
 - `JsonHelperTest`: Tests JSON validation for various data types
-- `NumberHelperTest`: Tests number formatting and ordinal conversion
+- `NumberHelperTest`: Tests comprehensive number operations including formatting, percentage calculations, Roman numeral conversion, base conversion, file size formatting, mathematical utilities, statistical operations, and number validation
 - `RandomHelperTest`: Tests random value generation
 - `RequestHelperTest`: Tests comprehensive HTTP request analysis including environment detection, method analysis, client information, content analysis, and security features
 - `RowTest`: Tests HTML table row functionality including cell management, attribute handling, and rendering with proper structure

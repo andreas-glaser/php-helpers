@@ -801,6 +801,177 @@ Value validation and type checking utilities.
 - `ValueHelper::isTrueLike($value)`: Check if value evaluates to true in boolean context
 - `ValueHelper::isFalseLike($value)`: Check if value evaluates to false in boolean context
 
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\ValueHelper;
+
+// Empty to null conversion
+$input1 = "";
+ValueHelper::emptyToNull($input1); // $input1 is now null
+
+$input2 = "0";
+ValueHelper::emptyToNull($input2); // $input2 is now null
+
+$input3 = "hello";
+ValueHelper::emptyToNull($input3); // $input3 remains "hello"
+
+// Empty value checking
+$isEmpty1 = ValueHelper::isEmpty(''); // true
+$isEmpty2 = ValueHelper::isEmpty('0'); // true
+$isEmpty3 = ValueHelper::isEmpty(0); // true
+$isEmpty4 = ValueHelper::isEmpty(null); // true
+$isEmpty5 = ValueHelper::isEmpty(false); // true
+$isEmpty6 = ValueHelper::isEmpty([]); // true
+
+$isNotEmpty1 = ValueHelper::isEmpty(' '); // false (space is not empty)
+$isNotEmpty2 = ValueHelper::isEmpty('hello'); // false
+$isNotEmpty3 = ValueHelper::isEmpty(1); // false
+$isNotEmpty4 = ValueHelper::isEmpty([0]); // false
+
+// Integer validation
+$isInt1 = ValueHelper::isInteger(123); // true
+$isInt2 = ValueHelper::isInteger('123'); // true (string containing only digits)
+$isInt3 = ValueHelper::isInteger('123.0'); // false (contains decimal point)
+$isInt4 = ValueHelper::isInteger(123.45); // false (is float)
+$isInt5 = ValueHelper::isInteger('abc'); // false
+
+// Float validation
+$isFloat1 = ValueHelper::isFloat(123.45); // true
+$isFloat2 = ValueHelper::isFloat('123.45'); // true (string containing valid float)
+$isFloat3 = ValueHelper::isFloat(123); // false (is integer)
+$isFloat4 = ValueHelper::isFloat('123'); // false (string integer)
+$isFloat5 = ValueHelper::isFloat('abc'); // false
+
+// DateTime validation
+$isDateTime1 = ValueHelper::isDateTime('2024-03-20'); // true
+$isDateTime2 = ValueHelper::isDateTime('2024-03-20 15:30:00'); // true
+$isDateTime3 = ValueHelper::isDateTime('March 20, 2024'); // true
+$isDateTime4 = ValueHelper::isDateTime('tomorrow'); // true
+$isDateTime5 = ValueHelper::isDateTime('invalid-date'); // false
+$isDateTime6 = ValueHelper::isDateTime('2024-13-50'); // false (invalid date)
+
+// Boolean type checking
+$isBool1 = ValueHelper::isBool(true); // true
+$isBool2 = ValueHelper::isBool(false); // true
+$isBool3 = ValueHelper::isBool(1); // false (integer, not boolean)
+$isBool4 = ValueHelper::isBool('true'); // false (string, not boolean)
+
+// Strict boolean value checking
+$isTrue1 = ValueHelper::isTrue(true); // true
+$isTrue2 = ValueHelper::isTrue(1); // false (not strictly true)
+$isTrue3 = ValueHelper::isTrue('true'); // false (not strictly true)
+
+$isFalse1 = ValueHelper::isFalse(false); // true
+$isFalse2 = ValueHelper::isFalse(0); // false (not strictly false)
+$isFalse3 = ValueHelper::isFalse(''); // false (not strictly false)
+
+// Truthy/falsy evaluation
+$isTrueLike1 = ValueHelper::isTrueLike(1); // true
+$isTrueLike2 = ValueHelper::isTrueLike('hello'); // true
+$isTrueLike3 = ValueHelper::isTrueLike([1, 2, 3]); // true
+$isTrueLike4 = ValueHelper::isTrueLike(0); // false
+$isTrueLike5 = ValueHelper::isTrueLike(''); // false
+
+$isFalseLike1 = ValueHelper::isFalseLike(0); // true
+$isFalseLike2 = ValueHelper::isFalseLike(''); // true
+$isFalseLike3 = ValueHelper::isFalseLike(null); // true
+$isFalseLike4 = ValueHelper::isFalseLike([]); // true
+$isFalseLike5 = ValueHelper::isFalseLike(1); // false
+$isFalseLike6 = ValueHelper::isFalseLike('hello'); // false
+
+// Practical examples
+function sanitizeFormInput($input) {
+    // Convert empty strings to null
+    ValueHelper::emptyToNull($input);
+    
+    if (ValueHelper::isEmpty($input)) {
+        return null;
+    }
+    
+    return trim($input);
+}
+
+function validateUserAge($age) {
+    if (!ValueHelper::isInteger($age)) {
+        throw new InvalidArgumentException('Age must be an integer');
+    }
+    
+    $ageInt = (int)$age;
+    if ($ageInt < 0 || $ageInt > 150) {
+        throw new InvalidArgumentException('Age must be between 0 and 150');
+    }
+    
+    return $ageInt;
+}
+
+function validatePrice($price) {
+    if (!ValueHelper::isFloat($price) && !ValueHelper::isInteger($price)) {
+        throw new InvalidArgumentException('Price must be a number');
+    }
+    
+    $priceFloat = (float)$price;
+    if ($priceFloat < 0) {
+        throw new InvalidArgumentException('Price cannot be negative');
+    }
+    
+    return $priceFloat;
+}
+
+function validateBirthDate($date) {
+    if (!ValueHelper::isDateTime($date)) {
+        throw new InvalidArgumentException('Invalid birth date format');
+    }
+    
+    $birthDate = new DateTime($date);
+    $now = new DateTime();
+    
+    if ($birthDate > $now) {
+        throw new InvalidArgumentException('Birth date cannot be in the future');
+    }
+    
+    return $birthDate;
+}
+
+// Configuration validation
+function validateConfigValue($key, $value) {
+    $config = [
+        'debug' => 'boolean',
+        'timeout' => 'integer',
+        'rate' => 'float',
+        'start_date' => 'datetime'
+    ];
+    
+    if (!isset($config[$key])) {
+        throw new InvalidArgumentException("Unknown config key: $key");
+    }
+    
+    switch ($config[$key]) {
+        case 'boolean':
+            if (!ValueHelper::isBool($value)) {
+                throw new InvalidArgumentException("$key must be a boolean");
+            }
+            break;
+        case 'integer':
+            if (!ValueHelper::isInteger($value)) {
+                throw new InvalidArgumentException("$key must be an integer");
+            }
+            break;
+        case 'float':
+            if (!ValueHelper::isFloat($value)) {
+                throw new InvalidArgumentException("$key must be a float");
+            }
+            break;
+        case 'datetime':
+            if (!ValueHelper::isDateTime($value)) {
+                throw new InvalidArgumentException("$key must be a valid datetime");
+            }
+            break;
+    }
+    
+    return $value;
+}
+```
+
 ### Counter Helper (`CounterHelper.php`)
 Counter implementation for tracking and incrementing values with comprehensive functionality.
 
@@ -1213,6 +1384,37 @@ Request environment detection and comprehensive HTTP request analysis utilities.
 - `RequestHelper::setTrustedProxyHeaders($headers)`: Set trusted proxy headers
 - `RequestHelper::getTrustedProxyHeaders()`: Get current trusted proxy headers
 
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\Http\RequestHelper;
+
+// Environment detection
+$isCli = RequestHelper::isCli(); // true if running in command line
+$isHttps = RequestHelper::isHttps(); // true if using HTTPS
+$isSecure = RequestHelper::isSecure(); // true if HTTPS or localhost
+
+// HTTP method detection
+$method = RequestHelper::getMethod(); // "GET", "POST", etc.
+$isPost = RequestHelper::isPost(); // true if POST request
+$isAjax = RequestHelper::isAjax(); // true if AJAX request
+
+// Client information
+$clientIp = RequestHelper::getClientIp(); // Client IP with proxy support
+$userAgent = RequestHelper::getUserAgent(); // User agent string
+
+// Content analysis
+$isJson = RequestHelper::isJson(); // true if JSON content type
+$authHeader = RequestHelper::getHeader('Authorization'); // Get specific header
+
+// Practical examples
+function requireHttps() {
+    if (!RequestHelper::isHttps() && !RequestHelper::isLocalhost()) {
+        header('Location: https://' . RequestHelper::getHost() . $_SERVER['REQUEST_URI']);
+        exit;
+    }
+}
+```
+
 #### URL Helper (`Http/UrlHelper.php`)
 Comprehensive URL manipulation, validation, and generation utilities for HTTP requests.
 
@@ -1268,6 +1470,126 @@ Comprehensive URL manipulation, validation, and generation utilities for HTTP re
 - URL schemes: `SCHEME_HTTP`, `SCHEME_HTTPS`, `SCHEME_FTP`, `SCHEME_SFTP`, `SCHEME_FILE`
 - Standard ports array: `STANDARD_PORTS` with common protocol ports
 
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\Http\UrlHelper;
+
+// Current URL/URI operations
+$currentUrl = UrlHelper::currentUrl(); // Full current URL with query string
+$currentUri = UrlHelper::currentUri(); // Current URI path with query params
+$protocolHost = UrlHelper::protocolHostPort(); // "https://example.com:443"
+
+// Query string building
+$query = UrlHelper::query(['page' => 2, 'sort' => 'name']); // "page=2&sort=name"
+$mergedQuery = UrlHelper::query(['new' => 'param'], true); // Merges with $_GET
+
+// URL validation and parsing
+$isValid = UrlHelper::isValidUrl('https://example.com'); // true
+$components = UrlHelper::parseUrl('https://user:pass@example.com:8080/path?query=1#fragment');
+// Returns: ['scheme' => 'https', 'host' => 'example.com', 'port' => 8080, ...]
+
+$rebuiltUrl = UrlHelper::buildUrl($components); // Rebuilds URL from components
+
+// URL manipulation
+$withParams = UrlHelper::addQueryParams('https://example.com', ['foo' => 'bar']);
+// Result: "https://example.com?foo=bar"
+
+$withoutParams = UrlHelper::removeQueryParams('https://example.com?foo=bar&baz=qux', ['foo']);
+// Result: "https://example.com?baz=qux"
+
+$httpsUrl = UrlHelper::changeScheme('http://example.com', 'https');
+// Result: "https://example.com"
+
+$normalized = UrlHelper::normalize('https://example.com//path/../other/');
+// Result: "https://example.com/other/"
+
+// Path manipulation
+$cleanPath = UrlHelper::normalizePath('/path/../to/./file.txt'); // "/to/file.txt"
+$joinedPath = UrlHelper::joinPaths('path', 'to', 'file.txt'); // "path/to/file.txt"
+$directory = UrlHelper::getDirectory('/path/to/file.txt'); // "/path/to"
+$filename = UrlHelper::getFilename('/path/to/file.txt'); // "file.txt"
+$extension = UrlHelper::getExtension('/path/to/file.txt'); // "txt"
+
+// Domain operations
+$domain = UrlHelper::getDomain('https://sub.example.com/path'); // "sub.example.com"
+$subdomain = UrlHelper::getSubdomain('https://blog.example.com'); // "blog"
+$rootDomain = UrlHelper::getRootDomain('https://blog.example.com'); // "example.com"
+$sameDomain = UrlHelper::isSameDomain('https://example.com', 'http://example.com'); // true
+
+// Encoding and decoding
+$encoded = UrlHelper::encode('hello world!'); // "hello%20world%21"
+$decoded = UrlHelper::decode('hello%20world%21'); // "hello world!"
+$encodedPath = UrlHelper::encodePath('/path with spaces/file.txt');
+$encodedQuery = UrlHelper::encodeQuery(['key' => 'value with spaces']);
+
+// URL conversion
+$absolute = UrlHelper::toAbsolute('../other/page.html', 'https://example.com/path/current.html');
+// Result: "https://example.com/other/page.html"
+
+$relative = UrlHelper::toRelative('https://example.com/other/page.html', 'https://example.com/path/');
+// Result: "../other/page.html"
+
+// Utility methods
+$isSecure = UrlHelper::isSecureUrl('https://example.com'); // true
+$standardPort = UrlHelper::getStandardPort('https'); // 443
+$sanitized = UrlHelper::sanitize('javascript:alert("xss")'); // Returns null (dangerous)
+
+// Current URL modifications
+$modifiedUrl = UrlHelper::currentUrlWithModifications(['page' => 3], ['sort']);
+// Adds page=3 and removes sort parameter from current URL
+
+$modifiedQuery = UrlHelper::modifiedQuery(['filter' => 'active'], ['old_param']);
+// Creates query string with modifications
+
+// Practical examples
+function buildPaginationUrl($page) {
+    return UrlHelper::currentUrlWithModifications(['page' => $page], ['offset']);
+}
+
+function redirectToHttps() {
+    if (!UrlHelper::isSecureUrl(UrlHelper::currentUrl())) {
+        $httpsUrl = UrlHelper::changeScheme(UrlHelper::currentUrl(), 'https');
+        header("Location: $httpsUrl");
+        exit;
+    }
+}
+
+function buildApiUrl($endpoint, $params = []) {
+    $baseUrl = 'https://api.example.com';
+    $fullUrl = UrlHelper::joinPaths($baseUrl, 'v1', $endpoint);
+    
+    if ($params) {
+        $fullUrl = UrlHelper::addQueryParams($fullUrl, $params);
+    }
+    
+    return $fullUrl;
+}
+
+function cleanUserUrl($userInput) {
+    // Sanitize and validate user-provided URL
+    $sanitized = UrlHelper::sanitize($userInput);
+    
+    if (!$sanitized || !UrlHelper::isValidUrl($sanitized)) {
+        throw new InvalidArgumentException('Invalid URL provided');
+    }
+    
+    return UrlHelper::normalize($sanitized);
+}
+
+// URL comparison and analysis
+function analyzeUrl($url) {
+    $components = UrlHelper::parseUrl($url);
+    
+    return [
+        'domain' => UrlHelper::getDomain($url),
+        'subdomain' => UrlHelper::getSubdomain($url),
+        'is_secure' => UrlHelper::isSecureUrl($url),
+        'port' => $components['port'] ?? UrlHelper::getStandardPort($components['scheme']),
+        'path_parts' => explode('/', trim($components['path'] ?? '', '/'))
+    ];
+}
+```
+
 ### HTML Helpers
 
 #### Form Helper (`Html/FormHelper.php`)
@@ -1302,6 +1624,42 @@ HTML form element generation utilities.
 - `FormHelper::optgroup($label, $htmlContent, $attributesHelper = null)`: Create option group
 - `FormHelper::checkbox($name, $value = null, $checked = false, $attributesHelper = null)`: Create checkbox
 - `FormHelper::radio($name, $value = null, $checked = false, $attributesHelper = null)`: Create radio button
+
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\Html\FormHelper;
+use AndreasGlaser\Helpers\Html\AttributesHelper;
+
+// Basic form creation
+echo FormHelper::open('/submit', 'POST'); // <form action="/submit" method="POST">
+echo FormHelper::close(); // </form>
+
+// Text inputs
+echo FormHelper::text('username', 'john_doe'); // <input type="text" name="username" value="john_doe" />
+echo FormHelper::password('password'); // <input type="password" name="password" />
+echo FormHelper::email('email', 'john@example.com'); // <input type="email" name="email" value="john@example.com" />
+
+// Specialized inputs
+echo FormHelper::number('age', 25); // <input type="number" name="age" value="25" />
+echo FormHelper::date('birthdate', '1990-05-15'); // <input type="date" name="birthdate" value="1990-05-15" />
+echo FormHelper::range('volume', 75, 0, 100); // <input type="range" name="volume" value="75" min="0" max="100" />
+
+// Select dropdown
+$options = ['us' => 'United States', 'ca' => 'Canada'];
+echo FormHelper::select('country', $options, 'us');
+// <select name="country"><option value="us" selected>United States</option>...</select>
+
+// Checkboxes and radio buttons
+echo FormHelper::checkbox('newsletter', '1', true); // <input type="checkbox" name="newsletter" value="1" checked />
+echo FormHelper::radio('gender', 'M', true); // <input type="radio" name="gender" value="M" checked />
+
+// Complete form example
+echo FormHelper::open('/register', 'POST');
+echo FormHelper::label('Name:', 'name');
+echo FormHelper::text('name', '', AttributesHelper::f(['class' => 'form-control', 'required' => true]));
+echo FormHelper::submit('register', 'Sign Up', AttributesHelper::f(['class' => 'btn btn-primary']));
+echo FormHelper::close();
+```
 
 #### Attributes Helper (`Html/AttributesHelper.php`)
 A powerful utility class for managing HTML attributes with proper escaping and validation.
@@ -1444,6 +1802,79 @@ Network-related validation utilities.
 - `NetworkHelper::getOpenPorts($host, array $ports, $timeout = 1.0)`: Scan multiple ports on a host
 - `NetworkHelper::getServiceByPort($port)`: Get service name for a port number (e.g., 80 → "http")
 
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\Validate\NetworkHelper;
+
+// IP address validation
+$validIPv4 = NetworkHelper::isValidIPv4('192.168.1.1'); // true
+$validIPv6 = NetworkHelper::isValidIPv6('2001:db8::1'); // true
+$invalidIP = NetworkHelper::isValidIPv4('999.999.999.999'); // false
+
+// General IP validation with options
+$publicIP = NetworkHelper::isValidIP('8.8.8.8'); // true
+$privateIP = NetworkHelper::isValidIP('192.168.1.1', true); // true (allow private)
+$noPrivate = NetworkHelper::isValidIP('192.168.1.1', false); // false (disallow private)
+
+// Port validation
+$validPort = NetworkHelper::isValidPort(80); // true
+$systemPort = NetworkHelper::isValidPort(22, true); // true (allow system ports)
+$userPort = NetworkHelper::isValidPort(8080, false, true); // true (user ports 1024-49151)
+
+// Domain validation
+$validDomain = NetworkHelper::isValidDomain('example.com'); // true
+$singleLabel = NetworkHelper::isValidDomain('localhost', true); // true (allow single label)
+
+// MAC address validation
+$macColon = NetworkHelper::isValidMac('00:1B:44:11:3A:B7'); // true
+$macHyphen = NetworkHelper::isValidMac('00-1B-44-11-3A-B7'); // true
+
+// Common port lookup
+$httpPort = NetworkHelper::getCommonPort('http'); // 80
+$httpsPort = NetworkHelper::getCommonPort('https'); // 443
+$sshPort = NetworkHelper::getCommonPort('ssh'); // 22
+
+// DNS operations
+$dnsRecords = NetworkHelper::getDnsRecords('example.com', 'A');
+$hasMX = NetworkHelper::isValidMxRecord('gmail.com'); // true
+
+// Port connectivity testing
+$isOpen = NetworkHelper::isPortOpen('google.com', 80, 3.0); // true
+$openPorts = NetworkHelper::getOpenPorts('example.com', [22, 80, 443], 2.0);
+
+// Service name lookup
+$httpService = NetworkHelper::getServiceByPort(80); // "http"
+$httpsService = NetworkHelper::getServiceByPort(443); // "https"
+
+// Practical example: Validate server configuration
+function validateServerConfig($config) {
+    if (!NetworkHelper::isValidIP($config['host'])) {
+        throw new InvalidArgumentException('Invalid host IP address');
+    }
+    
+    if (!NetworkHelper::isValidPort($config['port'])) {
+        throw new InvalidArgumentException('Invalid port number');
+    }
+    
+    if (!NetworkHelper::isPortOpen($config['host'], $config['port'], 5.0)) {
+        throw new RuntimeException('Cannot connect to specified host and port');
+    }
+    
+    return true;
+}
+
+// Email domain validation
+function validateEmailDomain($email) {
+    $domain = substr(strrchr($email, "@"), 1);
+    
+    if (!NetworkHelper::isValidDomain($domain)) {
+        return false;
+    }
+    
+    return NetworkHelper::isValidMxRecord($domain);
+}
+```
+
 ### Validation Helpers
 
 #### Expect Helper (`Validate/Expect.php`)
@@ -1470,6 +1901,75 @@ Type validation utilities that throw exceptions on type mismatches. All methods 
 - `Expect::finite($value)`: Validates that a value is a finite number (not infinite or NaN)
 - `Expect::infinite($value)`: Validates that a value is an infinite number
 - `Expect::nan($value)`: Validates that a value is NaN (Not a Number)
+
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\Validate\Expect;
+
+// Basic type validation - throws UnexpectedTypeException if validation fails
+try {
+    Expect::int(42); // OK
+    Expect::str("Hello"); // OK
+    Expect::bool(true); // OK
+    
+    Expect::int("42"); // Exception - string, not integer
+} catch (UnexpectedTypeException $e) {
+    echo "Expected integer, got string";
+}
+
+// Numeric validation (accepts int, float, or numeric string)
+Expect::numeric(42); // OK
+Expect::numeric(3.14); // OK
+Expect::numeric("123"); // OK
+Expect::numeric("45.67"); // OK
+
+// Array and object validation
+Expect::arr([1, 2, 3]); // OK
+Expect::obj(new stdClass()); // OK
+
+// Callable validation
+Expect::isCallable('strlen'); // OK
+Expect::isCallable(function() {}); // OK
+
+// Scalar validation (int, float, string, or bool)
+Expect::scalar(42); // OK
+Expect::scalar("hello"); // OK
+
+// Practical usage in functions
+function processUser($userData) {
+    Expect::arr($userData);
+    Expect::str($userData['name']);
+    Expect::int($userData['age']);
+    Expect::bool($userData['active']);
+    
+    return "Processing user: " . $userData['name'];
+}
+
+function calculateInterest($principal, $rate, $time) {
+    Expect::numeric($principal);
+    Expect::numeric($rate);
+    Expect::numeric($time);
+    Expect::finite($principal);
+    Expect::finite($rate);
+    
+    return $principal * $rate * $time;
+}
+
+// Configuration validation
+function loadConfig($configData) {
+    Expect::arr($configData);
+    
+    if (isset($configData['debug'])) {
+        Expect::bool($configData['debug']);
+    }
+    
+    if (isset($configData['timeout'])) {
+        Expect::int($configData['timeout']);
+    }
+    
+    return $configData;
+}
+```
 
 #### IOExpect Helper (`Validate/IOExpect.php`)
 File system validation utilities that throw exceptions on validation failures. All methods throw `IOException` if the validation fails.
@@ -1498,6 +1998,37 @@ File system validation utilities that throw exceptions on validation failures. A
 - `IOExpect::hasExtension($path, $extension)`: Validates that a file has specific extension
 - `IOExpect::hasAllowedExtension($path, $extensions)`: Validates that a file has one of allowed extensions
 - `IOExpect::hasMimeType($path, $expectedMimeType)`: Validates that a file matches specific MIME type
+
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\Validate\IOExpect;
+
+// Basic file validation
+IOExpect::exists('/path/to/file.txt'); // Throws IOException if file doesn't exist
+IOExpect::isFile('/path/to/document.pdf'); // Throws IOException if not a file
+IOExpect::isDir('/path/to/directory'); // Throws IOException if not a directory
+
+// Permission validation
+IOExpect::isReadable('/path/to/file.txt'); // Throws IOException if not readable
+IOExpect::isWritable('/path/to/file.txt'); // Throws IOException if not writable
+
+// File size validation
+IOExpect::hasMinSize('/path/to/file.txt', 1024); // Throws IOException if file < 1KB
+IOExpect::hasMaxSize('/path/to/file.txt', 1048576); // Throws IOException if file > 1MB
+
+// File extension validation
+IOExpect::hasExtension('/path/to/image.jpg', 'jpg'); // Throws IOException if wrong extension
+
+// Practical usage
+function validateUpload($filePath) {
+    IOExpect::exists($filePath);
+    IOExpect::isFile($filePath);
+    IOExpect::hasMaxSize($filePath, 5242880); // 5MB max
+    IOExpect::hasAllowedExtension($filePath, ['jpg', 'png', 'pdf']);
+    
+    return true;
+}
+```
 
 
 ## Run tests

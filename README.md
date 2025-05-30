@@ -248,11 +248,108 @@ echo NumberHelper::parse("1 234,56", ",", " "); // 1234.56
 ```
 
 ### Random Helper (`RandomHelper.php`)
-Random value generation utilities.
+Comprehensive random value generation utilities for secure and flexible random data creation.
+
+The RandomHelper provides extensive functionality for generating various types of random values including basic primitives, secure cryptographic strings, network addresses, colors, and specialized data types with comprehensive customization options.
 
 #### Key Functions:
-- `RandomHelper::trueFalse()`: Generate random boolean value
-- `RandomHelper::uniqid($prefix = '')`: Generate unique identifier with optional prefix
+
+##### Basic Random Generation:
+- `RandomHelper::trueFalse()`: Generate random boolean value with 50% probability
+- `RandomHelper::int($min = 0, $max = PHP_INT_MAX)`: Generate random integer within range
+- `RandomHelper::float($min = 0.0, $max = 1.0, $precision = 2)`: Generate random float with specified precision
+
+##### String Generation:
+- `RandomHelper::string($length, $charset = CHARSET_ALPHANUMERIC)`: Generate random string with customizable character set
+- `RandomHelper::secureString($length, $charset = CHARSET_ALPHANUMERIC)`: Generate cryptographically secure random string
+- `RandomHelper::uniqid($prefix = '')`: Generate cryptographically secure unique identifier
+
+##### Password and Token Generation:
+- `RandomHelper::password($length = 12, $includeUppercase = true, $includeLowercase = true, $includeNumbers = true, $includeSpecial = true, $excludeChars = '')`: Generate secure passwords with customizable criteria
+- `RandomHelper::token($length = 32, $urlSafe = true)`: Generate secure tokens for API keys or sessions
+- `RandomHelper::uuid4()`: Generate Version 4 UUID (random)
+
+##### Array Operations:
+- `RandomHelper::arrayElement($array)`: Select random element from array
+- `RandomHelper::arrayElements($array, $count)`: Select multiple random elements without replacement
+- `RandomHelper::shuffle($array)`: Shuffle array without modifying original
+- `RandomHelper::weighted($weights)`: Weighted random selection based on probability distribution
+
+##### Color Generation:
+- `RandomHelper::hexColor($includeHash = true)`: Generate random hexadecimal color code
+- `RandomHelper::rgbColor()`: Generate random RGB color array with r, g, b values (0-255)
+
+##### Network Address Generation:
+- `RandomHelper::ipAddress($version = 4, $private = false)`: Generate random IP addresses (IPv4/IPv6, public/private ranges)
+- `RandomHelper::macAddress($separator = ':', $uppercase = false)`: Generate random MAC addresses with customizable format
+
+##### Date and Time:
+- `RandomHelper::date($start, $end, $format = 'Y-m-d')`: Generate random date between two dates in specified format
+
+##### Character Set Constants:
+- `CHARSET_NUMERIC`: '0123456789'
+- `CHARSET_ALPHA_LOWER`: 'abcdefghijklmnopqrstuvwxyz'
+- `CHARSET_ALPHA_UPPER`: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+- `CHARSET_ALPHA`: Lower and uppercase letters combined
+- `CHARSET_ALPHANUMERIC`: Letters and numbers combined
+- `CHARSET_SPECIAL`: Special characters for passwords
+- `CHARSET_PASSWORD`: All password-safe characters
+- `CHARSET_HEX`: Hexadecimal characters
+- `CHARSET_BASE64`: Base64 encoding characters
+
+#### Usage Examples:
+```php
+use AndreasGlaser\Helpers\RandomHelper;
+
+// Basic random generation
+$randomBool = RandomHelper::trueFalse(); // true or false
+$randomInt = RandomHelper::int(1, 100); // Integer between 1-100
+$randomFloat = RandomHelper::float(0.0, 10.0, 2); // Float like 7.34
+
+// String generation
+$alphanumeric = RandomHelper::string(8); // "aB3kL9pQ"
+$hexString = RandomHelper::string(6, RandomHelper::CHARSET_HEX); // "a3f2d1"
+$secureString = RandomHelper::secureString(16); // Cryptographically secure
+
+// Password generation
+$password = RandomHelper::password(); // 12-char secure password
+$customPassword = RandomHelper::password(16, true, true, true, false); // No special chars
+$excludeAmbiguous = RandomHelper::password(10, true, true, true, false, '0O1Il'); // Exclude confusing chars
+
+// Unique identifiers
+$uniqueId = RandomHelper::uniqid(); // "a3f2d18bc4e7f"
+$prefixedId = RandomHelper::uniqid('user_'); // "user_a3f2d18bc4e7f"
+$uuid = RandomHelper::uuid4(); // "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+$token = RandomHelper::token(32); // URL-safe 32-character token
+
+// Array operations
+$fruits = ['apple', 'banana', 'cherry', 'date'];
+$randomFruit = RandomHelper::arrayElement($fruits); // "banana"
+$twoFruits = RandomHelper::arrayElements($fruits, 2); // ["cherry", "apple"]
+$shuffled = RandomHelper::shuffle($fruits); // Randomly ordered array
+
+// Weighted selection
+$lootTable = ['common' => 70, 'rare' => 20, 'epic' => 10];
+$loot = RandomHelper::weighted($lootTable); // More likely to be "common"
+
+// Colors
+$hexColor = RandomHelper::hexColor(); // "#a3f2d1"
+$hexNoHash = RandomHelper::hexColor(false); // "a3f2d1"
+$rgbColor = RandomHelper::rgbColor(); // ['r' => 163, 'g' => 242, 'b' => 209]
+
+// Network addresses
+$ipv4 = RandomHelper::ipAddress(); // "192.168.1.45"
+$privateIp = RandomHelper::ipAddress(4, true); // "10.0.15.234"
+$ipv6 = RandomHelper::ipAddress(6); // "2001:db8a:3c4d:5e6f:7890:1a2b:3c4d:5e6f"
+$macAddress = RandomHelper::macAddress(); // "a3:f2:d1:8b:4c:7e"
+$macDashes = RandomHelper::macAddress('-', true); // "A3-F2-D1-8B-4C-7E"
+
+// Random dates
+$start = new DateTime('2020-01-01');
+$end = new DateTime('2023-12-31');
+$randomDate = RandomHelper::date($start, $end); // "2022-07-15"
+$customFormat = RandomHelper::date($start, $end, 'd/m/Y'); // "15/07/2022"
+```
 
 ### Value Helper (`ValueHelper.php`)
 Value validation and type checking utilities.

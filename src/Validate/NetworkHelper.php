@@ -332,14 +332,16 @@ class NetworkHelper
 
         $type = strtoupper($type);
         if ($type === 'ALL') {
-            return dns_get_record($domain);
+            $records = dns_get_record($domain);
+            return $records !== false ? $records : [];
         }
 
         if (!isset(self::DNS_TYPES[$type])) {
             throw new \InvalidArgumentException('Invalid DNS record type');
         }
 
-        return dns_get_record($domain, self::DNS_TYPES[$type]);
+        $records = dns_get_record($domain, self::DNS_TYPES[$type]);
+        return $records !== false ? $records : [];
     }
 
     /**

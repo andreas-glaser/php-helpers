@@ -5,3 +5,5 @@ composer.lock
 /bin/
 .php-cs-fixer.cache
 .phpunit.result.cache
+CLAUDE.md
+.claude
